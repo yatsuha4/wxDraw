@@ -23,10 +23,36 @@
 /***********************************************************************//**
 	@brief 
 ***************************************************************************/
+#define GRAED_DECLARE_CLASS(klass)                              \
+  class klass;                                                  \
+  using klass##Ptr = std::shared_ptr<klass>;                    \
+  using Const##klass##Ptr = std::shared_ptr<const klass>;
+
+#define GRAED_SETTER(name, var)                                         \
+  auto set##name(const decltype(var)& value) -> decltype(*this)& {      \
+    var = value;                                                        \
+    return *this;                                                       \
+  }
+
+#define GRAED_GETTER(name, var)                 \
+  const decltype(var)& get##name() const {      \
+    return var;                                 \
+  }
+
+#define GRAED_ACCESSOR(name, var)               \
+  FDK_SETTER(name, var);                        \
+  FDK_GETTER(name, var);                        \
+  decltype(var)& get##name() {                  \
+    return var;                                 \
+  }
+/***********************************************************************//**
+	@brief 
+***************************************************************************/
 namespace graed {
-class Application;
-class Canvas;
-class MainFrame;
+GRAED_DECLARE_CLASS(Application);
+GRAED_DECLARE_CLASS(Canvas);
+GRAED_DECLARE_CLASS(Layer);
+GRAED_DECLARE_CLASS(MainFrame);
 }
 /***********************************************************************//**
 	$Id$

@@ -47,6 +47,7 @@
 		265FCA66214AD17C00398B40 /* stdafx.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = stdafx.hpp; sourceTree = "<group>"; };
 		265FCA68214D158800398B40 /* Canvas.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Canvas.hpp; sourceTree = "<group>"; };
 		265FCA69214D158800398B40 /* Canvas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Canvas.cpp; sourceTree = "<group>"; };
+		265FCA6B214D1B0300398B40 /* Layer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Layer.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +106,7 @@
 				265FCA4C214ACDA900398B40 /* Application.hpp */,
 				265FCA69214D158800398B40 /* Canvas.cpp */,
 				265FCA68214D158800398B40 /* Canvas.hpp */,
+				265FCA6B214D1B0300398B40 /* Layer.hpp */,
 				265FCA65214AD17C00398B40 /* main.cpp */,
 				265FCA4D214ACDA900398B40 /* MainFrame.cpp */,
 				265FCA4E214ACDA900398B40 /* MainFrame.hpp */,
