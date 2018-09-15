@@ -20,6 +20,10 @@ class MainFrame
  public:
   MainFrame(Application& application);
   ~MainFrame() override;
+
+ private:
+  void setupMenuBar();
+  void onSelectMenu(wxCommandEvent& event);
 };
 /***********************************************************************//**
 	$Id$
