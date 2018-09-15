@@ -21,6 +21,7 @@
 		265FCA62214AD13200398B40 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 265FCA61214AD13200398B40 /* libz.tbd */; };
 		265FCA64214AD14500398B40 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 265FCA63214AD14500398B40 /* IOKit.framework */; };
 		265FCA67214AD17C00398B40 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 265FCA65214AD17C00398B40 /* main.cpp */; };
+		265FCA6A214D158800398B40 /* Canvas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 265FCA69214D158800398B40 /* Canvas.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,8 @@
 		265FCA63214AD14500398B40 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		265FCA65214AD17C00398B40 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		265FCA66214AD17C00398B40 /* stdafx.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = stdafx.hpp; sourceTree = "<group>"; };
+		265FCA68214D158800398B40 /* Canvas.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Canvas.hpp; sourceTree = "<group>"; };
+		265FCA69214D158800398B40 /* Canvas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Canvas.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,10 +72,10 @@
 		265FCA2E214ACD2D00398B40 = {
 			isa = PBXGroup;
 			children = (
+				265FCA52214AD08900398B40 /* Frameworks */,
 				265FCA4B214ACDA900398B40 /* graed */,
 				265FCA38214ACD2D00398B40 /* Products */,
 				265FCA39214ACD2D00398B40 /* xcode */,
-				265FCA52214AD08900398B40 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -100,6 +103,8 @@
 			children = (
 				265FCA4F214ACDA900398B40 /* Application.cpp */,
 				265FCA4C214ACDA900398B40 /* Application.hpp */,
+				265FCA69214D158800398B40 /* Canvas.cpp */,
+				265FCA68214D158800398B40 /* Canvas.hpp */,
 				265FCA65214AD17C00398B40 /* main.cpp */,
 				265FCA4D214ACDA900398B40 /* MainFrame.cpp */,
 				265FCA4E214ACDA900398B40 /* MainFrame.hpp */,
@@ -197,6 +202,7 @@
 				265FCA51214ACDA900398B40 /* Application.cpp in Sources */,
 				265FCA50214ACDA900398B40 /* MainFrame.cpp in Sources */,
 				265FCA67214AD17C00398B40 /* main.cpp in Sources */,
+				265FCA6A214D158800398B40 /* Canvas.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

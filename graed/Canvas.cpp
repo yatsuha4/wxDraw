@@ -1,26 +1,24 @@
 ﻿/***********************************************************************//**
 	@file
 ***************************************************************************/
-#pragma once
+#include "graed/Canvas.hpp"
 
 namespace graed {
 /***********************************************************************//**
 	@brief 
 ***************************************************************************/
-class MainFrame
-  : public wxFrame
+Canvas::Canvas(wxWindow* parent, MainFrame& mainFrame)
+  : super(parent), 
+    mainFrame_(mainFrame)
 {
-  using super = wxFrame;
-
- private:
-  Application& application_;
-  wxAuiManager auiManager_;
-  Canvas* canvas_;
-
- public:
-  MainFrame(Application& application);
-  ~MainFrame() override;
-};
+  SetDoubleBuffered(true);
+}
+/***********************************************************************//**
+	@brief 
+***************************************************************************/
+void Canvas::OnDraw(wxDC& dc) {
+  super::OnDraw(dc);
+}
 /***********************************************************************//**
 	$Id$
 ***************************************************************************/

@@ -7,19 +7,20 @@ namespace graed {
 /***********************************************************************//**
 	@brief 
 ***************************************************************************/
-class MainFrame
-  : public wxFrame
+class Canvas
+  : public wxScrolledCanvas
 {
-  using super = wxFrame;
-
- private:
-  Application& application_;
-  wxAuiManager auiManager_;
-  Canvas* canvas_;
+  using super = wxScrolledCanvas;
 
  public:
-  MainFrame(Application& application);
-  ~MainFrame() override;
+  MainFrame& mainFrame_;
+
+ public:
+  Canvas(wxWindow* parent, MainFrame& mainFrame);
+  ~Canvas() override = default;
+
+ protected:
+  void OnDraw(wxDC& dc) override;
 };
 /***********************************************************************//**
 	$Id$

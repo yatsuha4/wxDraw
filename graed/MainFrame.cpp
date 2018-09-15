@@ -1,6 +1,7 @@
 ﻿/***********************************************************************//**
 	@file
 ***************************************************************************/
+#include "graed/Canvas.hpp"
 #include "graed/MainFrame.hpp"
 
 namespace graed {
@@ -9,13 +10,18 @@ namespace graed {
 ***************************************************************************/
 MainFrame::MainFrame(Application& application)
   : super(nullptr, wxID_ANY, "Graed"), 
-    application_(application)
+    application_(application), 
+    auiManager_(this), 
+    canvas_(new Canvas(this, *this))
 {
+  auiManager_.AddPane(canvas_, wxCENTER, wxT("Canvas"));
+  auiManager_.Update();
 }
 /***********************************************************************//**
 	@brief 
 ***************************************************************************/
 MainFrame::~MainFrame() {
+  auiManager_.UnInit();
 }
 /***********************************************************************//**
 	$Id$

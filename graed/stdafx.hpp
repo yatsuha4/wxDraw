@@ -18,12 +18,14 @@
 #define __WXOSX_COCOA__
 #endif
 
-#include "wx/wx.h"
+#include <wx/wx.h>
+#include <wx/aui/aui.h>
 /***********************************************************************//**
 	@brief 
 ***************************************************************************/
 namespace graed {
 class Application;
+class Canvas;
 class MainFrame;
 }
 /***********************************************************************//**
