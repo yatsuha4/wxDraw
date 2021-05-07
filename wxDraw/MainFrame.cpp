@@ -1,10 +1,10 @@
-﻿/***********************************************************************//**
+/***********************************************************************//**
 	@file
 ***************************************************************************/
-#include "graed/Canvas.hpp"
-#include "graed/MainFrame.hpp"
+#include "wxDraw/Canvas.hpp"
+#include "wxDraw/MainFrame.hpp"
 
-namespace graed {
+namespace wxdraw {
 enum {
   MENU_TOP = wxID_HIGHEST, 
   MENU_FILE_OPEN, 
@@ -16,7 +16,7 @@ enum {
 	@brief 
 ***************************************************************************/
 MainFrame::MainFrame(Application& application)
-  : super(nullptr, wxID_ANY, "Graed"), 
+  : super(nullptr, wxID_ANY, "wxDraw"), 
     application_(application), 
     auiManager_(this), 
     canvas_(new Canvas(this, *this))

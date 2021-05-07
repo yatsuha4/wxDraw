@@ -8,10 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		2605A56C264563A200FD3DF0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2605A56B264563A200FD3DF0 /* QuartzCore.framework */; };
+		2605A577264564DB00FD3DF0 /* Canvas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2605A570264564DB00FD3DF0 /* Canvas.cpp */; };
+		2605A578264564DB00FD3DF0 /* MainFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2605A571264564DB00FD3DF0 /* MainFrame.cpp */; };
+		2605A579264564DB00FD3DF0 /* Application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2605A574264564DB00FD3DF0 /* Application.cpp */; };
+		2605A57A264564DB00FD3DF0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2605A575264564DB00FD3DF0 /* main.cpp */; };
 		265FCA3E214ACD3100398B40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 265FCA3D214ACD3100398B40 /* Assets.xcassets */; };
 		265FCA41214ACD3100398B40 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 265FCA3F214ACD3100398B40 /* MainMenu.xib */; };
-		265FCA50214ACDA900398B40 /* MainFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 265FCA4D214ACDA900398B40 /* MainFrame.cpp */; };
-		265FCA51214ACDA900398B40 /* Application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 265FCA4F214ACDA900398B40 /* Application.cpp */; };
 		265FCA54214AD08A00398B40 /* libwx_osx_cocoau-3.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 265FCA53214AD08A00398B40 /* libwx_osx_cocoau-3.1.a */; };
 		265FCA56214AD0A000398B40 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 265FCA55214AD0A000398B40 /* CoreFoundation.framework */; };
 		265FCA58214AD0CF00398B40 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 265FCA57214AD0CF00398B40 /* Carbon.framework */; };
@@ -21,21 +23,24 @@
 		265FCA60214AD12700398B40 /* libwxpng-3.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 265FCA5F214AD12700398B40 /* libwxpng-3.1.a */; };
 		265FCA62214AD13200398B40 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 265FCA61214AD13200398B40 /* libz.tbd */; };
 		265FCA64214AD14500398B40 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 265FCA63214AD14500398B40 /* IOKit.framework */; };
-		265FCA67214AD17C00398B40 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 265FCA65214AD17C00398B40 /* main.cpp */; };
-		265FCA6A214D158800398B40 /* Canvas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 265FCA69214D158800398B40 /* Canvas.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2605A56B264563A200FD3DF0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		265FCA37214ACD2D00398B40 /* graed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = graed.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2605A56E264564DB00FD3DF0 /* stdafx.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = stdafx.hpp; sourceTree = "<group>"; };
+		2605A56F264564DB00FD3DF0 /* Application.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Application.hpp; sourceTree = "<group>"; };
+		2605A570264564DB00FD3DF0 /* Canvas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Canvas.cpp; sourceTree = "<group>"; };
+		2605A571264564DB00FD3DF0 /* MainFrame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainFrame.cpp; sourceTree = "<group>"; };
+		2605A572264564DB00FD3DF0 /* Layer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Layer.hpp; sourceTree = "<group>"; };
+		2605A573264564DB00FD3DF0 /* MainFrame.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MainFrame.hpp; sourceTree = "<group>"; };
+		2605A574264564DB00FD3DF0 /* Application.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Application.cpp; sourceTree = "<group>"; };
+		2605A575264564DB00FD3DF0 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		2605A576264564DB00FD3DF0 /* Canvas.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Canvas.hpp; sourceTree = "<group>"; };
+		265FCA37214ACD2D00398B40 /* wxDraw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wxDraw.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		265FCA3D214ACD3100398B40 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		265FCA40214ACD3100398B40 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		265FCA42214ACD3100398B40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		265FCA45214ACD3100398B40 /* graed.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = graed.entitlements; sourceTree = "<group>"; };
-		265FCA4C214ACDA900398B40 /* Application.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Application.hpp; sourceTree = "<group>"; };
-		265FCA4D214ACDA900398B40 /* MainFrame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainFrame.cpp; sourceTree = "<group>"; };
-		265FCA4E214ACDA900398B40 /* MainFrame.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MainFrame.hpp; sourceTree = "<group>"; };
-		265FCA4F214ACDA900398B40 /* Application.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Application.cpp; sourceTree = "<group>"; };
+		265FCA45214ACD3100398B40 /* wxDraw.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = wxDraw.entitlements; sourceTree = "<group>"; };
 		265FCA53214AD08A00398B40 /* libwx_osx_cocoau-3.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libwx_osx_cocoau-3.1.a"; path = "../../../external/opt/mac/wxWidgets/lib/libwx_osx_cocoau-3.1.a"; sourceTree = "<group>"; };
 		265FCA55214AD0A000398B40 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		265FCA57214AD0CF00398B40 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
@@ -45,11 +50,6 @@
 		265FCA5F214AD12700398B40 /* libwxpng-3.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libwxpng-3.1.a"; path = "../../../external/opt/mac/wxWidgets/lib/libwxpng-3.1.a"; sourceTree = "<group>"; };
 		265FCA61214AD13200398B40 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		265FCA63214AD14500398B40 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
-		265FCA65214AD17C00398B40 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		265FCA66214AD17C00398B40 /* stdafx.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = stdafx.hpp; sourceTree = "<group>"; };
-		265FCA68214D158800398B40 /* Canvas.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Canvas.hpp; sourceTree = "<group>"; };
-		265FCA69214D158800398B40 /* Canvas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Canvas.cpp; sourceTree = "<group>"; };
-		265FCA6B214D1B0300398B40 /* Layer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Layer.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,12 +73,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2605A56D264564DB00FD3DF0 /* wxDraw */ = {
+			isa = PBXGroup;
+			children = (
+				2605A56E264564DB00FD3DF0 /* stdafx.hpp */,
+				2605A56F264564DB00FD3DF0 /* Application.hpp */,
+				2605A570264564DB00FD3DF0 /* Canvas.cpp */,
+				2605A571264564DB00FD3DF0 /* MainFrame.cpp */,
+				2605A572264564DB00FD3DF0 /* Layer.hpp */,
+				2605A573264564DB00FD3DF0 /* MainFrame.hpp */,
+				2605A574264564DB00FD3DF0 /* Application.cpp */,
+				2605A575264564DB00FD3DF0 /* main.cpp */,
+				2605A576264564DB00FD3DF0 /* Canvas.hpp */,
+			);
+			name = wxDraw;
+			path = ../../../wxDraw;
+			sourceTree = "<group>";
+		};
 		265FCA2E214ACD2D00398B40 = {
 			isa = PBXGroup;
 			children = (
 				265FCA52214AD08900398B40 /* Frameworks */,
-				265FCA4B214ACDA900398B40 /* graed */,
 				265FCA38214ACD2D00398B40 /* Products */,
+				2605A56D264564DB00FD3DF0 /* wxDraw */,
 				265FCA39214ACD2D00398B40 /* xcode */,
 			);
 			sourceTree = "<group>";
@@ -86,7 +103,7 @@
 		265FCA38214ACD2D00398B40 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				265FCA37214ACD2D00398B40 /* graed.app */,
+				265FCA37214ACD2D00398B40 /* wxDraw.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -97,26 +114,9 @@
 				265FCA3D214ACD3100398B40 /* Assets.xcassets */,
 				265FCA3F214ACD3100398B40 /* MainMenu.xib */,
 				265FCA42214ACD3100398B40 /* Info.plist */,
-				265FCA45214ACD3100398B40 /* graed.entitlements */,
+				265FCA45214ACD3100398B40 /* wxDraw.entitlements */,
 			);
 			path = xcode;
-			sourceTree = "<group>";
-		};
-		265FCA4B214ACDA900398B40 /* graed */ = {
-			isa = PBXGroup;
-			children = (
-				265FCA4F214ACDA900398B40 /* Application.cpp */,
-				265FCA4C214ACDA900398B40 /* Application.hpp */,
-				265FCA69214D158800398B40 /* Canvas.cpp */,
-				265FCA68214D158800398B40 /* Canvas.hpp */,
-				265FCA6B214D1B0300398B40 /* Layer.hpp */,
-				265FCA65214AD17C00398B40 /* main.cpp */,
-				265FCA4D214ACDA900398B40 /* MainFrame.cpp */,
-				265FCA4E214ACDA900398B40 /* MainFrame.hpp */,
-				265FCA66214AD17C00398B40 /* stdafx.hpp */,
-			);
-			name = graed;
-			path = ../../../graed;
 			sourceTree = "<group>";
 		};
 		265FCA52214AD08900398B40 /* Frameworks */ = {
@@ -139,9 +139,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		265FCA36214ACD2D00398B40 /* graed */ = {
+		265FCA36214ACD2D00398B40 /* wxDraw */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 265FCA48214ACD3100398B40 /* Build configuration list for PBXNativeTarget "graed" */;
+			buildConfigurationList = 265FCA48214ACD3100398B40 /* Build configuration list for PBXNativeTarget "wxDraw" */;
 			buildPhases = (
 				265FCA33214ACD2D00398B40 /* Sources */,
 				265FCA34214ACD2D00398B40 /* Frameworks */,
@@ -151,9 +151,9 @@
 			);
 			dependencies = (
 			);
-			name = graed;
+			name = wxDraw;
 			productName = graed;
-			productReference = 265FCA37214ACD2D00398B40 /* graed.app */;
+			productReference = 265FCA37214ACD2D00398B40 /* wxDraw.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -170,7 +170,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 265FCA32214ACD2D00398B40 /* Build configuration list for PBXProject "graed" */;
+			buildConfigurationList = 265FCA32214ACD2D00398B40 /* Build configuration list for PBXProject "wxDraw" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -183,7 +183,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				265FCA36214ACD2D00398B40 /* graed */,
+				265FCA36214ACD2D00398B40 /* wxDraw */,
 			);
 		};
 /* End PBXProject section */
@@ -205,10 +205,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				265FCA51214ACDA900398B40 /* Application.cpp in Sources */,
-				265FCA50214ACDA900398B40 /* MainFrame.cpp in Sources */,
-				265FCA67214AD17C00398B40 /* main.cpp in Sources */,
-				265FCA6A214D158800398B40 /* Canvas.cpp in Sources */,
+				2605A578264564DB00FD3DF0 /* MainFrame.cpp in Sources */,
+				2605A577264564DB00FD3DF0 /* Canvas.cpp in Sources */,
+				2605A57A264564DB00FD3DF0 /* main.cpp in Sources */,
+				2605A579264564DB00FD3DF0 /* Application.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,7 +268,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/../../../graed/stdafx.hpp";
+				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/../../../wxDraw/stdafx.hpp";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -280,7 +280,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../../../external/opt/mac/wxWidgets/lib";
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -332,7 +332,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/../../../graed/stdafx.hpp";
+				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/../../../wxDraw/stdafx.hpp";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -340,7 +340,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../../../external/opt/mac/wxWidgets/lib";
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SYSTEM_HEADER_SEARCH_PATHS = (
@@ -355,7 +355,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = xcode/graed.entitlements;
+				CODE_SIGN_ENTITLEMENTS = xcode/wxDraw.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = xcode/Info.plist;
@@ -363,7 +363,8 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.towerb.graed;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.towerb.wxdraw;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -372,7 +373,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = xcode/graed.entitlements;
+				CODE_SIGN_ENTITLEMENTS = xcode/wxDraw.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = xcode/Info.plist;
@@ -380,7 +381,8 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.towerb.graed;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.towerb.wxdraw;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -388,7 +390,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		265FCA32214ACD2D00398B40 /* Build configuration list for PBXProject "graed" */ = {
+		265FCA32214ACD2D00398B40 /* Build configuration list for PBXProject "wxDraw" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				265FCA46214ACD3100398B40 /* Debug */,
@@ -397,7 +399,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		265FCA48214ACD3100398B40 /* Build configuration list for PBXNativeTarget "graed" */ = {
+		265FCA48214ACD3100398B40 /* Build configuration list for PBXNativeTarget "wxDraw" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				265FCA49214ACD3100398B40 /* Debug */,

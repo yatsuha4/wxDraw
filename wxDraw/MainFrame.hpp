@@ -1,26 +1,30 @@
 ﻿/***********************************************************************//**
 	@file
 ***************************************************************************/
-#include "graed/Application.hpp"
-#include "graed/MainFrame.hpp"
+#pragma once
 
-namespace graed {
+namespace wxdraw {
 /***********************************************************************//**
 	@brief 
 ***************************************************************************/
-Application::Application()
-  : mainFrame_(nullptr)
+class MainFrame
+  : public wxFrame
 {
-}
-/***********************************************************************//**
-	@brief 
-***************************************************************************/
-bool Application::OnInit() {
-  mainFrame_ = new MainFrame(*this);
-  mainFrame_->Show();
-  SetTopWindow(mainFrame_);
-  return super::OnInit();
-}
+  using super = wxFrame;
+
+ private:
+  Application& application_;
+  wxAuiManager auiManager_;
+  Canvas* canvas_;
+
+ public:
+  MainFrame(Application& application);
+  ~MainFrame() override;
+
+ private:
+  void setupMenuBar();
+  void onSelectMenu(wxCommandEvent& event);
+};
 /***********************************************************************//**
 	$Id$
 ***************************************************************************/

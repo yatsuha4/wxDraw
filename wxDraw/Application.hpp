@@ -3,27 +3,24 @@
 ***************************************************************************/
 #pragma once
 
-namespace graed {
+namespace wxdraw {
 /***********************************************************************//**
 	@brief 
 ***************************************************************************/
-class MainFrame
-  : public wxFrame
+class Application
+  : public wxApp
 {
-  using super = wxFrame;
+  using super = wxApp;
 
  private:
-  Application& application_;
-  wxAuiManager auiManager_;
-  Canvas* canvas_;
+  MainFrame* mainFrame_;
 
  public:
-  MainFrame(Application& application);
-  ~MainFrame() override;
+  Application();
+  ~Application() override = default;
 
- private:
-  void setupMenuBar();
-  void onSelectMenu(wxCommandEvent& event);
+ protected:
+  bool OnInit() override;
 };
 /***********************************************************************//**
 	$Id$

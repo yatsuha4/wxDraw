@@ -3,24 +3,24 @@
 ***************************************************************************/
 #pragma once
 
-namespace graed {
+namespace wxdraw {
 /***********************************************************************//**
 	@brief 
 ***************************************************************************/
-class Application
-  : public wxApp
+class Canvas
+  : public wxScrolledCanvas
 {
-  using super = wxApp;
-
- private:
-  MainFrame* mainFrame_;
+  using super = wxScrolledCanvas;
 
  public:
-  Application();
-  ~Application() override = default;
+  MainFrame& mainFrame_;
+
+ public:
+  Canvas(wxWindow* parent, MainFrame& mainFrame);
+  ~Canvas() override = default;
 
  protected:
-  bool OnInit() override;
+  void OnDraw(wxDC& dc) override;
 };
 /***********************************************************************//**
 	$Id$

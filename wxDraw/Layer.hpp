@@ -1,11 +1,27 @@
 ﻿/***********************************************************************//**
 	@file
 ***************************************************************************/
-#include "graed/Application.hpp"
+#pragma once
+
+namespace wxdraw {
 /***********************************************************************//**
-	@brief 
+	@brief レイヤー
 ***************************************************************************/
-IMPLEMENT_APP(graed::Application);
+class Layer {
+ private:
+  wxImage image_;
+  wxPoint pos_;
+  std::vector<LayerPtr> children_;
+
+ public:
+  Layer() = default;
+  ~Layer() = default;
+
+  WXDRAW_ACCESSOR(Image, image_);
+  WXDRAW_ACCESSOR(Pos, pos_);
+  WXDRAW_ACCESSOR(Children, children_);
+};
 /***********************************************************************//**
 	$Id$
 ***************************************************************************/
+}
