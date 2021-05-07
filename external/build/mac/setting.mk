@@ -1,4 +1,4 @@
-DEPLOYMENT_TARGET	:= 10.9
+DEPLOYMENT_TARGET	:= 11.0
 
 CXX		:= clang++
 CXXFLAGS	:= -std=c++11 -stdlib=libc++

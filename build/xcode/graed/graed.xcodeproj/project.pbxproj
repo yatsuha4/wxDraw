@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2605A56C264563A200FD3DF0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2605A56B264563A200FD3DF0 /* QuartzCore.framework */; };
 		265FCA3E214ACD3100398B40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 265FCA3D214ACD3100398B40 /* Assets.xcassets */; };
 		265FCA41214ACD3100398B40 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 265FCA3F214ACD3100398B40 /* MainMenu.xib */; };
 		265FCA50214ACDA900398B40 /* MainFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 265FCA4D214ACDA900398B40 /* MainFrame.cpp */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2605A56B264563A200FD3DF0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		265FCA37214ACD2D00398B40 /* graed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = graed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		265FCA3D214ACD3100398B40 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		265FCA40214ACD3100398B40 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 				265FCA5A214AD0D500398B40 /* Cocoa.framework in Frameworks */,
 				265FCA56214AD0A000398B40 /* CoreFoundation.framework in Frameworks */,
 				265FCA64214AD14500398B40 /* IOKit.framework in Frameworks */,
+				2605A56C264563A200FD3DF0 /* QuartzCore.framework in Frameworks */,
 				265FCA5E214AD10700398B40 /* libiconv.tbd in Frameworks */,
 				265FCA62214AD13200398B40 /* libz.tbd in Frameworks */,
 			);
@@ -126,6 +129,7 @@
 				265FCA59214AD0D500398B40 /* Cocoa.framework */,
 				265FCA55214AD0A000398B40 /* CoreFoundation.framework */,
 				265FCA63214AD14500398B40 /* IOKit.framework */,
+				2605A56B264563A200FD3DF0 /* QuartzCore.framework */,
 				265FCA5D214AD10700398B40 /* libiconv.tbd */,
 				265FCA61214AD13200398B40 /* libz.tbd */,
 			);

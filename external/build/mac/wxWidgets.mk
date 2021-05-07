@@ -1,4 +1,4 @@
-# wxWidgets-3.1.1
+# wxWidgets-3.1.5
 
 include $(dir $(lastword $(MAKEFILE_LIST)))/setting.mk
 
