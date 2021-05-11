@@ -1,10 +1,7 @@
-/***********************************************************************//**
-	@file
-***************************************************************************/
-#include "wxdraw/Canvas.hpp"
-#include "wxdraw/MainFrame.hpp"
+#include "wxdraw/gui/Canvas.hpp"
+#include "wxdraw/gui/MainFrame.hpp"
 
-namespace wxdraw {
+namespace wxdraw::gui {
 enum {
   MENU_TOP = wxID_HIGHEST, 
   MENU_FILE_OPEN, 
@@ -12,9 +9,10 @@ enum {
   MENU_FILE_SAVE_AS, 
   MENU_FILE_QUIT
 };
-/***********************************************************************//**
-	@brief 
-***************************************************************************/
+/**
+   コンストラクタ
+   @param application アプリケーション
+*/
 MainFrame::MainFrame(Application& application)
   : super(nullptr, wxID_ANY, "wxDraw"), 
     application_(application), 
@@ -25,15 +23,15 @@ MainFrame::MainFrame(Application& application)
   auiManager_.AddPane(canvas_, wxCENTER, wxT("Canvas"));
   auiManager_.Update();
 }
-/***********************************************************************//**
-	@brief 
-***************************************************************************/
+/**
+   デストラクタ
+*/
 MainFrame::~MainFrame() {
   auiManager_.UnInit();
 }
-/***********************************************************************//**
-	@brief 
-***************************************************************************/
+/**
+   メニューバーのセットアップ
+*/
 void MainFrame::setupMenuBar() {
   auto menuBar = new wxMenuBar();
   {
@@ -48,9 +46,10 @@ void MainFrame::setupMenuBar() {
   SetMenuBar(menuBar);
   Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::onSelectMenu, this);
 }
-/***********************************************************************//**
-	@brief 
-***************************************************************************/
+/**
+   メニュー選択
+   @param event イベント
+*/
 void MainFrame::onSelectMenu(wxCommandEvent& event) {
   switch(event.GetId()) {
   case MENU_FILE_OPEN:
@@ -66,7 +65,4 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
     break;
   }
 }
-/***********************************************************************//**
-	$Id$
-***************************************************************************/
 }

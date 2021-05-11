@@ -47,8 +47,13 @@
 */
 namespace wxdraw {
 WXDRAW_DECLARE_CLASS(Application);
+
+namespace gui {
 WXDRAW_DECLARE_CLASS(Canvas);
 WXDRAW_DECLARE_CLASS(MainFrame);
+}
+using namespace gui;
+
 namespace node {
 WXDRAW_DECLARE_CLASS(Layer);
 WXDRAW_DECLARE_CLASS(Node);
