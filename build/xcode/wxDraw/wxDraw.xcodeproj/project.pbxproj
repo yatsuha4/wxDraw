@@ -78,7 +78,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2605A56D264564DB00FD3DF0 /* wxDraw */ = {
+		2605A56D264564DB00FD3DF0 /* wxdraw */ = {
 			isa = PBXGroup;
 			children = (
 				2605A574264564DB00FD3DF0 /* Application.cpp */,
@@ -91,8 +91,8 @@
 				2605A57B26471B1400FD3DF0 /* node */,
 				2605A56E264564DB00FD3DF0 /* stdafx.hpp */,
 			);
-			name = wxDraw;
-			path = ../../../wxDraw;
+			name = wxdraw;
+			path = ../../../wxdraw;
 			sourceTree = "<group>";
 		};
 		2605A57B26471B1400FD3DF0 /* node */ = {
@@ -111,7 +111,7 @@
 			children = (
 				265FCA52214AD08900398B40 /* Frameworks */,
 				265FCA38214ACD2D00398B40 /* Products */,
-				2605A56D264564DB00FD3DF0 /* wxDraw */,
+				2605A56D264564DB00FD3DF0 /* wxdraw */,
 				265FCA39214ACD2D00398B40 /* xcode */,
 			);
 			sourceTree = "<group>";
@@ -286,7 +286,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/../../../wxDraw/stdafx.hpp";
+				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/../../../wxdraw/stdafx.hpp";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -350,7 +350,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/../../../wxDraw/stdafx.hpp";
+				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/../../../wxdraw/stdafx.hpp";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
