@@ -1,5 +1,6 @@
 #include "wxdraw/gui/Canvas.hpp"
 #include "wxdraw/gui/MainFrame.hpp"
+#include "wxdraw/gui/Outliner.hpp"
 
 namespace wxdraw::gui {
 enum {
@@ -9,18 +10,22 @@ enum {
   MENU_FILE_SAVE_AS, 
   MENU_FILE_QUIT
 };
+const wxSize MainFrame::DEFAULT_SIZE(960, 640);
+
 /**
    コンストラクタ
    @param application アプリケーション
 */
 MainFrame::MainFrame(Application& application)
-  : super(nullptr, wxID_ANY, "wxDraw"), 
+  : super(nullptr, wxID_ANY, "wxDraw", wxDefaultPosition, DEFAULT_SIZE), 
     application_(application), 
     auiManager_(this), 
-    canvas_(new Canvas(this, *this))
+    canvas_(new Canvas(this, *this)), 
+    outliner_(new Outliner(this, *this))
 {
   setupMenuBar();
-  auiManager_.AddPane(canvas_, wxCENTER, wxT("Canvas"));
+  auiManager_.AddPane(canvas_, wxAuiPaneInfo().Caption("Canvas").CenterPane());
+  auiManager_.AddPane(outliner_, wxAuiPaneInfo().Caption("Outliner").Left());
   auiManager_.Update();
 }
 /**

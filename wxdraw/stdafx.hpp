@@ -17,6 +17,7 @@
 
 #include <wx/wx.h>
 #include <wx/aui/aui.h>
+#include <wx/treelist.h>
 /**
    マクロ定義
 */
@@ -51,6 +52,7 @@ WXDRAW_DECLARE_CLASS(Application);
 namespace gui {
 WXDRAW_DECLARE_CLASS(Canvas);
 WXDRAW_DECLARE_CLASS(MainFrame);
+WXDRAW_DECLARE_CLASS(Outliner);
 }
 using namespace gui;
 
