@@ -12,6 +12,8 @@
 		2605A578264564DB00FD3DF0 /* MainFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2605A571264564DB00FD3DF0 /* MainFrame.cpp */; };
 		2605A579264564DB00FD3DF0 /* Application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2605A574264564DB00FD3DF0 /* Application.cpp */; };
 		2605A57A264564DB00FD3DF0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2605A575264564DB00FD3DF0 /* main.cpp */; };
+		2605A57E264826ED00FD3DF0 /* Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2605A57D2648269900FD3DF0 /* Node.cpp */; };
+		2605A5812648698E00FD3DF0 /* Layer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2605A5802648698E00FD3DF0 /* Layer.cpp */; };
 		265FCA3E214ACD3100398B40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 265FCA3D214ACD3100398B40 /* Assets.xcassets */; };
 		265FCA41214ACD3100398B40 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 265FCA3F214ACD3100398B40 /* MainMenu.xib */; };
 		265FCA54214AD08A00398B40 /* libwx_osx_cocoau-3.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 265FCA53214AD08A00398B40 /* libwx_osx_cocoau-3.1.a */; };
@@ -31,11 +33,14 @@
 		2605A56F264564DB00FD3DF0 /* Application.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Application.hpp; sourceTree = "<group>"; };
 		2605A570264564DB00FD3DF0 /* Canvas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Canvas.cpp; sourceTree = "<group>"; };
 		2605A571264564DB00FD3DF0 /* MainFrame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainFrame.cpp; sourceTree = "<group>"; };
-		2605A572264564DB00FD3DF0 /* Layer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Layer.hpp; sourceTree = "<group>"; };
 		2605A573264564DB00FD3DF0 /* MainFrame.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MainFrame.hpp; sourceTree = "<group>"; };
 		2605A574264564DB00FD3DF0 /* Application.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Application.cpp; sourceTree = "<group>"; };
 		2605A575264564DB00FD3DF0 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		2605A576264564DB00FD3DF0 /* Canvas.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Canvas.hpp; sourceTree = "<group>"; };
+		2605A57C26471B1400FD3DF0 /* Node.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Node.hpp; sourceTree = "<group>"; };
+		2605A57D2648269900FD3DF0 /* Node.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Node.cpp; sourceTree = "<group>"; };
+		2605A57F26485FC700FD3DF0 /* Layer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Layer.hpp; sourceTree = "<group>"; };
+		2605A5802648698E00FD3DF0 /* Layer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Layer.cpp; sourceTree = "<group>"; };
 		265FCA37214ACD2D00398B40 /* wxDraw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wxDraw.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		265FCA3D214ACD3100398B40 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		265FCA40214ACD3100398B40 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -76,18 +81,29 @@
 		2605A56D264564DB00FD3DF0 /* wxDraw */ = {
 			isa = PBXGroup;
 			children = (
-				2605A56E264564DB00FD3DF0 /* stdafx.hpp */,
+				2605A574264564DB00FD3DF0 /* Application.cpp */,
 				2605A56F264564DB00FD3DF0 /* Application.hpp */,
 				2605A570264564DB00FD3DF0 /* Canvas.cpp */,
-				2605A571264564DB00FD3DF0 /* MainFrame.cpp */,
-				2605A572264564DB00FD3DF0 /* Layer.hpp */,
-				2605A573264564DB00FD3DF0 /* MainFrame.hpp */,
-				2605A574264564DB00FD3DF0 /* Application.cpp */,
-				2605A575264564DB00FD3DF0 /* main.cpp */,
 				2605A576264564DB00FD3DF0 /* Canvas.hpp */,
+				2605A575264564DB00FD3DF0 /* main.cpp */,
+				2605A571264564DB00FD3DF0 /* MainFrame.cpp */,
+				2605A573264564DB00FD3DF0 /* MainFrame.hpp */,
+				2605A57B26471B1400FD3DF0 /* node */,
+				2605A56E264564DB00FD3DF0 /* stdafx.hpp */,
 			);
 			name = wxDraw;
 			path = ../../../wxDraw;
+			sourceTree = "<group>";
+		};
+		2605A57B26471B1400FD3DF0 /* node */ = {
+			isa = PBXGroup;
+			children = (
+				2605A5802648698E00FD3DF0 /* Layer.cpp */,
+				2605A57F26485FC700FD3DF0 /* Layer.hpp */,
+				2605A57D2648269900FD3DF0 /* Node.cpp */,
+				2605A57C26471B1400FD3DF0 /* Node.hpp */,
+			);
+			path = node;
 			sourceTree = "<group>";
 		};
 		265FCA2E214ACD2D00398B40 = {
@@ -208,7 +224,9 @@
 				2605A578264564DB00FD3DF0 /* MainFrame.cpp in Sources */,
 				2605A577264564DB00FD3DF0 /* Canvas.cpp in Sources */,
 				2605A57A264564DB00FD3DF0 /* main.cpp in Sources */,
+				2605A5812648698E00FD3DF0 /* Layer.cpp in Sources */,
 				2605A579264564DB00FD3DF0 /* Application.cpp in Sources */,
+				2605A57E264826ED00FD3DF0 /* Node.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,7 +250,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -298,7 +316,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
