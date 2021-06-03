@@ -17,6 +17,7 @@
 
 #include <wx/wx.h>
 #include <wx/aui/aui.h>
+#include <wx/propgrid/propgrid.h>
 #include <wx/treelist.h>
 /**
    マクロ定義
@@ -51,6 +52,7 @@ WXDRAW_DECLARE_CLASS(Application);
 
 namespace gui {
 WXDRAW_DECLARE_CLASS(Canvas);
+WXDRAW_DECLARE_CLASS(Inspector);
 WXDRAW_DECLARE_CLASS(MainFrame);
 WXDRAW_DECLARE_CLASS(Outliner);
 }
@@ -61,4 +63,10 @@ WXDRAW_DECLARE_CLASS(Layer);
 WXDRAW_DECLARE_CLASS(Node);
 }
 using namespace node;
+
+namespace property {
+WXDRAW_DECLARE_CLASS(MemberBase);
+WXDRAW_DECLARE_CLASS(Property);
+}
+using namespace property;
 }

@@ -1,4 +1,5 @@
 #include "wxdraw/gui/Canvas.hpp"
+#include "wxdraw/gui/Inspector.hpp"
 #include "wxdraw/gui/MainFrame.hpp"
 #include "wxdraw/gui/Outliner.hpp"
 
@@ -21,11 +22,13 @@ MainFrame::MainFrame(Application& application)
     application_(application), 
     auiManager_(this), 
     canvas_(new Canvas(this, *this)), 
-    outliner_(new Outliner(this, *this))
+    outliner_(new Outliner(this, *this)), 
+    inspector_(new Inspector(this, *this))
 {
   setupMenuBar();
   auiManager_.AddPane(canvas_, wxAuiPaneInfo().Caption("Canvas").CenterPane());
   auiManager_.AddPane(outliner_, wxAuiPaneInfo().Caption("Outliner").Left());
+  auiManager_.AddPane(inspector_, wxAuiPaneInfo().Caption("Inspector").Right());
   auiManager_.Update();
 }
 /**

@@ -14,6 +14,7 @@ class MainFrame
   wxAuiManager auiManager_;
   Canvas* canvas_;
   Outliner* outliner_;
+  Inspector* inspector_;
 
   static const wxSize DEFAULT_SIZE;
 
