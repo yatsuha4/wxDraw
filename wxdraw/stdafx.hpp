@@ -55,12 +55,14 @@ WXDRAW_DECLARE_CLASS(Canvas);
 WXDRAW_DECLARE_CLASS(Inspector);
 WXDRAW_DECLARE_CLASS(MainFrame);
 WXDRAW_DECLARE_CLASS(Outliner);
+WXDRAW_DECLARE_CLASS(Renderer);
 }
 using namespace gui;
 
 namespace node {
 WXDRAW_DECLARE_CLASS(Layer);
 WXDRAW_DECLARE_CLASS(Node);
+WXDRAW_DECLARE_CLASS(Project);
 }
 using namespace node;
 

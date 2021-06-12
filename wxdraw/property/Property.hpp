@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "wxdraw/property/MemberBase.hpp"
+#include "wxdraw/property/Member.hpp"
 
 namespace wxdraw::property {
 /**
@@ -9,6 +9,8 @@ namespace wxdraw::property {
 class Property
   : public MemberBase
 {
+  using super = MemberBase;
+
  private:
   std::vector<MemberBasePtr> members_;
 
@@ -17,5 +19,12 @@ class Property
   ~Property() override = default;
 
   WXDRAW_GETTER(Members, members_);
+
+  template <class T>
+  Member<T>& appendMember(const std::string& id, T& value) {
+    auto member = std::make_shared<Member<T>>(id, value);
+    members_.push_back(member);
+    return *member;
+  }
 };
 }

@@ -2,6 +2,7 @@
 #include "wxdraw/gui/Inspector.hpp"
 #include "wxdraw/gui/MainFrame.hpp"
 #include "wxdraw/gui/Outliner.hpp"
+#include "wxdraw/node/Project.hpp"
 
 namespace wxdraw::gui {
 enum {
@@ -23,7 +24,8 @@ MainFrame::MainFrame(Application& application)
     auiManager_(this), 
     canvas_(new Canvas(this, *this)), 
     outliner_(new Outliner(this, *this)), 
-    inspector_(new Inspector(this, *this))
+    inspector_(new Inspector(this, *this)), 
+    project_(std::make_shared<Project>())
 {
   setupMenuBar();
   auiManager_.AddPane(canvas_, wxAuiPaneInfo().Caption("Canvas").CenterPane());

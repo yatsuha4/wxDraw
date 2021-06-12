@@ -8,9 +8,14 @@ class Node {
  private:
   wxRect rect_;
   std::vector<NodePtr> children_;
+  PropertyPtr property_;
+  bool show_;
+  wxRealPoint pos_;
+  wxRealPoint scale_;
+  wxDouble rotate_;
 
  public:
-  Node() = default;
+  Node(const std::string& id);
   virtual ~Node() = default;
 
   WXDRAW_GETTER(Rect, rect_);
@@ -19,11 +24,12 @@ class Node {
   void appendChild(NodePtr child);
   void removeChild(NodePtr child);
 
-  virtual void draw(wxGraphicsContext& gc);
+  virtual void update();
+  virtual void render(Renderer& renderer);
 
  protected:
   WXDRAW_SETTER(Rect, rect_);
 
-  virtual void onDraw(wxGraphicsContext& gc) {}
+  virtual void onRender(Renderer& renderer) {}
 };
 }

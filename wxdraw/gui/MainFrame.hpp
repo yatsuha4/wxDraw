@@ -15,12 +15,15 @@ class MainFrame
   Canvas* canvas_;
   Outliner* outliner_;
   Inspector* inspector_;
+  ProjectPtr project_;
 
   static const wxSize DEFAULT_SIZE;
 
  public:
   MainFrame(Application& application);
   ~MainFrame() override;
+
+  WXDRAW_GETTER(Project, project_);
 
  private:
   void setupMenuBar();

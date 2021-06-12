@@ -21,6 +21,6 @@ class Layer
   WXDRAW_ACCESSOR(Opacity, opacity_);
 
  protected:
-  void draw(wxGraphicsContext& gc) override;
+  void render(Renderer& renderer) override;
 };
 }
