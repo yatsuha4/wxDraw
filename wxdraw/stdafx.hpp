@@ -17,6 +17,7 @@
 
 #include <wx/wx.h>
 #include <wx/aui/aui.h>
+#include <wx/cmdproc.h>
 #include <wx/propgrid/propgrid.h>
 #include <wx/treelist.h>
 /**

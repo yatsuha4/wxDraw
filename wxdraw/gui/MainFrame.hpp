@@ -16,6 +16,7 @@ class MainFrame
   Outliner* outliner_;
   Inspector* inspector_;
   ProjectPtr project_;
+  wxCommandProcessor commandProcessor_;
 
   static const wxSize DEFAULT_SIZE;
 
@@ -24,6 +25,8 @@ class MainFrame
   ~MainFrame() override;
 
   WXDRAW_GETTER(Project, project_);
+
+  bool submitCommand(wxCommand* command);
 
  private:
   void setupMenuBar();

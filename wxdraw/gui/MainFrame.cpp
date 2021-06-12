@@ -10,7 +10,9 @@ enum {
   MENU_FILE_OPEN, 
   MENU_FILE_SAVE, 
   MENU_FILE_SAVE_AS, 
-  MENU_FILE_QUIT
+  MENU_FILE_QUIT, 
+  MENU_EDIT_UNDO, 
+  MENU_EDIT_REDO
 };
 const wxSize MainFrame::DEFAULT_SIZE(960, 640);
 
@@ -40,6 +42,13 @@ MainFrame::~MainFrame() {
   auiManager_.UnInit();
 }
 /**
+   コマンドを実行する
+   @param command コマンド
+*/
+bool MainFrame::submitCommand(wxCommand* command) {
+  return commandProcessor_.Submit(command);
+}
+/**
    メニューバーのセットアップ
 */
 void MainFrame::setupMenuBar() {
@@ -52,6 +61,12 @@ void MainFrame::setupMenuBar() {
     menu->AppendSeparator();
     menu->Append(MENU_FILE_QUIT, "Quit");
     menuBar->Append(menu, "File");
+  }
+  {
+    auto menu = new wxMenu();
+    menu->Append(MENU_EDIT_UNDO, "Undo");
+    menu->Append(MENU_EDIT_REDO, "Redo");
+    menuBar->Append(menu, "Edit");
   }
   SetMenuBar(menuBar);
   Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::onSelectMenu, this);
