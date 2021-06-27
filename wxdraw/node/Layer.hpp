@@ -12,13 +12,11 @@ class Layer
   using super = Node;
 
  private:
-  wxDouble opacity_ = 1.0;
+  double opacity_;
 
  public:
-  Layer() = default;
+  Layer();
   ~Layer() override = default;
-
-  WXDRAW_ACCESSOR(Opacity, opacity_);
 
  protected:
   void render(Renderer& renderer) override;

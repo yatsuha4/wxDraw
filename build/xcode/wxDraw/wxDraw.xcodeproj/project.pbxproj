@@ -29,6 +29,7 @@
 		266A37A426684E1A00EA192B /* Inspector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 266A37A326684E1A00EA192B /* Inspector.cpp */; };
 		266A37AA2669D79600EA192B /* MemberBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 266A37A92669D79600EA192B /* MemberBase.cpp */; };
 		266A37AC2669D80000EA192B /* Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 266A37AB2669D80000EA192B /* Property.cpp */; };
+		26D19709267620B400F9D057 /* InsertNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26D19708267620B400F9D057 /* InsertNode.cpp */; };
 		26F5A91D2670C5CD009B0657 /* Project.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26F5A91B2670C5CD009B0657 /* Project.cpp */; };
 		26F5A9202673111B009B0657 /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26F5A91E2673111B009B0657 /* Renderer.cpp */; };
 /* End PBXBuildFile section */
@@ -70,6 +71,8 @@
 		266A37A82669D79600EA192B /* MemberBase.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MemberBase.hpp; sourceTree = "<group>"; };
 		266A37A92669D79600EA192B /* MemberBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MemberBase.cpp; sourceTree = "<group>"; };
 		266A37AB2669D80000EA192B /* Property.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Property.cpp; sourceTree = "<group>"; };
+		26D19707267620B400F9D057 /* InsertNode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = InsertNode.hpp; sourceTree = "<group>"; };
+		26D19708267620B400F9D057 /* InsertNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InsertNode.cpp; sourceTree = "<group>"; };
 		26F5A91B2670C5CD009B0657 /* Project.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Project.cpp; sourceTree = "<group>"; };
 		26F5A91C2670C5CD009B0657 /* Project.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Project.hpp; sourceTree = "<group>"; };
 		26F5A91E2673111B009B0657 /* Renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Renderer.cpp; sourceTree = "<group>"; };
@@ -102,6 +105,7 @@
 			children = (
 				2605A574264564DB00FD3DF0 /* Application.cpp */,
 				2605A56F264564DB00FD3DF0 /* Application.hpp */,
+				26D19706267620B400F9D057 /* command */,
 				2605A582264A312E00FD3DF0 /* gui */,
 				2605A575264564DB00FD3DF0 /* main.cpp */,
 				2605A57B26471B1400FD3DF0 /* node */,
@@ -200,6 +204,15 @@
 			path = property;
 			sourceTree = "<group>";
 		};
+		26D19706267620B400F9D057 /* command */ = {
+			isa = PBXGroup;
+			children = (
+				26D19707267620B400F9D057 /* InsertNode.hpp */,
+				26D19708267620B400F9D057 /* InsertNode.cpp */,
+			);
+			path = command;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -278,6 +291,7 @@
 				2605A579264564DB00FD3DF0 /* Application.cpp in Sources */,
 				266A37AA2669D79600EA192B /* MemberBase.cpp in Sources */,
 				266A37A426684E1A00EA192B /* Inspector.cpp in Sources */,
+				26D19709267620B400F9D057 /* InsertNode.cpp in Sources */,
 				2605A588264A312F00FD3DF0 /* MainFrame.cpp in Sources */,
 				26F5A91D2670C5CD009B0657 /* Project.cpp in Sources */,
 				2605A57E264826ED00FD3DF0 /* Node.cpp in Sources */,

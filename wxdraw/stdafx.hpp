@@ -51,6 +51,11 @@
 namespace wxdraw {
 WXDRAW_DECLARE_CLASS(Application);
 
+namespace command {
+WXDRAW_DECLARE_CLASS(InsertNode);
+}
+using namespace command;
+
 namespace gui {
 WXDRAW_DECLARE_CLASS(Canvas);
 WXDRAW_DECLARE_CLASS(Inspector);

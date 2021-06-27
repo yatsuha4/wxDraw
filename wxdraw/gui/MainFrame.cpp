@@ -11,6 +11,10 @@ enum {
   MENU_FILE_SAVE, 
   MENU_FILE_SAVE_AS, 
   MENU_FILE_QUIT, 
+  MENU_EDIT_APPEND, 
+  MENU_EDIT_APPEND_LAYER, 
+  MENU_EDIT_APPEND_RECTANGLE, 
+  MENU_EDIT_APPEND_ELLIPSE, 
   MENU_EDIT_UNDO, 
   MENU_EDIT_REDO
 };
@@ -64,6 +68,13 @@ void MainFrame::setupMenuBar() {
   }
   {
     auto menu = new wxMenu();
+    {
+      auto subMenu = new wxMenu();
+      subMenu->Append(MENU_EDIT_APPEND_LAYER, "Layer");
+      subMenu->Append(MENU_EDIT_APPEND_RECTANGLE, "Rectangle");
+      subMenu->Append(MENU_EDIT_APPEND_ELLIPSE, "Ellipse");
+      menu->Append(MENU_EDIT_APPEND, "Append", subMenu);
+    }
     menu->Append(MENU_EDIT_UNDO, "Undo");
     menu->Append(MENU_EDIT_REDO, "Redo");
     menuBar->Append(menu, "Edit");

@@ -20,14 +20,22 @@ Node::Node(const std::string& id)
    子供を追加する
    @param child 追加する子供
 */
-void Node::appendChild(NodePtr child) {
+void Node::appendChild(const NodePtr& child) {
   children_.push_back(child);
+}
+/**
+   子供を挿入する
+   @param index 挿入位置
+   @param child 挿入する子供
+*/
+void Node::insertChild(size_t index, const NodePtr& child) {
+  children_.insert(children_.begin() + index, child);
 }
 /**
    子供を削除する
    @param child 削除する子供
 */
-void Node::removeChild(NodePtr child) {
+void Node::removeChild(const NodePtr& child) {
   children_.erase(std::remove(children_.begin(), children_.end(), child));
 }
 /**
