@@ -1,3 +1,4 @@
+#include "wxdraw/command/InsertNode.hpp"
 #include "wxdraw/gui/Canvas.hpp"
 #include "wxdraw/gui/Inspector.hpp"
 #include "wxdraw/gui/MainFrame.hpp"
@@ -7,6 +8,7 @@
 namespace wxdraw::gui {
 enum {
   MENU_TOP = wxID_HIGHEST, 
+  MENU_FILE_NEW, 
   MENU_FILE_OPEN, 
   MENU_FILE_SAVE, 
   MENU_FILE_SAVE_AS, 
@@ -31,7 +33,7 @@ MainFrame::MainFrame(Application& application)
     canvas_(new Canvas(this, *this)), 
     outliner_(new Outliner(this, *this)), 
     inspector_(new Inspector(this, *this)), 
-    project_(std::make_shared<Project>())
+    rootNode_(std::make_shared<Node>("Root"))
 {
   setupMenuBar();
   auiManager_.AddPane(canvas_, wxAuiPaneInfo().Caption("Canvas").CenterPane());
@@ -59,6 +61,7 @@ void MainFrame::setupMenuBar() {
   auto menuBar = new wxMenuBar();
   {
     auto menu = new wxMenu();
+    menu->Append(MENU_FILE_NEW, "New Project");
     menu->Append(MENU_FILE_OPEN, "Open");
     menu->Append(MENU_FILE_SAVE, "Save");
     menu->Append(MENU_FILE_SAVE_AS, "Save as");
@@ -88,6 +91,9 @@ void MainFrame::setupMenuBar() {
 */
 void MainFrame::onSelectMenu(wxCommandEvent& event) {
   switch(event.GetId()) {
+  case MENU_FILE_NEW:
+    submitCommand(new InsertNode(std::make_shared<Project>(), getRootNode(), 0));
+    break;
   case MENU_FILE_OPEN:
     break;
   case MENU_FILE_SAVE:

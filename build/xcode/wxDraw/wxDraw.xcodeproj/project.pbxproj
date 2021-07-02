@@ -373,6 +373,7 @@
 				SYSTEM_HEADER_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../../../external/opt/mac/wxWidgets/include/wx-3.1",
 					"$(PROJECT_DIR)/../../../external/opt/mac/wxWidgets/lib/wx/include/osx_cocoa-unicode-static-3.1",
+					"$(PROJECT_DIR)/../../../external/glm",
 				);
 				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../../..";
 			};
@@ -432,6 +433,7 @@
 				SYSTEM_HEADER_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../../../external/opt/mac/wxWidgets/include/wx-3.1",
 					"$(PROJECT_DIR)/../../../external/opt/mac/wxWidgets/lib/wx/include/osx_cocoa-unicode-static-3.1",
+					"$(PROJECT_DIR)/../../../external/glm",
 				);
 				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../../..";
 			};

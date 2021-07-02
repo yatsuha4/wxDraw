@@ -16,6 +16,8 @@ class Application
   Application();
   ~Application() override = default;
 
+  static Application* GetInstance();
+
  protected:
   bool OnInit() override;
 };

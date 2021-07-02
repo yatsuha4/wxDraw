@@ -21,6 +21,11 @@
 #include <wx/propgrid/propgrid.h>
 #include <wx/treelist.h>
 /**
+   GLM
+*/
+#include <glm/glm.hpp>
+#include <glm/gtx/matrix_transform_2d.hpp>
+/**
    マクロ定義
 */
 #define WXDRAW_DECLARE_CLASS(klass)                             \

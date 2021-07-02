@@ -20,7 +20,7 @@ Canvas::Canvas(wxWindow* parent, MainFrame& mainFrame)
 */
 void Canvas::OnDraw(wxDC& dc) {
   super::OnDraw(dc);
-  if(auto project = mainFrame_.getProject()) {
+  if(auto project = Node::GetParent<Project>(mainFrame_.getSelectNode())) {
     Renderer renderer(dc);
     project->render(renderer);
   }

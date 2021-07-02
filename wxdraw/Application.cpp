@@ -10,6 +10,11 @@ Application::Application()
 {
 }
 /**
+ */
+Application* Application::GetInstance() {
+  return static_cast<Application*>(super::GetInstance());
+}
+/**
    初期化
 */
 bool Application::OnInit() {

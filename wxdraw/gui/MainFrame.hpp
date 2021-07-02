@@ -15,7 +15,8 @@ class MainFrame
   Canvas* canvas_;
   Outliner* outliner_;
   Inspector* inspector_;
-  ProjectPtr project_;
+  NodePtr rootNode_;
+  NodePtr selectNode_;
   wxCommandProcessor commandProcessor_;
 
   static const wxSize DEFAULT_SIZE;
@@ -24,7 +25,8 @@ class MainFrame
   MainFrame(Application& application);
   ~MainFrame() override;
 
-  WXDRAW_GETTER(Project, project_);
+  WXDRAW_GETTER(RootNode, rootNode_);
+  WXDRAW_GETTER(SelectNode, selectNode_);
 
   bool submitCommand(wxCommand* command);
 

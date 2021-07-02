@@ -4,61 +4,71 @@
 
 namespace wxdraw::node {
 /**
- */
+   コンストラクタ
+*/
 Node::Node(const std::string& id)
   : property_(std::make_shared<Property>(id)), 
     show_(true), 
     pos_(0.0, 0.0), 
     scale_(1.0, 1.0), 
-    rotate_(0.0)
+    rotate_(0.0), 
+    matrix_(1.0)
 {
   property_->
     appendMember("Show", show_);
 }
-
 /**
-   子供を追加する
-   @param child 追加する子供
+   親ノードを取得する
+   @return 親ノード
 */
-void Node::appendChild(const NodePtr& child) {
-  children_.push_back(child);
+NodePtr Node::getParent() const {
+  return parent_.lock();
 }
 /**
    子供を挿入する
-   @param index 挿入位置
    @param child 挿入する子供
+   @param parent 親ノード
+   @param index 挿入位置
 */
-void Node::insertChild(size_t index, const NodePtr& child) {
-  children_.insert(children_.begin() + index, child);
+void Node::InsertChild(const NodePtr& child, const NodePtr& parent, size_t index) {
+  child->parent_ = parent;
+  parent->children_.insert(parent->children_.begin() + index, child);
 }
 /**
    子供を削除する
    @param child 削除する子供
 */
 void Node::removeChild(const NodePtr& child) {
+  child->parent_.reset();
   children_.erase(std::remove(children_.begin(), children_.end(), child));
 }
 /**
- */
+   更新
+*/
 void Node::update() {
+  onUpdate();
 }
 /**
    描画する
-   @param _renderer レンダラー
+   @param renderer レンダラー
 */
-void Node::render(Renderer& _renderer) {
-  Renderer renderer(_renderer);
-  auto& context = renderer.getContext();
-  auto matrix = context.GetTransform();
-  context.Translate(pos_.x, pos_.y);
-  context.Scale(scale_.x, scale_.y);
-  context.Rotate(rotate_);
+void Node::render(Renderer& renderer) {
+  auto matrix = renderer.pushMatrix(matrix_);
   if(show_) {
     onRender(renderer);
   }
   for(auto& child : children_) {
     child->render(renderer);
   }
-  context.SetTransform(matrix);
+  renderer.setMatrix(matrix);
+}
+/**
+ */
+void Node::onUpdate() {
+  glm::dmat3 m;
+  m = glm::scale(m, scale_);
+  m = glm::rotate(m, rotate_);
+  m = glm::translate(m, pos_);
+  matrix_ = m;
 }
 }

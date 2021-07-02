@@ -15,7 +15,7 @@ InsertNode::InsertNode(const NodePtr& node, const NodePtr& parent, size_t index)
 /**
  */
 bool InsertNode::Do() {
-  parent_->insertChild(index_, node_);
+  Node::InsertChild(node_, parent_, index_);
   return true;
 }
 /**
