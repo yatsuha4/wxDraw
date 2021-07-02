@@ -1,13 +1,15 @@
 ﻿#pragma once
 
+#include "wxdraw/command/Command.hpp"
+
 namespace wxdraw::command {
 /**
    ノードを挿入する
- */
+*/
 class InsertNode
-  : public wxCommand
+  : public Command
 {
-  using super = wxCommand;
+  using super = Command;
 
  private:
   NodePtr node_;
@@ -15,7 +17,7 @@ class InsertNode
   size_t index_;
 
  public:
-  InsertNode(const NodePtr& node, const NodePtr& parent, size_t index);
+  InsertNode(MainFrame* mainFrame, const NodePtr& node, const NodePtr& parent, size_t index);
   ~InsertNode() override = default;
 
  protected:

@@ -15,7 +15,6 @@ class MainFrame
   Canvas* canvas_;
   Outliner* outliner_;
   Inspector* inspector_;
-  NodePtr rootNode_;
   NodePtr selectNode_;
   wxCommandProcessor commandProcessor_;
 
@@ -25,7 +24,7 @@ class MainFrame
   MainFrame(Application& application);
   ~MainFrame() override;
 
-  WXDRAW_GETTER(RootNode, rootNode_);
+  WXDRAW_GETTER(Outliner, outliner_);
   WXDRAW_GETTER(SelectNode, selectNode_);
 
   bool submitCommand(wxCommand* command);

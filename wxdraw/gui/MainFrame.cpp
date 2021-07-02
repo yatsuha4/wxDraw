@@ -4,6 +4,7 @@
 #include "wxdraw/gui/MainFrame.hpp"
 #include "wxdraw/gui/Outliner.hpp"
 #include "wxdraw/node/Project.hpp"
+#include "wxdraw/node/RootNode.hpp"
 
 namespace wxdraw::gui {
 enum {
@@ -32,8 +33,7 @@ MainFrame::MainFrame(Application& application)
     auiManager_(this), 
     canvas_(new Canvas(this, *this)), 
     outliner_(new Outliner(this, *this)), 
-    inspector_(new Inspector(this, *this)), 
-    rootNode_(std::make_shared<Node>("Root"))
+    inspector_(new Inspector(this, *this))
 {
   setupMenuBar();
   auiManager_.AddPane(canvas_, wxAuiPaneInfo().Caption("Canvas").CenterPane());
@@ -92,7 +92,7 @@ void MainFrame::setupMenuBar() {
 void MainFrame::onSelectMenu(wxCommandEvent& event) {
   switch(event.GetId()) {
   case MENU_FILE_NEW:
-    submitCommand(new InsertNode(std::make_shared<Project>(), getRootNode(), 0));
+    submitCommand(new InsertNode(this, std::make_shared<Project>(), outliner_->getRootNode(), 0));
     break;
   case MENU_FILE_OPEN:
     break;

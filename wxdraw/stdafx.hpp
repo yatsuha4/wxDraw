@@ -57,6 +57,7 @@ namespace wxdraw {
 WXDRAW_DECLARE_CLASS(Application);
 
 namespace command {
+WXDRAW_DECLARE_CLASS(Command);
 WXDRAW_DECLARE_CLASS(InsertNode);
 }
 using namespace command;
@@ -74,6 +75,7 @@ namespace node {
 WXDRAW_DECLARE_CLASS(Layer);
 WXDRAW_DECLARE_CLASS(Node);
 WXDRAW_DECLARE_CLASS(Project);
+WXDRAW_DECLARE_CLASS(RootNode);
 }
 using namespace node;
 

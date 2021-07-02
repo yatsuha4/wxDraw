@@ -19,7 +19,6 @@ class Node {
   wxTreeListItem item_;
 
  public:
-  Node(const std::string& id);
   virtual ~Node() = default;
 
   WXDRAW_GETTER(Name, name_);
@@ -48,6 +47,8 @@ class Node {
   }
 
  protected:
+  Node(const std::string& id);
+
   WXDRAW_SETTER(Rect, rect_);
 
   virtual void onUpdate();

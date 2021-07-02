@@ -4,20 +4,6 @@
 
 namespace wxdraw::node {
 /**
-   コンストラクタ
-*/
-Node::Node(const std::string& id)
-  : property_(std::make_shared<Property>(id)), 
-    show_(true), 
-    pos_(0.0, 0.0), 
-    scale_(1.0, 1.0), 
-    rotate_(0.0), 
-    matrix_(1.0)
-{
-  property_->
-    appendMember("Show", show_);
-}
-/**
    親ノードを取得する
    @return 親ノード
 */
@@ -61,6 +47,22 @@ void Node::render(Renderer& renderer) {
     child->render(renderer);
   }
   renderer.setMatrix(matrix);
+}
+/**
+   コンストラクタ
+   @param id 識別子
+*/
+Node::Node(const std::string& id)
+  : name_(id), 
+    property_(std::make_shared<Property>(id)), 
+    show_(true), 
+    pos_(0.0, 0.0), 
+    scale_(1.0, 1.0), 
+    rotate_(0.0), 
+    matrix_(1.0)
+{
+  property_->
+    appendMember("Show", show_);
 }
 /**
  */

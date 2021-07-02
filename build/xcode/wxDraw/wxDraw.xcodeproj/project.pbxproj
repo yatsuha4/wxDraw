@@ -15,6 +15,8 @@
 		2605A587264A312F00FD3DF0 /* Canvas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2605A583264A312F00FD3DF0 /* Canvas.cpp */; };
 		2605A588264A312F00FD3DF0 /* MainFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2605A584264A312F00FD3DF0 /* MainFrame.cpp */; };
 		2605A58B264A35A100FD3DF0 /* Outliner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2605A589264A35A100FD3DF0 /* Outliner.cpp */; };
+		263EA110268F502C003B100A /* RootNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 263EA10F268F502C003B100A /* RootNode.cpp */; };
+		263EA113268F524E003B100A /* Command.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 263EA111268F524E003B100A /* Command.cpp */; };
 		265FCA3E214ACD3100398B40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 265FCA3D214ACD3100398B40 /* Assets.xcassets */; };
 		265FCA41214ACD3100398B40 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 265FCA3F214ACD3100398B40 /* MainMenu.xib */; };
 		265FCA54214AD08A00398B40 /* libwx_osx_cocoau-3.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 265FCA53214AD08A00398B40 /* libwx_osx_cocoau-3.1.a */; };
@@ -50,6 +52,10 @@
 		2605A586264A312F00FD3DF0 /* Canvas.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Canvas.hpp; sourceTree = "<group>"; };
 		2605A589264A35A100FD3DF0 /* Outliner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Outliner.cpp; sourceTree = "<group>"; };
 		2605A58A264A35A100FD3DF0 /* Outliner.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Outliner.hpp; sourceTree = "<group>"; };
+		263EA10E268F502C003B100A /* RootNode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RootNode.hpp; sourceTree = "<group>"; };
+		263EA10F268F502C003B100A /* RootNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RootNode.cpp; sourceTree = "<group>"; };
+		263EA111268F524E003B100A /* Command.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Command.cpp; sourceTree = "<group>"; };
+		263EA112268F524E003B100A /* Command.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Command.hpp; sourceTree = "<group>"; };
 		265FCA37214ACD2D00398B40 /* wxDraw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wxDraw.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		265FCA3D214ACD3100398B40 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		265FCA40214ACD3100398B40 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -125,6 +131,8 @@
 				2605A57C26471B1400FD3DF0 /* Node.hpp */,
 				26F5A91B2670C5CD009B0657 /* Project.cpp */,
 				26F5A91C2670C5CD009B0657 /* Project.hpp */,
+				263EA10F268F502C003B100A /* RootNode.cpp */,
+				263EA10E268F502C003B100A /* RootNode.hpp */,
 			);
 			path = node;
 			sourceTree = "<group>";
@@ -207,8 +215,10 @@
 		26D19706267620B400F9D057 /* command */ = {
 			isa = PBXGroup;
 			children = (
-				26D19707267620B400F9D057 /* InsertNode.hpp */,
+				263EA111268F524E003B100A /* Command.cpp */,
+				263EA112268F524E003B100A /* Command.hpp */,
 				26D19708267620B400F9D057 /* InsertNode.cpp */,
+				26D19707267620B400F9D057 /* InsertNode.hpp */,
 			);
 			path = command;
 			sourceTree = "<group>";
@@ -285,6 +295,8 @@
 				26F5A9202673111B009B0657 /* Renderer.cpp in Sources */,
 				266A37AC2669D80000EA192B /* Property.cpp in Sources */,
 				2605A57A264564DB00FD3DF0 /* main.cpp in Sources */,
+				263EA110268F502C003B100A /* RootNode.cpp in Sources */,
+				263EA113268F524E003B100A /* Command.cpp in Sources */,
 				2605A587264A312F00FD3DF0 /* Canvas.cpp in Sources */,
 				2605A58B264A35A100FD3DF0 /* Outliner.cpp in Sources */,
 				2605A5812648698E00FD3DF0 /* Layer.cpp in Sources */,
