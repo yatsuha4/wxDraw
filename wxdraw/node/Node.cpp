@@ -54,6 +54,11 @@ void Node::render(Renderer& renderer) {
   renderer.setMatrix(matrix);
 }
 /**
+ */
+bool Node::canAppend(const std::type_info& type) const {
+  return true;
+}
+/**
    コンストラクタ
    @param id 識別子
 */

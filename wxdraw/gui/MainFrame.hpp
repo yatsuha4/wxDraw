@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include "wxdraw/node/Node.hpp"
+
 namespace wxdraw::gui {
 /**
    メインフレーム
@@ -36,6 +38,12 @@ class MainFrame
 
  private:
   void setupMenuBar();
+  void onMenuEditAppend(wxMenuEvent& event);
   void onSelectMenu(wxCommandEvent& event);
+
+  template<class T>
+  bool canAppendNode() const {
+    return getSelectNode() && getSelectNode()->canAppend(typeid(T));
+  }
 };
 }

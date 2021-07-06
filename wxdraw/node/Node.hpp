@@ -46,6 +46,13 @@ class Node {
     return nullptr;
   }
 
+  template<class T>
+  bool canAppend() const {
+    return canAppend(typeid(T));
+  }
+
+  virtual bool canAppend(const std::type_info& type) const;
+
  protected:
   Node(const std::string& id);
 
