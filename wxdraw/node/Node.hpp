@@ -27,8 +27,8 @@ class Node {
   WXDRAW_GETTER(Property, property_);
 
   NodePtr getParent() const;
-  static void InsertChild(const NodePtr& child, const NodePtr& parent, size_t index);
-  void removeChild(const NodePtr& child);
+  static void Insert(const NodePtr& node, const NodePtr& parent, size_t index);
+  static void Remove(const NodePtr& node);
 
   virtual void update();
   virtual void render(Renderer& renderer);

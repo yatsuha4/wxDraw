@@ -1,6 +1,5 @@
 #include "wxdraw/command/InsertNode.hpp"
 #include "wxdraw/gui/MainFrame.hpp"
-#include "wxdraw/gui/Outliner.hpp"
 #include "wxdraw/node/Node.hpp"
 
 namespace wxdraw::command {
@@ -20,15 +19,13 @@ InsertNode::InsertNode(MainFrame* mainFrame,
 /**
  */
 bool InsertNode::Do() {
-  Node::InsertChild(node_, parent_, index_);
-  getMainFrame()->getOutliner()->insertNode(node_, parent_, index_);
+  getMainFrame()->insertNode(node_, parent_, index_);
   return true;
 }
 /**
  */
 bool InsertNode::Undo() {
-  parent_->removeChild(node_);
-  getMainFrame()->getOutliner()->removeNode(node_);
+  getMainFrame()->removeNode(node_);
   return true;
 }
 }

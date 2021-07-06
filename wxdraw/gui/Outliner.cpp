@@ -27,6 +27,7 @@ const RootNodePtr& Outliner::getRootNode() {
 void Outliner::insertNode(const NodePtr& node, const NodePtr& parent, size_t index) {
   wxASSERT(!node->getItem().IsOk());
   wxASSERT(parent->getItem().IsOk());
+  wxASSERT(index <= parent->getChildren().size());
   wxTreeListItem item;
   if(index == 0) {
     item = PrependItem(parent->getItem(), node->getName());

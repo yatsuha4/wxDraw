@@ -29,6 +29,9 @@ class MainFrame
 
   bool submitCommand(wxCommand* command);
 
+  void insertNode(const NodePtr& node, const NodePtr& parent, size_t index);
+  void removeNode(const NodePtr& node);
+
  private:
   void setupMenuBar();
   void onSelectMenu(wxCommandEvent& event);

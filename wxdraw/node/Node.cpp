@@ -11,22 +11,27 @@ NodePtr Node::getParent() const {
   return parent_.lock();
 }
 /**
-   子供を挿入する
-   @param child 挿入する子供
+   ノードを挿入する
+   @param node 挿入するノード
    @param parent 親ノード
    @param index 挿入位置
 */
-void Node::InsertChild(const NodePtr& child, const NodePtr& parent, size_t index) {
-  child->parent_ = parent;
-  parent->children_.insert(parent->children_.begin() + index, child);
+void Node::Insert(const NodePtr& node, const NodePtr& parent, size_t index) {
+  wxASSERT(node->getParent() == nullptr);
+  wxASSERT(index <= parent->getChildren().size());
+  node->parent_ = parent;
+  parent->children_.insert(parent->children_.begin() + index, node);
 }
 /**
-   子供を削除する
-   @param child 削除する子供
+   ノードを削除する
+   @param node 削除するノード
 */
-void Node::removeChild(const NodePtr& child) {
-  child->parent_.reset();
-  children_.erase(std::remove(children_.begin(), children_.end(), child));
+void Node::Remove(const NodePtr& node) {
+  auto parent = node->getParent();
+  wxASSERT(parent);
+  node->parent_.reset();
+  parent->children_.erase(std::remove(parent->children_.begin(), 
+                                      parent->children_.end(), node));
 }
 /**
    更新

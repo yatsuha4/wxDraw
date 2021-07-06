@@ -55,6 +55,24 @@ bool MainFrame::submitCommand(wxCommand* command) {
   return commandProcessor_.Submit(command);
 }
 /**
+   ノードを挿入する
+   @param node 挿入するノード
+   @param parent 親ノード
+   @param index 挿入位置
+*/
+void MainFrame::insertNode(const NodePtr& node, const NodePtr& parent, size_t index) {
+  Node::Insert(node, parent, index);
+  outliner_->insertNode(node, parent, index);
+}
+/**
+   ノードを削除する
+   @param node 削除するノード
+*/
+void MainFrame::removeNode(const NodePtr& node) {
+  Node::Remove(node);
+  outliner_->removeNode(node);
+}
+/**
    メニューバーのセットアップ
 */
 void MainFrame::setupMenuBar() {
