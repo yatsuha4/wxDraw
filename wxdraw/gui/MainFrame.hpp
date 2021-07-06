@@ -25,6 +25,8 @@ class MainFrame
   ~MainFrame() override;
 
   WXDRAW_GETTER(Outliner, outliner_);
+
+  void selectNode(const NodePtr& node);
   WXDRAW_GETTER(SelectNode, selectNode_);
 
   bool submitCommand(wxCommand* command);

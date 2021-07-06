@@ -48,6 +48,13 @@ MainFrame::~MainFrame() {
   auiManager_.UnInit();
 }
 /**
+   ノードを選択する
+   @param node ノード
+*/
+void MainFrame::selectNode(const NodePtr& node) {
+  selectNode_ = node;
+}
+/**
    コマンドを実行する
    @param command コマンド
 */

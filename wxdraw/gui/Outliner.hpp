@@ -23,6 +23,11 @@ class Outliner
   const RootNodePtr& getRootNode();
   void insertNode(const NodePtr& node, const NodePtr& parent, size_t index);
   void removeNode(const NodePtr& node);
+
+ private:
+  void onSelectionChanged(wxTreeListEvent& event);
+
+  NodePtr getNode(const wxTreeListItem& item) const;
 };
 /**
  */

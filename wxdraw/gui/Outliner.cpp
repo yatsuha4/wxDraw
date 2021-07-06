@@ -1,3 +1,4 @@
+#include "wxdraw/gui/MainFrame.hpp"
 #include "wxdraw/gui/Outliner.hpp"
 #include "wxdraw/node/RootNode.hpp"
 
@@ -12,6 +13,7 @@ Outliner::Outliner(wxWindow* parent, MainFrame& mainFrame)
     mainFrame_(mainFrame)
 {
   AppendColumn("Name");
+  Bind(wxEVT_TREELIST_SELECTION_CHANGED, &Outliner::onSelectionChanged, this);
 }
 /**
  */
@@ -48,6 +50,21 @@ void Outliner::removeNode(const NodePtr& node) {
   wxASSERT(node->getItem().IsOk());
   DeleteItem(node->getItem());
   node->setItem(wxTreeListItem());
+}
+/**
+ */
+void Outliner::onSelectionChanged(wxTreeListEvent& event) {
+  mainFrame_.selectNode(getNode(event.GetItem()));
+}
+/**
+ */
+NodePtr Outliner::getNode(const wxTreeListItem& item) const {
+  if(!item.IsOk()) {
+    return nullptr;
+  }
+  auto data = static_cast<ClientData*>(GetItemData(item));
+  wxASSERT(data);
+  return data->getNode();
 }
 /**
  */
