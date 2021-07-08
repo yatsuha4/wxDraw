@@ -1,4 +1,5 @@
 #include "wxdraw/gui/Renderer.hpp"
+#include "wxdraw/node/Component.hpp"
 #include "wxdraw/node/Node.hpp"
 #include "wxdraw/property/Property.hpp"
 
@@ -38,6 +39,9 @@ void Node::Remove(const NodePtr& node) {
 */
 void Node::update() {
   onUpdate();
+  for(auto& component : components_) {
+    component->onUpdate(*this);
+  }
 }
 /**
    描画する
@@ -47,6 +51,9 @@ void Node::render(Renderer& renderer) {
   auto matrix = renderer.pushMatrix(matrix_);
   if(show_) {
     onRender(renderer);
+    for(auto& component : components_) {
+      component->onRender(*this, renderer);
+    }
   }
   for(auto& child : children_) {
     child->render(renderer);

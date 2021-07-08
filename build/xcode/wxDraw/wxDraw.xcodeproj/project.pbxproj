@@ -75,6 +75,7 @@
 		266A37A82669D79600EA192B /* MemberBase.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MemberBase.hpp; sourceTree = "<group>"; };
 		266A37A92669D79600EA192B /* MemberBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MemberBase.cpp; sourceTree = "<group>"; };
 		266A37AB2669D80000EA192B /* Property.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Property.cpp; sourceTree = "<group>"; };
+		26BA73C22697BC7F001F3C5D /* Component.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Component.hpp; sourceTree = "<group>"; };
 		26D19707267620B400F9D057 /* InsertNode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = InsertNode.hpp; sourceTree = "<group>"; };
 		26D19708267620B400F9D057 /* InsertNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InsertNode.cpp; sourceTree = "<group>"; };
 		26F5A91B2670C5CD009B0657 /* Project.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Project.cpp; sourceTree = "<group>"; };
@@ -123,6 +124,7 @@
 		2605A57B26471B1400FD3DF0 /* node */ = {
 			isa = PBXGroup;
 			children = (
+				26BA73C22697BC7F001F3C5D /* Component.hpp */,
 				2605A5802648698E00FD3DF0 /* Layer.cpp */,
 				2605A57F26485FC700FD3DF0 /* Layer.hpp */,
 				2605A57D2648269900FD3DF0 /* Node.cpp */,

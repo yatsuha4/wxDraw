@@ -66,6 +66,7 @@ MainFrame::~MainFrame() {
 void MainFrame::selectNode(const NodePtr& node) {
   selectNode_ = node;
   inspector_->show(node);
+  canvas_->Refresh();
 }
 /**
    コマンドを実行する

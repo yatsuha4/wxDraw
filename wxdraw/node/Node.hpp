@@ -10,6 +10,7 @@ class Node {
   wxRect rect_;
   std::weak_ptr<Node> parent_;
   std::vector<NodePtr> children_;
+  std::vector<ComponentPtr> components_;
   PropertyPtr property_;
   bool show_;
   glm::dvec2 pos_;
