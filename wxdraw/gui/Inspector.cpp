@@ -1,4 +1,5 @@
 #include "wxdraw/gui/Inspector.hpp"
+#include "wxdraw/node/Node.hpp"
 #include "wxdraw/property/Member.hpp"
 #include "wxdraw/property/Property.hpp"
 
@@ -15,16 +16,17 @@ Inspector::Inspector(wxWindow* parent, MainFrame& mainFrame)
 }
 /**
  */
-void Inspector::show(const PropertyPtr& property) {
+void Inspector::show(const NodePtr& node) {
   clear();
-  property_ = property;
-  showProperty(property);
+  node_ = node;
+  showProperty(node->getProperty());
+  SetPropertyAttributeAll(wxPG_BOOL_USE_CHECKBOX, true);
 }
 /**
  */
 void Inspector::clear() {
   Clear();
-  property_ = nullptr;
+  node_ = nullptr;
 }
 /**
  */
@@ -35,6 +37,12 @@ void Inspector::showProperty(const PropertyPtr& property) {
     }
     else if(auto member = std::dynamic_pointer_cast<Member<double>>(iter)) {
       append(new wxFloatProperty(member->getId(), member->getName(), member->getValue()), member);
+    }
+    else if(auto member = Member<bool>::As(iter)) {
+      append(new wxBoolProperty(member->getId(), member->getName(), member->getValue()), member);
+    }
+    else if(auto member = std::dynamic_pointer_cast<Member<std::string>>(iter)) {
+      append(new wxStringProperty(member->getId(), member->getName(), member->getValue()), member);
     }
     else if(auto child = std::dynamic_pointer_cast<Property>(iter)) {
       showProperty(child);

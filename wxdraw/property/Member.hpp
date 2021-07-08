@@ -23,5 +23,9 @@ class Member
   ~Member() override = default;
 
   WXDRAW_GETTER(Value, value_);
+
+  static std::shared_ptr<Member<T>> As(const MemberBasePtr& member) {
+    return std::dynamic_pointer_cast<Member<T>>(member);
+  }
 };
 }

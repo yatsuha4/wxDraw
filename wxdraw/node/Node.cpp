@@ -71,8 +71,8 @@ Node::Node(const std::string& id)
     rotate_(0.0), 
     matrix_(1.0)
 {
-  property_->
-    appendMember("Show", show_);
+  property_->appendMember("Name", name_);
+  property_->appendMember("Show", show_);
 }
 /**
  */

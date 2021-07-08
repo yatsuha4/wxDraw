@@ -54,6 +54,7 @@ MainFrame::~MainFrame() {
 */
 void MainFrame::selectNode(const NodePtr& node) {
   selectNode_ = node;
+  inspector_->show(node);
 }
 /**
    コマンドを実行する

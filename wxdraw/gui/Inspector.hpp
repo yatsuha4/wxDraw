@@ -11,13 +11,13 @@ class Inspector
 
  private:
   MainFrame& mainFrame_;
-  PropertyPtr property_;
+  NodePtr node_;
 
  public:
   Inspector(wxWindow* parent, MainFrame& mainFrame);
   ~Inspector() override = default;
 
-  void show(const PropertyPtr& property);
+  void show(const NodePtr& node);
   void clear();
 
  private:
