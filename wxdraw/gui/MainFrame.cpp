@@ -20,9 +20,15 @@ enum {
   MENU_EDIT_APPEND_RECTANGLE, 
   MENU_EDIT_APPEND_ELLIPSE, 
   MENU_EDIT_UNDO, 
-  MENU_EDIT_REDO
+  MENU_EDIT_REDO, 
+  MENU_WINDOW_PERSPECTIVE, 
+  MENU_WINDOW_PERSPECTIVE_SAVE, 
+  MENU_WINDOW_PERSPECTIVE_LOAD, 
+  MENU_WINDOW_PERSPECTIVE_RESET
 };
 const wxSize MainFrame::DEFAULT_SIZE(960, 640);
+const wxSize MainFrame::DEFAULT_OUTLINER_SIZE(240, 640);
+const wxSize MainFrame::DEFAULT_INSPECTOR_SIZE(240, 640);
 
 /**
    コンストラクタ
@@ -38,9 +44,14 @@ MainFrame::MainFrame(Application& application)
 {
   setupMenuBar();
   auiManager_.AddPane(canvas_, wxAuiPaneInfo().Caption("Canvas").CenterPane());
-  auiManager_.AddPane(outliner_, wxAuiPaneInfo().Caption("Outliner").Left());
-  auiManager_.AddPane(inspector_, wxAuiPaneInfo().Caption("Inspector").Right());
+  auiManager_.AddPane(outliner_, 
+                      wxAuiPaneInfo().Caption("Outliner").Left().
+                      BestSize(DEFAULT_OUTLINER_SIZE));
+  auiManager_.AddPane(inspector_, 
+                      wxAuiPaneInfo().Caption("Inspector").Right().
+                      BestSize(DEFAULT_INSPECTOR_SIZE));
   auiManager_.Update();
+  defaultPerspective_ = auiManager_.SavePerspective();
 }
 /**
    デストラクタ
@@ -86,6 +97,7 @@ void MainFrame::removeNode(const NodePtr& node) {
 */
 void MainFrame::setupMenuBar() {
   auto menuBar = new wxMenuBar();
+  SetMenuBar(menuBar);
   {
     auto menu = new wxMenu();
     menu->Append(MENU_FILE_NEW, "New Project");
@@ -110,7 +122,17 @@ void MainFrame::setupMenuBar() {
     menu->Append(MENU_EDIT_REDO, "Redo");
     menuBar->Append(menu, "Edit");
   }
-  SetMenuBar(menuBar);
+  {
+    auto menu = new wxMenu();
+    {
+      auto perspectiveMenu = new wxMenu();
+      perspectiveMenu->Append(MENU_WINDOW_PERSPECTIVE_SAVE, "Save");
+      perspectiveMenu->Append(MENU_WINDOW_PERSPECTIVE_LOAD, "Load");
+      perspectiveMenu->Append(MENU_WINDOW_PERSPECTIVE_RESET, "Reset");
+      menu->Append(MENU_WINDOW_PERSPECTIVE, "Perspective", perspectiveMenu);
+    }
+    menuBar->Append(menu, "Window");
+  }
   Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::onSelectMenu, this);
 }
 /**
@@ -136,6 +158,10 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
     break;
   case MENU_FILE_QUIT:
     Close();
+    break;
+  case MENU_WINDOW_PERSPECTIVE_RESET:
+    SetSize(DEFAULT_SIZE);
+    auiManager_.LoadPerspective(defaultPerspective_);
     break;
   default:
     break;

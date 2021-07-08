@@ -18,7 +18,6 @@
 		263EA110268F502C003B100A /* RootNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 263EA10F268F502C003B100A /* RootNode.cpp */; };
 		263EA113268F524E003B100A /* Command.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 263EA111268F524E003B100A /* Command.cpp */; };
 		265FCA3E214ACD3100398B40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 265FCA3D214ACD3100398B40 /* Assets.xcassets */; };
-		265FCA41214ACD3100398B40 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 265FCA3F214ACD3100398B40 /* MainMenu.xib */; };
 		265FCA54214AD08A00398B40 /* libwx_osx_cocoau-3.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 265FCA53214AD08A00398B40 /* libwx_osx_cocoau-3.1.a */; };
 		265FCA56214AD0A000398B40 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 265FCA55214AD0A000398B40 /* CoreFoundation.framework */; };
 		265FCA58214AD0CF00398B40 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 265FCA57214AD0CF00398B40 /* Carbon.framework */; };
@@ -58,7 +57,6 @@
 		263EA112268F524E003B100A /* Command.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Command.hpp; sourceTree = "<group>"; };
 		265FCA37214ACD2D00398B40 /* wxDraw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wxDraw.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		265FCA3D214ACD3100398B40 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		265FCA40214ACD3100398B40 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		265FCA42214ACD3100398B40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		265FCA45214ACD3100398B40 /* wxDraw.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = wxDraw.entitlements; sourceTree = "<group>"; };
 		265FCA53214AD08A00398B40 /* libwx_osx_cocoau-3.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libwx_osx_cocoau-3.1.a"; path = "../../../external/opt/mac/wxWidgets/lib/libwx_osx_cocoau-3.1.a"; sourceTree = "<group>"; };
@@ -176,7 +174,6 @@
 			isa = PBXGroup;
 			children = (
 				265FCA3D214ACD3100398B40 /* Assets.xcassets */,
-				265FCA3F214ACD3100398B40 /* MainMenu.xib */,
 				265FCA42214ACD3100398B40 /* Info.plist */,
 				265FCA45214ACD3100398B40 /* wxDraw.entitlements */,
 			);
@@ -281,7 +278,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				265FCA3E214ACD3100398B40 /* Assets.xcassets in Resources */,
-				265FCA41214ACD3100398B40 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,17 +307,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		265FCA3F214ACD3100398B40 /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				265FCA40214ACD3100398B40 /* Base */,
-			);
-			name = MainMenu.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		265FCA46214ACD3100398B40 /* Debug */ = {

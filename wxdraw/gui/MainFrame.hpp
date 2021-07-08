@@ -19,8 +19,11 @@ class MainFrame
   Inspector* inspector_;
   NodePtr selectNode_;
   wxCommandProcessor commandProcessor_;
+  wxString defaultPerspective_;
 
   static const wxSize DEFAULT_SIZE;
+  static const wxSize DEFAULT_OUTLINER_SIZE;
+  static const wxSize DEFAULT_INSPECTOR_SIZE;
 
  public:
   MainFrame(Application& application);
