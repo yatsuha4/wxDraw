@@ -29,6 +29,7 @@
 /**
    C++
 */
+#include <sstream>
 #include <stack>
 /**
    マクロ定義
@@ -70,6 +71,7 @@ using namespace command;
 namespace component {
 WXDRAW_DECLARE_CLASS(BrushComponent);
 WXDRAW_DECLARE_CLASS(Component);
+WXDRAW_DECLARE_CLASS(LayoutComponent);
 }
 using namespace component;
 

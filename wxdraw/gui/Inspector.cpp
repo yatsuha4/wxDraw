@@ -22,7 +22,7 @@ void Inspector::show(const NodePtr& node) {
   node_ = node;
   showProperty(node->getProperty());
   for(auto& component : node->getComponents()) {
-    Append(new wxPropertyCategory("Component"));
+    Append(new wxPropertyCategory(typeid(*component).name()));
     showProperty(component->getProperty());
   }
   SetPropertyAttributeAll(wxPG_BOOL_USE_CHECKBOX, true);
@@ -37,20 +37,20 @@ void Inspector::clear() {
  */
 void Inspector::showProperty(const PropertyPtr& property) {
   for(auto& iter : property->getMembers()) {
-    if(auto member = std::dynamic_pointer_cast<Member<int>>(iter)) {
-      append(new wxIntProperty(member->getId(), member->getName(), member->getValue()), member);
+    if(auto member = Member<int>::As(iter)) {
+      append<wxIntProperty>(member);
     }
-    else if(auto member = std::dynamic_pointer_cast<Member<double>>(iter)) {
-      append(new wxFloatProperty(member->getId(), member->getName(), member->getValue()), member);
+    else if(auto member = Member<double>::As(iter)) {
+      append<wxFloatProperty>(member);
     }
     else if(auto member = Member<bool>::As(iter)) {
-      append(new wxBoolProperty(member->getId(), member->getName(), member->getValue()), member);
+      append<wxBoolProperty>(member);
     }
-    else if(auto member = std::dynamic_pointer_cast<Member<std::string>>(iter)) {
-      append(new wxStringProperty(member->getId(), member->getName(), member->getValue()), member);
+    else if(auto member = Member<std::string>::As(iter)) {
+      append<wxStringProperty>(member);
     }
     else if(auto member = Member<wxColour>::As(iter)) {
-      append(new wxColourProperty(member->getId(), member->getName(), member->getValue()), member);
+      append<wxColourProperty>(member);
     }
     else if(auto child = std::dynamic_pointer_cast<Property>(iter)) {
       showProperty(child);

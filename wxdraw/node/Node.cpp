@@ -1,5 +1,5 @@
 #include "wxdraw/gui/Renderer.hpp"
-#include "wxdraw/component/Component.hpp"
+#include "wxdraw/component/LayoutComponent.hpp"
 #include "wxdraw/node/Node.hpp"
 #include "wxdraw/property/Property.hpp"
 
@@ -48,7 +48,6 @@ void Node::update() {
    @param renderer レンダラー
 */
 void Node::render(Renderer& renderer) {
-  auto matrix = renderer.pushMatrix(matrix_);
   if(show_) {
     onBeginRender(renderer);
     for(auto& component : components_) {
@@ -62,7 +61,6 @@ void Node::render(Renderer& renderer) {
       component->endRender(renderer);
     }
   }
-  renderer.setMatrix(matrix);
 }
 /**
  */
@@ -76,23 +74,11 @@ bool Node::canAppend(const std::type_info& type) const {
 Node::Node(const std::string& id)
   : name_(id), 
     property_(std::make_shared<Property>(id)), 
-    show_(true), 
-    pos_(0.0, 0.0), 
-    scale_(1.0, 1.0), 
-    rotate_(0.0), 
-    matrix_(1.0)
+    show_(true)
 {
   property_->appendMember("Name", name_);
   property_->appendMember("Show", show_);
-}
-/**
- */
-void Node::onUpdate() {
-  glm::dmat3 m;
-  m = glm::scale(m, scale_);
-  m = glm::rotate(m, rotate_);
-  m = glm::translate(m, pos_);
-  matrix_ = m;
+  appendComponent<LayoutComponent>();
 }
 /**
    コンポーネントを追加する

@@ -32,6 +32,7 @@
 		266A37AC2669D80000EA192B /* Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 266A37AB2669D80000EA192B /* Property.cpp */; };
 		26BA73CD26987D20001F3C5D /* Component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26BA73CA26987D20001F3C5D /* Component.cpp */; };
 		26BA73CE26987D20001F3C5D /* BrushComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26BA73CC26987D20001F3C5D /* BrushComponent.cpp */; };
+		26BA73D126990D3C001F3C5D /* LayoutComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26BA73D026990D3C001F3C5D /* LayoutComponent.cpp */; };
 		26D19709267620B400F9D057 /* InsertNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26D19708267620B400F9D057 /* InsertNode.cpp */; };
 		26F5A91D2670C5CD009B0657 /* Project.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26F5A91B2670C5CD009B0657 /* Project.cpp */; };
 		26F5A9202673111B009B0657 /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26F5A91E2673111B009B0657 /* Renderer.cpp */; };
@@ -81,6 +82,8 @@
 		26BA73CA26987D20001F3C5D /* Component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Component.cpp; sourceTree = "<group>"; };
 		26BA73CB26987D20001F3C5D /* Component.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Component.hpp; sourceTree = "<group>"; };
 		26BA73CC26987D20001F3C5D /* BrushComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BrushComponent.cpp; sourceTree = "<group>"; };
+		26BA73CF26990D3C001F3C5D /* LayoutComponent.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LayoutComponent.hpp; sourceTree = "<group>"; };
+		26BA73D026990D3C001F3C5D /* LayoutComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LayoutComponent.cpp; sourceTree = "<group>"; };
 		26D19707267620B400F9D057 /* InsertNode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = InsertNode.hpp; sourceTree = "<group>"; };
 		26D19708267620B400F9D057 /* InsertNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InsertNode.cpp; sourceTree = "<group>"; };
 		26F5A91B2670C5CD009B0657 /* Project.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Project.cpp; sourceTree = "<group>"; };
@@ -223,6 +226,8 @@
 				26BA73C926987D20001F3C5D /* BrushComponent.hpp */,
 				26BA73CA26987D20001F3C5D /* Component.cpp */,
 				26BA73CB26987D20001F3C5D /* Component.hpp */,
+				26BA73D026990D3C001F3C5D /* LayoutComponent.cpp */,
+				26BA73CF26990D3C001F3C5D /* LayoutComponent.hpp */,
 			);
 			path = component;
 			sourceTree = "<group>";
@@ -317,6 +322,7 @@
 				2605A58B264A35A100FD3DF0 /* Outliner.cpp in Sources */,
 				2605A5812648698E00FD3DF0 /* Layer.cpp in Sources */,
 				2605A579264564DB00FD3DF0 /* Application.cpp in Sources */,
+				26BA73D126990D3C001F3C5D /* LayoutComponent.cpp in Sources */,
 				266A37AA2669D79600EA192B /* MemberBase.cpp in Sources */,
 				266A37A426684E1A00EA192B /* Inspector.cpp in Sources */,
 				26D19709267620B400F9D057 /* InsertNode.cpp in Sources */,

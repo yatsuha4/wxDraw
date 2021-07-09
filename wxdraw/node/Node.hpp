@@ -7,23 +7,17 @@ namespace wxdraw::node {
 class Node {
  private:
   std::string name_;
-  wxRect rect_;
   std::weak_ptr<Node> parent_;
   std::vector<NodePtr> children_;
   std::vector<ComponentPtr> components_;
   PropertyPtr property_;
   bool show_;
-  glm::dvec2 pos_;
-  glm::dvec2 scale_;
-  double rotate_;
-  glm::dmat3 matrix_;
   wxTreeListItem item_;
 
  public:
   virtual ~Node() = default;
 
   WXDRAW_GETTER(Name, name_);
-  WXDRAW_GETTER(Rect, rect_);
   WXDRAW_GETTER(Children, children_);
   WXDRAW_GETTER(Components, components_);
   WXDRAW_GETTER(Property, property_);
@@ -79,9 +73,7 @@ class Node {
  protected:
   Node(const std::string& id);
 
-  WXDRAW_SETTER(Rect, rect_);
-
-  virtual void onUpdate();
+  virtual void onUpdate() {}
   virtual void onBeginRender(Renderer& renderer) {}
   virtual void onEndRender(Renderer& renderer) {}
 

@@ -22,6 +22,16 @@ class Inspector
 
  private:
   void showProperty(const PropertyPtr& property);
+
+  template<class PropertyType, class MemberType>
+  PropertyType* append(const std::shared_ptr<MemberType>& member) {
+    auto property = new PropertyType(member->getLabel(), 
+                                     member->getUniqueName(), 
+                                     member->getValue());
+    append(property, member);
+    return property;
+  }
+
   void append(wxPGProperty* property, const MemberBasePtr& member);
 };
 }

@@ -13,6 +13,10 @@ class Component {
  public:
   virtual ~Component() = default;
 
+  Node& getNode() const {
+    return node_;
+  }
+
   WXDRAW_GETTER(Property, property_);
 
   void update();
