@@ -21,6 +21,7 @@ class Component {
 
   void update();
   void beginRender(Renderer& renderer);
+  void render(Renderer& renderer);
   void endRender(Renderer& renderer);
 
  protected:
@@ -28,6 +29,7 @@ class Component {
 
   virtual void onUpdate() {}
   virtual void onBeginRender(Renderer& renderer) {}
+  virtual void onRender(Renderer& renderer) {}
   virtual void onEndRender(Renderer& renderer) {}
 };
 }

@@ -31,6 +31,15 @@ void Component::beginRender(Renderer& renderer) {
   }
 }
 /**
+   描画する
+   @param renderer レンダラー
+*/
+void Component::render(Renderer& renderer) {
+  if(active_) {
+    onRender(renderer);
+  }
+}
+/**
    描画を終了する
    @param renderer レンダラー
 */

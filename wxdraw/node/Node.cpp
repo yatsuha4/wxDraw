@@ -53,6 +53,9 @@ void Node::render(Renderer& renderer) {
     for(auto& component : components_) {
       component->beginRender(renderer);
     }
+    for(auto& component : components_) {
+      component->render(renderer);
+    }
     for(auto& child : children_) {
       child->render(renderer);
     }
