@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 namespace wxdraw::node {
 /**
@@ -25,11 +25,23 @@ class Node {
   WXDRAW_GETTER(Name, name_);
   WXDRAW_GETTER(Rect, rect_);
   WXDRAW_GETTER(Children, children_);
+  WXDRAW_GETTER(Components, components_);
   WXDRAW_GETTER(Property, property_);
 
   NodePtr getParent() const;
   static void Insert(const NodePtr& node, const NodePtr& parent, size_t index);
   static void Remove(const NodePtr& node);
+
+  /**
+     コンポーネントを追加する
+     @return 追加したコンポーネント
+  */
+  template<class T>
+  std::shared_ptr<T> appendComponent() {
+    auto component = std::make_shared<T>(*this);
+    appendComponent(component);
+    return component;
+  }
 
   virtual void update();
   virtual void render(Renderer& renderer);
@@ -54,12 +66,27 @@ class Node {
 
   virtual bool canAppend(const std::type_info& type) const;
 
+  template<class T>
+  std::shared_ptr<T> getComponent() const {
+    for(auto& iter : components_) {
+      if(auto component = std::dynamic_pointer_cast<T>(iter)) {
+        return component;
+      }
+    }
+    return nullptr;
+  }
+
  protected:
   Node(const std::string& id);
 
   WXDRAW_SETTER(Rect, rect_);
 
   virtual void onUpdate();
-  virtual void onRender(Renderer& renderer) {}
+  virtual void onBeginRender(Renderer& renderer) {}
+  virtual void onEndRender(Renderer& renderer) {}
+
+ private:
+  void appendComponent(const ComponentPtr& component);
+  void removeComponent(const ComponentPtr& component);
 };
 }

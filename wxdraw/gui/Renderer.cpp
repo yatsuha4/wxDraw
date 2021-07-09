@@ -32,4 +32,17 @@ glm::dmat3 Renderer::pushMatrix(const glm::dmat3& matrix) {
   setMatrix(matrix * matrix_);
   return m;
 }
+/**
+ */
+void Renderer::pushBrush(const wxBrush& brush) {
+  auto graphicsBrush = context_->CreateBrush(brush);
+  brushes_.push(graphicsBrush);
+  context_->SetBrush(graphicsBrush);
+}
+/**
+ */
+void Renderer::popBrush() {
+  context_->SetBrush(brushes_.top());
+  brushes_.pop();
+}
 }

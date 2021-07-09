@@ -1,4 +1,5 @@
 #include "wxdraw/gui/Inspector.hpp"
+#include "wxdraw/component/Component.hpp"
 #include "wxdraw/node/Node.hpp"
 #include "wxdraw/property/Member.hpp"
 #include "wxdraw/property/Property.hpp"
@@ -20,6 +21,10 @@ void Inspector::show(const NodePtr& node) {
   clear();
   node_ = node;
   showProperty(node->getProperty());
+  for(auto& component : node->getComponents()) {
+    Append(new wxPropertyCategory("Component"));
+    showProperty(component->getProperty());
+  }
   SetPropertyAttributeAll(wxPG_BOOL_USE_CHECKBOX, true);
 }
 /**
@@ -43,6 +48,9 @@ void Inspector::showProperty(const PropertyPtr& property) {
     }
     else if(auto member = std::dynamic_pointer_cast<Member<std::string>>(iter)) {
       append(new wxStringProperty(member->getId(), member->getName(), member->getValue()), member);
+    }
+    else if(auto member = Member<wxColour>::As(iter)) {
+      append(new wxColourProperty(member->getId(), member->getName(), member->getValue()), member);
     }
     else if(auto child = std::dynamic_pointer_cast<Property>(iter)) {
       showProperty(child);

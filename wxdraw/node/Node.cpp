@@ -1,5 +1,5 @@
 #include "wxdraw/gui/Renderer.hpp"
-#include "wxdraw/node/Component.hpp"
+#include "wxdraw/component/Component.hpp"
 #include "wxdraw/node/Node.hpp"
 #include "wxdraw/property/Property.hpp"
 
@@ -40,7 +40,7 @@ void Node::Remove(const NodePtr& node) {
 void Node::update() {
   onUpdate();
   for(auto& component : components_) {
-    component->onUpdate(*this);
+    component->update();
   }
 }
 /**
@@ -50,13 +50,17 @@ void Node::update() {
 void Node::render(Renderer& renderer) {
   auto matrix = renderer.pushMatrix(matrix_);
   if(show_) {
-    onRender(renderer);
+    onBeginRender(renderer);
     for(auto& component : components_) {
-      component->onRender(*this, renderer);
+      component->beginRender(renderer);
     }
-  }
-  for(auto& child : children_) {
-    child->render(renderer);
+    for(auto& child : children_) {
+      child->render(renderer);
+    }
+    onEndRender(renderer);
+    for(auto& component : components_) {
+      component->endRender(renderer);
+    }
   }
   renderer.setMatrix(matrix);
 }
@@ -89,5 +93,19 @@ void Node::onUpdate() {
   m = glm::rotate(m, rotate_);
   m = glm::translate(m, pos_);
   matrix_ = m;
+}
+/**
+   コンポーネントを追加する
+   @param component 追加するコンポーネント
+*/
+void Node::appendComponent(const ComponentPtr& component) {
+  components_.push_back(component);
+}
+/**
+   コンポーネントを削除する
+   @param component 削除するコンポーネント
+*/
+void Node::removeComponent(const ComponentPtr& component) {
+  components_.erase(std::remove(components_.begin(), components_.end(), component));
 }
 }

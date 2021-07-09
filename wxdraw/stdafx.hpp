@@ -18,6 +18,7 @@
 #include <wx/wx.h>
 #include <wx/aui/aui.h>
 #include <wx/cmdproc.h>
+#include <wx/propgrid/advprops.h>
 #include <wx/propgrid/propgrid.h>
 #include <wx/treelist.h>
 /**
@@ -25,6 +26,10 @@
 */
 #include <glm/glm.hpp>
 #include <glm/gtx/matrix_transform_2d.hpp>
+/**
+   C++
+*/
+#include <stack>
 /**
    マクロ定義
 */
@@ -62,6 +67,12 @@ WXDRAW_DECLARE_CLASS(InsertNode);
 }
 using namespace command;
 
+namespace component {
+WXDRAW_DECLARE_CLASS(BrushComponent);
+WXDRAW_DECLARE_CLASS(Component);
+}
+using namespace component;
+
 namespace gui {
 WXDRAW_DECLARE_CLASS(Canvas);
 WXDRAW_DECLARE_CLASS(Inspector);
@@ -72,7 +83,6 @@ WXDRAW_DECLARE_CLASS(Renderer);
 using namespace gui;
 
 namespace node {
-WXDRAW_DECLARE_CLASS(Component);
 WXDRAW_DECLARE_CLASS(Layer);
 WXDRAW_DECLARE_CLASS(Node);
 WXDRAW_DECLARE_CLASS(Project);
