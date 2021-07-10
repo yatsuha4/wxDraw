@@ -21,6 +21,7 @@
 #include <wx/propgrid/advprops.h>
 #include <wx/propgrid/propgrid.h>
 #include <wx/treelist.h>
+#include <wx/xml/xml.h>
 /**
    GLM
 */
@@ -81,6 +82,12 @@ WXDRAW_DECLARE_CLASS(Layout);
 WXDRAW_DECLARE_CLASS(Rect);
 }
 using namespace container;
+
+namespace file {
+WXDRAW_DECLARE_CLASS(Exporter);
+WXDRAW_DECLARE_CLASS(XmlExporter);
+}
+using namespace file;
 
 namespace gui {
 WXDRAW_DECLARE_CLASS(Canvas);
