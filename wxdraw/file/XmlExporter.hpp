@@ -19,5 +19,10 @@ class XmlExporter
   ~XmlExporter() override = default;
 
   bool save(wxOutputStream& output) override;
+
+ private:
+  wxXmlNode* parse(const NodePtr& node);
+  wxXmlNode* parse(const ComponentPtr& node);
+  void parse(wxXmlNode& xml, const Property& property);
 };
 }
