@@ -42,6 +42,9 @@ void Node::update() {
   for(auto& component : components_) {
     component->update();
   }
+  for(auto& child : children_) {
+    child->update();
+  }
 }
 /**
    描画する

@@ -90,6 +90,8 @@
 		26BA73D326991A64001F3C5D /* EllipseComponent.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EllipseComponent.hpp; sourceTree = "<group>"; };
 		26BA73D526991B32001F3C5D /* EllipseNode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EllipseNode.hpp; sourceTree = "<group>"; };
 		26BA73D626991B87001F3C5D /* EllipseNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EllipseNode.cpp; sourceTree = "<group>"; };
+		26CB13222699F8BB0025ACDD /* Rect.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Rect.hpp; sourceTree = "<group>"; };
+		26CB13232699FB790025ACDD /* Layout.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Layout.hpp; sourceTree = "<group>"; };
 		26D19707267620B400F9D057 /* InsertNode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = InsertNode.hpp; sourceTree = "<group>"; };
 		26D19708267620B400F9D057 /* InsertNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InsertNode.cpp; sourceTree = "<group>"; };
 		26F5A91B2670C5CD009B0657 /* Project.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Project.cpp; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				2605A56F264564DB00FD3DF0 /* Application.hpp */,
 				26D19706267620B400F9D057 /* command */,
 				26BA73C826987D20001F3C5D /* component */,
+				26CB13212699F8BB0025ACDD /* container */,
 				2605A582264A312E00FD3DF0 /* gui */,
 				2605A575264564DB00FD3DF0 /* main.cpp */,
 				2605A57B26471B1400FD3DF0 /* node */,
@@ -240,6 +243,15 @@
 				26BA73CF26990D3C001F3C5D /* LayoutComponent.hpp */,
 			);
 			path = component;
+			sourceTree = "<group>";
+		};
+		26CB13212699F8BB0025ACDD /* container */ = {
+			isa = PBXGroup;
+			children = (
+				26CB13232699FB790025ACDD /* Layout.hpp */,
+				26CB13222699F8BB0025ACDD /* Rect.hpp */,
+			);
+			path = container;
 			sourceTree = "<group>";
 		};
 		26D19706267620B400F9D057 /* command */ = {

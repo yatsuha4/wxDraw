@@ -76,6 +76,12 @@ WXDRAW_DECLARE_CLASS(LayoutComponent);
 }
 using namespace component;
 
+namespace container {
+WXDRAW_DECLARE_CLASS(Layout);
+WXDRAW_DECLARE_CLASS(Rect);
+}
+using namespace container;
+
 namespace gui {
 WXDRAW_DECLARE_CLASS(Canvas);
 WXDRAW_DECLARE_CLASS(Inspector);

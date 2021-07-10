@@ -10,14 +10,16 @@ namespace wxdraw::component {
 EllipseComponent::EllipseComponent(Node& node)
   : super(node)
 {
-  getNode().getComponent<LayoutComponent>()->setSize(glm::dvec2(128.0));
+  auto layout = getNode().getComponent<LayoutComponent>();
+  layout->getSize().offset = glm::dvec2(100.0);
+  layout->update();
 }
 /**
  */
 void EllipseComponent::onRender(Renderer& renderer) {
   if(auto layout = getNode().getComponent<LayoutComponent>()) {
-    auto size = layout->getRenderSize();
-    renderer.getContext().DrawEllipse(0.0, 0.0, size.x, size.y);
+    auto& rect = layout->getRect();
+    renderer.getContext().DrawEllipse(rect.pos.x, rect.pos.y, rect.size.x, rect.size.y);
   }
 }
 }
