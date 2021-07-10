@@ -9,6 +9,7 @@ namespace wxdraw::file {
 XmlExporter::XmlExporter(const NodePtr& node)
   : super(node)
 {
+  document_.SetRoot(parse(node));
 }
 /**
    出力
@@ -32,6 +33,9 @@ wxXmlNode* XmlExporter::parse(const NodePtr& node) {
  */
 wxXmlNode* XmlExporter::parse(const Property& property) {
   auto xml = new wxXmlNode(wxXML_ELEMENT_NODE, property.getName());
+  for(auto& member : property.getMembers()) {
+    xml->AddAttribute(member->getName(), member->toString());
+  }
   return xml;
 }
 }

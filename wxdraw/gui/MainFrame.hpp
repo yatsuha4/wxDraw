@@ -49,5 +49,8 @@ class MainFrame
   bool canAppendNode() const {
     return getSelectNode() && getSelectNode()->canAppend(typeid(T));
   }
+
+  void saveAs();
+  void saveProject(const ProjectPtr& project);
 };
 }

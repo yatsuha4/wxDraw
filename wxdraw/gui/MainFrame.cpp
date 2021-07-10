@@ -1,4 +1,5 @@
 #include "wxdraw/command/InsertNode.hpp"
+#include "wxdraw/file/XmlExporter.hpp"
 #include "wxdraw/gui/Canvas.hpp"
 #include "wxdraw/gui/Inspector.hpp"
 #include "wxdraw/gui/MainFrame.hpp"
@@ -163,6 +164,7 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
   case MENU_FILE_SAVE:
     break;
   case MENU_FILE_SAVE_AS:
+    saveAs();
     break;
   case MENU_FILE_QUIT:
     Close();
@@ -177,5 +179,28 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
   default:
     break;
   }
+}
+/**
+   名前をつけて保存
+*/
+void MainFrame::saveAs() {
+  if(auto project = Node::GetParent<Project>(getSelectNode())) {
+    wxFileDialog dialog(this, wxFileSelectorPromptStr, 
+                        project->getFileName().GetPath(), 
+                        project->getFileName().GetName(), 
+                        "*.wxdraw", 
+                        wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
+    if(dialog.ShowModal() == wxID_OK) {
+      project->getFileName().Assign(dialog.GetPath());
+      saveProject(project);
+    }
+  }
+}
+/**
+ */
+void MainFrame::saveProject(const ProjectPtr& project) {
+  XmlExporter exporter(project);
+  wxFileOutputStream output(project->getFileName().GetFullPath());
+  exporter.save(output);
 }
 }

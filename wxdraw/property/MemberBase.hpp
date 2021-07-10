@@ -17,5 +17,8 @@ class MemberBase {
   WXDRAW_ACCESSOR(Label, label_);
 
   std::string getUniqueName() const;
+
+  virtual wxString toString() const = 0;
+  virtual void fromString(const wxString& value) = 0;
 };
 }
