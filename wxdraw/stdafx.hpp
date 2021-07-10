@@ -71,6 +71,7 @@ using namespace command;
 namespace component {
 WXDRAW_DECLARE_CLASS(BrushComponent);
 WXDRAW_DECLARE_CLASS(Component);
+WXDRAW_DECLARE_CLASS(EllipseComponent);
 WXDRAW_DECLARE_CLASS(LayoutComponent);
 }
 using namespace component;
@@ -85,6 +86,7 @@ WXDRAW_DECLARE_CLASS(Renderer);
 using namespace gui;
 
 namespace node {
+WXDRAW_DECLARE_CLASS(EllipseNode);
 WXDRAW_DECLARE_CLASS(Layer);
 WXDRAW_DECLARE_CLASS(Node);
 WXDRAW_DECLARE_CLASS(Project);

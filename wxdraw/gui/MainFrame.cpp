@@ -3,6 +3,7 @@
 #include "wxdraw/gui/Inspector.hpp"
 #include "wxdraw/gui/MainFrame.hpp"
 #include "wxdraw/gui/Outliner.hpp"
+#include "wxdraw/node/EllipseNode.hpp"
 #include "wxdraw/node/Layer.hpp"
 #include "wxdraw/node/Project.hpp"
 #include "wxdraw/node/RootNode.hpp"
@@ -159,6 +160,9 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
     break;
   case MENU_FILE_QUIT:
     Close();
+    break;
+  case MENU_EDIT_APPEND_ELLIPSE:
+    submitCommand(new InsertNode(this, std::make_shared<EllipseNode>(), getSelectNode(), 0));
     break;
   case MENU_WINDOW_PERSPECTIVE_RESET:
     SetSize(DEFAULT_SIZE);
