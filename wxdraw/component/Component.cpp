@@ -1,17 +1,17 @@
 #include "wxdraw/component/Component.hpp"
-#include "wxdraw/property/Property.hpp"
 
 namespace wxdraw::component {
 /**
    コンストラクタ
    @param node ノード
+   @param name 名前
 */
-Component::Component(Node& node)
-  : node_(node), 
-    property_(std::make_shared<Property>("Component")), 
+Component::Component(const std::string& name, Node& node)
+  : super(name), 
+    node_(node), 
     active_(true)
 {
-  property_->appendMember("Active", active_);
+  appendMember("Active", active_);
 }
 /**
    更新する

@@ -1,26 +1,28 @@
 #pragma once
 
+#include "wxdraw/property/Property.hpp"
+
 namespace wxdraw::node {
 /**
    ノード基底クラス
 */
-class Node {
+class Node
+  : public Property
+{
+  using super = Property;
+
  private:
-  std::string name_;
   std::weak_ptr<Node> parent_;
   std::vector<NodePtr> children_;
   std::vector<ComponentPtr> components_;
-  PropertyPtr property_;
   bool show_;
   wxTreeListItem item_;
 
  public:
   virtual ~Node() = default;
 
-  WXDRAW_GETTER(Name, name_);
   WXDRAW_GETTER(Children, children_);
   WXDRAW_GETTER(Components, components_);
-  WXDRAW_GETTER(Property, property_);
 
   NodePtr getParent() const;
   static void Insert(const NodePtr& node, const NodePtr& parent, size_t index);
@@ -71,7 +73,7 @@ class Node {
   }
 
  protected:
-  Node(const std::string& id);
+  Node(const std::string& name);
 
   virtual void onUpdate() {}
   virtual void onBeginRender(Renderer& renderer) {}

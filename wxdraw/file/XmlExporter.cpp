@@ -19,10 +19,9 @@ bool XmlExporter::save(wxOutputStream& output) {
 /**
  */
 wxXmlNode* XmlExporter::parse(const NodePtr& node) {
-  auto xml = new wxXmlNode(wxXML_ELEMENT_NODE, "Node");
-  parse(*xml, *node->getProperty());
+  auto xml = parse(*node);
   for(auto& component : node->getComponents()) {
-    xml->AddChild(parse(component));
+    xml->AddChild(parse(*component));
   }
   for(auto& child : node->getChildren()) {
     xml->AddChild(parse(child));
@@ -31,13 +30,8 @@ wxXmlNode* XmlExporter::parse(const NodePtr& node) {
 }
 /**
  */
-wxXmlNode* XmlExporter::parse(const ComponentPtr& component) {
-  auto xml = new wxXmlNode(wxXML_ELEMENT_NODE, "Component");
-  parse(*xml, *component->getProperty());
+wxXmlNode* XmlExporter::parse(const Property& property) {
+  auto xml = new wxXmlNode(wxXML_ELEMENT_NODE, property.getName());
   return xml;
-}
-/**
- */
-void XmlExporter::parse(wxXmlNode& xml, const Property& property) {
 }
 }

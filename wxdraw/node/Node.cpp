@@ -1,7 +1,6 @@
 #include "wxdraw/gui/Renderer.hpp"
 #include "wxdraw/component/LayoutComponent.hpp"
 #include "wxdraw/node/Node.hpp"
-#include "wxdraw/property/Property.hpp"
 
 namespace wxdraw::node {
 /**
@@ -75,15 +74,14 @@ bool Node::canAppend(const std::type_info& type) const {
 }
 /**
    コンストラクタ
-   @param id 識別子
+   @param name 名前
 */
-Node::Node(const std::string& id)
-  : name_(id), 
-    property_(std::make_shared<Property>(id)), 
+Node::Node(const std::string& name)
+  : super(name), 
     show_(true)
 {
-  property_->appendMember("Name", name_);
-  property_->appendMember("Show", show_);
+  appendMember("Label", getLabel());
+  appendMember("Show", show_);
   appendComponent<LayoutComponent>();
 }
 /**

@@ -22,7 +22,6 @@ class XmlExporter
 
  private:
   wxXmlNode* parse(const NodePtr& node);
-  wxXmlNode* parse(const ComponentPtr& node);
-  void parse(wxXmlNode& xml, const Property& property);
+  wxXmlNode* parse(const Property& property);
 };
 }

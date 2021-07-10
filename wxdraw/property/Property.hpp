@@ -15,7 +15,7 @@ class Property
   std::vector<MemberBasePtr> members_;
 
  public:
-  Property(const std::string& id);
+  Property(const std::string& name);
   ~Property() override = default;
 
   WXDRAW_GETTER(Members, members_);

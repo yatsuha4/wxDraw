@@ -9,8 +9,7 @@ Layer::Layer()
   : super("Layer"), 
     opacity_(1.0)
 {
-  getProperty()->
-    appendMember("Opacity", opacity_);
+  appendMember("Opacity", opacity_);
 }
 /**
  */

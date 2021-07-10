@@ -21,7 +21,7 @@ class Inspector
   void clear();
 
  private:
-  void showProperty(const PropertyPtr& property);
+  void showProperty(Property& property);
 
   template<class PropertyType, class MemberType>
   PropertyType* append(const std::shared_ptr<MemberType>& member) {

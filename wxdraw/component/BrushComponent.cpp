@@ -1,17 +1,16 @@
 #include "wxdraw/component/BrushComponent.hpp"
 #include "wxdraw/gui/Renderer.hpp"
-#include "wxdraw/property/Property.hpp"
 
 namespace wxdraw::component {
 /**
    コンストラクタ
 */
 BrushComponent::BrushComponent(Node& node)
-  : super(node), 
+  : super("BrushComponent", node), 
     color_(*wxWHITE), 
     brush_(color_)
 {
-  getProperty()->appendMember("Color", color_);
+  appendMember("Color", color_);
 }
 /**
  */
