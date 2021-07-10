@@ -38,6 +38,7 @@ class MainFrame
 
   void insertNode(const NodePtr& node, const NodePtr& parent, size_t index);
   void removeNode(const NodePtr& node);
+  void updateNode(const NodePtr& node);
 
  private:
   void setupMenuBar();

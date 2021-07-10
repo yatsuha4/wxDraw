@@ -22,13 +22,19 @@ class LayoutComponent
  private:
   Layout size_;
   Layout pos_;
+  glm::dvec2 alignment_;
   glm::dvec2 scale_;
   double rotate_;
   glm::dmat3 matrix_;
+  glm::dvec2 renderSize_;
 
  public:
   LayoutComponent(Node& node);
   ~LayoutComponent() override = default;
+
+  void setSize(const glm::dvec2& size);
+
+  WXDRAW_GETTER(RenderSize, renderSize_);
 
  protected:
   void onUpdate() override;

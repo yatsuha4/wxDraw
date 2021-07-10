@@ -41,7 +41,7 @@ MainFrame::MainFrame(Application& application)
     auiManager_(this), 
     canvas_(new Canvas(this, *this)), 
     outliner_(new Outliner(this, *this)), 
-    inspector_(new Inspector(this, *this))
+    inspector_(new Inspector(this, this))
 {
   setupMenuBar();
   auiManager_.AddPane(canvas_, wxAuiPaneInfo().Caption("Canvas").CenterPane());
@@ -93,6 +93,12 @@ void MainFrame::insertNode(const NodePtr& node, const NodePtr& parent, size_t in
 void MainFrame::removeNode(const NodePtr& node) {
   Node::Remove(node);
   outliner_->removeNode(node);
+}
+/**
+ */
+void MainFrame::updateNode(const NodePtr& node) {
+  node->update();
+  canvas_->Refresh();
 }
 /**
    メニューバーのセットアップ

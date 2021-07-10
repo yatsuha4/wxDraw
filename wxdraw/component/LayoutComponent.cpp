@@ -1,6 +1,7 @@
 #include "wxdraw/component/LayoutComponent.hpp"
 #include "wxdraw/gui/Renderer.hpp"
 #include "wxdraw/node/Node.hpp"
+#include "wxdraw/property/Property.hpp"
 
 namespace wxdraw::component {
 /**
@@ -9,18 +10,33 @@ namespace wxdraw::component {
 */
 LayoutComponent::LayoutComponent(Node& node)
   : super(node), 
+    alignment_(0.5), 
     scale_(1.0), 
     rotate_(0.0), 
     matrix_(1.0)
 {
+  getProperty()->appendMember("Size.Alignment", size_.alignment);
+  getProperty()->appendMember("Size.Offset", size_.offset);
+  getProperty()->appendMember("Pos.Alignment", pos_.alignment);
+  getProperty()->appendMember("Pos.Offset", pos_.offset);
+  getProperty()->appendMember("Alignment", alignment_);
+  getProperty()->appendMember("Scale", scale_);
+  getProperty()->appendMember("Rotate", rotate_);
+}
+/**
+ */
+void LayoutComponent::setSize(const glm::dvec2& size) {
+  size_.offset = size;
+  update();
 }
 /**
  */
 void LayoutComponent::onUpdate() {
-  glm::dmat3 m;
+  glm::dmat3 m(1.0);
   m = glm::scale(m, scale_);
   m = glm::rotate(m, rotate_);
-  m = glm::translate(m, apply(pos_));
+  renderSize_ = getSize();
+  m = glm::translate(m, apply(pos_) - renderSize_ * alignment_);
   matrix_ = m;
 }
 /**

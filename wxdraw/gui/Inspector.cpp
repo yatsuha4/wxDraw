@@ -1,5 +1,7 @@
-#include "wxdraw/gui/Inspector.hpp"
+#include "wxdraw/command/ChangePropertyCommand.hpp"
 #include "wxdraw/component/Component.hpp"
+#include "wxdraw/gui/Inspector.hpp"
+#include "wxdraw/gui/MainFrame.hpp"
 #include "wxdraw/node/Node.hpp"
 #include "wxdraw/property/Member.hpp"
 #include "wxdraw/property/Property.hpp"
@@ -10,22 +12,25 @@ namespace wxdraw::gui {
    @param parent 親
    @param mainFrame メインフレーム
 */
-Inspector::Inspector(wxWindow* parent, MainFrame& mainFrame)
+Inspector::Inspector(wxWindow* parent, MainFrame* mainFrame)
   : super(parent, wxID_ANY), 
     mainFrame_(mainFrame)
 {
+  Bind(wxEVT_PG_CHANGED, &Inspector::onChanged, this);
 }
 /**
  */
 void Inspector::show(const NodePtr& node) {
   clear();
   node_ = node;
-  showProperty(node->getProperty());
-  for(auto& component : node->getComponents()) {
-    Append(new wxPropertyCategory(typeid(*component).name()));
-    showProperty(component->getProperty());
+  if(node) {
+    showProperty(node->getProperty());
+    for(auto& component : node->getComponents()) {
+      Append(new wxPropertyCategory(typeid(*component).name()));
+      showProperty(component->getProperty());
+    }
+    SetPropertyAttributeAll(wxPG_BOOL_USE_CHECKBOX, true);
   }
-  SetPropertyAttributeAll(wxPG_BOOL_USE_CHECKBOX, true);
 }
 /**
  */
@@ -62,5 +67,15 @@ void Inspector::showProperty(const PropertyPtr& property) {
 void Inspector::append(wxPGProperty* property, const MemberBasePtr& member) {
   property->SetClientData(member.get());
   Append(property);
+}
+/**
+ */
+void Inspector::onChanged(wxPropertyGridEvent& event) {
+  auto property = event.GetProperty();
+  auto member = static_cast<MemberBase*>(property->GetClientData());
+  if(auto m = dynamic_cast<Member<double>*>(member)) {
+    mainFrame_->submitCommand(new ChangePropertyCommand(mainFrame_, node_, m->getValue(), 
+                                                       event.GetValue().GetDouble()));
+  }
 }
 }

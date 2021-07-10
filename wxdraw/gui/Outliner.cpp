@@ -59,12 +59,12 @@ void Outliner::onSelectionChanged(wxTreeListEvent& event) {
 /**
  */
 NodePtr Outliner::getNode(const wxTreeListItem& item) const {
-  if(!item.IsOk()) {
-    return nullptr;
+  if(item.IsOk()) {
+    if(auto data = static_cast<ClientData*>(GetItemData(item))) {
+      return data->getNode();
+    }
   }
-  auto data = static_cast<ClientData*>(GetItemData(item));
-  wxASSERT(data);
-  return data->getNode();
+  return nullptr;
 }
 /**
  */

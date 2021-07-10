@@ -7,7 +7,9 @@ namespace wxdraw::component {
    コンストラクタ
 */
 BrushComponent::BrushComponent(Node& node)
-  : super(node)
+  : super(node), 
+    color_(*wxWHITE), 
+    brush_(color_)
 {
   getProperty()->appendMember("Color", color_);
 }
