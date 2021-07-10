@@ -15,12 +15,14 @@ class Node
   std::weak_ptr<Node> parent_;
   std::vector<NodePtr> children_;
   std::vector<ComponentPtr> components_;
+  std::string label_;
   bool show_;
   wxTreeListItem item_;
 
  public:
   virtual ~Node() = default;
 
+  WXDRAW_ACCESSOR(Label, label_);
   WXDRAW_GETTER(Children, children_);
   WXDRAW_GETTER(Components, components_);
 

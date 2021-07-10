@@ -5,7 +5,7 @@ namespace wxdraw::property {
    コンストラクタ
 */
 Property::Property(const std::string& name)
-  : super(name)
+  : name_(name)
 {
 }
 /**

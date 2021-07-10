@@ -78,9 +78,10 @@ bool Node::canAppend(const std::type_info& type) const {
 */
 Node::Node(const std::string& name)
   : super(name), 
+    label_(name), 
     show_(true)
 {
-  appendMember("Label", getLabel());
+  appendMember("Label", label_);
   appendMember("Show", show_);
   appendComponent<LayoutComponent>();
 }

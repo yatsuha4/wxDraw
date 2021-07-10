@@ -6,18 +6,16 @@ namespace wxdraw::property {
 /**
    プロパティ
 */
-class Property
-  : public MemberBase
-{
-  using super = MemberBase;
-
+class Property {
  private:
+  std::string name_;
   std::vector<MemberBasePtr> members_;
 
  public:
   Property(const std::string& name);
-  ~Property() override = default;
+  virtual ~Property() = default;
 
+  WXDRAW_GETTER(Name, name_);
   WXDRAW_GETTER(Members, members_);
 
   void appendMember(const std::string& name, glm::dvec2& value);

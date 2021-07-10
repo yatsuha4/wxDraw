@@ -25,7 +25,7 @@ void Inspector::show(const NodePtr& node) {
   if(node) {
     showProperty(*node);
     for(auto& component : node->getComponents()) {
-      Append(new wxPropertyCategory(component->getLabel()));
+      Append(new wxPropertyCategory(component->getName()));
       showProperty(*component);
     }
     SetPropertyAttributeAll(wxPG_BOOL_USE_CHECKBOX, true);
