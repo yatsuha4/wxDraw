@@ -10,10 +10,12 @@ class Canvas
   using super = wxScrolledCanvas;
 
  public:
-  MainFrame& mainFrame_;
+  MainFrame* mainFrame_;
+  glm::dvec2 offset_;
+  double zoom_;
 
  public:
-  Canvas(wxWindow* parent, MainFrame& mainFrame);
+  Canvas(wxWindow* parent, MainFrame* mainFrame);
   ~Canvas() override = default;
 
  protected:

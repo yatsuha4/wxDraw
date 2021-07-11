@@ -10,9 +10,6 @@ namespace wxdraw::component {
 EllipseComponent::EllipseComponent(Node& node)
   : super("EllipseComponent", node)
 {
-  auto layout = getNode().getComponent<LayoutComponent>();
-  layout->getSize().offset = glm::dvec2(100.0);
-  layout->update();
 }
 /**
  */

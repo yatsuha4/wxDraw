@@ -7,20 +7,19 @@ namespace wxdraw::gui {
 class Renderer {
  private:
   std::shared_ptr<wxGraphicsContext> context_;
-  glm::dmat3 matrix_;
+  glm::dmat3 viewMatrix_;
   std::stack<wxGraphicsBrush> brushes_;
 
  public:
-  Renderer(wxDC& dc);
-  Renderer(const Renderer& renderer) = default;
+  Renderer(wxDC& dc, const glm::dmat3& viewMatrix);
   ~Renderer() = default;
 
   wxGraphicsContext& getContext() const {
     return *context_;
   }
 
-  Renderer& setMatrix(const glm::dmat3& matrix);
-  glm::dmat3 pushMatrix(const glm::dmat3& matrix);
+  WXDRAW_GETTER(ViewMatrix, viewMatrix_);
+  void setMatrix(const glm::dmat3& matrix);
 
   void pushBrush(const wxBrush& brush);
   void popBrush();

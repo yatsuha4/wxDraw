@@ -40,7 +40,7 @@ MainFrame::MainFrame(Application& application)
   : super(nullptr, wxID_ANY, "wxDraw", wxDefaultPosition, DEFAULT_SIZE), 
     application_(application), 
     auiManager_(this), 
-    canvas_(new Canvas(this, *this)), 
+    canvas_(new Canvas(this, this)), 
     outliner_(new Outliner(this, *this)), 
     inspector_(new Inspector(this, this))
 {
