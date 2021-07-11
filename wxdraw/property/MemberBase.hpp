@@ -20,5 +20,23 @@ class MemberBase {
 
   virtual wxString toString() const = 0;
   virtual void fromString(const wxString& value) = 0;
+
+  template<class T>
+  static wxString ToString(const T& value) {
+    return wxVariant(value).GetString();
+  }
+
+  template<class T>
+  static T FromString(const wxString& value) {
+    return wxAny(wxVariant(value)).As<T>();
+  }
+
+  static wxString ToString(const wxColour& value) {
+    return value.GetAsString();
+  }
+
+  static wxColour FromString(const wxString& value) {
+    return wxColour(value);
+  }
 };
 }

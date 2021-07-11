@@ -1,5 +1,8 @@
 ﻿#pragma once
 
+#include "wxdraw/command/ChangePropertyCommand.hpp"
+#include "wxdraw/gui/MainFrame.hpp"
+
 namespace wxdraw::gui {
 /**
    インスペクタ
@@ -41,5 +44,17 @@ class Inspector
   void append(wxPGProperty* property, const MemberBasePtr& member);
 
   void onChanged(wxPropertyGridEvent& event);
+
+  template<class T>
+  bool doChange(const wxPropertyGridEvent& event, MemberBase* member) {
+    if(auto m = dynamic_cast<Member<T>*>(member)) {
+      auto command = 
+        new ChangePropertyCommand<T>(mainFrame_, node_, m->getValue(), 
+                                     wxAny(event.GetValue()).As<T>());
+      mainFrame_->submitCommand(command);
+      return true;
+    }
+    return false;
+  }
 };
 }

@@ -1,7 +1,5 @@
-#include "wxdraw/command/ChangePropertyCommand.hpp"
 #include "wxdraw/component/Component.hpp"
 #include "wxdraw/gui/Inspector.hpp"
-#include "wxdraw/gui/MainFrame.hpp"
 #include "wxdraw/node/Node.hpp"
 #include "wxdraw/property/Member.hpp"
 
@@ -29,6 +27,7 @@ void Inspector::show(const NodePtr& node) {
       showProperty(*component);
     }
     SetPropertyAttributeAll(wxPG_BOOL_USE_CHECKBOX, true);
+    SetPropertyAttributeAll(wxPG_COLOUR_HAS_ALPHA, true);
   }
 }
 /**
@@ -72,9 +71,7 @@ void Inspector::append(wxPGProperty* property, const MemberBasePtr& member) {
 void Inspector::onChanged(wxPropertyGridEvent& event) {
   auto property = event.GetProperty();
   auto member = static_cast<MemberBase*>(property->GetClientData());
-  if(auto m = dynamic_cast<Member<double>*>(member)) {
-    mainFrame_->submitCommand(new ChangePropertyCommand(mainFrame_, node_, m->getValue(), 
-                                                       event.GetValue().GetDouble()));
-  }
+  doChange<double>(event, member) ||
+    doChange<wxColour>(event, member);
 }
 }

@@ -25,11 +25,11 @@ class Member
   WXDRAW_GETTER(Value, value_);
 
   wxString toString() const override {
-    return wxVariant(value_).GetString();
+    return ToString(value_);
   }
 
   void fromString(const wxString& value) override {
-    value_ = wxAny(wxVariant(value)).As<T>();
+    value_ = FromString<T>(value);
   }
 
   static std::shared_ptr<Member<T>> As(const MemberBasePtr& member) {
