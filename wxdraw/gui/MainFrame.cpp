@@ -143,6 +143,7 @@ void MainFrame::setupMenuBar() {
 void MainFrame::onMenuEditAppend(wxMenuEvent& event) {
   auto menu = event.GetMenu();
   menu->Enable(MENU_EDIT_APPEND_LAYER, canAppendNode<LayerNode>());
+  menu->Enable(MENU_EDIT_APPEND_ELLIPSE, canAppendNode<EllipseNode>());
 }
 /**
    メニュー選択

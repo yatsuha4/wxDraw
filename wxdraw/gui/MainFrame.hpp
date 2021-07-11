@@ -50,7 +50,10 @@ class MainFrame
 
   template<class T>
   bool canAppendNode() const {
-    return getSelectNode() && getSelectNode()->canAppend(typeid(T));
+    if(auto node = getSelectNode()) {
+      return node->canAppend(typeid(T));
+    }
+    return false;
   }
 
   void saveAs();
