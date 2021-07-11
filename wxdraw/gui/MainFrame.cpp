@@ -78,6 +78,7 @@ void MainFrame::selectNode(const NodePtr& node) {
 */
 void MainFrame::insertNode(const NodePtr& node, const NodePtr& parent, size_t index) {
   Node::Insert(node, parent, index);
+  node->update();
   outliner_->insertNode(node, parent, index);
 }
 /**
