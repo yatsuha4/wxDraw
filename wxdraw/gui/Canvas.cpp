@@ -1,7 +1,7 @@
 #include "wxdraw/gui/Canvas.hpp"
 #include "wxdraw/gui/MainFrame.hpp"
 #include "wxdraw/gui/Renderer.hpp"
-#include "wxdraw/node/Project.hpp"
+#include "wxdraw/node/ProjectNode.hpp"
 
 namespace wxdraw::gui {
 /**
@@ -25,7 +25,7 @@ Canvas::Canvas(wxWindow* parent, MainFrame* mainFrame)
 */
 void Canvas::OnDraw(wxDC& dc) {
   super::OnDraw(dc);
-  if(auto project = Node::GetParent<Project>(mainFrame_->getSelectNode())) {
+  if(auto project = Node::GetParent<ProjectNode>(mainFrame_->getSelectNode())) {
     auto size = GetSize();
     glm::dmat3 m(1.0);
     m = glm::translate(m, glm::dvec2(size.x * 0.5, size.y * 0.5) + offset_);

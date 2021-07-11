@@ -6,7 +6,7 @@ namespace wxdraw::node {
 /**
    プロジェクト
 */
-class Project
+class ProjectNode
   : public Node
 {
   using super = Node;
@@ -15,8 +15,8 @@ class Project
   wxFileName fileName_;
 
  public:
-  Project();
-  ~Project() override = default;
+  ProjectNode();
+  ~ProjectNode() override = default;
 
   WXDRAW_ACCESSOR(FileName, fileName_);
 };

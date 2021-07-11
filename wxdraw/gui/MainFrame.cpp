@@ -6,7 +6,7 @@
 #include "wxdraw/gui/Outliner.hpp"
 #include "wxdraw/node/EllipseNode.hpp"
 #include "wxdraw/node/LayerNode.hpp"
-#include "wxdraw/node/Project.hpp"
+#include "wxdraw/node/ProjectNode.hpp"
 #include "wxdraw/node/RectangleNode.hpp"
 #include "wxdraw/node/RootNode.hpp"
 
@@ -154,7 +154,7 @@ void MainFrame::onMenuEditAppend(wxMenuEvent& event) {
 void MainFrame::onSelectMenu(wxCommandEvent& event) {
   switch(event.GetId()) {
   case MENU_FILE_NEW:
-    submitCommand<InsertNode>(std::make_shared<Project>(), outliner_->getRootNode(), 0);
+    submitCommand<InsertNode>(std::make_shared<ProjectNode>(), outliner_->getRootNode(), 0);
     break;
   case MENU_FILE_OPEN:
     break;
@@ -187,7 +187,7 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
    名前をつけて保存
 */
 void MainFrame::saveAs() {
-  if(auto project = Node::GetParent<Project>(getSelectNode())) {
+  if(auto project = Node::GetParent<ProjectNode>(getSelectNode())) {
     wxFileDialog dialog(this, wxFileSelectorPromptStr, 
                         project->getFileName().GetPath(), 
                         project->getFileName().GetName(), 
@@ -201,7 +201,7 @@ void MainFrame::saveAs() {
 }
 /**
  */
-void MainFrame::saveProject(const ProjectPtr& project) {
+void MainFrame::saveProject(const ProjectNodePtr& project) {
   XmlExporter exporter(project);
   wxFileOutputStream output(project->getFileName().GetFullPath());
   exporter.save(output);

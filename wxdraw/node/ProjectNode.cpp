@@ -1,11 +1,11 @@
 #include "wxdraw/component/BrushComponent.hpp"
-#include "wxdraw/node/Project.hpp"
+#include "wxdraw/node/ProjectNode.hpp"
 
 namespace wxdraw::node {
 /**
    デフォルトコンストラクタ
 */
-Project::Project()
+ProjectNode::ProjectNode()
   : super("Project")
 {
   appendComponent<BrushComponent>();

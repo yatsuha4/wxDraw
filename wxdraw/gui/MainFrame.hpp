@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "wxdraw/node/Node.hpp"
 
@@ -57,7 +57,7 @@ class MainFrame
   }
 
   void saveAs();
-  void saveProject(const ProjectPtr& project);
+  void saveProject(const ProjectNodePtr& project);
 
   bool submitCommand(wxCommand* command);
 };
