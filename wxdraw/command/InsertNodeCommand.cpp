@@ -1,4 +1,4 @@
-#include "wxdraw/command/InsertNode.hpp"
+#include "wxdraw/command/InsertNodeCommand.hpp"
 #include "wxdraw/gui/MainFrame.hpp"
 #include "wxdraw/node/Node.hpp"
 
@@ -6,10 +6,10 @@ namespace wxdraw::command {
 /**
    コンストラクタ
 */
-InsertNode::InsertNode(MainFrame* mainFrame, 
-                       const NodePtr& node, 
-                       const NodePtr& parent, 
-                       size_t index)
+InsertNodeCommand::InsertNodeCommand(MainFrame* mainFrame, 
+                                     const NodePtr& node, 
+                                     const NodePtr& parent, 
+                                     size_t index)
   : super("InsertNode", mainFrame), 
     node_(node), 
     parent_(parent), 
@@ -18,13 +18,13 @@ InsertNode::InsertNode(MainFrame* mainFrame,
 }
 /**
  */
-bool InsertNode::Do() {
+bool InsertNodeCommand::Do() {
   getMainFrame()->insertNode(node_, parent_, index_);
   return true;
 }
 /**
  */
-bool InsertNode::Undo() {
+bool InsertNodeCommand::Undo() {
   getMainFrame()->removeNode(node_);
   return true;
 }

@@ -66,7 +66,7 @@ WXDRAW_DECLARE_CLASS(Application);
 
 namespace command {
 WXDRAW_DECLARE_CLASS(Command);
-WXDRAW_DECLARE_CLASS(InsertNode);
+WXDRAW_DECLARE_CLASS(InsertNodeCommand);
 }
 using namespace command;
 

@@ -6,7 +6,7 @@ namespace wxdraw::command {
 /**
    ノードを挿入する
 */
-class InsertNode
+class InsertNodeCommand
   : public Command
 {
   using super = Command;
@@ -17,8 +17,11 @@ class InsertNode
   size_t index_;
 
  public:
-  InsertNode(MainFrame* mainFrame, const NodePtr& node, const NodePtr& parent, size_t index);
-  ~InsertNode() override = default;
+  InsertNodeCommand(MainFrame* mainFrame, 
+                    const NodePtr& node, 
+                    const NodePtr& parent, 
+                    size_t index);
+  ~InsertNodeCommand() override = default;
 
  protected:
   bool Do() override;

@@ -1,4 +1,4 @@
-#include "wxdraw/command/InsertNode.hpp"
+#include "wxdraw/command/InsertNodeCommand.hpp"
 #include "wxdraw/file/XmlExporter.hpp"
 #include "wxdraw/gui/Canvas.hpp"
 #include "wxdraw/gui/Inspector.hpp"
@@ -154,7 +154,7 @@ void MainFrame::onMenuEditAppend(wxMenuEvent& event) {
 void MainFrame::onSelectMenu(wxCommandEvent& event) {
   switch(event.GetId()) {
   case MENU_FILE_NEW:
-    submitCommand<InsertNode>(std::make_shared<ProjectNode>(), outliner_->getRootNode(), 0);
+    submitCommand<InsertNodeCommand>(std::make_shared<ProjectNode>(), outliner_->getRootNode(), 0);
     break;
   case MENU_FILE_OPEN:
     break;
@@ -167,13 +167,13 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
     Close();
     break;
   case MENU_EDIT_APPEND_LAYER:
-    submitCommand<InsertNode>(std::make_shared<LayerNode>(), getSelectNode(), 0);
+    submitCommand<InsertNodeCommand>(std::make_shared<LayerNode>(), getSelectNode(), 0);
     break;
   case MENU_EDIT_APPEND_RECTANGLE:
-    submitCommand<InsertNode>(std::make_shared<RectangleNode>(), getSelectNode(), 0);
+    submitCommand<InsertNodeCommand>(std::make_shared<RectangleNode>(), getSelectNode(), 0);
     break;
   case MENU_EDIT_APPEND_ELLIPSE:
-    submitCommand<InsertNode>(std::make_shared<EllipseNode>(), getSelectNode(), 0);
+    submitCommand<InsertNodeCommand>(std::make_shared<EllipseNode>(), getSelectNode(), 0);
     break;
   case MENU_WINDOW_PERSPECTIVE_RESET:
     SetSize(DEFAULT_SIZE);
