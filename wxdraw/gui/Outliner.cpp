@@ -36,7 +36,7 @@ void Outliner::insertNode(const NodePtr& node, const NodePtr& parent, size_t ind
   }
   else {
     auto prev = GetFirstChild(parent->getItem());
-    for(size_t i = 0; i < index; i++) {
+    for(size_t i = 1; i < index; i++) {
       prev = GetNextSibling(prev);
     }
     item = InsertItem(parent->getItem(), prev, node->getName());

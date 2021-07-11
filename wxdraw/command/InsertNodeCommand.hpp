@@ -19,6 +19,9 @@ class InsertNodeCommand
  public:
   InsertNodeCommand(MainFrame* mainFrame, 
                     const NodePtr& node, 
+                    const NodePtr& parent);
+  InsertNodeCommand(MainFrame* mainFrame, 
+                    const NodePtr& node, 
                     const NodePtr& parent, 
                     size_t index);
   ~InsertNodeCommand() override = default;

@@ -8,6 +8,15 @@ namespace wxdraw::command {
 */
 InsertNodeCommand::InsertNodeCommand(MainFrame* mainFrame, 
                                      const NodePtr& node, 
+                                     const NodePtr& parent)
+  : InsertNodeCommand(mainFrame, node, parent, parent->getChildren().size())
+{
+}
+/**
+   コンストラクタ
+*/
+InsertNodeCommand::InsertNodeCommand(MainFrame* mainFrame, 
+                                     const NodePtr& node, 
                                      const NodePtr& parent, 
                                      size_t index)
   : super("InsertNode", mainFrame), 
