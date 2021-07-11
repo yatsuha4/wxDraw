@@ -16,6 +16,9 @@ Canvas::Canvas(wxWindow* parent, MainFrame* mainFrame)
     zoom_(1.0)
 {
   SetDoubleBuffered(true);
+  Bind(wxEVT_RIGHT_DOWN, &Canvas::onRightDown, this);
+  Bind(wxEVT_MOTION, &Canvas::onMotion, this);
+  Bind(wxEVT_MOUSEWHEEL, &Canvas::onMouseWheel, this);
 }
 /**
    描画
@@ -39,5 +42,31 @@ void Canvas::OnDraw(wxDC& dc) {
     gc->StrokePath(path);
   }
   */
+}
+/**
+ */
+void Canvas::onRightDown(wxMouseEvent& event) {
+  mousePos_ = event.GetPosition();
+}
+/**
+ */
+void Canvas::onMotion(wxMouseEvent& event) {
+  auto pos = event.GetPosition();
+  if(event.RightIsDown()) {
+    offset_ += glm::dvec2(pos.x - mousePos_.x, pos.y - mousePos_.y);
+    Refresh();
+  }
+  mousePos_ = pos;
+}
+/**
+ */
+void Canvas::onMouseWheel(wxMouseEvent& event) {
+  if(event.GetWheelRotation() < 0) {
+    zoom_ *= 0.9;
+  }
+  else if(event.GetWheelRotation() > 0) {
+    zoom_ *= 1.1;
+  }
+  Refresh();
 }
 }

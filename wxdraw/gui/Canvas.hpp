@@ -13,6 +13,7 @@ class Canvas
   MainFrame* mainFrame_;
   glm::dvec2 offset_;
   double zoom_;
+  wxPoint mousePos_;
 
  public:
   Canvas(wxWindow* parent, MainFrame* mainFrame);
@@ -20,5 +21,10 @@ class Canvas
 
  protected:
   void OnDraw(wxDC& dc) override;
+
+ private:
+  void onRightDown(wxMouseEvent& event);
+  void onMotion(wxMouseEvent& event);
+  void onMouseWheel(wxMouseEvent& event);
 };
 }
