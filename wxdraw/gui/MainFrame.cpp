@@ -5,7 +5,7 @@
 #include "wxdraw/gui/MainFrame.hpp"
 #include "wxdraw/gui/Outliner.hpp"
 #include "wxdraw/node/EllipseNode.hpp"
-#include "wxdraw/node/Layer.hpp"
+#include "wxdraw/node/LayerNode.hpp"
 #include "wxdraw/node/Project.hpp"
 #include "wxdraw/node/RootNode.hpp"
 
@@ -69,13 +69,6 @@ void MainFrame::selectNode(const NodePtr& node) {
   selectNode_ = node;
   inspector_->show(node);
   canvas_->Refresh();
-}
-/**
-   コマンドを実行する
-   @param command コマンド
-*/
-bool MainFrame::submitCommand(wxCommand* command) {
-  return commandProcessor_.Submit(command);
 }
 /**
    ノードを挿入する
@@ -148,7 +141,7 @@ void MainFrame::setupMenuBar() {
  */
 void MainFrame::onMenuEditAppend(wxMenuEvent& event) {
   auto menu = event.GetMenu();
-  menu->Enable(MENU_EDIT_APPEND_LAYER, canAppendNode<Layer>());
+  menu->Enable(MENU_EDIT_APPEND_LAYER, canAppendNode<LayerNode>());
 }
 /**
    メニュー選択
@@ -157,7 +150,7 @@ void MainFrame::onMenuEditAppend(wxMenuEvent& event) {
 void MainFrame::onSelectMenu(wxCommandEvent& event) {
   switch(event.GetId()) {
   case MENU_FILE_NEW:
-    submitCommand(new InsertNode(this, std::make_shared<Project>(), outliner_->getRootNode(), 0));
+    submitCommand<InsertNode>(std::make_shared<Project>(), outliner_->getRootNode(), 0);
     break;
   case MENU_FILE_OPEN:
     break;
@@ -169,8 +162,11 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
   case MENU_FILE_QUIT:
     Close();
     break;
+  case MENU_EDIT_APPEND_LAYER:
+    submitCommand<InsertNode>(std::make_shared<LayerNode>(), getSelectNode(), 0);
+    break;
   case MENU_EDIT_APPEND_ELLIPSE:
-    submitCommand(new InsertNode(this, std::make_shared<EllipseNode>(), getSelectNode(), 0));
+    submitCommand<InsertNode>(std::make_shared<EllipseNode>(), getSelectNode(), 0);
     break;
   case MENU_WINDOW_PERSPECTIVE_RESET:
     SetSize(DEFAULT_SIZE);
@@ -202,5 +198,12 @@ void MainFrame::saveProject(const ProjectPtr& project) {
   XmlExporter exporter(project);
   wxFileOutputStream output(project->getFileName().GetFullPath());
   exporter.save(output);
+}
+/**
+   コマンドを実行する
+   @param command コマンド
+*/
+bool MainFrame::submitCommand(wxCommand* command) {
+  return commandProcessor_.Submit(command);
 }
 }

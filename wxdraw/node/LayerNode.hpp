@@ -6,19 +6,13 @@ namespace wxdraw::node {
 /**
    レイヤー
 */
-class Layer
+class LayerNode
   : public Node
 {
   using super = Node;
 
- private:
-  double opacity_;
-
  public:
-  Layer();
-  ~Layer() override = default;
-
- protected:
-  void render(Renderer& renderer) override;
+  LayerNode();
+  ~LayerNode() override = default;
 };
 }

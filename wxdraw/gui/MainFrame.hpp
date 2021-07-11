@@ -34,7 +34,10 @@ class MainFrame
   void selectNode(const NodePtr& node);
   WXDRAW_GETTER(SelectNode, selectNode_);
 
-  bool submitCommand(wxCommand* command);
+  template<class CommandType, class... Args>
+  bool submitCommand(Args&&... args) {
+    return submitCommand(new CommandType(this, args...));
+  }
 
   void insertNode(const NodePtr& node, const NodePtr& parent, size_t index);
   void removeNode(const NodePtr& node);
@@ -52,5 +55,7 @@ class MainFrame
 
   void saveAs();
   void saveProject(const ProjectPtr& project);
+
+  bool submitCommand(wxCommand* command);
 };
 }

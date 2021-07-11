@@ -48,10 +48,8 @@ class Inspector
   template<class T>
   bool doChange(const wxPropertyGridEvent& event, MemberBase* member) {
     if(auto m = dynamic_cast<Member<T>*>(member)) {
-      auto command = 
-        new ChangePropertyCommand<T>(mainFrame_, node_, m->getValue(), 
-                                     wxAny(event.GetValue()).As<T>());
-      mainFrame_->submitCommand(command);
+      mainFrame_->submitCommand<ChangePropertyCommand<T>>(node_, m->getValue(), 
+                                                          wxAny(event.GetValue()).As<T>());
       return true;
     }
     return false;
