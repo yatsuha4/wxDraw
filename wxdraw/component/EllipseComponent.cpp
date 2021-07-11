@@ -20,4 +20,3 @@ void EllipseComponent::onRender(Renderer& renderer) {
   }
 }
 }
-

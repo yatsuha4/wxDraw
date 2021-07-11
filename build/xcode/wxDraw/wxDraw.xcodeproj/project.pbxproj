@@ -39,6 +39,8 @@
 		26CB132A269A537B0025ACDD /* XmlExporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26CB1328269A537B0025ACDD /* XmlExporter.cpp */; };
 		26CB132C269A54140025ACDD /* libexpat.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 26CB132B269A54140025ACDD /* libexpat.tbd */; };
 		26CB132F269A91030025ACDD /* LayerComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26CB132E269A91030025ACDD /* LayerComponent.cpp */; };
+		26CB1333269A9A8B0025ACDD /* RectangleComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26CB1331269A9A8B0025ACDD /* RectangleComponent.cpp */; };
+		26CB1336269A9A990025ACDD /* RectangleNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26CB1334269A9A990025ACDD /* RectangleNode.cpp */; };
 		26D19709267620B400F9D057 /* InsertNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26D19708267620B400F9D057 /* InsertNode.cpp */; };
 		26F5A91D2670C5CD009B0657 /* Project.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26F5A91B2670C5CD009B0657 /* Project.cpp */; };
 		26F5A9202673111B009B0657 /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26F5A91E2673111B009B0657 /* Renderer.cpp */; };
@@ -104,6 +106,10 @@
 		26CB132D269A91030025ACDD /* LayerComponent.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LayerComponent.hpp; sourceTree = "<group>"; };
 		26CB132E269A91030025ACDD /* LayerComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LayerComponent.cpp; sourceTree = "<group>"; };
 		26CB1330269A94DA0025ACDD /* ChangePropertyCommand.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ChangePropertyCommand.hpp; sourceTree = "<group>"; };
+		26CB1331269A9A8B0025ACDD /* RectangleComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RectangleComponent.cpp; sourceTree = "<group>"; };
+		26CB1332269A9A8B0025ACDD /* RectangleComponent.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RectangleComponent.hpp; sourceTree = "<group>"; };
+		26CB1334269A9A990025ACDD /* RectangleNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RectangleNode.cpp; sourceTree = "<group>"; };
+		26CB1335269A9A990025ACDD /* RectangleNode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RectangleNode.hpp; sourceTree = "<group>"; };
 		26D19707267620B400F9D057 /* InsertNode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = InsertNode.hpp; sourceTree = "<group>"; };
 		26D19708267620B400F9D057 /* InsertNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InsertNode.cpp; sourceTree = "<group>"; };
 		26F5A91B2670C5CD009B0657 /* Project.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Project.cpp; sourceTree = "<group>"; };
@@ -164,6 +170,8 @@
 				2605A57C26471B1400FD3DF0 /* Node.hpp */,
 				26F5A91B2670C5CD009B0657 /* Project.cpp */,
 				26F5A91C2670C5CD009B0657 /* Project.hpp */,
+				26CB1334269A9A990025ACDD /* RectangleNode.cpp */,
+				26CB1335269A9A990025ACDD /* RectangleNode.hpp */,
 				263EA10F268F502C003B100A /* RootNode.cpp */,
 				263EA10E268F502C003B100A /* RootNode.hpp */,
 			);
@@ -258,6 +266,8 @@
 				26CB132D269A91030025ACDD /* LayerComponent.hpp */,
 				26BA73D026990D3C001F3C5D /* LayoutComponent.cpp */,
 				26BA73CF26990D3C001F3C5D /* LayoutComponent.hpp */,
+				26CB1331269A9A8B0025ACDD /* RectangleComponent.cpp */,
+				26CB1332269A9A8B0025ACDD /* RectangleComponent.hpp */,
 			);
 			path = component;
 			sourceTree = "<group>";
@@ -385,6 +395,8 @@
 				2605A588264A312F00FD3DF0 /* MainFrame.cpp in Sources */,
 				26F5A91D2670C5CD009B0657 /* Project.cpp in Sources */,
 				2605A57E264826ED00FD3DF0 /* Node.cpp in Sources */,
+				26CB1336269A9A990025ACDD /* RectangleNode.cpp in Sources */,
+				26CB1333269A9A8B0025ACDD /* RectangleComponent.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

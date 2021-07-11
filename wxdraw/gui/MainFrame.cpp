@@ -7,6 +7,7 @@
 #include "wxdraw/node/EllipseNode.hpp"
 #include "wxdraw/node/LayerNode.hpp"
 #include "wxdraw/node/Project.hpp"
+#include "wxdraw/node/RectangleNode.hpp"
 #include "wxdraw/node/RootNode.hpp"
 
 namespace wxdraw::gui {
@@ -143,6 +144,7 @@ void MainFrame::setupMenuBar() {
 void MainFrame::onMenuEditAppend(wxMenuEvent& event) {
   auto menu = event.GetMenu();
   menu->Enable(MENU_EDIT_APPEND_LAYER, canAppendNode<LayerNode>());
+  menu->Enable(MENU_EDIT_APPEND_RECTANGLE, canAppendNode<RectangleNode>());
   menu->Enable(MENU_EDIT_APPEND_ELLIPSE, canAppendNode<EllipseNode>());
 }
 /**
@@ -166,6 +168,9 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
     break;
   case MENU_EDIT_APPEND_LAYER:
     submitCommand<InsertNode>(std::make_shared<LayerNode>(), getSelectNode(), 0);
+    break;
+  case MENU_EDIT_APPEND_RECTANGLE:
+    submitCommand<InsertNode>(std::make_shared<RectangleNode>(), getSelectNode(), 0);
     break;
   case MENU_EDIT_APPEND_ELLIPSE:
     submitCommand<InsertNode>(std::make_shared<EllipseNode>(), getSelectNode(), 0);
