@@ -11,6 +11,9 @@ class RectangleComponent
 {
   using super = Component;
 
+ public:
+  static const char* TYPE;
+
  private:
   double round_;
 

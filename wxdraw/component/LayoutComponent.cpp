@@ -3,12 +3,13 @@
 #include "wxdraw/node/Node.hpp"
 
 namespace wxdraw::component {
+const char* LayoutComponent::TYPE = "Layout";
 /**
    コンストラクタ
    @param node ノード
 */
 LayoutComponent::LayoutComponent(Node& node)
-  : super("LayoutComponent", node), 
+  : super(TYPE, node), 
     size_(glm::dvec2(0.0), glm::dvec2(100.0)), 
     pos_(glm::dvec2(0.5), glm::dvec2(0.0)), 
     alignment_(0.5), 

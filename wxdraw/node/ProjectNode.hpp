@@ -11,6 +11,9 @@ class ProjectNode
 {
   using super = Node;
 
+ public:
+  static const char* TYPE;
+
  private:
   wxFileName fileName_;
 

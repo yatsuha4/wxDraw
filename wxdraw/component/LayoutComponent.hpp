@@ -12,6 +12,9 @@ class LayoutComponent
 {
   using super = Component;
 
+ public:
+  static const char* TYPE;
+
  private:
   Layout size_;
   Layout pos_;

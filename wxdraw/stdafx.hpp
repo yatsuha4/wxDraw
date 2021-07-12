@@ -18,6 +18,7 @@
 #include <wx/wx.h>
 #include <wx/aui/aui.h>
 #include <wx/cmdproc.h>
+#include <wx/numformatter.h>
 #include <wx/propgrid/advprops.h>
 #include <wx/propgrid/propgrid.h>
 #include <wx/treelist.h>
@@ -90,6 +91,7 @@ namespace file {
 WXDRAW_DECLARE_CLASS(Exporter);
 WXDRAW_DECLARE_CLASS(Importer);
 WXDRAW_DECLARE_CLASS(XmlExporter);
+WXDRAW_DECLARE_CLASS(XmlImporter);
 }
 using namespace file;
 

@@ -2,11 +2,12 @@
 #include "wxdraw/gui/Renderer.hpp"
 
 namespace wxdraw::component {
+const char* BrushComponent::TYPE = "Brush";
 /**
    コンストラクタ
 */
 BrushComponent::BrushComponent(Node& node)
-  : super("BrushComponent", node), 
+  : super(TYPE, node), 
     color_(*wxWHITE), 
     brush_(color_)
 {

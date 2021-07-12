@@ -11,6 +11,9 @@ class RectangleNode
   using super = Node;
 
  public:
+  static const char* TYPE;
+
+ public:
   RectangleNode();
   ~RectangleNode() override = default;
 };

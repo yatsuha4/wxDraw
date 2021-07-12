@@ -43,6 +43,9 @@ void Outliner::insertNode(const NodePtr& node, const NodePtr& parent, size_t ind
   }
   SetItemData(item, new ClientData(node));
   node->setItem(item);
+  for(size_t i = 0; i < node->getChildren().size(); i++) {
+    insertNode(node->getChildren().at(i), node, i);
+  }
 }
 /**
  */

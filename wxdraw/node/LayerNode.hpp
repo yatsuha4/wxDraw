@@ -12,6 +12,9 @@ class LayerNode
   using super = Node;
 
  public:
+  static const char* TYPE;
+
+ public:
   LayerNode();
   ~LayerNode() override = default;
 };

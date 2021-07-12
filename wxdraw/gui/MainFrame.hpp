@@ -56,6 +56,7 @@ class MainFrame
     return false;
   }
 
+  void open();
   void saveAs();
   void saveProject(const ProjectNodePtr& project);
 

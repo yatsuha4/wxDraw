@@ -2,11 +2,12 @@
 #include "wxdraw/gui/Renderer.hpp"
 
 namespace wxdraw::component {
+const char* LayerComponent::TYPE = "Layer";
 /**
    コンストラクタ
 */
 LayerComponent::LayerComponent(Node& node)
-  : super("LayerComponent", node), 
+  : super(TYPE, node), 
     opacity_(1.0), 
     clip_(false)
 {

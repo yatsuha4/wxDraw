@@ -10,6 +10,9 @@ class BrushComponent
 {
   using super = Component;
 
+ public:
+  static const char* TYPE;
+
  private:
   wxColour color_;
   wxBrush brush_;

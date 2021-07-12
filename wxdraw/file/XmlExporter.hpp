@@ -20,8 +20,13 @@ class XmlExporter
 
   bool save(wxOutputStream& output) override;
 
+  static wxString ToString(int value);
+  static wxString ToString(double value);
+  static wxString ToString(bool value);
+
  private:
   wxXmlNode* parse(const NodePtr& node);
   wxXmlNode* parse(const Property& property);
+  static wxString GetValue(const MemberBasePtr& member);
 };
 }

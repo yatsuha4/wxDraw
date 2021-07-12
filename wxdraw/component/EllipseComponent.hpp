@@ -11,6 +11,9 @@ class EllipseComponent
   using super = Component;
 
  public:
+  static const char* TYPE;
+
+ public:
   EllipseComponent(Node& node);
   ~EllipseComponent() override = default;
 

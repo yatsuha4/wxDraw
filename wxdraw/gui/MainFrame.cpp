@@ -1,5 +1,6 @@
 #include "wxdraw/command/InsertNodeCommand.hpp"
 #include "wxdraw/file/XmlExporter.hpp"
+#include "wxdraw/file/XmlImporter.hpp"
 #include "wxdraw/gui/Canvas.hpp"
 #include "wxdraw/gui/Inspector.hpp"
 #include "wxdraw/gui/MainFrame.hpp"
@@ -157,6 +158,7 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
     submitCommand<InsertNodeCommand>(std::make_shared<ProjectNode>(), outliner_->getRootNode());
     break;
   case MENU_FILE_OPEN:
+    open();
     break;
   case MENU_FILE_SAVE:
     break;
@@ -181,6 +183,19 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
     break;
   default:
     break;
+  }
+}
+/**
+   開く
+*/
+void MainFrame::open() {
+  wxFileDialog dialog(this, wxFileSelectorPromptStr, wxEmptyString, wxEmptyString, 
+                      "*.wxdraw", wxFD_OPEN | wxFD_FILE_MUST_EXIST);
+  if(dialog.ShowModal() == wxID_OK) {
+    XmlImporter importer(dialog.GetPath());
+    if(auto project = importer.load()) {
+      submitCommand<InsertNodeCommand>(project, outliner_->getRootNode());
+    }
   }
 }
 /**

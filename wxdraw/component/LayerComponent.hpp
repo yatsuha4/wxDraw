@@ -10,6 +10,9 @@ class LayerComponent
 {
   using super = Component;
 
+ public:
+  static const char* TYPE;
+
  private:
   double opacity_;
   bool clip_;

@@ -4,11 +4,12 @@
 #include "wxdraw/node/Node.hpp"
 
 namespace wxdraw::component {
+const char* RectangleComponent::TYPE = "Rectangle";
 /**
    コンストラクタ
 */
 RectangleComponent::RectangleComponent(Node& node)
-  : super("RectangleComponent", node), 
+  : super(TYPE, node), 
     round_(0.0)
 {
   appendMember("Round", round_);

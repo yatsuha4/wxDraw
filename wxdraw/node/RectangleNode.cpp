@@ -2,11 +2,12 @@
 #include "wxdraw/node/RectangleNode.hpp"
 
 namespace wxdraw::node {
+const char* RectangleNode::TYPE = "Rectangle";
 /**
    コンストラクタ
 */
 RectangleNode::RectangleNode()
-  : super("Rectangle")
+  : super(TYPE)
 {
   appendComponent<RectangleComponent>();
 }

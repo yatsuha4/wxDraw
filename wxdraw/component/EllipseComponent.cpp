@@ -4,11 +4,12 @@
 #include "wxdraw/node/Node.hpp"
 
 namespace wxdraw::component {
+const char* EllipseComponent::TYPE = "Ellipse";
 /**
    コンストラクタ
 */
 EllipseComponent::EllipseComponent(Node& node)
-  : super("EllipseComponent", node)
+  : super(TYPE, node)
 {
 }
 /**

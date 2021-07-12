@@ -2,11 +2,12 @@
 #include "wxdraw/node/ProjectNode.hpp"
 
 namespace wxdraw::node {
+const char* ProjectNode::TYPE = "Project";
 /**
    デフォルトコンストラクタ
 */
 ProjectNode::ProjectNode()
-  : super("Project")
+  : super(TYPE)
 {
   appendComponent<BrushComponent>();
 }

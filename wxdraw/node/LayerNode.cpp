@@ -2,10 +2,11 @@
 #include "wxdraw/component/LayerComponent.hpp"
 
 namespace wxdraw::node {
+const char* LayerNode::TYPE = "Layer";
 /**
  */
 LayerNode::LayerNode()
-  : super("Layer")
+  : super(TYPE)
 {
   appendComponent<LayerComponent>();
 }
