@@ -88,6 +88,7 @@ using namespace container;
 
 namespace file {
 WXDRAW_DECLARE_CLASS(Exporter);
+WXDRAW_DECLARE_CLASS(Importer);
 WXDRAW_DECLARE_CLASS(XmlExporter);
 }
 using namespace file;

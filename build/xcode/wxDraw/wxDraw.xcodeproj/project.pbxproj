@@ -15,6 +15,7 @@
 		2605A587264A312F00FD3DF0 /* Canvas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2605A583264A312F00FD3DF0 /* Canvas.cpp */; };
 		2605A588264A312F00FD3DF0 /* MainFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2605A584264A312F00FD3DF0 /* MainFrame.cpp */; };
 		2605A58B264A35A100FD3DF0 /* Outliner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2605A589264A35A100FD3DF0 /* Outliner.cpp */; };
+		260BBF08269C3F3D0041BD06 /* Importer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 260BBF06269C3F3C0041BD06 /* Importer.cpp */; };
 		263EA110268F502C003B100A /* RootNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 263EA10F268F502C003B100A /* RootNode.cpp */; };
 		263EA113268F524E003B100A /* Command.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 263EA111268F524E003B100A /* Command.cpp */; };
 		265FCA3E214ACD3100398B40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 265FCA3D214ACD3100398B40 /* Assets.xcassets */; };
@@ -62,6 +63,8 @@
 		2605A586264A312F00FD3DF0 /* Canvas.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Canvas.hpp; sourceTree = "<group>"; };
 		2605A589264A35A100FD3DF0 /* Outliner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Outliner.cpp; sourceTree = "<group>"; };
 		2605A58A264A35A100FD3DF0 /* Outliner.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Outliner.hpp; sourceTree = "<group>"; };
+		260BBF06269C3F3C0041BD06 /* Importer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Importer.cpp; sourceTree = "<group>"; };
+		260BBF07269C3F3D0041BD06 /* Importer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Importer.hpp; sourceTree = "<group>"; };
 		263EA10E268F502C003B100A /* RootNode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RootNode.hpp; sourceTree = "<group>"; };
 		263EA10F268F502C003B100A /* RootNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RootNode.cpp; sourceTree = "<group>"; };
 		263EA111268F524E003B100A /* Command.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Command.cpp; sourceTree = "<group>"; };
@@ -286,6 +289,8 @@
 			children = (
 				26CB1325269A524E0025ACDD /* Exporter.cpp */,
 				26CB1326269A524E0025ACDD /* Exporter.hpp */,
+				260BBF06269C3F3C0041BD06 /* Importer.cpp */,
+				260BBF07269C3F3D0041BD06 /* Importer.hpp */,
 				26CB1328269A537B0025ACDD /* XmlExporter.cpp */,
 				26CB1329269A537B0025ACDD /* XmlExporter.hpp */,
 			);
@@ -385,6 +390,7 @@
 				2605A587264A312F00FD3DF0 /* Canvas.cpp in Sources */,
 				2605A58B264A35A100FD3DF0 /* Outliner.cpp in Sources */,
 				26CB133C269B72470025ACDD /* InsertNodeCommand.cpp in Sources */,
+				260BBF08269C3F3D0041BD06 /* Importer.cpp in Sources */,
 				2605A5812648698E00FD3DF0 /* LayerNode.cpp in Sources */,
 				2605A579264564DB00FD3DF0 /* Application.cpp in Sources */,
 				26CB1339269B71380025ACDD /* ProjectNode.cpp in Sources */,
