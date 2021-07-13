@@ -9,6 +9,7 @@ const char* ProjectNode::TYPE = "Project";
 ProjectNode::ProjectNode()
   : super(TYPE)
 {
+  setContainer(true);
   appendComponent<BrushComponent>();
 }
 }

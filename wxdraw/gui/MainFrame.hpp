@@ -51,16 +51,21 @@ class MainFrame
 
   template<class T>
   bool canAppendNode() const {
-    if(auto node = getSelectNode()) {
-      return node->canAppend(typeid(T));
-    }
-    return false;
+    return getAppendParent(typeid(T)) != nullptr;
   }
+
+  NodePtr getAppendParent(const std::type_info& type) const;
 
   void open();
   void saveAs();
   void saveProject(const ProjectNodePtr& project);
 
   bool submitCommand(wxCommand* command);
+
+  template<class T>
+  bool appendNode() {
+    return submitCommand<InsertNodeCommand>(std::make_shared<T>(), 
+                                            getAppendParent(typeid(T)));
+  }
 };
 }

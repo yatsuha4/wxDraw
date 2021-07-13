@@ -8,6 +8,7 @@ const char* LayerNode::TYPE = "Layer";
 LayerNode::LayerNode()
   : super(TYPE)
 {
+  setContainer(true);
   appendComponent<LayerComponent>();
 }
 }

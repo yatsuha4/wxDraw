@@ -181,13 +181,13 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
     Close();
     break;
   case MENU_EDIT_APPEND_LAYER:
-    submitCommand<InsertNodeCommand>(std::make_shared<LayerNode>(), getSelectNode());
+    appendNode<LayerNode>();
     break;
   case MENU_EDIT_APPEND_RECTANGLE:
-    submitCommand<InsertNodeCommand>(std::make_shared<RectangleNode>(), getSelectNode());
+    appendNode<RectangleNode>();
     break;
   case MENU_EDIT_APPEND_ELLIPSE:
-    submitCommand<InsertNodeCommand>(std::make_shared<EllipseNode>(), getSelectNode());
+    appendNode<EllipseNode>();
     break;
   case MENU_EDIT_REMOVE:
     submitCommand<RemoveNodeCommand>(getSelectNode());
@@ -199,6 +199,16 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
   default:
     break;
   }
+}
+/**
+ */
+NodePtr MainFrame::getAppendParent(const std::type_info& type) const {
+  for(auto node = getSelectNode(); node; node = node->getParent()) {
+    if(node->canAppend(type)) {
+      return node;
+    }
+  }
+  return nullptr;
 }
 /**
    開く

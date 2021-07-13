@@ -70,7 +70,7 @@ void Node::render(Renderer& renderer) {
 /**
  */
 bool Node::canAppend(const std::type_info& type) const {
-  return true;
+  return container_;
 }
 /**
    コンストラクタ
@@ -79,10 +79,12 @@ bool Node::canAppend(const std::type_info& type) const {
 Node::Node(const std::string& name)
   : super(name), 
     label_(name), 
-    show_(true)
+    show_(true), 
+    container_(false)
 {
   appendMember("Label", label_);
   appendMember("Show", show_);
+  appendMember("Container", container_);
   appendComponent<LayoutComponent>();
 }
 /**
