@@ -1,46 +1,28 @@
 ﻿#pragma once
 
-#include "wxdraw/property/Property.hpp"
+#include "wxdraw/component/ComponentBase.hpp"
 
 namespace wxdraw::component {
 /**
-   コンポーネント基底クラス
+   コンポーネント基底クラステンプレート
 */
+template<class T>
 class Component
-  : public Property
+  : public ComponentBase
 {
-  using super = Property;
-
- private:
-  Node& node_;
+  using super = ComponentBase;
 
  public:
-  Component(const Component& src, Node& node);
-  virtual ~Component() = default;
+  Component(const std::string& name, Node& node)
+    : super(name, node)
+  {}
+  Component(const Component& src, Node& node)
+    : super(src, node)
+  {}
+  ~Component() override = default;
 
-  Node& getNode() const {
-    return node_;
+  ComponentBasePtr clone(Node& node) const override {
+    return std::make_shared<T>(static_cast<const T&>(*this), node);
   }
-
-  void beginUpdate();
-  void update();
-  void endUpdate();
-
-  void beginRender(Renderer& renderer);
-  void render(Renderer& renderer);
-  void endRender(Renderer& renderer);
-
-  virtual ComponentPtr clone(Node& node) const;
-
- protected:
-  Component(const std::string& name, Node& node);
-
-  virtual void onBeginUpdate() {}
-  virtual void onUpdate() {}
-  virtual void onEndUpdate() {}
-
-  virtual void onBeginRender(Renderer& renderer) {}
-  virtual void onRender(Renderer& renderer) {}
-  virtual void onEndRender(Renderer& renderer) {}
 };
 }

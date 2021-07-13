@@ -39,11 +39,6 @@ LayoutComponent::LayoutComponent(const LayoutComponent& src, Node& node)
 }
 /**
  */
-ComponentPtr LayoutComponent::clone(Node& node) const {
-  return std::make_shared<LayoutComponent>(*this, node);
-}
-/**
- */
 void LayoutComponent::onUpdate() {
   glm::dmat3 m(1.0);
   if(auto parent = getParent()) {

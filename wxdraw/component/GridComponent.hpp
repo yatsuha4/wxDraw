@@ -7,9 +7,9 @@ namespace wxdraw::component {
    グリッド
 */
 class GridComponent
-  : public Component
+  : public Component<GridComponent>
 {
-  using super = Component;
+  using super = Component<GridComponent>;
 
  public:
   static const char* TYPE;
@@ -27,8 +27,6 @@ class GridComponent
   GridComponent(Node& node);
   GridComponent(const GridComponent& src, Node& node);
   ~GridComponent() override = default;
-
-  ComponentPtr clone(Node& node) const override;
 
  protected:
   void onUpdate() override;

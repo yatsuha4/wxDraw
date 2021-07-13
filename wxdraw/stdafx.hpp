@@ -73,7 +73,7 @@ using namespace command;
 
 namespace component {
 WXDRAW_DECLARE_CLASS(BrushComponent);
-WXDRAW_DECLARE_CLASS(Component);
+WXDRAW_DECLARE_CLASS(ComponentBase);
 WXDRAW_DECLARE_CLASS(EllipseComponent);
 WXDRAW_DECLARE_CLASS(GridComponent);
 WXDRAW_DECLARE_CLASS(LayerComponent);

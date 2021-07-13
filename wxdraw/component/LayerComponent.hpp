@@ -6,9 +6,9 @@ namespace wxdraw::component {
 /**
  */
 class LayerComponent
-  : public Component
+  : public Component<LayerComponent>
 {
-  using super = Component;
+  using super = Component<LayerComponent>;
 
  public:
   static const char* TYPE;
@@ -21,8 +21,6 @@ class LayerComponent
   LayerComponent(Node& node);
   LayerComponent(const LayerComponent& src, Node& node);
   ~LayerComponent() override = default;
-
-  ComponentPtr clone(Node& node) const override;
 
  protected:
   void onBeginRender(Renderer& renderer) override;

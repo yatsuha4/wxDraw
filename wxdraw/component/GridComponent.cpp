@@ -37,11 +37,6 @@ GridComponent::GridComponent(const GridComponent& src, Node& node)
 }
 /**
  */
-ComponentPtr GridComponent::clone(Node& node) const {
-  return std::make_shared<GridComponent>(*this, node);
-}
-/**
- */
 void GridComponent::onUpdate() {
   pen_.Colour(color_).Width(width_);
 }

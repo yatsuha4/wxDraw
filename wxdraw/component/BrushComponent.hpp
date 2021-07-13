@@ -6,9 +6,9 @@ namespace wxdraw::component {
 /**
  */
 class BrushComponent
-  : public Component
+  : public Component<BrushComponent>
 {
-  using super = Component;
+  using super = Component<BrushComponent>;
 
  public:
   static const char* TYPE;
@@ -23,8 +23,6 @@ class BrushComponent
   ~BrushComponent() override = default;
 
   WXDRAW_GETTER(Brush, brush_);
-
-  ComponentPtr clone(Node& node) const override;
 
  protected:
   void onUpdate() override;

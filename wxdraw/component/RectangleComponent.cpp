@@ -25,11 +25,6 @@ RectangleComponent::RectangleComponent(const RectangleComponent& src, Node& node
 }
 /**
  */
-ComponentPtr RectangleComponent::clone(Node& node) const {
-  return std::make_shared<RectangleComponent>(*this, node);
-}
-/**
- */
 void RectangleComponent::onRender(Renderer& renderer) {
   auto& context = renderer.getContext();
   if(auto layout = getNode().getComponent<LayoutComponent>()) {

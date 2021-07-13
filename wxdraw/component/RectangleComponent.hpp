@@ -7,9 +7,9 @@ namespace wxdraw::component {
    矩形
 */
 class RectangleComponent
-  : public Component
+  : public Component<RectangleComponent>
 {
-  using super = Component;
+  using super = Component<RectangleComponent>;
 
  public:
   static const char* TYPE;
@@ -21,8 +21,6 @@ class RectangleComponent
   RectangleComponent(Node& node);
   RectangleComponent(const RectangleComponent& src, Node& node);
   ~RectangleComponent() override = default;
-
-  ComponentPtr clone(Node& node) const override;
 
  protected:
   void onRender(Renderer& renderer) override;

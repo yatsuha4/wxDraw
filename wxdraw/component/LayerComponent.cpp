@@ -25,11 +25,6 @@ LayerComponent::LayerComponent(const LayerComponent& src, Node& node)
 }
 /**
  */
-ComponentPtr LayerComponent::clone(Node& node) const {
-  return std::make_shared<LayerComponent>(*this, node);
-}
-/**
- */
 void LayerComponent::onBeginRender(Renderer& renderer) {
   auto& context = renderer.getContext();
   context.PushState();

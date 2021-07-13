@@ -143,14 +143,14 @@ void Node::setup() {
    コンポーネントを追加する
    @param component 追加するコンポーネント
 */
-void Node::appendComponent(const ComponentPtr& component) {
+void Node::appendComponent(const ComponentBasePtr& component) {
   components_.push_back(component);
 }
 /**
    コンポーネントを削除する
    @param component 削除するコンポーネント
 */
-void Node::removeComponent(const ComponentPtr& component) {
+void Node::removeComponent(const ComponentBasePtr& component) {
   components_.erase(std::remove(components_.begin(), components_.end(), component));
 }
 }

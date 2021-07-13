@@ -1,4 +1,4 @@
-#include "wxdraw/component/Component.hpp"
+#include "wxdraw/component/ComponentBase.hpp"
 #include "wxdraw/file/XmlExporter.hpp"
 #include "wxdraw/node/Node.hpp"
 #include "wxdraw/property/Member.hpp"

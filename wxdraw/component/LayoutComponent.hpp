@@ -8,9 +8,9 @@ namespace wxdraw::component {
 /**
  */
 class LayoutComponent
-  : public Component
+  : public Component<LayoutComponent>
 {
-  using super = Component;
+  using super = Component<LayoutComponent>;
 
  public:
   static const char* TYPE;
@@ -37,8 +37,6 @@ class LayoutComponent
 
   WXDRAW_GETTER(Matrix, matrix_);
   WXDRAW_GETTER(Rect, rect_);
-
-  ComponentPtr clone(Node& node) const override;
 
  protected:
   void onUpdate() override;

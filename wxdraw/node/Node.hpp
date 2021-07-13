@@ -14,7 +14,7 @@ class Node
  private:
   std::weak_ptr<Node> parent_;
   std::vector<NodePtr> children_;
-  std::vector<ComponentPtr> components_;
+  std::vector<ComponentBasePtr> components_;
   std::string label_;
   bool show_;
   bool container_;
@@ -92,7 +92,7 @@ class Node
  private:
   void setup();
 
-  void appendComponent(const ComponentPtr& component);
-  void removeComponent(const ComponentPtr& component);
+  void appendComponent(const ComponentBasePtr& component);
+  void removeComponent(const ComponentBasePtr& component);
 };
 }

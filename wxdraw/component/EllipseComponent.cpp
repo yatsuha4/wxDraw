@@ -21,11 +21,6 @@ EllipseComponent::EllipseComponent(const EllipseComponent& src, Node& node)
 }
 /**
  */
-ComponentPtr EllipseComponent::clone(Node& node) const {
-  return std::make_shared<EllipseComponent>(*this, node);
-}
-/**
- */
 void EllipseComponent::onRender(Renderer& renderer) {
   if(auto layout = getNode().getComponent<LayoutComponent>()) {
     auto& rect = layout->getRect();

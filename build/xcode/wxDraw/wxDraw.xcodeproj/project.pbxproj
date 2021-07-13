@@ -18,6 +18,7 @@
 		260BBF0B269C45D40041BD06 /* XmlImporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 260BBF0A269C45D40041BD06 /* XmlImporter.cpp */; };
 		260BBF0E269D17340041BD06 /* RemoveNodeCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 260BBF0D269D17340041BD06 /* RemoveNodeCommand.cpp */; };
 		260BBF11269D32F00041BD06 /* GridComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 260BBF10269D32F00041BD06 /* GridComponent.cpp */; };
+		260BBF14269E50800041BD06 /* ComponentBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 260BBF12269E50800041BD06 /* ComponentBase.cpp */; };
 		263EA110268F502C003B100A /* RootNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 263EA10F268F502C003B100A /* RootNode.cpp */; };
 		263EA113268F524E003B100A /* Command.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 263EA111268F524E003B100A /* Command.cpp */; };
 		265FCA3E214ACD3100398B40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 265FCA3D214ACD3100398B40 /* Assets.xcassets */; };
@@ -33,7 +34,6 @@
 		266A37A426684E1A00EA192B /* Inspector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 266A37A326684E1A00EA192B /* Inspector.cpp */; };
 		266A37AA2669D79600EA192B /* MemberBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 266A37A92669D79600EA192B /* MemberBase.cpp */; };
 		266A37AC2669D80000EA192B /* Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 266A37AB2669D80000EA192B /* Property.cpp */; };
-		26BA73CD26987D20001F3C5D /* Component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26BA73CA26987D20001F3C5D /* Component.cpp */; };
 		26BA73CE26987D20001F3C5D /* BrushComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26BA73CC26987D20001F3C5D /* BrushComponent.cpp */; };
 		26BA73D126990D3C001F3C5D /* LayoutComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26BA73D026990D3C001F3C5D /* LayoutComponent.cpp */; };
 		26BA73D426991A64001F3C5D /* EllipseComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26BA73D226991A64001F3C5D /* EllipseComponent.cpp */; };
@@ -72,6 +72,9 @@
 		260BBF0D269D17340041BD06 /* RemoveNodeCommand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RemoveNodeCommand.cpp; sourceTree = "<group>"; };
 		260BBF0F269D32F00041BD06 /* GridComponent.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GridComponent.hpp; sourceTree = "<group>"; };
 		260BBF10269D32F00041BD06 /* GridComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GridComponent.cpp; sourceTree = "<group>"; };
+		260BBF12269E50800041BD06 /* ComponentBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ComponentBase.cpp; sourceTree = "<group>"; };
+		260BBF13269E50800041BD06 /* ComponentBase.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ComponentBase.hpp; sourceTree = "<group>"; };
+		260BBF15269E51B80041BD06 /* Component.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Component.hpp; sourceTree = "<group>"; };
 		263EA10E268F502C003B100A /* RootNode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RootNode.hpp; sourceTree = "<group>"; };
 		263EA10F268F502C003B100A /* RootNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RootNode.cpp; sourceTree = "<group>"; };
 		263EA111268F524E003B100A /* Command.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Command.cpp; sourceTree = "<group>"; };
@@ -97,8 +100,6 @@
 		266A37A92669D79600EA192B /* MemberBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MemberBase.cpp; sourceTree = "<group>"; };
 		266A37AB2669D80000EA192B /* Property.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Property.cpp; sourceTree = "<group>"; };
 		26BA73C926987D20001F3C5D /* BrushComponent.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BrushComponent.hpp; sourceTree = "<group>"; };
-		26BA73CA26987D20001F3C5D /* Component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Component.cpp; sourceTree = "<group>"; };
-		26BA73CB26987D20001F3C5D /* Component.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Component.hpp; sourceTree = "<group>"; };
 		26BA73CC26987D20001F3C5D /* BrushComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BrushComponent.cpp; sourceTree = "<group>"; };
 		26BA73CF26990D3C001F3C5D /* LayoutComponent.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LayoutComponent.hpp; sourceTree = "<group>"; };
 		26BA73D026990D3C001F3C5D /* LayoutComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LayoutComponent.cpp; sourceTree = "<group>"; };
@@ -268,8 +269,9 @@
 			children = (
 				26BA73CC26987D20001F3C5D /* BrushComponent.cpp */,
 				26BA73C926987D20001F3C5D /* BrushComponent.hpp */,
-				26BA73CA26987D20001F3C5D /* Component.cpp */,
-				26BA73CB26987D20001F3C5D /* Component.hpp */,
+				260BBF15269E51B80041BD06 /* Component.hpp */,
+				260BBF12269E50800041BD06 /* ComponentBase.cpp */,
+				260BBF13269E50800041BD06 /* ComponentBase.hpp */,
 				26BA73D226991A64001F3C5D /* EllipseComponent.cpp */,
 				26BA73D326991A64001F3C5D /* EllipseComponent.hpp */,
 				260BBF10269D32F00041BD06 /* GridComponent.cpp */,
@@ -391,7 +393,6 @@
 			files = (
 				26BA73D426991A64001F3C5D /* EllipseComponent.cpp in Sources */,
 				26F5A9202673111B009B0657 /* Renderer.cpp in Sources */,
-				26BA73CD26987D20001F3C5D /* Component.cpp in Sources */,
 				266A37AC2669D80000EA192B /* Property.cpp in Sources */,
 				2605A57A264564DB00FD3DF0 /* main.cpp in Sources */,
 				263EA110268F502C003B100A /* RootNode.cpp in Sources */,
@@ -414,6 +415,7 @@
 				2605A588264A312F00FD3DF0 /* MainFrame.cpp in Sources */,
 				260BBF11269D32F00041BD06 /* GridComponent.cpp in Sources */,
 				2605A57E264826ED00FD3DF0 /* Node.cpp in Sources */,
+				260BBF14269E50800041BD06 /* ComponentBase.cpp in Sources */,
 				260BBF0E269D17340041BD06 /* RemoveNodeCommand.cpp in Sources */,
 				26CB1336269A9A990025ACDD /* RectangleNode.cpp in Sources */,
 				26CB1333269A9A8B0025ACDD /* RectangleComponent.cpp in Sources */,

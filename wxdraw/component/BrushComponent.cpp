@@ -25,11 +25,6 @@ BrushComponent::BrushComponent(const BrushComponent& src, Node& node)
 }
 /**
  */
-ComponentPtr BrushComponent::clone(Node& node) const {
-  return std::make_shared<BrushComponent>(*this, node);
-}
-/**
- */
 void BrushComponent::onUpdate() {
   brush_.SetColour(color_);
 }

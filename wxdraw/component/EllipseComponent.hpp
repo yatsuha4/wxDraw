@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "wxdraw/component/Component.hpp"
 
@@ -6,9 +6,9 @@ namespace wxdraw::component {
 /**
  */
 class EllipseComponent
-  : public Component
+  : public Component<EllipseComponent>
 {
-  using super = Component;
+  using super = Component<EllipseComponent>;
 
  public:
   static const char* TYPE;
@@ -17,8 +17,6 @@ class EllipseComponent
   EllipseComponent(Node& node);
   EllipseComponent(const EllipseComponent& src, Node& node);
   ~EllipseComponent() override = default;
-
-  ComponentPtr clone(Node& node) const override;
 
  protected:
   void onRender(Renderer& renderer) override;
