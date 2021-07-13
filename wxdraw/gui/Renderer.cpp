@@ -15,10 +15,15 @@ Renderer::Renderer(wxDC& dc, const glm::dmat3& viewMatrix)
    @param matrix 行列
 */
 void Renderer::setMatrix(const glm::dmat3& matrix) {
-  auto m = viewMatrix_ * matrix;
-  context_->SetTransform(context_->CreateMatrix(m[0][0], m[0][1], 
-                                                m[1][0], m[1][1], 
-                                                m[2][0], m[2][1]));
+  matrix_ = viewMatrix_ * matrix;
+  context_->SetTransform(context_->CreateMatrix(matrix_[0][0], matrix_[0][1], 
+                                                matrix_[1][0], matrix_[1][1], 
+                                                matrix_[2][0], matrix_[2][1]));
+}
+/**
+ */
+glm::dvec2 Renderer::getScale() const {
+  return glm::dvec2(glm::length(matrix_[0]), glm::length(matrix_[1]));
 }
 /**
  */

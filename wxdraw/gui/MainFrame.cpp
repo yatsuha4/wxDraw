@@ -246,7 +246,7 @@ void MainFrame::open() {
   if(dialog.ShowModal() == wxID_OK) {
     XmlImporter importer(dialog.GetPath());
     if(auto project = importer.load()) {
-      submitCommand<InsertNodeCommand>(project, outliner_->getRootNode());
+      appendNode(project, outliner_->getRootNode());
     }
   }
 }

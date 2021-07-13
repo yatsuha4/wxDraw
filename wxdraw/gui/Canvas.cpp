@@ -1,3 +1,4 @@
+#include "wxdraw/component/LayoutComponent.hpp"
 #include "wxdraw/gui/Canvas.hpp"
 #include "wxdraw/gui/MainFrame.hpp"
 #include "wxdraw/gui/Renderer.hpp"
@@ -13,7 +14,8 @@ Canvas::Canvas(wxWindow* parent, MainFrame* mainFrame)
   : super(parent), 
     mainFrame_(mainFrame), 
     offset_(0.0), 
-    zoom_(1.0)
+    zoom_(1.0), 
+    cursorPen_(*wxRED)
 {
   SetDoubleBuffered(true);
   Bind(wxEVT_RIGHT_DOWN, &Canvas::onRightDown, this);
@@ -25,23 +27,17 @@ Canvas::Canvas(wxWindow* parent, MainFrame* mainFrame)
 */
 void Canvas::OnDraw(wxDC& dc) {
   super::OnDraw(dc);
-  if(auto project = Node::GetParent<ProjectNode>(mainFrame_->getSelectNode())) {
-    auto size = GetSize();
-    glm::dmat3 m(1.0);
-    m = glm::translate(m, glm::dvec2(size.x * 0.5, size.y * 0.5) + offset_);
-    m = glm::scale(m, glm::dvec2(zoom_));
-    Renderer renderer(dc, m);
-    project->render(renderer);
+  if(auto node = mainFrame_->getSelectNode()) {
+    if(auto project = Node::GetParent<ProjectNode>(node)) {
+      auto size = GetSize();
+      glm::dmat3 m(1.0);
+      m = glm::translate(m, glm::dvec2(size.x * 0.5, size.y * 0.5) + offset_);
+      m = glm::scale(m, glm::dvec2(zoom_));
+      Renderer renderer(dc, m);
+      project->render(renderer);
+      drawCursor(renderer, node);
+    }
   }
-  /*
-  std::unique_ptr<wxGraphicsContext> gc(wxGraphicsContext::CreateFromUnknownDC(dc));
-  if(gc) {
-    gc->SetPen(*wxRED_PEN);
-    auto path = gc->CreatePath();
-    path.AddCircle(50.0, 50.0, 50.0);
-    gc->StrokePath(path);
-  }
-  */
 }
 /**
  */
@@ -68,5 +64,32 @@ void Canvas::onMouseWheel(wxMouseEvent& event) {
     zoom_ *= 1.1;
   }
   Refresh();
+}
+/**
+   選択中のノードにカーソルを表示する
+   @param renderer レンダラー
+   @param node 選択中のノード
+*/
+void Canvas::drawCursor(Renderer& renderer, const NodePtr& node) {
+  if(auto layout = node->getComponent<LayoutComponent>()) {
+    auto& context = renderer.getContext();
+    context.SetTransform(context.CreateMatrix());
+    context.SetPen(context.CreatePen(wxGraphicsPenInfo(*wxRED, 0.5)));
+
+    auto m = renderer.getViewMatrix() * layout->getMatrix();
+    auto& rect = layout->getRect();
+    glm::dvec2 p[4];
+    for(int i = 0; i < 4; i++) {
+      p[i] = m * glm::dvec3(rect.pos.x + rect.size.x * (i & 1), 
+                            rect.pos.y + rect.size.y * (i / 2), 1.0);
+    }
+    auto path = context.CreatePath();
+    path.MoveToPoint(p[0].x, p[0].y);
+    path.AddLineToPoint(p[1].x, p[1].y);
+    path.AddLineToPoint(p[3].x, p[3].y);
+    path.AddLineToPoint(p[2].x, p[2].y);
+    path.AddLineToPoint(p[0].x, p[0].y);
+    context.StrokePath(path);
+  }
 }
 }

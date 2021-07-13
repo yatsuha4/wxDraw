@@ -8,6 +8,7 @@ class Renderer {
  private:
   std::shared_ptr<wxGraphicsContext> context_;
   glm::dmat3 viewMatrix_;
+  glm::dmat3 matrix_;
   std::stack<wxGraphicsBrush> brushes_;
   std::stack<wxGraphicsPen> pens_;
 
@@ -20,7 +21,9 @@ class Renderer {
   }
 
   WXDRAW_GETTER(ViewMatrix, viewMatrix_);
+  WXDRAW_GETTER(Matrix, matrix_);
   void setMatrix(const glm::dmat3& matrix);
+  glm::dvec2 getScale() const;
 
   void pushBrush(const wxBrush& brush);
   void popBrush();

@@ -14,6 +14,7 @@ class Canvas
   glm::dvec2 offset_;
   double zoom_;
   wxPoint mousePos_;
+  wxGraphicsPenInfo cursorPen_;
 
  public:
   Canvas(wxWindow* parent, MainFrame* mainFrame);
@@ -26,5 +27,7 @@ class Canvas
   void onRightDown(wxMouseEvent& event);
   void onMotion(wxMouseEvent& event);
   void onMouseWheel(wxMouseEvent& event);
+
+  void drawCursor(Renderer& renderer, const NodePtr& node);
 };
 }
