@@ -5,6 +5,7 @@
 #include "wxdraw/gui/Canvas.hpp"
 #include "wxdraw/gui/Inspector.hpp"
 #include "wxdraw/gui/MainFrame.hpp"
+#include "wxdraw/gui/Menu.hpp"
 #include "wxdraw/gui/Outliner.hpp"
 #include "wxdraw/node/EllipseNode.hpp"
 #include "wxdraw/node/LayerNode.hpp"
@@ -24,6 +25,8 @@ enum {
   MENU_EDIT_APPEND_LAYER, 
   MENU_EDIT_APPEND_RECTANGLE, 
   MENU_EDIT_APPEND_ELLIPSE, 
+  MENU_EDIT_NEW_COMPONENT, 
+  MENU_EDIT_NEW_COMPONENT_EXPORT, 
   MENU_EDIT_REMOVE, 
   MENU_EDIT_CLONE, 
   MENU_EDIT_UNDO, 
@@ -122,7 +125,7 @@ void MainFrame::setupMenuBar() {
   auto menuBar = new wxMenuBar();
   SetMenuBar(menuBar);
   {
-    auto menu = new wxMenu();
+    auto menu = new Menu();
     menu->Append(MENU_FILE_NEW, "New Project");
     menu->Append(MENU_FILE_OPEN, "Open");
     menu->Append(MENU_FILE_SAVE, "Save");
@@ -132,27 +135,30 @@ void MainFrame::setupMenuBar() {
     menuBar->Append(menu, "File");
   }
   {
-    auto menu = new wxMenu();
+    auto menu = new Menu(Menu::Type::Edit);
     {
-      auto subMenu = new wxMenu();
+      auto subMenu = new Menu(Menu::Type::Edit_NewNode);
       subMenu->Append(MENU_EDIT_APPEND_LAYER, "Layer");
       subMenu->Append(MENU_EDIT_APPEND_RECTANGLE, "Rectangle");
       subMenu->Append(MENU_EDIT_APPEND_ELLIPSE, "Ellipse");
-      menu->Append(MENU_EDIT_APPEND, "Append", subMenu);
-      subMenu->Bind(wxEVT_MENU_OPEN, &MainFrame::onMenuEditAppend, this);
+      menu->Append(MENU_EDIT_APPEND, "New Node", subMenu);
+    }
+    {
+      auto subMenu = new Menu(Menu::Type::Edit_NewComponent);
+      subMenu->Append(MENU_EDIT_NEW_COMPONENT_EXPORT, "Export");
+      menu->Append(MENU_EDIT_NEW_COMPONENT, "New Component", subMenu);
     }
     menu->Append(MENU_EDIT_REMOVE, "Remove");
     menu->Append(MENU_EDIT_CLONE, "Clone");
     menu->AppendSeparator();
     menu->Append(MENU_EDIT_UNDO, "Undo");
     menu->Append(MENU_EDIT_REDO, "Redo");
-    menu->Bind(wxEVT_MENU_OPEN, &MainFrame::onMenuEdit, this);
     menuBar->Append(menu, "Edit");
   }
   {
-    auto menu = new wxMenu();
+    auto menu = new Menu();
     {
-      auto perspectiveMenu = new wxMenu();
+      auto perspectiveMenu = new Menu();
       perspectiveMenu->Append(MENU_WINDOW_PERSPECTIVE_SAVE, "Save");
       perspectiveMenu->Append(MENU_WINDOW_PERSPECTIVE_LOAD, "Load");
       perspectiveMenu->Append(MENU_WINDOW_PERSPECTIVE_RESET, "Reset");
@@ -160,29 +166,37 @@ void MainFrame::setupMenuBar() {
     }
     menuBar->Append(menu, "Window");
   }
+  Bind(wxEVT_MENU_OPEN, &MainFrame::onMenuOpen, this);
   Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::onSelectMenu, this);
 }
 /**
  */
-void MainFrame::onMenuEdit(wxMenuEvent& event) {
-  auto menu = event.GetMenu();
+void MainFrame::onMenuOpen(wxMenuEvent& event) {
+  auto menu = static_cast<Menu*>(event.GetMenu());
   auto node = getSelectNode();
   auto project = getSelectProject();
-  menu->Enable(MENU_EDIT_REMOVE, getSelectNode() != nullptr);
-  menu->Enable(MENU_EDIT_CLONE, 
-               node && 
-               node->getParent() && 
-               node->getParent()->canAppend(typeid(*node)));
-  menu->Enable(MENU_EDIT_UNDO, project && project->getCommandProcessor().CanUndo());
-  menu->Enable(MENU_EDIT_REDO, project && project->getCommandProcessor().CanRedo());
-}
-/**
- */
-void MainFrame::onMenuEditAppend(wxMenuEvent& event) {
-  auto menu = event.GetMenu();
-  menu->Enable(MENU_EDIT_APPEND_LAYER, canAppendNode<LayerNode>());
-  menu->Enable(MENU_EDIT_APPEND_RECTANGLE, canAppendNode<RectangleNode>());
-  menu->Enable(MENU_EDIT_APPEND_ELLIPSE, canAppendNode<EllipseNode>());
+  switch(menu->getType()) {
+  case Menu::Type::Edit:
+    {
+      menu->Enable(MENU_EDIT_REMOVE, node != nullptr);
+      menu->Enable(MENU_EDIT_CLONE, 
+                   node && 
+                   node->getParent() && 
+                   node->getParent()->canAppend(typeid(*node)));
+      menu->Enable(MENU_EDIT_UNDO, project && project->getCommandProcessor().CanUndo());
+      menu->Enable(MENU_EDIT_REDO, project && project->getCommandProcessor().CanRedo());
+    }
+    break;
+  case Menu::Type::Edit_NewNode:
+    {
+      menu->Enable(MENU_EDIT_APPEND_LAYER, canAppendNode<LayerNode>());
+      menu->Enable(MENU_EDIT_APPEND_RECTANGLE, canAppendNode<RectangleNode>());
+      menu->Enable(MENU_EDIT_APPEND_ELLIPSE, canAppendNode<EllipseNode>());
+    }
+    break;
+  default:
+    break;
+  }
 }
 /**
    メニュー選択
