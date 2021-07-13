@@ -13,8 +13,8 @@ class Canvas
   MainFrame* mainFrame_;
   glm::dvec2 offset_;
   double zoom_;
+  glm::dmat3 viewMatrix_;
   wxPoint mousePos_;
-  wxGraphicsPenInfo cursorPen_;
 
  public:
   Canvas(wxWindow* parent, MainFrame* mainFrame);

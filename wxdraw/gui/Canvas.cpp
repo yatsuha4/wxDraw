@@ -15,7 +15,7 @@ Canvas::Canvas(wxWindow* parent, MainFrame* mainFrame)
     mainFrame_(mainFrame), 
     offset_(0.0), 
     zoom_(1.0), 
-    cursorPen_(*wxRED)
+    viewMatrix_(1.0)
 {
   SetDoubleBuffered(true);
   Bind(wxEVT_RIGHT_DOWN, &Canvas::onRightDown, this);
@@ -30,10 +30,10 @@ void Canvas::OnDraw(wxDC& dc) {
   if(auto node = mainFrame_->getSelectNode()) {
     if(auto project = Node::GetParent<ProjectNode>(node)) {
       auto size = GetSize();
-      glm::dmat3 m(1.0);
-      m = glm::translate(m, glm::dvec2(size.x * 0.5, size.y * 0.5) + offset_);
-      m = glm::scale(m, glm::dvec2(zoom_));
-      Renderer renderer(dc, m);
+      viewMatrix_ = glm::scale(glm::translate(glm::dmat3(1.0), 
+                                              glm::dvec2(size.x * 0.5, size.y * 0.5) + offset_), 
+                               glm::dvec2(zoom_));
+      Renderer renderer(dc, viewMatrix_);
       project->render(renderer);
       drawCursor(renderer, node);
     }
@@ -76,7 +76,7 @@ void Canvas::drawCursor(Renderer& renderer, const NodePtr& node) {
     context.SetTransform(context.CreateMatrix());
     context.SetPen(context.CreatePen(wxGraphicsPenInfo(*wxRED, 0.5)));
 
-    auto m = renderer.getViewMatrix() * layout->getMatrix();
+    auto m = viewMatrix_ * layout->getMatrix();
     auto& rect = layout->getRect();
     glm::dvec2 p[4];
     for(int i = 0; i < 4; i++) {
