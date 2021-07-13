@@ -16,11 +16,16 @@ class ProjectNode
 
  private:
   wxFileName fileName_;
+  wxCommandProcessor commandProcessor_;
 
  public:
   ProjectNode();
   ~ProjectNode() override = default;
 
   WXDRAW_ACCESSOR(FileName, fileName_);
+
+  wxCommandProcessor& getCommandProcessor() {
+    return commandProcessor_;
+  }
 };
 }

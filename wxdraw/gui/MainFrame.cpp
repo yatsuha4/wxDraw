@@ -75,6 +75,20 @@ void MainFrame::selectNode(const NodePtr& node) {
   canvas_->Refresh();
 }
 /**
+   @return 選択中のプロジェクト
+*/
+ProjectNodePtr MainFrame::getSelectProject() const {
+  return Node::GetParent<ProjectNode>(getSelectNode());
+}
+/**
+   ノードを追加する
+   @param node 挿入するノード
+   @param parent 親ノード
+*/
+void MainFrame::appendNode(const NodePtr& node, const NodePtr& parent) {
+  insertNode(node, parent, parent->getChildren().size());
+}
+/**
    ノードを挿入する
    @param node 挿入するノード
    @param parent 親ノード
@@ -150,7 +164,10 @@ void MainFrame::setupMenuBar() {
  */
 void MainFrame::onMenuEdit(wxMenuEvent& event) {
   auto menu = event.GetMenu();
+  auto project = getSelectProject();
   menu->Enable(MENU_EDIT_REMOVE, getSelectNode() != nullptr);
+  menu->Enable(MENU_EDIT_UNDO, project && project->getCommandProcessor().CanUndo());
+  menu->Enable(MENU_EDIT_REDO, project && project->getCommandProcessor().CanRedo());
 }
 /**
  */
@@ -167,7 +184,7 @@ void MainFrame::onMenuEditAppend(wxMenuEvent& event) {
 void MainFrame::onSelectMenu(wxCommandEvent& event) {
   switch(event.GetId()) {
   case MENU_FILE_NEW:
-    submitCommand<InsertNodeCommand>(std::make_shared<ProjectNode>(), outliner_->getRootNode());
+    appendNode(std::make_shared<ProjectNode>(), outliner_->getRootNode());
     break;
   case MENU_FILE_OPEN:
     open();
@@ -191,6 +208,16 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
     break;
   case MENU_EDIT_REMOVE:
     submitCommand<RemoveNodeCommand>(getSelectNode());
+    break;
+  case MENU_EDIT_UNDO:
+    if(auto project = getSelectProject()) {
+      project->getCommandProcessor().Undo();
+    }
+    break;
+  case MENU_EDIT_REDO:
+    if(auto project = getSelectProject()) {
+      project->getCommandProcessor().Redo();
+    }
     break;
   case MENU_WINDOW_PERSPECTIVE_RESET:
     SetSize(DEFAULT_SIZE);
@@ -227,7 +254,7 @@ void MainFrame::open() {
    名前をつけて保存
 */
 void MainFrame::saveAs() {
-  if(auto project = Node::GetParent<ProjectNode>(getSelectNode())) {
+  if(auto project = getSelectProject()) {
     wxFileDialog dialog(this, wxFileSelectorPromptStr, 
                         project->getFileName().GetPath(), 
                         project->getFileName().GetName(), 
@@ -244,13 +271,18 @@ void MainFrame::saveAs() {
 void MainFrame::saveProject(const ProjectNodePtr& project) {
   XmlExporter exporter(project);
   wxFileOutputStream output(project->getFileName().GetFullPath());
-  exporter.save(output);
+  if(exporter.save(output)) {
+    project->getCommandProcessor().MarkAsSaved();
+  }
 }
 /**
    コマンドを実行する
    @param command コマンド
 */
 bool MainFrame::submitCommand(wxCommand* command) {
-  return commandProcessor_.Submit(command);
+  if(auto project = getSelectProject()) {
+    return project->getCommandProcessor().Submit(command);
+  }
+  return false;
 }
 }

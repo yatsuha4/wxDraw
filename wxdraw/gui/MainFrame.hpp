@@ -18,7 +18,6 @@ class MainFrame
   Outliner* outliner_;
   Inspector* inspector_;
   NodePtr selectNode_;
-  wxCommandProcessor commandProcessor_;
   wxString defaultPerspective_;
 
   static const wxSize DEFAULT_SIZE;
@@ -33,12 +32,14 @@ class MainFrame
 
   void selectNode(const NodePtr& node);
   WXDRAW_GETTER(SelectNode, selectNode_);
+  ProjectNodePtr getSelectProject() const;
 
   template<class CommandType, class... Args>
   bool submitCommand(Args&&... args) {
     return submitCommand(new CommandType(this, args...));
   }
 
+  void appendNode(const NodePtr& node, const NodePtr& parent);
   void insertNode(const NodePtr& node, const NodePtr& parent, size_t index);
   void removeNode(const NodePtr& node);
   void updateNode(const NodePtr& node);
