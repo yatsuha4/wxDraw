@@ -39,10 +39,16 @@ void Node::Remove(const NodePtr& node) {
 void Node::update() {
   onUpdate();
   for(auto& component : components_) {
+    component->beginUpdate();
+  }
+  for(auto& component : components_) {
     component->update();
   }
   for(auto& child : children_) {
     child->update();
+  }
+  for(auto& component : components_) {
+    component->endUpdate();
   }
 }
 /**

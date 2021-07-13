@@ -8,44 +8,46 @@ namespace wxdraw::component {
 */
 Component::Component(const std::string& name, Node& node)
   : super(name), 
-    node_(node), 
-    active_(true)
+    node_(node)
 {
-  appendMember("Active", active_);
+}
+/**
+   更新を開始する
+*/
+void Component::beginUpdate() {
+  onBeginUpdate();
 }
 /**
    更新する
 */
 void Component::update() {
-  if(active_) {
-    onUpdate();
-  }
+  onUpdate();
+}
+/**
+   更新を終了する
+*/
+void Component::endUpdate() {
+  onEndUpdate();
 }
 /**
    描画を開始する
    @param renderer レンダラー
 */
 void Component::beginRender(Renderer& renderer) {
-  if(active_) {
-    onBeginRender(renderer);
-  }
+  onBeginRender(renderer);
 }
 /**
    描画する
    @param renderer レンダラー
 */
 void Component::render(Renderer& renderer) {
-  if(active_) {
-    onRender(renderer);
-  }
+  onRender(renderer);
 }
 /**
    描画を終了する
    @param renderer レンダラー
 */
 void Component::endRender(Renderer& renderer) {
-  if(active_) {
-    onEndRender(renderer);
-  }
+  onEndRender(renderer);
 }
 }

@@ -13,7 +13,6 @@ class Component
 
  private:
   Node& node_;
-  bool active_;
 
  public:
   virtual ~Component() = default;
@@ -22,7 +21,10 @@ class Component
     return node_;
   }
 
+  void beginUpdate();
   void update();
+  void endUpdate();
+
   void beginRender(Renderer& renderer);
   void render(Renderer& renderer);
   void endRender(Renderer& renderer);
@@ -30,7 +32,10 @@ class Component
  protected:
   Component(const std::string& name, Node& node);
 
+  virtual void onBeginUpdate() {}
   virtual void onUpdate() {}
+  virtual void onEndUpdate() {}
+
   virtual void onBeginRender(Renderer& renderer) {}
   virtual void onRender(Renderer& renderer) {}
   virtual void onEndRender(Renderer& renderer) {}
