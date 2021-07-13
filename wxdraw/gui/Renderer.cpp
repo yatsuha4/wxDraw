@@ -33,4 +33,17 @@ void Renderer::popBrush() {
   context_->SetBrush(brushes_.top());
   brushes_.pop();
 }
+/**
+ */
+void Renderer::pushPen(const wxGraphicsPenInfo& info) {
+  auto pen = context_->CreatePen(info);
+  pens_.push(pen);
+  context_->SetPen(pen);
+}
+/**
+ */
+void Renderer::popPen() {
+  context_->SetPen(pens_.top());
+  pens_.pop();
+}
 }

@@ -9,6 +9,7 @@ class Renderer {
   std::shared_ptr<wxGraphicsContext> context_;
   glm::dmat3 viewMatrix_;
   std::stack<wxGraphicsBrush> brushes_;
+  std::stack<wxGraphicsPen> pens_;
 
  public:
   Renderer(wxDC& dc, const glm::dmat3& viewMatrix);
@@ -23,5 +24,8 @@ class Renderer {
 
   void pushBrush(const wxBrush& brush);
   void popBrush();
+
+  void pushPen(const wxGraphicsPenInfo& info);
+  void popPen();
 };
 }

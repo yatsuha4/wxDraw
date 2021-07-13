@@ -17,6 +17,7 @@
 		2605A58B264A35A100FD3DF0 /* Outliner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2605A589264A35A100FD3DF0 /* Outliner.cpp */; };
 		260BBF0B269C45D40041BD06 /* XmlImporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 260BBF0A269C45D40041BD06 /* XmlImporter.cpp */; };
 		260BBF0E269D17340041BD06 /* RemoveNodeCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 260BBF0D269D17340041BD06 /* RemoveNodeCommand.cpp */; };
+		260BBF11269D32F00041BD06 /* GridComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 260BBF10269D32F00041BD06 /* GridComponent.cpp */; };
 		263EA110268F502C003B100A /* RootNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 263EA10F268F502C003B100A /* RootNode.cpp */; };
 		263EA113268F524E003B100A /* Command.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 263EA111268F524E003B100A /* Command.cpp */; };
 		265FCA3E214ACD3100398B40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 265FCA3D214ACD3100398B40 /* Assets.xcassets */; };
@@ -69,6 +70,8 @@
 		260BBF0A269C45D40041BD06 /* XmlImporter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = XmlImporter.cpp; sourceTree = "<group>"; };
 		260BBF0C269D17340041BD06 /* RemoveNodeCommand.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RemoveNodeCommand.hpp; sourceTree = "<group>"; };
 		260BBF0D269D17340041BD06 /* RemoveNodeCommand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RemoveNodeCommand.cpp; sourceTree = "<group>"; };
+		260BBF0F269D32F00041BD06 /* GridComponent.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GridComponent.hpp; sourceTree = "<group>"; };
+		260BBF10269D32F00041BD06 /* GridComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GridComponent.cpp; sourceTree = "<group>"; };
 		263EA10E268F502C003B100A /* RootNode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RootNode.hpp; sourceTree = "<group>"; };
 		263EA10F268F502C003B100A /* RootNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RootNode.cpp; sourceTree = "<group>"; };
 		263EA111268F524E003B100A /* Command.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Command.cpp; sourceTree = "<group>"; };
@@ -269,6 +272,8 @@
 				26BA73CB26987D20001F3C5D /* Component.hpp */,
 				26BA73D226991A64001F3C5D /* EllipseComponent.cpp */,
 				26BA73D326991A64001F3C5D /* EllipseComponent.hpp */,
+				260BBF10269D32F00041BD06 /* GridComponent.cpp */,
+				260BBF0F269D32F00041BD06 /* GridComponent.hpp */,
 				26CB132E269A91030025ACDD /* LayerComponent.cpp */,
 				26CB132D269A91030025ACDD /* LayerComponent.hpp */,
 				26BA73D026990D3C001F3C5D /* LayoutComponent.cpp */,
@@ -407,6 +412,7 @@
 				26CB132F269A91030025ACDD /* LayerComponent.cpp in Sources */,
 				260BBF0B269C45D40041BD06 /* XmlImporter.cpp in Sources */,
 				2605A588264A312F00FD3DF0 /* MainFrame.cpp in Sources */,
+				260BBF11269D32F00041BD06 /* GridComponent.cpp in Sources */,
 				2605A57E264826ED00FD3DF0 /* Node.cpp in Sources */,
 				260BBF0E269D17340041BD06 /* RemoveNodeCommand.cpp in Sources */,
 				26CB1336269A9A990025ACDD /* RectangleNode.cpp in Sources */,

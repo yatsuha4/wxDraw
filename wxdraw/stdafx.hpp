@@ -75,6 +75,7 @@ namespace component {
 WXDRAW_DECLARE_CLASS(BrushComponent);
 WXDRAW_DECLARE_CLASS(Component);
 WXDRAW_DECLARE_CLASS(EllipseComponent);
+WXDRAW_DECLARE_CLASS(GridComponent);
 WXDRAW_DECLARE_CLASS(LayerComponent);
 WXDRAW_DECLARE_CLASS(LayoutComponent);
 WXDRAW_DECLARE_CLASS(RectangleComponent);

@@ -1,5 +1,6 @@
-#include "wxdraw/node/LayerNode.hpp"
+#include "wxdraw/component/GridComponent.hpp"
 #include "wxdraw/component/LayerComponent.hpp"
+#include "wxdraw/node/LayerNode.hpp"
 
 namespace wxdraw::node {
 const char* LayerNode::TYPE = "Layer";
@@ -10,5 +11,6 @@ LayerNode::LayerNode()
 {
   setContainer(true);
   appendComponent<LayerComponent>();
+  appendComponent<GridComponent>();
 }
 }

@@ -1,5 +1,6 @@
 #include "wxdraw/component/BrushComponent.hpp"
 #include "wxdraw/component/EllipseComponent.hpp"
+#include "wxdraw/component/GridComponent.hpp"
 #include "wxdraw/component/LayerComponent.hpp"
 #include "wxdraw/component/LayoutComponent.hpp"
 #include "wxdraw/component/RectangleComponent.hpp"
@@ -79,6 +80,7 @@ void XmlImporter::parseComponents(Node& node, const wxXmlNode& xml) {
   for(auto iter = xml.GetChildren(); iter; iter = iter->GetNext()) {
     if(!parseComponent<BrushComponent, 
                        EllipseComponent, 
+                       GridComponent, 
                        LayerComponent, 
                        LayoutComponent, 
                        RectangleComponent>(node, *iter)) {
