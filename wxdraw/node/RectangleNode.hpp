@@ -20,8 +20,5 @@ class RectangleNode
 
  protected:
   NodePtr clone() const override;
-
- private:
-  void setup();
 };
 }

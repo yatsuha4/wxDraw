@@ -11,7 +11,22 @@ BrushComponent::BrushComponent(Node& node)
     color_(*wxWHITE), 
     brush_(color_)
 {
-  appendMember("Color", color_);
+  setup();
+}
+/**
+   コピーコンストラクタ
+*/
+BrushComponent::BrushComponent(const BrushComponent& src, Node& node)
+  : super(src, node), 
+    color_(src.color_), 
+    brush_(src.brush_)
+{
+  setup();
+}
+/**
+ */
+ComponentPtr BrushComponent::clone(Node& node) const {
+  return std::make_shared<BrushComponent>(*this, node);
 }
 /**
  */
@@ -27,5 +42,10 @@ void BrushComponent::onBeginRender(Renderer& renderer) {
  */
 void BrushComponent::onEndRender(Renderer& renderer) {
   renderer.popBrush();
+}
+/**
+ */
+void BrushComponent::setup() {
+  appendMember("Color", color_);
 }
 }

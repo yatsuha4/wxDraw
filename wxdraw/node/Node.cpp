@@ -130,7 +130,7 @@ Node::Node(const std::string& name)
    @return 生成した複製
 */
 NodePtr Node::clone() const {
-  return std::make_shared<Node>(*this);
+  return nullptr;
 }
 /**
  */

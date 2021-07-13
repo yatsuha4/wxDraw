@@ -25,10 +25,16 @@ class GridComponent
 
  public:
   GridComponent(Node& node);
+  GridComponent(const GridComponent& src, Node& node);
   ~GridComponent() override = default;
+
+  ComponentPtr clone(Node& node) const override;
 
  protected:
   void onUpdate() override;
   void onRender(Renderer& renderer) override;
+
+ private:
+  void setup();
 };
 }

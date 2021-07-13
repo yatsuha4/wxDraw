@@ -19,9 +19,15 @@ class RectangleComponent
 
  public:
   RectangleComponent(Node& node);
+  RectangleComponent(const RectangleComponent& src, Node& node);
   ~RectangleComponent() override = default;
+
+  ComponentPtr clone(Node& node) const override;
 
  protected:
   void onRender(Renderer& renderer) override;
+
+ private:
+  void setup();
 };
 }

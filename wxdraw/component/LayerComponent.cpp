@@ -11,8 +11,22 @@ LayerComponent::LayerComponent(Node& node)
     opacity_(1.0), 
     clip_(false)
 {
-  appendMember("Opacity", opacity_);
-  appendMember("Clip", clip_);
+  setup();
+}
+/**
+   コピーコンストラクタ
+*/
+LayerComponent::LayerComponent(const LayerComponent& src, Node& node)
+  : super(src, node), 
+    opacity_(src.opacity_), 
+    clip_(src.clip_)
+{
+  setup();
+}
+/**
+ */
+ComponentPtr LayerComponent::clone(Node& node) const {
+  return std::make_shared<LayerComponent>(*this, node);
 }
 /**
  */
@@ -27,5 +41,11 @@ void LayerComponent::onEndRender(Renderer& renderer) {
   auto& context = renderer.getContext();
   context.EndLayer();
   context.PopState();
+}
+/**
+ */
+void LayerComponent::setup() {
+  appendMember("Opacity", opacity_);
+  appendMember("Clip", clip_);
 }
 }

@@ -11,4 +11,16 @@ EllipseNode::EllipseNode()
 {
   appendComponent<EllipseComponent>();
 }
+/**
+   コピーコンストラクタ
+*/
+EllipseNode::EllipseNode(const EllipseNode& src)
+  : super(src)
+{
+}
+/**
+ */
+NodePtr EllipseNode::clone() const {
+  return std::make_shared<EllipseNode>(*this);
+}
 }

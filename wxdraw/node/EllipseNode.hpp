@@ -15,6 +15,10 @@ class EllipseNode
 
  public:
   EllipseNode();
+  EllipseNode(const EllipseNode& src);
   ~EllipseNode() override = default;
+
+ protected:
+  NodePtr clone() const override;
 };
 }

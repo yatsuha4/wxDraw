@@ -15,7 +15,10 @@ class EllipseComponent
 
  public:
   EllipseComponent(Node& node);
+  EllipseComponent(const EllipseComponent& src, Node& node);
   ~EllipseComponent() override = default;
+
+  ComponentPtr clone(Node& node) const override;
 
  protected:
   void onRender(Renderer& renderer) override;

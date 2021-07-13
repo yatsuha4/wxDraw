@@ -18,12 +18,27 @@ GridComponent::GridComponent(Node& node)
     width_(0.1), 
     pen_(color_, width_)
 {
-  appendMember("Show", show_);
-  appendMember("Snap", snap_);
-  appendMember("Size", size_);
-  appendMember("Offset", offset_);
-  appendMember("Color", color_);
-  appendMember("Width", width_);
+  setup();
+}
+/**
+   コピーコンストラクタ
+*/
+GridComponent::GridComponent(const GridComponent& src, Node& node)
+  : super(src, node), 
+    show_(src.show_), 
+    snap_(src.snap_), 
+    size_(src.size_), 
+    offset_(src.offset_), 
+    color_(src.color_), 
+    width_(src.width_), 
+    pen_(src.pen_)
+{
+  setup();
+}
+/**
+ */
+ComponentPtr GridComponent::clone(Node& node) const {
+  return std::make_shared<GridComponent>(*this, node);
 }
 /**
  */
@@ -49,5 +64,15 @@ void GridComponent::onRender(Renderer& renderer) {
     context.StrokePath(path);
     renderer.popPen();
   }
+}
+/**
+ */
+void GridComponent::setup() {
+  appendMember("Show", show_);
+  appendMember("Snap", snap_);
+  appendMember("Size", size_);
+  appendMember("Offset", offset_);
+  appendMember("Color", color_);
+  appendMember("Width", width_);
 }
 }

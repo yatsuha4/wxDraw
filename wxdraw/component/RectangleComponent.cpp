@@ -12,7 +12,21 @@ RectangleComponent::RectangleComponent(Node& node)
   : super(TYPE, node), 
     round_(0.0)
 {
-  appendMember("Round", round_);
+  setup();
+}
+/**
+   コピーコンストラクタ
+*/
+RectangleComponent::RectangleComponent(const RectangleComponent& src, Node& node)
+  : super(src, node), 
+    round_(src.round_)
+{
+  setup();
+}
+/**
+ */
+ComponentPtr RectangleComponent::clone(Node& node) const {
+  return std::make_shared<RectangleComponent>(*this, node);
 }
 /**
  */
@@ -27,5 +41,10 @@ void RectangleComponent::onRender(Renderer& renderer) {
       context.DrawRoundedRectangle(rect.pos.x, rect.pos.y, rect.size.x, rect.size.y, round_);
     }
   }
+}
+/**
+ */
+void RectangleComponent::setup() {
+  appendMember("Round", round_);
 }
 }

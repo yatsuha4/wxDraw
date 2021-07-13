@@ -16,6 +16,10 @@ class LayerNode
 
  public:
   LayerNode();
+  LayerNode(const LayerNode& src);
   ~LayerNode() override = default;
+
+ protected:
+  NodePtr clone() const override;
 };
 }
