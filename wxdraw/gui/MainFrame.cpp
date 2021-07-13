@@ -84,6 +84,7 @@ void MainFrame::insertNode(const NodePtr& node, const NodePtr& parent, size_t in
   Node::Insert(node, parent, index);
   node->update();
   outliner_->insertNode(node, parent, index);
+  outliner_->selectNode(node);
 }
 /**
    ノードを削除する

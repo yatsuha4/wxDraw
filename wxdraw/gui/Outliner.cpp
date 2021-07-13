@@ -56,6 +56,14 @@ void Outliner::removeNode(const NodePtr& node) {
 }
 /**
  */
+void Outliner::selectNode(const NodePtr& node) {
+  for(auto item = GetItemParent(node->getItem()); item.IsOk(); item = GetItemParent(item)) {
+    Expand(item);
+  }
+  Select(node->getItem());
+}
+/**
+ */
 void Outliner::onSelectionChanged(wxTreeListEvent& event) {
   mainFrame_.selectNode(getNode(event.GetItem()));
 }
