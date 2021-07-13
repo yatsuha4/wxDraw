@@ -15,6 +15,7 @@ class ComponentBase
   Node& node_;
 
  public:
+  ComponentBase(const std::string& name, Node& node);
   ComponentBase(const ComponentBase& src, Node& node);
   virtual ~ComponentBase() = default;
 
@@ -33,8 +34,6 @@ class ComponentBase
   virtual ComponentBasePtr clone(Node& node) const = 0;
 
  protected:
-  ComponentBase(const std::string& name, Node& node);
-
   virtual void onBeginUpdate() {}
   virtual void onUpdate() {}
   virtual void onEndUpdate() {}
