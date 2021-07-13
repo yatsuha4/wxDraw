@@ -1,4 +1,5 @@
 #include "wxdraw/command/InsertNodeCommand.hpp"
+#include "wxdraw/command/RemoveNodeCommand.hpp"
 #include "wxdraw/file/XmlExporter.hpp"
 #include "wxdraw/file/XmlImporter.hpp"
 #include "wxdraw/gui/Canvas.hpp"
@@ -23,6 +24,7 @@ enum {
   MENU_EDIT_APPEND_LAYER, 
   MENU_EDIT_APPEND_RECTANGLE, 
   MENU_EDIT_APPEND_ELLIPSE, 
+  MENU_EDIT_REMOVE, 
   MENU_EDIT_UNDO, 
   MENU_EDIT_REDO, 
   MENU_WINDOW_PERSPECTIVE, 
@@ -123,8 +125,11 @@ void MainFrame::setupMenuBar() {
       menu->Append(MENU_EDIT_APPEND, "Append", subMenu);
       subMenu->Bind(wxEVT_MENU_OPEN, &MainFrame::onMenuEditAppend, this);
     }
+    menu->Append(MENU_EDIT_REMOVE, "Remove");
+    menu->AppendSeparator();
     menu->Append(MENU_EDIT_UNDO, "Undo");
     menu->Append(MENU_EDIT_REDO, "Redo");
+    menu->Bind(wxEVT_MENU_OPEN, &MainFrame::onMenuEdit, this);
     menuBar->Append(menu, "Edit");
   }
   {
@@ -139,6 +144,12 @@ void MainFrame::setupMenuBar() {
     menuBar->Append(menu, "Window");
   }
   Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::onSelectMenu, this);
+}
+/**
+ */
+void MainFrame::onMenuEdit(wxMenuEvent& event) {
+  auto menu = event.GetMenu();
+  menu->Enable(MENU_EDIT_REMOVE, getSelectNode() != nullptr);
 }
 /**
  */
@@ -176,6 +187,9 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
     break;
   case MENU_EDIT_APPEND_ELLIPSE:
     submitCommand<InsertNodeCommand>(std::make_shared<EllipseNode>(), getSelectNode());
+    break;
+  case MENU_EDIT_REMOVE:
+    submitCommand<RemoveNodeCommand>(getSelectNode());
     break;
   case MENU_WINDOW_PERSPECTIVE_RESET:
     SetSize(DEFAULT_SIZE);

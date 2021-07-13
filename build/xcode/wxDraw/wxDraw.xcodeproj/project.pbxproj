@@ -16,6 +16,7 @@
 		2605A588264A312F00FD3DF0 /* MainFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2605A584264A312F00FD3DF0 /* MainFrame.cpp */; };
 		2605A58B264A35A100FD3DF0 /* Outliner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2605A589264A35A100FD3DF0 /* Outliner.cpp */; };
 		260BBF0B269C45D40041BD06 /* XmlImporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 260BBF0A269C45D40041BD06 /* XmlImporter.cpp */; };
+		260BBF0E269D17340041BD06 /* RemoveNodeCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 260BBF0D269D17340041BD06 /* RemoveNodeCommand.cpp */; };
 		263EA110268F502C003B100A /* RootNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 263EA10F268F502C003B100A /* RootNode.cpp */; };
 		263EA113268F524E003B100A /* Command.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 263EA111268F524E003B100A /* Command.cpp */; };
 		265FCA3E214ACD3100398B40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 265FCA3D214ACD3100398B40 /* Assets.xcassets */; };
@@ -66,6 +67,8 @@
 		260BBF07269C3F3D0041BD06 /* Importer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Importer.hpp; sourceTree = "<group>"; };
 		260BBF09269C45D40041BD06 /* XmlImporter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = XmlImporter.hpp; sourceTree = "<group>"; };
 		260BBF0A269C45D40041BD06 /* XmlImporter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = XmlImporter.cpp; sourceTree = "<group>"; };
+		260BBF0C269D17340041BD06 /* RemoveNodeCommand.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RemoveNodeCommand.hpp; sourceTree = "<group>"; };
+		260BBF0D269D17340041BD06 /* RemoveNodeCommand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RemoveNodeCommand.cpp; sourceTree = "<group>"; };
 		263EA10E268F502C003B100A /* RootNode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RootNode.hpp; sourceTree = "<group>"; };
 		263EA10F268F502C003B100A /* RootNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RootNode.cpp; sourceTree = "<group>"; };
 		263EA111268F524E003B100A /* Command.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Command.cpp; sourceTree = "<group>"; };
@@ -307,6 +310,8 @@
 				263EA112268F524E003B100A /* Command.hpp */,
 				26CB133B269B72470025ACDD /* InsertNodeCommand.cpp */,
 				26CB133A269B72470025ACDD /* InsertNodeCommand.hpp */,
+				260BBF0D269D17340041BD06 /* RemoveNodeCommand.cpp */,
+				260BBF0C269D17340041BD06 /* RemoveNodeCommand.hpp */,
 			);
 			path = command;
 			sourceTree = "<group>";
@@ -403,6 +408,7 @@
 				260BBF0B269C45D40041BD06 /* XmlImporter.cpp in Sources */,
 				2605A588264A312F00FD3DF0 /* MainFrame.cpp in Sources */,
 				2605A57E264826ED00FD3DF0 /* Node.cpp in Sources */,
+				260BBF0E269D17340041BD06 /* RemoveNodeCommand.cpp in Sources */,
 				26CB1336269A9A990025ACDD /* RectangleNode.cpp in Sources */,
 				26CB1333269A9A8B0025ACDD /* RectangleComponent.cpp in Sources */,
 			);

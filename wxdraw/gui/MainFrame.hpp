@@ -45,6 +45,7 @@ class MainFrame
 
  private:
   void setupMenuBar();
+  void onMenuEdit(wxMenuEvent& event);
   void onMenuEditAppend(wxMenuEvent& event);
   void onSelectMenu(wxCommandEvent& event);
 
