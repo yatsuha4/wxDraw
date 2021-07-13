@@ -26,6 +26,7 @@ class LayoutComponent
 
  public:
   LayoutComponent(Node& node);
+  LayoutComponent(const LayoutComponent& src, Node& node);
   ~LayoutComponent() override = default;
 
   WXDRAW_ACCESSOR(Size, size_);
@@ -37,11 +38,15 @@ class LayoutComponent
   WXDRAW_GETTER(Matrix, matrix_);
   WXDRAW_GETTER(Rect, rect_);
 
+  ComponentPtr clone(Node& node) const override;
+
  protected:
   void onUpdate() override;
   void onBeginRender(Renderer& renderer) override;
 
  private:
+  void setup();
+
   LayoutComponentPtr getParent() const;
 };
 }

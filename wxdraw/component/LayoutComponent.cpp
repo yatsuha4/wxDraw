@@ -18,13 +18,29 @@ LayoutComponent::LayoutComponent(Node& node)
     matrix_(1.0), 
     rect_(glm::dvec2(0.0), glm::dvec2(0.0))
 {
-  appendMember("Size.Relative", size_.relative);
-  appendMember("Size.Absolute", size_.absolute);
-  appendMember("Pos.Relative", pos_.relative);
-  appendMember("Pos.Absolute", pos_.absolute);
-  appendMember("Alignment", alignment_);
-  appendMember("Scale", scale_);
-  appendMember("Rotate", rotate_);
+  setup();
+}
+/**
+   コピーコンストラクタ
+   @param src コピー元
+   @param node ノード
+*/
+LayoutComponent::LayoutComponent(const LayoutComponent& src, Node& node)
+  : super(src, node), 
+    size_(src.size_), 
+    pos_(src.pos_), 
+    alignment_(src.alignment_), 
+    scale_(src.scale_), 
+    rotate_(src.rotate_), 
+    matrix_(src.matrix_), 
+    rect_(src.rect_)
+{
+  setup();
+}
+/**
+ */
+ComponentPtr LayoutComponent::clone(Node& node) const {
+  return std::make_shared<LayoutComponent>(*this, node);
 }
 /**
  */
@@ -51,6 +67,17 @@ void LayoutComponent::onUpdate() {
  */
 void LayoutComponent::onBeginRender(Renderer& renderer) {
   renderer.setMatrix(matrix_);
+}
+/**
+ */
+void LayoutComponent::setup() {
+  appendMember("Size.Relative", size_.relative);
+  appendMember("Size.Absolute", size_.absolute);
+  appendMember("Pos.Relative", pos_.relative);
+  appendMember("Pos.Absolute", pos_.absolute);
+  appendMember("Alignment", alignment_);
+  appendMember("Scale", scale_);
+  appendMember("Rotate", rotate_);
 }
 /**
    親を取得する

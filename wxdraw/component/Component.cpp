@@ -12,6 +12,14 @@ Component::Component(const std::string& name, Node& node)
 {
 }
 /**
+   コピーコンストラクタ
+*/
+Component::Component(const Component& src, Node& node)
+  : super(src), 
+    node_(node)
+{
+}
+/**
    更新を開始する
 */
 void Component::beginUpdate() {
@@ -49,5 +57,10 @@ void Component::render(Renderer& renderer) {
 */
 void Component::endRender(Renderer& renderer) {
   onEndRender(renderer);
+}
+/**
+ */
+ComponentPtr Component::clone(Node& node) const {
+  return std::make_shared<Component>(*this, node);
 }
 }

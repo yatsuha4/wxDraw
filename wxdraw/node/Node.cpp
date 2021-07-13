@@ -4,11 +4,33 @@
 
 namespace wxdraw::node {
 /**
+   コピーコンストラクタ
+*/
+Node::Node(const Node& src)
+  : super(src), 
+    label_(src.label_), 
+    show_(src.show_), 
+    container_(src.container_)
+{
+  setup();
+  for(auto& component : src.components_) {
+    appendComponent(component->clone(*this));
+  }
+}
+/**
    親ノードを取得する
    @return 親ノード
 */
 NodePtr Node::getParent() const {
   return parent_.lock();
+}
+/**
+   ノードを追加する
+   @param node 挿入するノード
+   @param parent 親ノード
+*/
+void Node::Append(const NodePtr& node, const NodePtr& parent) {
+  Insert(node, parent, parent->getChildren().size());
 }
 /**
    ノードを挿入する
@@ -79,6 +101,18 @@ bool Node::canAppend(const std::type_info& type) const {
   return container_;
 }
 /**
+   複製を生成する
+   @param src 複製元
+   @return 生成した複製
+*/
+NodePtr Node::Clone(const NodePtr& src) {
+  auto dst = src->clone();
+  for(auto& child : src->getChildren()) {
+    Append(Clone(child), dst);
+  }
+  return dst;
+}
+/**
    コンストラクタ
    @param name 名前
 */
@@ -88,10 +122,22 @@ Node::Node(const std::string& name)
     show_(true), 
     container_(false)
 {
+  setup();
+  appendComponent<LayoutComponent>();
+}
+/**
+   複製を生成する
+   @return 生成した複製
+*/
+NodePtr Node::clone() const {
+  return std::make_shared<Node>(*this);
+}
+/**
+ */
+void Node::setup() {
   appendMember("Label", label_);
   appendMember("Show", show_);
   appendMember("Container", container_);
-  appendComponent<LayoutComponent>();
 }
 /**
    コンポーネントを追加する

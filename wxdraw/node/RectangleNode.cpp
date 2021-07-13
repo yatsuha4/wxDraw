@@ -9,6 +9,24 @@ const char* RectangleNode::TYPE = "Rectangle";
 RectangleNode::RectangleNode()
   : super(TYPE)
 {
+  setup();
+}
+/**
+   コピーコンストラクタ
+*/
+RectangleNode::RectangleNode(const RectangleNode& src)
+  : super(src)
+{
+  setup();
+}
+/**
+ */
+NodePtr RectangleNode::clone() const {
+  return std::make_shared<RectangleNode>(*this);
+}
+/**
+ */
+void RectangleNode::setup() {
   appendComponent<RectangleComponent>();
 }
 }

@@ -15,6 +15,7 @@ class Component
   Node& node_;
 
  public:
+  Component(const Component& src, Node& node);
   virtual ~Component() = default;
 
   Node& getNode() const {
@@ -28,6 +29,8 @@ class Component
   void beginRender(Renderer& renderer);
   void render(Renderer& renderer);
   void endRender(Renderer& renderer);
+
+  virtual ComponentPtr clone(Node& node) const;
 
  protected:
   Component(const std::string& name, Node& node);

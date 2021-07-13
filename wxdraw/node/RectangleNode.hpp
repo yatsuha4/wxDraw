@@ -15,6 +15,13 @@ class RectangleNode
 
  public:
   RectangleNode();
+  RectangleNode(const RectangleNode& src);
   ~RectangleNode() override = default;
+
+ protected:
+  NodePtr clone() const override;
+
+ private:
+  void setup();
 };
 }

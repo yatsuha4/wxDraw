@@ -25,6 +25,7 @@ enum {
   MENU_EDIT_APPEND_RECTANGLE, 
   MENU_EDIT_APPEND_ELLIPSE, 
   MENU_EDIT_REMOVE, 
+  MENU_EDIT_CLONE, 
   MENU_EDIT_UNDO, 
   MENU_EDIT_REDO, 
   MENU_WINDOW_PERSPECTIVE, 
@@ -141,6 +142,7 @@ void MainFrame::setupMenuBar() {
       subMenu->Bind(wxEVT_MENU_OPEN, &MainFrame::onMenuEditAppend, this);
     }
     menu->Append(MENU_EDIT_REMOVE, "Remove");
+    menu->Append(MENU_EDIT_CLONE, "Clone");
     menu->AppendSeparator();
     menu->Append(MENU_EDIT_UNDO, "Undo");
     menu->Append(MENU_EDIT_REDO, "Redo");
@@ -164,8 +166,13 @@ void MainFrame::setupMenuBar() {
  */
 void MainFrame::onMenuEdit(wxMenuEvent& event) {
   auto menu = event.GetMenu();
+  auto node = getSelectNode();
   auto project = getSelectProject();
   menu->Enable(MENU_EDIT_REMOVE, getSelectNode() != nullptr);
+  menu->Enable(MENU_EDIT_CLONE, 
+               node && 
+               node->getParent() && 
+               node->getParent()->canAppend(typeid(*node)));
   menu->Enable(MENU_EDIT_UNDO, project && project->getCommandProcessor().CanUndo());
   menu->Enable(MENU_EDIT_REDO, project && project->getCommandProcessor().CanRedo());
 }
@@ -208,6 +215,10 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
     break;
   case MENU_EDIT_REMOVE:
     submitCommand<RemoveNodeCommand>(getSelectNode());
+    break;
+  case MENU_EDIT_CLONE:
+    submitCommand<InsertNodeCommand>(Node::Clone(getSelectNode()), 
+                                     getSelectNode()->getParent());
     break;
   case MENU_EDIT_UNDO:
     if(auto project = getSelectProject()) {

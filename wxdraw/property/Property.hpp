@@ -13,6 +13,7 @@ class Property {
 
  public:
   Property(const std::string& name);
+  Property(const Property& src);
   virtual ~Property() = default;
 
   WXDRAW_GETTER(Name, name_);

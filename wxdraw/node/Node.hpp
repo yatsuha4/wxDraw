@@ -21,6 +21,7 @@ class Node
   wxTreeListItem item_;
 
  public:
+  Node(const Node& src);
   virtual ~Node() = default;
 
   WXDRAW_ACCESSOR(Label, label_);
@@ -29,6 +30,7 @@ class Node
   WXDRAW_GETTER(Components, components_);
 
   NodePtr getParent() const;
+  static void Append(const NodePtr& node, const NodePtr& parent);
   static void Insert(const NodePtr& node, const NodePtr& parent, size_t index);
   static void Remove(const NodePtr& node);
 
@@ -76,6 +78,8 @@ class Node
     return nullptr;
   }
 
+  static NodePtr Clone(const NodePtr& src);
+
  protected:
   Node(const std::string& name);
 
@@ -83,7 +87,11 @@ class Node
   virtual void onBeginRender(Renderer& renderer) {}
   virtual void onEndRender(Renderer& renderer) {}
 
+  virtual NodePtr clone() const;
+
  private:
+  void setup();
+
   void appendComponent(const ComponentPtr& component);
   void removeComponent(const ComponentPtr& component);
 };
