@@ -18,6 +18,7 @@ Canvas::Canvas(wxWindow* parent, MainFrame* mainFrame)
     viewMatrix_(1.0)
 {
   SetDoubleBuffered(true);
+  setupBrush(8, wxColour(0x70, 0x70, 0x70), wxColour(0x90, 0x90, 0x90));
   Bind(wxEVT_RIGHT_DOWN, &Canvas::onRightDown, this);
   Bind(wxEVT_MOTION, &Canvas::onMotion, this);
   Bind(wxEVT_MOUSEWHEEL, &Canvas::onMouseWheel, this);
@@ -27,6 +28,8 @@ Canvas::Canvas(wxWindow* parent, MainFrame* mainFrame)
 */
 void Canvas::OnDraw(wxDC& dc) {
   super::OnDraw(dc);
+  dc.SetBackground(brush_);
+  dc.Clear();
   if(auto node = mainFrame_->getSelectNode()) {
     if(auto project = Node::GetParent<ProjectNode>(node)) {
       auto size = GetSize();
@@ -38,6 +41,22 @@ void Canvas::OnDraw(wxDC& dc) {
       drawCursor(renderer, node);
     }
   }
+}
+/**
+ */
+void Canvas::setupBrush(int size, const wxColour& c1, const wxColour& c2) {
+  wxImage image(size * 2, size * 2);
+  for(int x = 0; x < size * 2; x++) {
+    for(int y = 0; y < size * 2; y++) {
+      if((((x / size) + (y / size)) & 1) == 0) {
+        image.SetRGB(x, y, c1.Red(), c1.Green(), c1.Blue());
+      }
+      else {
+        image.SetRGB(x, y, c2.Red(), c2.Green(), c2.Blue());
+      }
+    }
+  }
+  brush_.SetStipple(wxBitmap(image));
 }
 /**
  */
