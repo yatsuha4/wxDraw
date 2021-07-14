@@ -18,6 +18,7 @@ Application* Application::GetInstance() {
    初期化
 */
 bool Application::OnInit() {
+  wxInitAllImageHandlers();
   mainFrame_ = new MainFrame(*this);
   mainFrame_->Show();
   SetTopWindow(mainFrame_);

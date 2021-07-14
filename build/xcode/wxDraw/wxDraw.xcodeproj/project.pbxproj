@@ -21,6 +21,10 @@
 		260BBF14269E50800041BD06 /* ComponentBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 260BBF12269E50800041BD06 /* ComponentBase.cpp */; };
 		260BBF18269E591F0041BD06 /* Menu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 260BBF17269E591F0041BD06 /* Menu.cpp */; };
 		260BBF1B269E5D040041BD06 /* ExportComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 260BBF1A269E5D040041BD06 /* ExportComponent.cpp */; };
+		260BBF1E269E64C70041BD06 /* ImageExporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 260BBF1C269E64C70041BD06 /* ImageExporter.cpp */; };
+		260BBF21269E6F360041BD06 /* libwxjpeg-3.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 260BBF1F269E6F360041BD06 /* libwxjpeg-3.1.a */; };
+		260BBF22269E6F360041BD06 /* libwxtiff-3.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 260BBF20269E6F360041BD06 /* libwxtiff-3.1.a */; };
+		260BBF24269E6F7D0041BD06 /* liblzma.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 260BBF23269E6F7D0041BD06 /* liblzma.tbd */; };
 		263EA110268F502C003B100A /* RootNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 263EA10F268F502C003B100A /* RootNode.cpp */; };
 		263EA113268F524E003B100A /* Command.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 263EA111268F524E003B100A /* Command.cpp */; };
 		265FCA3E214ACD3100398B40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 265FCA3D214ACD3100398B40 /* Assets.xcassets */; };
@@ -81,6 +85,11 @@
 		260BBF17269E591F0041BD06 /* Menu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Menu.cpp; sourceTree = "<group>"; };
 		260BBF19269E5D040041BD06 /* ExportComponent.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ExportComponent.hpp; sourceTree = "<group>"; };
 		260BBF1A269E5D040041BD06 /* ExportComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExportComponent.cpp; sourceTree = "<group>"; };
+		260BBF1C269E64C70041BD06 /* ImageExporter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageExporter.cpp; sourceTree = "<group>"; };
+		260BBF1D269E64C70041BD06 /* ImageExporter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ImageExporter.hpp; sourceTree = "<group>"; };
+		260BBF1F269E6F360041BD06 /* libwxjpeg-3.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libwxjpeg-3.1.a"; path = "../../../external/opt/mac/wxWidgets/lib/libwxjpeg-3.1.a"; sourceTree = "<group>"; };
+		260BBF20269E6F360041BD06 /* libwxtiff-3.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libwxtiff-3.1.a"; path = "../../../external/opt/mac/wxWidgets/lib/libwxtiff-3.1.a"; sourceTree = "<group>"; };
+		260BBF23269E6F7D0041BD06 /* liblzma.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = liblzma.tbd; path = usr/lib/liblzma.tbd; sourceTree = SDKROOT; };
 		263EA10E268F502C003B100A /* RootNode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RootNode.hpp; sourceTree = "<group>"; };
 		263EA10F268F502C003B100A /* RootNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RootNode.cpp; sourceTree = "<group>"; };
 		263EA111268F524E003B100A /* Command.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Command.cpp; sourceTree = "<group>"; };
@@ -141,7 +150,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				265FCA54214AD08A00398B40 /* libwx_osx_cocoau-3.1.a in Frameworks */,
+				260BBF21269E6F360041BD06 /* libwxjpeg-3.1.a in Frameworks */,
 				265FCA60214AD12700398B40 /* libwxpng-3.1.a in Frameworks */,
+				260BBF22269E6F360041BD06 /* libwxtiff-3.1.a in Frameworks */,
 				265FCA5C214AD0E300398B40 /* AudioToolbox.framework in Frameworks */,
 				265FCA58214AD0CF00398B40 /* Carbon.framework in Frameworks */,
 				265FCA5A214AD0D500398B40 /* Cocoa.framework in Frameworks */,
@@ -150,6 +161,7 @@
 				2605A56C264563A200FD3DF0 /* QuartzCore.framework in Frameworks */,
 				26CB132C269A54140025ACDD /* libexpat.tbd in Frameworks */,
 				265FCA5E214AD10700398B40 /* libiconv.tbd in Frameworks */,
+				260BBF24269E6F7D0041BD06 /* liblzma.tbd in Frameworks */,
 				265FCA62214AD13200398B40 /* libz.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -246,7 +258,9 @@
 			isa = PBXGroup;
 			children = (
 				265FCA53214AD08A00398B40 /* libwx_osx_cocoau-3.1.a */,
+				260BBF1F269E6F360041BD06 /* libwxjpeg-3.1.a */,
 				265FCA5F214AD12700398B40 /* libwxpng-3.1.a */,
+				260BBF20269E6F360041BD06 /* libwxtiff-3.1.a */,
 				265FCA5B214AD0E300398B40 /* AudioToolbox.framework */,
 				265FCA57214AD0CF00398B40 /* Carbon.framework */,
 				265FCA59214AD0D500398B40 /* Cocoa.framework */,
@@ -255,6 +269,7 @@
 				2605A56B264563A200FD3DF0 /* QuartzCore.framework */,
 				26CB132B269A54140025ACDD /* libexpat.tbd */,
 				265FCA5D214AD10700398B40 /* libiconv.tbd */,
+				260BBF23269E6F7D0041BD06 /* liblzma.tbd */,
 				265FCA61214AD13200398B40 /* libz.tbd */,
 			);
 			name = Frameworks;
@@ -310,6 +325,8 @@
 			children = (
 				26CB1325269A524E0025ACDD /* Exporter.cpp */,
 				26CB1326269A524E0025ACDD /* Exporter.hpp */,
+				260BBF1C269E64C70041BD06 /* ImageExporter.cpp */,
+				260BBF1D269E64C70041BD06 /* ImageExporter.hpp */,
 				260BBF07269C3F3D0041BD06 /* Importer.hpp */,
 				26CB1328269A537B0025ACDD /* XmlExporter.cpp */,
 				26CB1329269A537B0025ACDD /* XmlExporter.hpp */,
@@ -415,6 +432,7 @@
 				26CB133C269B72470025ACDD /* InsertNodeCommand.cpp in Sources */,
 				2605A5812648698E00FD3DF0 /* LayerNode.cpp in Sources */,
 				2605A579264564DB00FD3DF0 /* Application.cpp in Sources */,
+				260BBF1E269E64C70041BD06 /* ImageExporter.cpp in Sources */,
 				26CB1339269B71380025ACDD /* ProjectNode.cpp in Sources */,
 				260BBF18269E591F0041BD06 /* Menu.cpp in Sources */,
 				26BA73D726991B87001F3C5D /* EllipseNode.cpp in Sources */,

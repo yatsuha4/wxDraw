@@ -25,6 +25,8 @@ class ExportComponent
   ExportComponent(const ExportComponent& src, Node& node);
   ~ExportComponent() override = default;
 
+  bool save(const NodePtr& node, const wxString& fileName);
+
  private:
   void setup();
 };

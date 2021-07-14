@@ -1,4 +1,5 @@
 #include "wxdraw/component/ExportComponent.hpp"
+#include "wxdraw/file/ImageExporter.hpp"
 
 namespace wxdraw::component {
 const char* ExportComponent::TYPE = "Export";
@@ -24,6 +25,12 @@ ExportComponent::ExportComponent(const ExportComponent& src, Node& node)
     alignment_(src.alignment_)
 {
   setup();
+}
+/**
+ */
+bool ExportComponent::save(const NodePtr& node, const wxString& fileName) {
+  ImageExporter exporter(node, size_, scale_, alignment_);
+  return exporter.save(fileName);
 }
 /**
  */

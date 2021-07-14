@@ -4,10 +4,19 @@ namespace wxdraw::gui {
 /**
    コンストラクタ
    @param dc デバイスコンテキスト
+   @param viewMatrix ビュー行列
 */
 Renderer::Renderer(wxDC& dc, const glm::dmat3& viewMatrix)
-  : context_(wxGraphicsContext::CreateFromUnknownDC(dc)), 
-    viewMatrix_(viewMatrix)
+  : Renderer(wxGraphicsContext::CreateFromUnknownDC(dc), viewMatrix)
+{
+}
+/**
+   コンストラクタ
+   @param image 画像
+   @param viewMatrix ビュー行列
+*/
+Renderer::Renderer(wxImage& image, const glm::dmat3& viewMatrix)
+  : Renderer(wxGraphicsContext::Create(image), viewMatrix)
 {
 }
 /**
@@ -50,5 +59,15 @@ void Renderer::pushPen(const wxGraphicsPenInfo& info) {
 void Renderer::popPen() {
   context_->SetPen(pens_.top());
   pens_.pop();
+}
+/**
+   コンストラクタ
+   @param context コンテキスト
+   @param viewMatrix ビュー行列
+*/
+Renderer::Renderer(wxGraphicsContext* context, const glm::dmat3& viewMatrix)
+  : context_(context), 
+    viewMatrix_(viewMatrix)
+{
 }
 }

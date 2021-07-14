@@ -6,7 +6,7 @@ namespace wxdraw::gui {
 */
 class Renderer {
  private:
-  std::shared_ptr<wxGraphicsContext> context_;
+  std::unique_ptr<wxGraphicsContext> context_;
   glm::dmat3 viewMatrix_;
   glm::dmat3 matrix_;
   std::stack<wxGraphicsBrush> brushes_;
@@ -14,6 +14,7 @@ class Renderer {
 
  public:
   Renderer(wxDC& dc, const glm::dmat3& viewMatrix);
+  Renderer(wxImage& image, const glm::dmat3& viewMatrix);
   ~Renderer() = default;
 
   wxGraphicsContext& getContext() const {
@@ -30,5 +31,8 @@ class Renderer {
 
   void pushPen(const wxGraphicsPenInfo& info);
   void popPen();
+
+ protected:
+  Renderer(wxGraphicsContext* context, const glm::dmat3& viewMatrix);
 };
 }

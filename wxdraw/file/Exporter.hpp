@@ -13,7 +13,8 @@ class Exporter {
 
   WXDRAW_GETTER(Node, node_);
 
-  virtual bool save(wxOutputStream& output) = 0;
+  virtual bool save(const wxString& fileName);
+  virtual bool save(wxOutputStream& output);
 
  protected:
   Exporter(const NodePtr& node);

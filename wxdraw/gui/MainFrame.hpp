@@ -59,6 +59,7 @@ class MainFrame
   void open();
   void saveAs();
   void saveProject(const ProjectNodePtr& project);
+  void onSelectFileExport();
 
   bool submitCommand(wxCommand* command);
 

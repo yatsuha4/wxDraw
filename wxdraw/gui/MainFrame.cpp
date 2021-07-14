@@ -1,5 +1,6 @@
 #include "wxdraw/command/InsertNodeCommand.hpp"
 #include "wxdraw/command/RemoveNodeCommand.hpp"
+#include "wxdraw/component/ExportComponent.hpp"
 #include "wxdraw/file/XmlExporter.hpp"
 #include "wxdraw/file/XmlImporter.hpp"
 #include "wxdraw/gui/Canvas.hpp"
@@ -20,6 +21,7 @@ enum {
   MENU_FILE_OPEN, 
   MENU_FILE_SAVE, 
   MENU_FILE_SAVE_AS, 
+  MENU_FILE_EXPORT, 
   MENU_FILE_QUIT, 
   MENU_EDIT_APPEND, 
   MENU_EDIT_APPEND_LAYER, 
@@ -131,6 +133,8 @@ void MainFrame::setupMenuBar() {
     menu->Append(MENU_FILE_SAVE, "Save");
     menu->Append(MENU_FILE_SAVE_AS, "Save as");
     menu->AppendSeparator();
+    menu->Append(MENU_FILE_EXPORT, "Export");
+    menu->AppendSeparator();
     menu->Append(MENU_FILE_QUIT, "Quit");
     menuBar->Append(menu, "File");
   }
@@ -215,6 +219,9 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
   case MENU_FILE_SAVE_AS:
     saveAs();
     break;
+  case MENU_FILE_EXPORT:
+    onSelectFileExport();
+    break;
   case MENU_FILE_QUIT:
     Close();
     break;
@@ -298,6 +305,19 @@ void MainFrame::saveProject(const ProjectNodePtr& project) {
   wxFileOutputStream output(project->getFileName().GetFullPath());
   if(exporter.save(output)) {
     project->getCommandProcessor().MarkAsSaved();
+  }
+}
+/**
+ */
+void MainFrame::onSelectFileExport() {
+  if(auto project = getSelectProject()) {
+    wxFileDialog dialog(this, wxFileSelectorPromptStr, 
+                        wxEmptyString, wxEmptyString, 
+                        wxImage::GetImageExtWildcard(), 
+                        wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
+    if(dialog.ShowModal() == wxID_OK) {
+      project->getComponent<ExportComponent>()->save(project, dialog.GetPath());
+    }
   }
 }
 /**
