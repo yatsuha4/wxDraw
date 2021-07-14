@@ -12,13 +12,14 @@ class XmlExporter
   using super = Exporter;
 
  private:
+  wxFileName fileName_;
   wxXmlDocument document_;
 
  public:
-  XmlExporter(const NodePtr& node);
+  XmlExporter(const NodePtr& node, const wxFileName& fileName);
   ~XmlExporter() override = default;
 
-  bool save(wxOutputStream& output) override;
+  bool save() override;
 
   static wxString ToString(int value);
   static wxString ToString(double value);
@@ -27,6 +28,6 @@ class XmlExporter
  private:
   wxXmlNode* parse(const NodePtr& node);
   wxXmlNode* parse(const Property& property);
-  static wxString GetValue(const MemberBasePtr& member);
+  wxString getValue(const MemberBasePtr& member);
 };
 }

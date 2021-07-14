@@ -33,7 +33,8 @@ Node::Node(const Node& src)
   : super(src), 
     label_(src.label_), 
     show_(src.show_), 
-    container_(src.container_)
+    container_(src.container_), 
+    comment_(src.comment_)
 {
   setup();
 }
@@ -157,6 +158,7 @@ void Node::setup() {
   appendMember("Label", label_);
   appendMember("Show", show_);
   appendMember("Container", container_);
+  appendMember("Comment", comment_);
 }
 /**
    コンポーネントを追加する

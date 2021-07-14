@@ -25,7 +25,9 @@ class ExportComponent
   ExportComponent(const ExportComponent& src, const NodePtr& node);
   ~ExportComponent() override = default;
 
-  bool save(const NodePtr& node, const wxString& fileName);
+  WXDRAW_ACCESSOR(FileName, fileName_);
+
+  bool save();
 
  private:
   void setup();

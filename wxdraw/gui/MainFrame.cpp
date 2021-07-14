@@ -272,23 +272,25 @@ void MainFrame::saveAs() {
 /**
  */
 void MainFrame::saveProject(const ProjectComponentPtr& project) {
-  XmlExporter exporter(project->getNode());
-  wxFileOutputStream output(project->getFileName().GetFullPath());
-  if(exporter.save(output)) {
+  XmlExporter exporter(project->getNode(), project->getFileName());
+  if(exporter.save()) {
     project->getCommandProcessor().MarkAsSaved();
   }
 }
 /**
  */
 void MainFrame::onSelectFileExport() {
-  if(auto project = getProject()) {
-    wxFileDialog dialog(this, wxFileSelectorPromptStr, 
-                        wxEmptyString, wxEmptyString, 
-                        wxImage::GetImageExtWildcard(), 
-                        wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
-    if(dialog.ShowModal() == wxID_OK) {
-      auto node = project->getNode();
-      node->getComponent<ExportComponent>()->save(node, dialog.GetPath());
+  if(auto node = getSelectNode()) {
+    if(auto component = node->getParentComponent<ExportComponent>()) {
+      wxFileDialog dialog(this, wxFileSelectorPromptStr, 
+                          component->getFileName().GetPath(), 
+                          component->getFileName().GetName(), 
+                          wxImage::GetImageExtWildcard(), 
+                          wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
+      if(dialog.ShowModal() == wxID_OK) {
+        component->getFileName().Assign(dialog.GetPath());
+        component->save();
+      }
     }
   }
 }

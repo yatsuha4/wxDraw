@@ -51,7 +51,7 @@ void Inspector::showProperty(Property& property) {
     else if(auto member = Member<bool>::As(iter)) {
       append<wxBoolProperty>(member);
     }
-    else if(auto member = Member<std::string>::As(iter)) {
+    else if(auto member = Member<wxString>::As(iter)) {
       append<wxStringProperty>(member);
     }
     else if(auto member = Member<wxColour>::As(iter)) {
@@ -75,10 +75,12 @@ void Inspector::append(wxPGProperty* property, const MemberBasePtr& member) {
 /**
  */
 void Inspector::onChanged(wxPropertyGridEvent& event) {
-  auto property = event.GetProperty();
-  auto member = static_cast<MemberBase*>(property->GetClientData());
-  doChange<double>(event, member) ||
-    doChange<wxColour>(event, member);
+  doChange<int, 
+           double, 
+           bool, 
+           wxString, 
+           wxColour, 
+           wxFileName>(event);
 }
 /**
  */

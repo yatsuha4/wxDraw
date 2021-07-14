@@ -28,9 +28,9 @@ ExportComponent::ExportComponent(const ExportComponent& src, const NodePtr& node
 }
 /**
  */
-bool ExportComponent::save(const NodePtr& node, const wxString& fileName) {
-  ImageExporter exporter(node, size_, scale_, alignment_);
-  return exporter.save(fileName);
+bool ExportComponent::save() {
+  ImageExporter exporter(getNode(), fileName_, size_, scale_, alignment_);
+  return exporter.save();
 }
 /**
  */

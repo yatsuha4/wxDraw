@@ -9,14 +9,11 @@ class Exporter {
   NodePtr node_;
 
  public:
+  Exporter(const NodePtr& node);
   virtual ~Exporter() = default;
 
   WXDRAW_GETTER(Node, node_);
 
-  virtual bool save(const wxString& fileName);
-  virtual bool save(wxOutputStream& output);
-
- protected:
-  Exporter(const NodePtr& node);
+  virtual bool save() = 0;
 };
 }

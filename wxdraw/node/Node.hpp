@@ -21,9 +21,10 @@ class Node
   std::weak_ptr<Node> parent_;
   std::vector<NodePtr> children_;
   std::vector<ComponentBasePtr> components_;
-  std::string label_;
+  wxString label_;
   bool show_;
   bool container_;
+  wxString comment_;
   wxTreeListItem item_;
 
  public:

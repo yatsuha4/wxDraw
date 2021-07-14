@@ -96,7 +96,7 @@ void XmlImporter::parseProperty(Property& property, const wxXmlNode& xml) {
       else if(auto m = Member<bool>::As(member)) {
         FromString(text, m->getValue());
       }
-      else if(auto m = Member<std::string>::As(member)) {
+      else if(auto m = Member<wxString>::As(member)) {
         m->getValue() = text;
       }
       else if(auto m =  Member<wxColour>::As(member)) {

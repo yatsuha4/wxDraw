@@ -45,8 +45,11 @@ class Inspector
 
   void onChanged(wxPropertyGridEvent& event);
 
+  void onRightClick(wxPropertyGridEvent& event);
+
   template<class T>
-  bool doChange(const wxPropertyGridEvent& event, MemberBase* member) {
+  bool doChange(const wxPropertyGridEvent& event) {
+    auto member = static_cast<MemberBase*>(event.GetProperty()->GetClientData());
     if(auto m = dynamic_cast<Member<T>*>(member)) {
       mainFrame_->submitCommand<ChangePropertyCommand<T>>(node_, m->getValue(), 
                                                           wxAny(event.GetValue()).As<T>());
@@ -55,6 +58,9 @@ class Inspector
     return false;
   }
 
-  void onRightClick(wxPropertyGridEvent& event);
+  template<class T1, class T2, class... Rest>
+  bool doChange(const wxPropertyGridEvent& event) {
+    return doChange<T1>(event) || doChange<T2, Rest...>(event);
+  }
 };
 }
