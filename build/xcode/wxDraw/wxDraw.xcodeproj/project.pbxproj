@@ -93,6 +93,8 @@
 		260BBF2B269EFFFC0041BD06 /* PaletteComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PaletteComponent.cpp; sourceTree = "<group>"; };
 		260BBF2C269EFFFC0041BD06 /* PaletteComponent.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PaletteComponent.hpp; sourceTree = "<group>"; };
 		260BBF2E269F001D0041BD06 /* Color.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Color.hpp; sourceTree = "<group>"; };
+		261C06D6269FA4F8002AAC78 /* ContainerComponent.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ContainerComponent.cpp; sourceTree = "<group>"; };
+		261C06D7269FA4F8002AAC78 /* ContainerComponent.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ContainerComponent.hpp; sourceTree = "<group>"; };
 		263EA111268F524E003B100A /* Command.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Command.cpp; sourceTree = "<group>"; };
 		263EA112268F524E003B100A /* Command.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Command.hpp; sourceTree = "<group>"; };
 		265FCA37214ACD2D00398B40 /* wxDraw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wxDraw.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -282,6 +284,8 @@
 				260BBF15269E51B80041BD06 /* Component.hpp */,
 				260BBF12269E50800041BD06 /* ComponentBase.cpp */,
 				260BBF13269E50800041BD06 /* ComponentBase.hpp */,
+				261C06D6269FA4F8002AAC78 /* ContainerComponent.cpp */,
+				261C06D7269FA4F8002AAC78 /* ContainerComponent.hpp */,
 				26BA73D226991A64001F3C5D /* EllipseComponent.cpp */,
 				26BA73D326991A64001F3C5D /* EllipseComponent.hpp */,
 				260BBF1A269E5D040041BD06 /* ExportComponent.cpp */,
