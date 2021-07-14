@@ -1,5 +1,6 @@
 #include "wxdraw/component/Component.hpp"
 #include "wxdraw/gui/Inspector.hpp"
+#include "wxdraw/gui/Menu.hpp"
 #include "wxdraw/node/Node.hpp"
 #include "wxdraw/property/Member.hpp"
 
@@ -14,6 +15,7 @@ Inspector::Inspector(wxWindow* parent, MainFrame* mainFrame)
     mainFrame_(mainFrame)
 {
   Bind(wxEVT_PG_CHANGED, &Inspector::onChanged, this);
+  Bind(wxEVT_PG_RIGHT_CLICK, &Inspector::onRightClick, this);
 }
 /**
  */
@@ -77,5 +79,17 @@ void Inspector::onChanged(wxPropertyGridEvent& event) {
   auto member = static_cast<MemberBase*>(property->GetClientData());
   doChange<double>(event, member) ||
     doChange<wxColour>(event, member);
+}
+/**
+ */
+void Inspector::onRightClick(wxPropertyGridEvent& event) {
+  if(dynamic_cast<wxPropertyCategory*>(event.GetProperty())) {
+    auto menu = new Menu(Menu::Type::POPUP_INSPECTOR_COMPONENT);
+    menu->Append(Menu::ID_COMPONENT_REMOVE, "Remove");
+    menu->AppendSeparator();
+    menu->Append(Menu::ID_COMPONENT_UP, "Up");
+    menu->Append(Menu::ID_COMPONENT_DOWN, "Down");
+    PopupMenu(menu);
+  }
 }
 }

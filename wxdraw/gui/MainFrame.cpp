@@ -15,29 +15,6 @@
 #include "wxdraw/node/RootNode.hpp"
 
 namespace wxdraw::gui {
-enum {
-  MENU_TOP = wxID_HIGHEST, 
-  MENU_FILE_NEW, 
-  MENU_FILE_OPEN, 
-  MENU_FILE_SAVE, 
-  MENU_FILE_SAVE_AS, 
-  MENU_FILE_EXPORT, 
-  MENU_FILE_QUIT, 
-  MENU_EDIT_APPEND, 
-  MENU_EDIT_APPEND_LAYER, 
-  MENU_EDIT_APPEND_RECTANGLE, 
-  MENU_EDIT_APPEND_ELLIPSE, 
-  MENU_EDIT_NEW_COMPONENT, 
-  MENU_EDIT_NEW_COMPONENT_EXPORT, 
-  MENU_EDIT_REMOVE, 
-  MENU_EDIT_CLONE, 
-  MENU_EDIT_UNDO, 
-  MENU_EDIT_REDO, 
-  MENU_WINDOW_PERSPECTIVE, 
-  MENU_WINDOW_PERSPECTIVE_SAVE, 
-  MENU_WINDOW_PERSPECTIVE_LOAD, 
-  MENU_WINDOW_PERSPECTIVE_RESET
-};
 const wxSize MainFrame::DEFAULT_SIZE(960, 640);
 const wxSize MainFrame::DEFAULT_OUTLINER_SIZE(240, 640);
 const wxSize MainFrame::DEFAULT_INSPECTOR_SIZE(240, 640);
@@ -128,45 +105,45 @@ void MainFrame::setupMenuBar() {
   SetMenuBar(menuBar);
   {
     auto menu = new Menu();
-    menu->Append(MENU_FILE_NEW, "New Project");
-    menu->Append(MENU_FILE_OPEN, "Open");
-    menu->Append(MENU_FILE_SAVE, "Save");
-    menu->Append(MENU_FILE_SAVE_AS, "Save as");
+    menu->Append(Menu::ID_FILE_NEW, "New Project");
+    menu->Append(Menu::ID_FILE_OPEN, "Open");
+    menu->Append(Menu::ID_FILE_SAVE, "Save");
+    menu->Append(Menu::ID_FILE_SAVE_AS, "Save as");
     menu->AppendSeparator();
-    menu->Append(MENU_FILE_EXPORT, "Export");
+    menu->Append(Menu::ID_FILE_EXPORT, "Export");
     menu->AppendSeparator();
-    menu->Append(MENU_FILE_QUIT, "Quit");
+    menu->Append(Menu::ID_FILE_QUIT, "Quit");
     menuBar->Append(menu, "File");
   }
   {
     auto menu = new Menu(Menu::Type::Edit);
     {
       auto subMenu = new Menu(Menu::Type::Edit_NewNode);
-      subMenu->Append(MENU_EDIT_APPEND_LAYER, "Layer");
-      subMenu->Append(MENU_EDIT_APPEND_RECTANGLE, "Rectangle");
-      subMenu->Append(MENU_EDIT_APPEND_ELLIPSE, "Ellipse");
-      menu->Append(MENU_EDIT_APPEND, "New Node", subMenu);
+      subMenu->Append(Menu::ID_EDIT_APPEND_LAYER, "Layer");
+      subMenu->Append(Menu::ID_EDIT_APPEND_RECTANGLE, "Rectangle");
+      subMenu->Append(Menu::ID_EDIT_APPEND_ELLIPSE, "Ellipse");
+      menu->Append(Menu::ID_EDIT_APPEND, "New Node", subMenu);
     }
     {
       auto subMenu = new Menu(Menu::Type::Edit_NewComponent);
-      subMenu->Append(MENU_EDIT_NEW_COMPONENT_EXPORT, "Export");
-      menu->Append(MENU_EDIT_NEW_COMPONENT, "New Component", subMenu);
+      subMenu->Append(Menu::ID_EDIT_NEW_COMPONENT_EXPORT, "Export");
+      menu->Append(Menu::ID_EDIT_NEW_COMPONENT, "New Component", subMenu);
     }
-    menu->Append(MENU_EDIT_REMOVE, "Remove");
-    menu->Append(MENU_EDIT_CLONE, "Clone");
+    menu->Append(Menu::ID_EDIT_REMOVE, "Remove");
+    menu->Append(Menu::ID_EDIT_CLONE, "Clone");
     menu->AppendSeparator();
-    menu->Append(MENU_EDIT_UNDO, "Undo");
-    menu->Append(MENU_EDIT_REDO, "Redo");
+    menu->Append(Menu::ID_EDIT_UNDO, "Undo");
+    menu->Append(Menu::ID_EDIT_REDO, "Redo");
     menuBar->Append(menu, "Edit");
   }
   {
     auto menu = new Menu();
     {
       auto perspectiveMenu = new Menu();
-      perspectiveMenu->Append(MENU_WINDOW_PERSPECTIVE_SAVE, "Save");
-      perspectiveMenu->Append(MENU_WINDOW_PERSPECTIVE_LOAD, "Load");
-      perspectiveMenu->Append(MENU_WINDOW_PERSPECTIVE_RESET, "Reset");
-      menu->Append(MENU_WINDOW_PERSPECTIVE, "Perspective", perspectiveMenu);
+      perspectiveMenu->Append(Menu::ID_WINDOW_PERSPECTIVE_SAVE, "Save");
+      perspectiveMenu->Append(Menu::ID_WINDOW_PERSPECTIVE_LOAD, "Load");
+      perspectiveMenu->Append(Menu::ID_WINDOW_PERSPECTIVE_RESET, "Reset");
+      menu->Append(Menu::ID_WINDOW_PERSPECTIVE, "Perspective", perspectiveMenu);
     }
     menuBar->Append(menu, "Window");
   }
@@ -182,20 +159,20 @@ void MainFrame::onMenuOpen(wxMenuEvent& event) {
   switch(menu->getType()) {
   case Menu::Type::Edit:
     {
-      menu->Enable(MENU_EDIT_REMOVE, node != nullptr);
-      menu->Enable(MENU_EDIT_CLONE, 
+      menu->Enable(Menu::ID_EDIT_REMOVE, node != nullptr);
+      menu->Enable(Menu::ID_EDIT_CLONE, 
                    node && 
                    node->getParent() && 
                    node->getParent()->canAppend(typeid(*node)));
-      menu->Enable(MENU_EDIT_UNDO, project && project->getCommandProcessor().CanUndo());
-      menu->Enable(MENU_EDIT_REDO, project && project->getCommandProcessor().CanRedo());
+      menu->Enable(Menu::ID_EDIT_UNDO, project && project->getCommandProcessor().CanUndo());
+      menu->Enable(Menu::ID_EDIT_REDO, project && project->getCommandProcessor().CanRedo());
     }
     break;
   case Menu::Type::Edit_NewNode:
     {
-      menu->Enable(MENU_EDIT_APPEND_LAYER, canAppendNode<LayerNode>());
-      menu->Enable(MENU_EDIT_APPEND_RECTANGLE, canAppendNode<RectangleNode>());
-      menu->Enable(MENU_EDIT_APPEND_ELLIPSE, canAppendNode<EllipseNode>());
+      menu->Enable(Menu::ID_EDIT_APPEND_LAYER, canAppendNode<LayerNode>());
+      menu->Enable(Menu::ID_EDIT_APPEND_RECTANGLE, canAppendNode<RectangleNode>());
+      menu->Enable(Menu::ID_EDIT_APPEND_ELLIPSE, canAppendNode<EllipseNode>());
     }
     break;
   default:
@@ -208,50 +185,50 @@ void MainFrame::onMenuOpen(wxMenuEvent& event) {
 */
 void MainFrame::onSelectMenu(wxCommandEvent& event) {
   switch(event.GetId()) {
-  case MENU_FILE_NEW:
+  case Menu::ID_FILE_NEW:
     appendNode(std::make_shared<ProjectNode>(), outliner_->getRootNode());
     break;
-  case MENU_FILE_OPEN:
+  case Menu::ID_FILE_OPEN:
     open();
     break;
-  case MENU_FILE_SAVE:
+  case Menu::ID_FILE_SAVE:
     break;
-  case MENU_FILE_SAVE_AS:
+  case Menu::ID_FILE_SAVE_AS:
     saveAs();
     break;
-  case MENU_FILE_EXPORT:
+  case Menu::ID_FILE_EXPORT:
     onSelectFileExport();
     break;
-  case MENU_FILE_QUIT:
+  case Menu::ID_FILE_QUIT:
     Close();
     break;
-  case MENU_EDIT_APPEND_LAYER:
+  case Menu::ID_EDIT_APPEND_LAYER:
     appendNode<LayerNode>();
     break;
-  case MENU_EDIT_APPEND_RECTANGLE:
+  case Menu::ID_EDIT_APPEND_RECTANGLE:
     appendNode<RectangleNode>();
     break;
-  case MENU_EDIT_APPEND_ELLIPSE:
+  case Menu::ID_EDIT_APPEND_ELLIPSE:
     appendNode<EllipseNode>();
     break;
-  case MENU_EDIT_REMOVE:
+  case Menu::ID_EDIT_REMOVE:
     submitCommand<RemoveNodeCommand>(getSelectNode());
     break;
-  case MENU_EDIT_CLONE:
+  case Menu::ID_EDIT_CLONE:
     submitCommand<InsertNodeCommand>(Node::Clone(getSelectNode()), 
                                      getSelectNode()->getParent());
     break;
-  case MENU_EDIT_UNDO:
+  case Menu::ID_EDIT_UNDO:
     if(auto project = getSelectProject()) {
       project->getCommandProcessor().Undo();
     }
     break;
-  case MENU_EDIT_REDO:
+  case Menu::ID_EDIT_REDO:
     if(auto project = getSelectProject()) {
       project->getCommandProcessor().Redo();
     }
     break;
-  case MENU_WINDOW_PERSPECTIVE_RESET:
+  case Menu::ID_WINDOW_PERSPECTIVE_RESET:
     SetSize(DEFAULT_SIZE);
     auiManager_.LoadPerspective(defaultPerspective_);
     break;

@@ -54,5 +54,7 @@ class Inspector
     }
     return false;
   }
+
+  void onRightClick(wxPropertyGridEvent& event);
 };
 }
