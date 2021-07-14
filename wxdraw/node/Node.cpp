@@ -1,15 +1,26 @@
+#include "wxdraw/component/BrushComponent.hpp"
+#include "wxdraw/component/EllipseComponent.hpp"
+#include "wxdraw/component/ExportComponent.hpp"
+#include "wxdraw/component/GridComponent.hpp"
+#include "wxdraw/component/LayerComponent.hpp"
+#include "wxdraw/component/LayoutComponent.hpp"
+#include "wxdraw/component/ProjectComponent.hpp"
+#include "wxdraw/component/RectangleComponent.hpp"
 #include "wxdraw/gui/Renderer.hpp"
 #include "wxdraw/node/Node.hpp"
 
 namespace wxdraw::node {
-const char* Node::TYPE = "Node";
+const char* Node::TYPE_ELLIPSE = "Ellipse";
+const char* Node::TYPE_LAYER = "Layer";
+const char* Node::TYPE_PROJECT = "Project";
+const char* Node::TYPE_RECTANGLE = "Rectangle";
 /**
    コンストラクタ
    @param name 名前
 */
-Node::Node()
-  : super(TYPE), 
-    label_(TYPE), 
+Node::Node(const std::string& name)
+  : super(name), 
+    label_(name), 
     show_(true), 
     container_(false)
 {
@@ -108,6 +119,20 @@ void Node::render(Renderer& renderer) {
  */
 bool Node::canAppend(const std::type_info& type) const {
   return container_;
+}
+/**
+ */
+NodePtr Node::CreateEllipse() {
+  return Create<EllipseComponent>(TYPE_ELLIPSE);
+}
+NodePtr Node::CreateLayer() {
+  return Create<LayerComponent, GridComponent>(TYPE_LAYER);
+}
+NodePtr Node::CreateProject() {
+  return Create<ProjectComponent, GridComponent, BrushComponent>(TYPE_PROJECT);
+}
+NodePtr Node::CreateRectangle() {
+  return Create<RectangleComponent>(TYPE_RECTANGLE);
 }
 /**
    複製を生成する

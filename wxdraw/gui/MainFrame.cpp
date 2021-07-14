@@ -1,12 +1,7 @@
 #include "wxdraw/command/InsertNodeCommand.hpp"
 #include "wxdraw/command/RemoveNodeCommand.hpp"
-#include "wxdraw/component/BrushComponent.hpp"
-#include "wxdraw/component/EllipseComponent.hpp"
 #include "wxdraw/component/ExportComponent.hpp"
-#include "wxdraw/component/GridComponent.hpp"
-#include "wxdraw/component/LayerComponent.hpp"
 #include "wxdraw/component/ProjectComponent.hpp"
-#include "wxdraw/component/RectangleComponent.hpp"
 #include "wxdraw/file/XmlExporter.hpp"
 #include "wxdraw/file/XmlImporter.hpp"
 #include "wxdraw/gui/Canvas.hpp"
@@ -183,7 +178,7 @@ void MainFrame::onMenuOpen(wxMenuEvent& event) {
 void MainFrame::onSelectMenu(wxCommandEvent& event) {
   switch(event.GetId()) {
   case Menu::ID_FILE_NEW:
-    appendNode(Node::Create<ProjectComponent, BrushComponent>(), outliner_->getRootNode());
+    appendNode(Node::CreateProject(), outliner_->getRootNode());
     break;
   case Menu::ID_FILE_OPEN:
     open();
@@ -200,13 +195,13 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
     Close();
     break;
   case Menu::ID_EDIT_APPEND_LAYER:
-    newNode(Node::Create<LayerComponent, GridComponent>());
+    newNode(Node::CreateLayer());
     break;
   case Menu::ID_EDIT_APPEND_RECTANGLE:
-    newNode(Node::Create<RectangleComponent>());
+    newNode(Node::CreateRectangle());
     break;
   case Menu::ID_EDIT_APPEND_ELLIPSE:
-    newNode(Node::Create<EllipseComponent>());
+    newNode(Node::CreateEllipse());
     break;
   case Menu::ID_EDIT_REMOVE:
     submitCommand<RemoveNodeCommand>(getSelectNode());

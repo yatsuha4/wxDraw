@@ -27,7 +27,7 @@ NodePtr XmlImporter::load() {
 /**
  */
 NodePtr XmlImporter::parseNode(const wxXmlNode& xml) {
-  NodePtr node = std::make_shared<Node>();
+  NodePtr node = std::make_shared<Node>(xml.GetName().ToStdString());
   parseProperty(*node, xml);
   for(auto iter = xml.GetChildren(); iter; iter = iter->GetNext()) {
     if(iter->GetName() == "Components") {

@@ -19,7 +19,7 @@ Outliner::Outliner(wxWindow* parent, MainFrame& mainFrame)
  */
 const NodePtr& Outliner::getRootNode() {
   if(!rootNode_) {
-    rootNode_ = std::make_shared<Node>();
+    rootNode_ = std::make_shared<Node>("Root");
     rootNode_->setItem(GetRootItem());
   }
   return rootNode_;

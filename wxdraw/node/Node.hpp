@@ -1,6 +1,5 @@
 #pragma once
 
-#include "wxdraw/component/LayoutComponent.hpp"
 #include "wxdraw/property/Property.hpp"
 
 namespace wxdraw::node {
@@ -13,7 +12,10 @@ class Node
   using super = Property;
 
  public:
-  static const char* TYPE;
+  static const char* TYPE_ELLIPSE;
+  static const char* TYPE_LAYER;
+  static const char* TYPE_PROJECT;
+  static const char* TYPE_RECTANGLE;
 
  private:
   std::weak_ptr<Node> parent_;
@@ -25,7 +27,7 @@ class Node
   wxTreeListItem item_;
 
  public:
-  Node();
+  Node(const std::string& name);
   Node(const Node& src);
   virtual ~Node() = default;
 
@@ -51,17 +53,12 @@ class Node
 
   virtual bool canAppend(const std::type_info& type) const;
 
-  static NodePtr Clone(const NodePtr& src);
+  static NodePtr CreateEllipse();
+  static NodePtr CreateLayer();
+  static NodePtr CreateProject();
+  static NodePtr CreateRectangle();
 
-  /**
-     ノードを生成する
-  */
-  template<class... ComponentTypes>
-  static NodePtr Create() {
-    auto node = std::make_shared<Node>();
-    AppendComponent<LayoutComponent, ComponentTypes...>(node);
-    return node;
-  }
+  static NodePtr Clone(const NodePtr& src);
 
   /**
      コンポーネントを取得する
@@ -93,8 +90,6 @@ class Node
   }
 
  protected:
-  Node(const std::string& name);
-
   virtual void onUpdate() {}
   virtual void onBeginRender(Renderer& renderer) {}
   virtual void onEndRender(Renderer& renderer) {}
@@ -106,6 +101,16 @@ class Node
 
   void appendComponent(const ComponentBasePtr& component);
   void removeComponent(const ComponentBasePtr& component);
+
+  /**
+     ノードを生成する
+  */
+  template<class... ComponentTypes>
+  static NodePtr Create(const std::string& name) {
+    auto node = std::make_shared<Node>(name);
+    AppendComponent<LayoutComponent, ComponentTypes...>(node);
+    return node;
+  }
 
   /**
      コンポーネントを追加する
