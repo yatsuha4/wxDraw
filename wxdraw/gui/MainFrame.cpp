@@ -155,16 +155,17 @@ void MainFrame::onMenuOpen(wxMenuEvent& event) {
       menu->Enable(Menu::ID_EDIT_CLONE, 
                    node && 
                    node->getParent() && 
-                   node->getParent()->canAppend(typeid(*node)));
+                   node->getParent()->isContainer());
       menu->Enable(Menu::ID_EDIT_UNDO, project && project->getCommandProcessor().CanUndo());
       menu->Enable(Menu::ID_EDIT_REDO, project && project->getCommandProcessor().CanRedo());
     }
     break;
   case Menu::Type::Edit_NewNode:
     {
-      //menu->Enable(Menu::ID_EDIT_APPEND_LAYER, canAppendNode<LayerNode>());
-      //menu->Enable(Menu::ID_EDIT_APPEND_RECTANGLE, canAppendNode<RectangleNode>());
-      //menu->Enable(Menu::ID_EDIT_APPEND_ELLIPSE, canAppendNode<EllipseNode>());
+      auto enable = (getContainerNode() != nullptr);
+      menu->Enable(Menu::ID_EDIT_APPEND_LAYER, enable);
+      menu->Enable(Menu::ID_EDIT_APPEND_RECTANGLE, enable);
+      menu->Enable(Menu::ID_EDIT_APPEND_ELLIPSE, enable);
     }
     break;
   default:
@@ -226,10 +227,15 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
 }
 /**
  */
-NodePtr MainFrame::getAppendParent(const std::type_info& type) const {
-  for(auto node = getSelectNode(); node; node = node->getParent()) {
-    if(node->canAppend(type)) {
+NodePtr MainFrame::getContainerNode() const {
+  if(auto node = getSelectNode()) {
+    if(node->isContainer()) {
       return node;
+    }
+    if(auto parent = node->getParent()) {
+      if(parent->isContainer()) {
+        return parent;
+      }
     }
   }
   return nullptr;
@@ -301,6 +307,6 @@ bool MainFrame::submitCommand(wxCommand* command) {
    @param node ノード
 */
 bool MainFrame::newNode(const NodePtr& node) {
-  return submitCommand<InsertNodeCommand>(node, getSelectNode());
+  return submitCommand<InsertNodeCommand>(node, getContainerNode());
 }
 }

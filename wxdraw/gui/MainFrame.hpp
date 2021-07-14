@@ -50,12 +50,7 @@ class MainFrame
   void onMenuOpen(wxMenuEvent& event);
   void onSelectMenu(wxCommandEvent& event);
 
-  template<class T>
-  bool canAppendNode() const {
-    return getAppendParent(typeid(T)) != nullptr;
-  }
-
-  NodePtr getAppendParent(const std::type_info& type) const;
+  NodePtr getContainerNode() const;
 
   void open();
   void saveAs();

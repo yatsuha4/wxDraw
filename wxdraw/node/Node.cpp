@@ -117,19 +117,14 @@ void Node::render(Renderer& renderer) {
 }
 /**
  */
-bool Node::canAppend(const std::type_info& type) const {
-  return container_;
-}
-/**
- */
 NodePtr Node::CreateEllipse() {
   return Create<EllipseComponent>(TYPE_ELLIPSE);
 }
 NodePtr Node::CreateLayer() {
-  return Create<LayerComponent, GridComponent>(TYPE_LAYER);
+  return Create<LayerComponent, GridComponent>(TYPE_LAYER, true);
 }
 NodePtr Node::CreateProject() {
-  return Create<ProjectComponent, GridComponent, BrushComponent>(TYPE_PROJECT);
+  return Create<ProjectComponent, GridComponent, BrushComponent>(TYPE_PROJECT, true);
 }
 NodePtr Node::CreateRectangle() {
   return Create<RectangleComponent>(TYPE_RECTANGLE);

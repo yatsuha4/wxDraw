@@ -32,7 +32,7 @@ class Node
   virtual ~Node() = default;
 
   WXDRAW_ACCESSOR(Label, label_);
-  WXDRAW_ACCESSOR(Container, container_);
+  WXDRAW_IS_ACCESSOR(Container, container_);
   WXDRAW_GETTER(Children, children_);
   WXDRAW_GETTER(Components, components_);
 
@@ -45,13 +45,6 @@ class Node
   virtual void render(Renderer& renderer);
 
   WXDRAW_ACCESSOR(Item, item_);
-
-  template<class T>
-  bool canAppend() const {
-    return canAppend(typeid(T));
-  }
-
-  virtual bool canAppend(const std::type_info& type) const;
 
   static NodePtr CreateEllipse();
   static NodePtr CreateLayer();
@@ -106,8 +99,9 @@ class Node
      ノードを生成する
   */
   template<class... ComponentTypes>
-  static NodePtr Create(const std::string& name) {
+  static NodePtr Create(const std::string& name, bool container = false) {
     auto node = std::make_shared<Node>(name);
+    node->setContainer(container);
     AppendComponent<LayoutComponent, ComponentTypes...>(node);
     return node;
   }
