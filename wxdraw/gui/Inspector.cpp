@@ -55,6 +55,10 @@ void Inspector::showProperty(Property& property) {
     else if(auto member = Member<wxColour>::As(iter)) {
       append<wxColourProperty>(member);
     }
+    else if(auto member = Member<wxFileName>::As(iter)) {
+      append<wxFileProperty>(member, member->getLabel(), member->getUniqueName(), 
+                             member->getValue().GetFullPath());
+    }
     else if(auto child = std::dynamic_pointer_cast<Property>(iter)) {
       showProperty(*child);
     }

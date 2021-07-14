@@ -19,6 +19,12 @@ Property::Property(const Property& src)
 }
 /**
  */
+void Property::appendMember(const std::string& name, glm::ivec2& value) {
+  appendMember(name + ".x", value.x);
+  appendMember(name + ".y", value.y);
+}
+/**
+ */
 void Property::appendMember(const std::string& name, glm::dvec2& value) {
   appendMember(name + ".x", value.x);
   appendMember(name + ".y", value.y);

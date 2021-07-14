@@ -1,4 +1,5 @@
 #include "wxdraw/component/BrushComponent.hpp"
+#include "wxdraw/component/ExportComponent.hpp"
 #include "wxdraw/node/ProjectNode.hpp"
 
 namespace wxdraw::node {
@@ -11,5 +12,6 @@ ProjectNode::ProjectNode()
 {
   setContainer(true);
   appendComponent<BrushComponent>();
+  appendComponent<ExportComponent>();
 }
 }

@@ -19,6 +19,7 @@ class Property {
   WXDRAW_GETTER(Name, name_);
   WXDRAW_GETTER(Members, members_);
 
+  void appendMember(const std::string& name, glm::ivec2& value);
   void appendMember(const std::string& name, glm::dvec2& value);
 
   template <class T>
