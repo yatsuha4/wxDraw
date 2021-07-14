@@ -8,7 +8,7 @@ const char* RectangleComponent::TYPE = "Rectangle";
 /**
    コンストラクタ
 */
-RectangleComponent::RectangleComponent(Node& node)
+RectangleComponent::RectangleComponent(const NodePtr& node)
   : super(TYPE, node), 
     round_(0.0)
 {
@@ -17,7 +17,8 @@ RectangleComponent::RectangleComponent(Node& node)
 /**
    コピーコンストラクタ
 */
-RectangleComponent::RectangleComponent(const RectangleComponent& src, Node& node)
+RectangleComponent::RectangleComponent(const RectangleComponent& src, 
+                                       const NodePtr& node)
   : super(src, node), 
     round_(src.round_)
 {
@@ -27,7 +28,7 @@ RectangleComponent::RectangleComponent(const RectangleComponent& src, Node& node
  */
 void RectangleComponent::onRender(Renderer& renderer) {
   auto& context = renderer.getContext();
-  if(auto layout = getNode().getComponent<LayoutComponent>()) {
+  if(auto layout = getNode()->getComponent<LayoutComponent>()) {
     auto& rect = layout->getRect();
     if(round_ <= 0.0) {
       context.DrawRectangle(rect.pos.x, rect.pos.y, rect.size.x, rect.size.y);

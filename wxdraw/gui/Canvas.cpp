@@ -1,8 +1,9 @@
 #include "wxdraw/component/LayoutComponent.hpp"
+#include "wxdraw/component/ProjectComponent.hpp"
 #include "wxdraw/gui/Canvas.hpp"
 #include "wxdraw/gui/MainFrame.hpp"
 #include "wxdraw/gui/Renderer.hpp"
-#include "wxdraw/node/ProjectNode.hpp"
+#include "wxdraw/node/Node.hpp"
 
 namespace wxdraw::gui {
 /**
@@ -30,16 +31,14 @@ void Canvas::OnDraw(wxDC& dc) {
   super::OnDraw(dc);
   dc.SetBackground(brush_);
   dc.Clear();
-  if(auto node = mainFrame_->getSelectNode()) {
-    if(auto project = Node::GetParent<ProjectNode>(node)) {
-      auto size = GetSize();
-      viewMatrix_ = glm::scale(glm::translate(glm::dmat3(1.0), 
-                                              glm::dvec2(size.x * 0.5, size.y * 0.5) + offset_), 
-                               glm::dvec2(zoom_));
-      Renderer renderer(dc, viewMatrix_);
-      project->render(renderer);
-      drawCursor(renderer, node);
-    }
+  if(auto project = mainFrame_->getProject()) {
+    auto size = GetSize();
+    viewMatrix_ = glm::scale(glm::translate(glm::dmat3(1.0), 
+                                            glm::dvec2(size.x * 0.5, size.y * 0.5) + offset_), 
+                             glm::dvec2(zoom_));
+    Renderer renderer(dc, viewMatrix_);
+    project->getNode()->render(renderer);
+    drawCursor(renderer, mainFrame_->getSelectNode());
   }
 }
 /**

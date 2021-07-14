@@ -18,8 +18,8 @@ class LayerComponent
   bool clip_;
 
  public:
-  LayerComponent(Node& node);
-  LayerComponent(const LayerComponent& src, Node& node);
+  LayerComponent(const NodePtr& node);
+  LayerComponent(const LayerComponent& src, const NodePtr& node);
   ~LayerComponent() override = default;
 
  protected:

@@ -6,7 +6,7 @@ const char* LayerComponent::TYPE = "Layer";
 /**
    コンストラクタ
 */
-LayerComponent::LayerComponent(Node& node)
+LayerComponent::LayerComponent(const NodePtr& node)
   : super(TYPE, node), 
     opacity_(1.0), 
     clip_(false)
@@ -16,7 +16,7 @@ LayerComponent::LayerComponent(Node& node)
 /**
    コピーコンストラクタ
 */
-LayerComponent::LayerComponent(const LayerComponent& src, Node& node)
+LayerComponent::LayerComponent(const LayerComponent& src, const NodePtr& node)
   : super(src, node), 
     opacity_(src.opacity_), 
     clip_(src.clip_)

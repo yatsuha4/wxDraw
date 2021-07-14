@@ -14,13 +14,13 @@ class Outliner
 
  private:
   MainFrame& mainFrame_;
-  RootNodePtr rootNode_;
+  NodePtr rootNode_;
 
  public:
   Outliner(wxWindow* parent, MainFrame& mainFrame);
   ~Outliner() override = default;
 
-  const RootNodePtr& getRootNode();
+  const NodePtr& getRootNode();
   void insertNode(const NodePtr& node, const NodePtr& parent, size_t index);
   void removeNode(const NodePtr& node);
   void selectNode(const NodePtr& node);

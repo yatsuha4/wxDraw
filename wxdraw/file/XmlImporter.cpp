@@ -5,10 +5,7 @@
 #include "wxdraw/component/LayoutComponent.hpp"
 #include "wxdraw/component/RectangleComponent.hpp"
 #include "wxdraw/file/XmlImporter.hpp"
-#include "wxdraw/node/EllipseNode.hpp"
-#include "wxdraw/node/LayerNode.hpp"
-#include "wxdraw/node/ProjectNode.hpp"
-#include "wxdraw/node/RectangleNode.hpp"
+#include "wxdraw/node/Node.hpp"
 
 namespace wxdraw::file {
 /**
@@ -30,14 +27,7 @@ NodePtr XmlImporter::load() {
 /**
  */
 NodePtr XmlImporter::parseNode(const wxXmlNode& xml) {
-  NodePtr node = CreateNode<EllipseNode, 
-                            LayerNode, 
-                            ProjectNode, 
-                            RectangleNode>(xml.GetName());
-  if(!node) {
-    wxLogWarning("syntax error, %s:%d", xml.GetName(), xml.GetLineNumber());
-    return nullptr;
-  }
+  NodePtr node = std::make_shared<Node>();
   parseProperty(*node, xml);
   for(auto iter = xml.GetChildren(); iter; iter = iter->GetNext()) {
     if(iter->GetName() == "Components") {

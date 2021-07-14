@@ -25,8 +25,8 @@ class LayoutComponent
   Rect rect_;
 
  public:
-  LayoutComponent(Node& node);
-  LayoutComponent(const LayoutComponent& src, Node& node);
+  LayoutComponent(const NodePtr& node);
+  LayoutComponent(const LayoutComponent& src, const NodePtr& node);
   ~LayoutComponent() override = default;
 
   WXDRAW_ACCESSOR(Size, size_);
@@ -45,6 +45,6 @@ class LayoutComponent
  private:
   void setup();
 
-  LayoutComponentPtr getParent() const;
+  LayoutComponentPtr getParent();
 };
 }

@@ -21,8 +21,8 @@ class ExportComponent
   glm::dvec2 alignment_;
 
  public:
-  ExportComponent(Node& node);
-  ExportComponent(const ExportComponent& src, Node& node);
+  ExportComponent(const NodePtr& node);
+  ExportComponent(const ExportComponent& src, const NodePtr& node);
   ~ExportComponent() override = default;
 
   bool save(const NodePtr& node, const wxString& fileName);

@@ -18,8 +18,8 @@ class RectangleComponent
   double round_;
 
  public:
-  RectangleComponent(Node& node);
-  RectangleComponent(const RectangleComponent& src, Node& node);
+  RectangleComponent(const NodePtr& node);
+  RectangleComponent(const RectangleComponent& src, const NodePtr& node);
   ~RectangleComponent() override = default;
 
  protected:

@@ -12,16 +12,14 @@ class ComponentBase
   using super = Property;
 
  private:
-  Node& node_;
+  std::weak_ptr<Node> node_;
 
  public:
-  ComponentBase(const std::string& name, Node& node);
-  ComponentBase(const ComponentBase& src, Node& node);
+  ComponentBase(const std::string& name, const NodePtr& node);
+  ComponentBase(const ComponentBase& src, const NodePtr& node);
   virtual ~ComponentBase() = default;
 
-  Node& getNode() const {
-    return node_;
-  }
+  NodePtr getNode();
 
   void beginUpdate();
   void update();
@@ -31,7 +29,7 @@ class ComponentBase
   void render(Renderer& renderer);
   void endRender(Renderer& renderer);
 
-  virtual ComponentBasePtr clone(Node& node) const = 0;
+  virtual ComponentBasePtr clone(const NodePtr& node) const = 0;
 
  protected:
   virtual void onBeginUpdate() {}

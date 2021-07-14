@@ -8,7 +8,7 @@ const char* LayoutComponent::TYPE = "Layout";
    コンストラクタ
    @param node ノード
 */
-LayoutComponent::LayoutComponent(Node& node)
+LayoutComponent::LayoutComponent(const NodePtr& node)
   : super(TYPE, node), 
     size_(glm::dvec2(0.0), glm::dvec2(100.0)), 
     pos_(glm::dvec2(0.5), glm::dvec2(0.0)), 
@@ -25,7 +25,7 @@ LayoutComponent::LayoutComponent(Node& node)
    @param src コピー元
    @param node ノード
 */
-LayoutComponent::LayoutComponent(const LayoutComponent& src, Node& node)
+LayoutComponent::LayoutComponent(const LayoutComponent& src, const NodePtr& node)
   : super(src, node), 
     size_(src.size_), 
     pos_(src.pos_), 
@@ -78,8 +78,8 @@ void LayoutComponent::setup() {
    親を取得する
    @return 親
 */
-LayoutComponentPtr LayoutComponent::getParent() const {
-  if(auto parent = getNode().getParent()) {
+LayoutComponentPtr LayoutComponent::getParent() {
+  if(auto parent = getNode()->getParent()) {
     return parent->getComponent<LayoutComponent>();
   }
   return nullptr;

@@ -78,6 +78,7 @@ WXDRAW_DECLARE_CLASS(EllipseComponent);
 WXDRAW_DECLARE_CLASS(GridComponent);
 WXDRAW_DECLARE_CLASS(LayerComponent);
 WXDRAW_DECLARE_CLASS(LayoutComponent);
+WXDRAW_DECLARE_CLASS(ProjectComponent);
 WXDRAW_DECLARE_CLASS(RectangleComponent);
 }
 using namespace component;
@@ -108,12 +109,7 @@ WXDRAW_DECLARE_CLASS(Renderer);
 using namespace gui;
 
 namespace node {
-WXDRAW_DECLARE_CLASS(EllipseNode);
-WXDRAW_DECLARE_CLASS(LayerNode);
 WXDRAW_DECLARE_CLASS(Node);
-WXDRAW_DECLARE_CLASS(ProjectNode);
-WXDRAW_DECLARE_CLASS(RectangleNode);
-WXDRAW_DECLARE_CLASS(RootNode);
 }
 using namespace node;
 

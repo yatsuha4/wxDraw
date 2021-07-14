@@ -3,10 +3,10 @@
 namespace wxdraw::component {
 /**
    コンストラクタ
-   @param node ノード
    @param name 名前
+   @param node ノード
 */
-ComponentBase::ComponentBase(const std::string& name, Node& node)
+ComponentBase::ComponentBase(const std::string& name, const NodePtr& node)
   : super(name), 
     node_(node)
 {
@@ -14,10 +14,15 @@ ComponentBase::ComponentBase(const std::string& name, Node& node)
 /**
    コピーコンストラクタ
 */
-ComponentBase::ComponentBase(const ComponentBase& src, Node& node)
+ComponentBase::ComponentBase(const ComponentBase& src, const NodePtr& node)
   : super(src), 
     node_(node)
 {
+}
+/**
+ */
+NodePtr ComponentBase::getNode() {
+  return node_.lock();
 }
 /**
    更新を開始する

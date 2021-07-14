@@ -6,7 +6,7 @@ const char* ExportComponent::TYPE = "Export";
 /**
    コンストラクタ
 */
-ExportComponent::ExportComponent(Node& node)
+ExportComponent::ExportComponent(const NodePtr& node)
   : super(TYPE, node), 
     size_(256), 
     scale_(1.0), 
@@ -17,7 +17,7 @@ ExportComponent::ExportComponent(Node& node)
 /**
    コピーコンストラクタ
 */
-ExportComponent::ExportComponent(const ExportComponent& src, Node& node)
+ExportComponent::ExportComponent(const ExportComponent& src, const NodePtr& node)
   : super(src, node), 
     fileName_(src.fileName_), 
     size_(src.size_), 

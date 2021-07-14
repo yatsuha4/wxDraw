@@ -1,8 +1,20 @@
 #include "wxdraw/gui/Renderer.hpp"
-#include "wxdraw/component/LayoutComponent.hpp"
 #include "wxdraw/node/Node.hpp"
 
 namespace wxdraw::node {
+const char* Node::TYPE = "Node";
+/**
+   コンストラクタ
+   @param name 名前
+*/
+Node::Node()
+  : super(TYPE), 
+    label_(TYPE), 
+    show_(true), 
+    container_(false)
+{
+  setup();
+}
 /**
    コピーコンストラクタ
 */
@@ -13,9 +25,6 @@ Node::Node(const Node& src)
     container_(src.container_)
 {
   setup();
-  for(auto& component : src.components_) {
-    appendComponent(component->clone(*this));
-  }
 }
 /**
    親ノードを取得する
@@ -107,23 +116,13 @@ bool Node::canAppend(const std::type_info& type) const {
 */
 NodePtr Node::Clone(const NodePtr& src) {
   auto dst = src->clone();
+  for(auto& component : src->getComponents()) {
+    dst->appendComponent(component->clone(dst));
+  }
   for(auto& child : src->getChildren()) {
     Append(Clone(child), dst);
   }
   return dst;
-}
-/**
-   コンストラクタ
-   @param name 名前
-*/
-Node::Node(const std::string& name)
-  : super(name), 
-    label_(name), 
-    show_(true), 
-    container_(false)
-{
-  setup();
-  appendComponent<LayoutComponent>();
 }
 /**
    複製を生成する

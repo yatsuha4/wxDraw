@@ -18,8 +18,8 @@ class BrushComponent
   wxBrush brush_;
 
  public:
-  BrushComponent(Node& node);
-  BrushComponent(const BrushComponent& src, Node& node);
+  BrushComponent(const NodePtr& node);
+  BrushComponent(const BrushComponent& src, const NodePtr& node);
   ~BrushComponent() override = default;
 
   WXDRAW_GETTER(Brush, brush_);

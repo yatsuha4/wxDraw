@@ -1,6 +1,12 @@
 #include "wxdraw/command/InsertNodeCommand.hpp"
 #include "wxdraw/command/RemoveNodeCommand.hpp"
+#include "wxdraw/component/BrushComponent.hpp"
+#include "wxdraw/component/EllipseComponent.hpp"
 #include "wxdraw/component/ExportComponent.hpp"
+#include "wxdraw/component/GridComponent.hpp"
+#include "wxdraw/component/LayerComponent.hpp"
+#include "wxdraw/component/ProjectComponent.hpp"
+#include "wxdraw/component/RectangleComponent.hpp"
 #include "wxdraw/file/XmlExporter.hpp"
 #include "wxdraw/file/XmlImporter.hpp"
 #include "wxdraw/gui/Canvas.hpp"
@@ -8,11 +14,7 @@
 #include "wxdraw/gui/MainFrame.hpp"
 #include "wxdraw/gui/Menu.hpp"
 #include "wxdraw/gui/Outliner.hpp"
-#include "wxdraw/node/EllipseNode.hpp"
-#include "wxdraw/node/LayerNode.hpp"
-#include "wxdraw/node/ProjectNode.hpp"
-#include "wxdraw/node/RectangleNode.hpp"
-#include "wxdraw/node/RootNode.hpp"
+#include "wxdraw/node/Node.hpp"
 
 namespace wxdraw::gui {
 const wxSize MainFrame::DEFAULT_SIZE(960, 640);
@@ -54,14 +56,9 @@ MainFrame::~MainFrame() {
 */
 void MainFrame::selectNode(const NodePtr& node) {
   selectNode_ = node;
+  project_ = node ? node->getParentComponent<ProjectComponent>() : nullptr;
   inspector_->show(node);
   canvas_->Refresh();
-}
-/**
-   @return 選択中のプロジェクト
-*/
-ProjectNodePtr MainFrame::getSelectProject() const {
-  return Node::GetParent<ProjectNode>(getSelectNode());
 }
 /**
    ノードを追加する
@@ -155,7 +152,7 @@ void MainFrame::setupMenuBar() {
 void MainFrame::onMenuOpen(wxMenuEvent& event) {
   auto menu = static_cast<Menu*>(event.GetMenu());
   auto node = getSelectNode();
-  auto project = getSelectProject();
+  auto project = getProject();
   switch(menu->getType()) {
   case Menu::Type::Edit:
     {
@@ -170,9 +167,9 @@ void MainFrame::onMenuOpen(wxMenuEvent& event) {
     break;
   case Menu::Type::Edit_NewNode:
     {
-      menu->Enable(Menu::ID_EDIT_APPEND_LAYER, canAppendNode<LayerNode>());
-      menu->Enable(Menu::ID_EDIT_APPEND_RECTANGLE, canAppendNode<RectangleNode>());
-      menu->Enable(Menu::ID_EDIT_APPEND_ELLIPSE, canAppendNode<EllipseNode>());
+      //menu->Enable(Menu::ID_EDIT_APPEND_LAYER, canAppendNode<LayerNode>());
+      //menu->Enable(Menu::ID_EDIT_APPEND_RECTANGLE, canAppendNode<RectangleNode>());
+      //menu->Enable(Menu::ID_EDIT_APPEND_ELLIPSE, canAppendNode<EllipseNode>());
     }
     break;
   default:
@@ -186,7 +183,7 @@ void MainFrame::onMenuOpen(wxMenuEvent& event) {
 void MainFrame::onSelectMenu(wxCommandEvent& event) {
   switch(event.GetId()) {
   case Menu::ID_FILE_NEW:
-    appendNode(std::make_shared<ProjectNode>(), outliner_->getRootNode());
+    appendNode(Node::Create<ProjectComponent, BrushComponent>(), outliner_->getRootNode());
     break;
   case Menu::ID_FILE_OPEN:
     open();
@@ -203,13 +200,13 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
     Close();
     break;
   case Menu::ID_EDIT_APPEND_LAYER:
-    appendNode<LayerNode>();
+    newNode(Node::Create<LayerComponent, GridComponent>());
     break;
   case Menu::ID_EDIT_APPEND_RECTANGLE:
-    appendNode<RectangleNode>();
+    newNode(Node::Create<RectangleComponent>());
     break;
   case Menu::ID_EDIT_APPEND_ELLIPSE:
-    appendNode<EllipseNode>();
+    newNode(Node::Create<EllipseComponent>());
     break;
   case Menu::ID_EDIT_REMOVE:
     submitCommand<RemoveNodeCommand>(getSelectNode());
@@ -219,14 +216,10 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
                                      getSelectNode()->getParent());
     break;
   case Menu::ID_EDIT_UNDO:
-    if(auto project = getSelectProject()) {
-      project->getCommandProcessor().Undo();
-    }
+    getProject()->getCommandProcessor().Undo();
     break;
   case Menu::ID_EDIT_REDO:
-    if(auto project = getSelectProject()) {
-      project->getCommandProcessor().Redo();
-    }
+    getProject()->getCommandProcessor().Redo();
     break;
   case Menu::ID_WINDOW_PERSPECTIVE_RESET:
     SetSize(DEFAULT_SIZE);
@@ -263,7 +256,7 @@ void MainFrame::open() {
    名前をつけて保存
 */
 void MainFrame::saveAs() {
-  if(auto project = getSelectProject()) {
+  if(auto project = getProject()) {
     wxFileDialog dialog(this, wxFileSelectorPromptStr, 
                         project->getFileName().GetPath(), 
                         project->getFileName().GetName(), 
@@ -277,8 +270,8 @@ void MainFrame::saveAs() {
 }
 /**
  */
-void MainFrame::saveProject(const ProjectNodePtr& project) {
-  XmlExporter exporter(project);
+void MainFrame::saveProject(const ProjectComponentPtr& project) {
+  XmlExporter exporter(project->getNode());
   wxFileOutputStream output(project->getFileName().GetFullPath());
   if(exporter.save(output)) {
     project->getCommandProcessor().MarkAsSaved();
@@ -287,13 +280,14 @@ void MainFrame::saveProject(const ProjectNodePtr& project) {
 /**
  */
 void MainFrame::onSelectFileExport() {
-  if(auto project = getSelectProject()) {
+  if(auto project = getProject()) {
     wxFileDialog dialog(this, wxFileSelectorPromptStr, 
                         wxEmptyString, wxEmptyString, 
                         wxImage::GetImageExtWildcard(), 
                         wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
     if(dialog.ShowModal() == wxID_OK) {
-      project->getComponent<ExportComponent>()->save(project, dialog.GetPath());
+      auto node = project->getNode();
+      node->getComponent<ExportComponent>()->save(node, dialog.GetPath());
     }
   }
 }
@@ -302,9 +296,16 @@ void MainFrame::onSelectFileExport() {
    @param command コマンド
 */
 bool MainFrame::submitCommand(wxCommand* command) {
-  if(auto project = getSelectProject()) {
+  if(auto project = getProject()) {
     return project->getCommandProcessor().Submit(command);
   }
   return false;
+}
+/**
+   ノードを生成する
+   @param node ノード
+*/
+bool MainFrame::newNode(const NodePtr& node) {
+  return submitCommand<InsertNodeCommand>(node, getSelectNode());
 }
 }

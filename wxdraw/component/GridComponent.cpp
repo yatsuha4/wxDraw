@@ -8,7 +8,7 @@ const char* GridComponent::TYPE = "Grid";
 /**
    コンストラクタ
 */
-GridComponent::GridComponent(Node& node)
+GridComponent::GridComponent(const NodePtr& node)
   : super(TYPE, node), 
     show_(true), 
     snap_(false), 
@@ -23,7 +23,7 @@ GridComponent::GridComponent(Node& node)
 /**
    コピーコンストラクタ
 */
-GridComponent::GridComponent(const GridComponent& src, Node& node)
+GridComponent::GridComponent(const GridComponent& src, const NodePtr& node)
   : super(src, node), 
     show_(src.show_), 
     snap_(src.snap_), 
@@ -47,7 +47,7 @@ void GridComponent::onRender(Renderer& renderer) {
     auto& context = renderer.getContext();
     renderer.pushPen(pen_);
     auto path = context.CreatePath();
-    auto& rect = getNode().getComponent<LayoutComponent>()->getRect();
+    auto& rect = getNode()->getComponent<LayoutComponent>()->getRect();
     for(auto x = offset_.x; x < rect.size.x; x += size_.x) {
       path.MoveToPoint(rect.pos.x + x, rect.pos.y);
       path.AddLineToPoint(rect.pos.x + x, rect.pos.y + rect.size.y);

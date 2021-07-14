@@ -6,7 +6,7 @@ const char* BrushComponent::TYPE = "Brush";
 /**
    コンストラクタ
 */
-BrushComponent::BrushComponent(Node& node)
+BrushComponent::BrushComponent(const NodePtr& node)
   : super(TYPE, node), 
     color_(*wxWHITE), 
     brush_(color_)
@@ -16,7 +16,7 @@ BrushComponent::BrushComponent(Node& node)
 /**
    コピーコンストラクタ
 */
-BrushComponent::BrushComponent(const BrushComponent& src, Node& node)
+BrushComponent::BrushComponent(const BrushComponent& src, const NodePtr& node)
   : super(src, node), 
     color_(src.color_), 
     brush_(src.brush_)

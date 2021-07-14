@@ -14,8 +14,8 @@ class EllipseComponent
   static const char* TYPE;
 
  public:
-  EllipseComponent(Node& node);
-  EllipseComponent(const EllipseComponent& src, Node& node);
+  EllipseComponent(const NodePtr& node);
+  EllipseComponent(const EllipseComponent& src, const NodePtr& node);
   ~EllipseComponent() override = default;
 
  protected:

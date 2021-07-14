@@ -24,8 +24,8 @@ class GridComponent
   wxGraphicsPenInfo pen_;
 
  public:
-  GridComponent(Node& node);
-  GridComponent(const GridComponent& src, Node& node);
+  GridComponent(const NodePtr& node);
+  GridComponent(const GridComponent& src, const NodePtr& node);
   ~GridComponent() override = default;
 
  protected:

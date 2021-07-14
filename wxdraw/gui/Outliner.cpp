@@ -1,6 +1,6 @@
 #include "wxdraw/gui/MainFrame.hpp"
 #include "wxdraw/gui/Outliner.hpp"
-#include "wxdraw/node/RootNode.hpp"
+#include "wxdraw/node/Node.hpp"
 
 namespace wxdraw::gui {
 /**
@@ -17,9 +17,9 @@ Outliner::Outliner(wxWindow* parent, MainFrame& mainFrame)
 }
 /**
  */
-const RootNodePtr& Outliner::getRootNode() {
+const NodePtr& Outliner::getRootNode() {
   if(!rootNode_) {
-    rootNode_ = std::make_shared<RootNode>();
+    rootNode_ = std::make_shared<Node>();
     rootNode_->setItem(GetRootItem());
   }
   return rootNode_;

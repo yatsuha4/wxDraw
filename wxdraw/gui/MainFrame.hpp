@@ -18,6 +18,7 @@ class MainFrame
   Outliner* outliner_;
   Inspector* inspector_;
   NodePtr selectNode_;
+  ProjectComponentPtr project_;
   wxString defaultPerspective_;
 
   static const wxSize DEFAULT_SIZE;
@@ -32,7 +33,7 @@ class MainFrame
 
   void selectNode(const NodePtr& node);
   WXDRAW_GETTER(SelectNode, selectNode_);
-  ProjectNodePtr getSelectProject() const;
+  WXDRAW_GETTER(Project, project_);
 
   template<class CommandType, class... Args>
   bool submitCommand(Args&&... args) {
@@ -58,15 +59,11 @@ class MainFrame
 
   void open();
   void saveAs();
-  void saveProject(const ProjectNodePtr& project);
+  void saveProject(const ProjectComponentPtr& project);
   void onSelectFileExport();
 
   bool submitCommand(wxCommand* command);
 
-  template<class T>
-  bool appendNode() {
-    return submitCommand<InsertNodeCommand>(std::make_shared<T>(), 
-                                            getAppendParent(typeid(T)));
-  }
+  bool newNode(const NodePtr& node);
 };
 }
