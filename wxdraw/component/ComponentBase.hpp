@@ -31,6 +31,8 @@ class ComponentBase
 
   virtual ComponentBasePtr clone(const NodePtr& node) const = 0;
 
+  wxColour getColor(ColorIndex index);
+
  protected:
   virtual void onBeginUpdate() {}
   virtual void onUpdate() {}

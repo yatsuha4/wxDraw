@@ -4,6 +4,7 @@
 #include "wxdraw/component/GridComponent.hpp"
 #include "wxdraw/component/LayerComponent.hpp"
 #include "wxdraw/component/LayoutComponent.hpp"
+#include "wxdraw/component/PaletteComponent.hpp"
 #include "wxdraw/component/ProjectComponent.hpp"
 #include "wxdraw/component/RectangleComponent.hpp"
 #include "wxdraw/gui/Renderer.hpp"
@@ -125,7 +126,10 @@ NodePtr Node::CreateLayer() {
   return Create<LayerComponent, GridComponent>(TYPE_LAYER, true);
 }
 NodePtr Node::CreateProject() {
-  return Create<ProjectComponent, GridComponent, BrushComponent>(TYPE_PROJECT, true);
+  return Create<ProjectComponent, 
+                GridComponent, 
+                PaletteComponent, 
+                BrushComponent>(TYPE_PROJECT, true);
 }
 NodePtr Node::CreateRectangle() {
   return Create<RectangleComponent>(TYPE_RECTANGLE);

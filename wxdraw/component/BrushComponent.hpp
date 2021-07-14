@@ -14,7 +14,7 @@ class BrushComponent
   static const char* TYPE;
 
  private:
-  wxColour color_;
+  ColorIndex colorIndex_;
   wxBrush brush_;
 
  public:

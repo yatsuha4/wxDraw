@@ -28,15 +28,12 @@ class Inspector
 
   template<class PropertyType, class MemberType>
   PropertyType* append(const std::shared_ptr<MemberType>& member) {
-    return append<PropertyType>(member, 
-                                member->getLabel(), 
-                                member->getUniqueName(), 
-                                member->getValue());
+    return append<PropertyType>(member, member->getValue());
   }
 
   template<class PropertyType, class... Args>
-  PropertyType* append(const MemberBasePtr& member, Args... args) {
-    auto property = new PropertyType(args...);
+  PropertyType* append(const MemberBasePtr& member, Args&&... args) {
+    auto property = new PropertyType(member->getLabel(), member->getUniqueName(), args...);
     append(property, member);
     return property;
   }

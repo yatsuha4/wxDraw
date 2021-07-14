@@ -8,8 +8,7 @@ const char* BrushComponent::TYPE = "Brush";
 */
 BrushComponent::BrushComponent(const NodePtr& node)
   : super(TYPE, node), 
-    color_(*wxWHITE), 
-    brush_(color_)
+    colorIndex_(0)
 {
   setup();
 }
@@ -18,7 +17,7 @@ BrushComponent::BrushComponent(const NodePtr& node)
 */
 BrushComponent::BrushComponent(const BrushComponent& src, const NodePtr& node)
   : super(src, node), 
-    color_(src.color_), 
+    colorIndex_(src.colorIndex_), 
     brush_(src.brush_)
 {
   setup();
@@ -26,7 +25,7 @@ BrushComponent::BrushComponent(const BrushComponent& src, const NodePtr& node)
 /**
  */
 void BrushComponent::onUpdate() {
-  brush_.SetColour(color_);
+  brush_.SetColour(getColor(colorIndex_));
 }
 /**
  */
@@ -41,6 +40,6 @@ void BrushComponent::onEndRender(Renderer& renderer) {
 /**
  */
 void BrushComponent::setup() {
-  appendMember("Color", color_);
+  appendMember("Color", colorIndex_);
 }
 }

@@ -1,4 +1,6 @@
 #include "wxdraw/component/ComponentBase.hpp"
+#include "wxdraw/component/PaletteComponent.hpp"
+#include "wxdraw/node/Node.hpp"
 
 namespace wxdraw::component {
 /**
@@ -62,5 +64,16 @@ void ComponentBase::render(Renderer& renderer) {
 */
 void ComponentBase::endRender(Renderer& renderer) {
   onEndRender(renderer);
+}
+/**
+ */
+wxColour ComponentBase::getColor(ColorIndex index) {
+  if(auto palette = getNode()->getParentComponent<PaletteComponent>()) {
+    auto& colors = palette->getColors();
+    if(index < colors.size()) {
+      return colors.at(index).color;
+    }
+  }
+  return *wxRED;
 }
 }

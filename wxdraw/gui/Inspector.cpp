@@ -1,4 +1,5 @@
 #include "wxdraw/component/Component.hpp"
+#include "wxdraw/gui/ColorProperty.hpp"
 #include "wxdraw/gui/Inspector.hpp"
 #include "wxdraw/gui/Menu.hpp"
 #include "wxdraw/node/Node.hpp"
@@ -29,6 +30,7 @@ void Inspector::show(const NodePtr& node) {
       showProperty(*component);
     }
     SetPropertyAttributeAll(wxPG_BOOL_USE_CHECKBOX, true);
+    SetPropertyAttributeAll(wxPG_COLOUR_ALLOW_CUSTOM, true);
     SetPropertyAttributeAll(wxPG_COLOUR_HAS_ALPHA, true);
   }
 }
@@ -51,6 +53,11 @@ void Inspector::showProperty(Property& property) {
     else if(auto member = Member<bool>::As(iter)) {
       append<wxBoolProperty>(member);
     }
+    else if(auto member = Member<ColorIndex>::As(iter)) {
+      //append<wxSystemColourProperty>(member);
+      append<ColorProperty>(member, member->getValue(), 
+                            static_cast<ComponentBase&>(property));
+    }
     else if(auto member = Member<wxString>::As(iter)) {
       append<wxStringProperty>(member);
     }
@@ -58,8 +65,7 @@ void Inspector::showProperty(Property& property) {
       append<wxColourProperty>(member);
     }
     else if(auto member = Member<wxFileName>::As(iter)) {
-      append<wxFileProperty>(member, member->getLabel(), member->getUniqueName(), 
-                             member->getValue().GetFullPath());
+      append<wxFileProperty>(member, member->getValue().GetFullPath());
     }
     else if(auto child = std::dynamic_pointer_cast<Property>(iter)) {
       showProperty(*child);

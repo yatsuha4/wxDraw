@@ -92,12 +92,14 @@ WXDRAW_DECLARE_CLASS(EllipseComponent);
 WXDRAW_DECLARE_CLASS(GridComponent);
 WXDRAW_DECLARE_CLASS(LayerComponent);
 WXDRAW_DECLARE_CLASS(LayoutComponent);
+WXDRAW_DECLARE_CLASS(PaletteComponent);
 WXDRAW_DECLARE_CLASS(ProjectComponent);
 WXDRAW_DECLARE_CLASS(RectangleComponent);
 }
 using namespace component;
 
 namespace container {
+WXDRAW_DECLARE_CLASS(Color);
 WXDRAW_DECLARE_CLASS(Layout);
 WXDRAW_DECLARE_CLASS(Rect);
 }
@@ -132,4 +134,6 @@ WXDRAW_DECLARE_CLASS(MemberBase);
 WXDRAW_DECLARE_CLASS(Property);
 }
 using namespace property;
+
+using ColorIndex = size_t;
 }
