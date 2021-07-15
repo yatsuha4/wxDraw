@@ -17,6 +17,7 @@ class MainFrame
   Canvas* canvas_;
   Outliner* outliner_;
   Inspector* inspector_;
+  Palette* palette_;
   NodePtr selectNode_;
   ProjectComponentPtr project_;
   wxString defaultPerspective_;
@@ -24,6 +25,7 @@ class MainFrame
   static const wxSize DEFAULT_SIZE;
   static const wxSize DEFAULT_OUTLINER_SIZE;
   static const wxSize DEFAULT_INSPECTOR_SIZE;
+  static const wxSize DEFAULT_PALETTE_SIZE;
 
  public:
   MainFrame(Application& application);

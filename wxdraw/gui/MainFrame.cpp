@@ -12,12 +12,14 @@
 #include "wxdraw/gui/MainFrame.hpp"
 #include "wxdraw/gui/Menu.hpp"
 #include "wxdraw/gui/Outliner.hpp"
+#include "wxdraw/gui/Palette.hpp"
 #include "wxdraw/node/Node.hpp"
 
 namespace wxdraw::gui {
-const wxSize MainFrame::DEFAULT_SIZE(960, 640);
-const wxSize MainFrame::DEFAULT_OUTLINER_SIZE(240, 640);
-const wxSize MainFrame::DEFAULT_INSPECTOR_SIZE(240, 640);
+const wxSize MainFrame::DEFAULT_SIZE(1200, 800);
+const wxSize MainFrame::DEFAULT_OUTLINER_SIZE(240, 800);
+const wxSize MainFrame::DEFAULT_INSPECTOR_SIZE(240, 800);
+const wxSize MainFrame::DEFAULT_PALETTE_SIZE(720, 160);
 
 /**
    コンストラクタ
@@ -29,16 +31,20 @@ MainFrame::MainFrame(Application& application)
     auiManager_(this), 
     canvas_(new Canvas(this, this)), 
     outliner_(new Outliner(this, *this)), 
-    inspector_(new Inspector(this, this))
+    inspector_(new Inspector(this, this)), 
+    palette_(new Palette(this, this))
 {
   setupMenuBar();
   auiManager_.AddPane(canvas_, wxAuiPaneInfo().Caption("Canvas").CenterPane());
   auiManager_.AddPane(outliner_, 
-                      wxAuiPaneInfo().Caption("Outliner").Left().
+                      wxAuiPaneInfo().Caption("Outliner").Left().Layer(1).
                       BestSize(DEFAULT_OUTLINER_SIZE));
   auiManager_.AddPane(inspector_, 
-                      wxAuiPaneInfo().Caption("Inspector").Right().
+                      wxAuiPaneInfo().Caption("Inspector").Right().Layer(1).
                       BestSize(DEFAULT_INSPECTOR_SIZE));
+  auiManager_.AddPane(palette_, 
+                      wxAuiPaneInfo().Caption("Palette").Bottom().
+                      BestSize(DEFAULT_PALETTE_SIZE));
   auiManager_.Update();
   defaultPerspective_ = auiManager_.SavePerspective();
 }

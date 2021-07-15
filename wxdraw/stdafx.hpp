@@ -16,8 +16,10 @@
 #endif
 
 #include <wx/wx.h>
+#include <wx/artprov.h>
 #include <wx/aui/aui.h>
 #include <wx/cmdproc.h>
+#include <wx/listctrl.h>
 #include <wx/numformatter.h>
 #include <wx/propgrid/advprops.h>
 #include <wx/propgrid/propgrid.h>
@@ -118,10 +120,13 @@ using namespace file;
 
 namespace gui {
 WXDRAW_DECLARE_CLASS(Canvas);
+WXDRAW_DECLARE_CLASS(EditableList);
+WXDRAW_DECLARE_CLASS(GradientList);
 WXDRAW_DECLARE_CLASS(Inspector);
 WXDRAW_DECLARE_CLASS(MainFrame);
 WXDRAW_DECLARE_CLASS(Menu);
 WXDRAW_DECLARE_CLASS(Outliner);
+WXDRAW_DECLARE_CLASS(Palette);
 WXDRAW_DECLARE_CLASS(Renderer);
 }
 using namespace gui;
