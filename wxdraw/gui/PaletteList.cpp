@@ -1,11 +1,11 @@
-#include "wxdraw/gui/EditableList.hpp"
+#include "wxdraw/gui/PaletteList.hpp"
 #include "wxdraw/gui/Menu.hpp"
 
 namespace wxdraw::gui {
 /**
  */
-EditableList::EditableList(wxWindow* window)
-  : super(window, wxID_ANY), 
+PaletteList::PaletteList(wxWindow* window, Palette* palette, const wxString& label)
+  : super(window, wxID_ANY, label), 
     listCtrl_(new wxListCtrl(this, wxID_ANY))
 {
   auto sizer = new wxBoxSizer(wxVERTICAL);
@@ -19,4 +19,3 @@ EditableList::EditableList(wxWindow* window)
   SetSizerAndFit(sizer);
 }
 }
-

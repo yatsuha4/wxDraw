@@ -5,13 +5,13 @@
 namespace wxdraw::gui {
 /**
  */
-class GradientList
+class PenList
   : public PaletteList
 {
   using super = PaletteList;
 
  public:
-  GradientList(wxWindow* parent, Palette* palette);
-  ~GradientList() override = default;
+  PenList(wxWindow* parent, Palette* palette);
+  ~PenList() override = default;
 };
 }

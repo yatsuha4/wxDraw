@@ -11,7 +11,10 @@ class Palette
 
  private:
   MainFrame* mainFrame_;
+  PenList* penList_;
+  BrushList* brushList_;
   GradientList* gradientList_;
+  ColorList* colorList_;
 
  public:
   Palette(wxWindow* parent, MainFrame* mainFrame);
