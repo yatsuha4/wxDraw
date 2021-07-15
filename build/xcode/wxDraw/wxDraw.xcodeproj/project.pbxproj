@@ -28,6 +28,7 @@
 		260BBF2A269EF8B00041BD06 /* ColorProperty.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 260BBF29269EF8B00041BD06 /* ColorProperty.cpp */; };
 		260BBF2D269EFFFC0041BD06 /* PaletteComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 260BBF2B269EFFFC0041BD06 /* PaletteComponent.cpp */; };
 		261C06D8269FB2F8002AAC78 /* ContainerComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 261C06D6269FA4F8002AAC78 /* ContainerComponent.cpp */; };
+		261C06DB269FCB71002AAC78 /* InsertComponentCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 261C06DA269FCB71002AAC78 /* InsertComponentCommand.cpp */; };
 		263EA113268F524E003B100A /* Command.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 263EA111268F524E003B100A /* Command.cpp */; };
 		265FCA3E214ACD3100398B40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 265FCA3D214ACD3100398B40 /* Assets.xcassets */; };
 		265FCA54214AD08A00398B40 /* libwx_osx_cocoau-3.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 265FCA53214AD08A00398B40 /* libwx_osx_cocoau-3.1.a */; };
@@ -96,6 +97,8 @@
 		260BBF2E269F001D0041BD06 /* Color.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Color.hpp; sourceTree = "<group>"; };
 		261C06D6269FA4F8002AAC78 /* ContainerComponent.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ContainerComponent.cpp; sourceTree = "<group>"; };
 		261C06D7269FA4F8002AAC78 /* ContainerComponent.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ContainerComponent.hpp; sourceTree = "<group>"; };
+		261C06D9269FCB71002AAC78 /* InsertComponentCommand.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = InsertComponentCommand.hpp; sourceTree = "<group>"; };
+		261C06DA269FCB71002AAC78 /* InsertComponentCommand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InsertComponentCommand.cpp; sourceTree = "<group>"; };
 		263EA111268F524E003B100A /* Command.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Command.cpp; sourceTree = "<group>"; };
 		263EA112268F524E003B100A /* Command.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Command.hpp; sourceTree = "<group>"; };
 		265FCA37214ACD2D00398B40 /* wxDraw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wxDraw.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -339,6 +342,8 @@
 				26CB1330269A94DA0025ACDD /* ChangePropertyCommand.hpp */,
 				263EA111268F524E003B100A /* Command.cpp */,
 				263EA112268F524E003B100A /* Command.hpp */,
+				261C06DA269FCB71002AAC78 /* InsertComponentCommand.cpp */,
+				261C06D9269FCB71002AAC78 /* InsertComponentCommand.hpp */,
 				26CB133B269B72470025ACDD /* InsertNodeCommand.cpp */,
 				26CB133A269B72470025ACDD /* InsertNodeCommand.hpp */,
 				260BBF0D269D17340041BD06 /* RemoveNodeCommand.cpp */,
@@ -418,6 +423,7 @@
 				26BA73D426991A64001F3C5D /* EllipseComponent.cpp in Sources */,
 				26F5A9202673111B009B0657 /* Renderer.cpp in Sources */,
 				266A37AC2669D80000EA192B /* Property.cpp in Sources */,
+				261C06DB269FCB71002AAC78 /* InsertComponentCommand.cpp in Sources */,
 				260BBF27269ECB8C0041BD06 /* ProjectComponent.cpp in Sources */,
 				2605A57A264564DB00FD3DF0 /* main.cpp in Sources */,
 				26CB132A269A537B0025ACDD /* XmlExporter.cpp in Sources */,

@@ -46,6 +46,27 @@ ContainerComponentPtr Node::getContainer() const {
   return getComponent<ContainerComponent>();
 }
 /**
+   コンポーネントを追加する
+   @param component 追加するコンポーネント
+*/
+void Node::appendComponent(const ComponentBasePtr& component) {
+  auto pos = std::upper_bound(components_.begin(), 
+                              components_.end(), 
+                              component->getPriority(), 
+                              [](ComponentBase::Priority priority, 
+                                 const ComponentBasePtr& iter) {
+                                return priority < iter->getPriority();
+                              });
+  components_.insert(pos, component);
+}
+/**
+   コンポーネントを削除する
+   @param component 削除するコンポーネント
+*/
+void Node::removeComponent(const ComponentBasePtr& component) {
+  components_.erase(std::remove(components_.begin(), components_.end(), component));
+}
+/**
    親ノードを取得する
    @return 親ノード
 */
@@ -166,26 +187,5 @@ void Node::setup() {
   appendMember("Label", label_);
   appendMember("Show", show_);
   appendMember("Comment", comment_);
-}
-/**
-   コンポーネントを追加する
-   @param component 追加するコンポーネント
-*/
-void Node::appendComponent(const ComponentBasePtr& component) {
-  auto pos = std::upper_bound(components_.begin(), 
-                              components_.end(), 
-                              component->getPriority(), 
-                              [](ComponentBase::Priority priority, 
-                                 const ComponentBasePtr& iter) {
-                                return priority < iter->getPriority();
-                              });
-  components_.insert(pos, component);
-}
-/**
-   コンポーネントを削除する
-   @param component 削除するコンポーネント
-*/
-void Node::removeComponent(const ComponentBasePtr& component) {
-  components_.erase(std::remove(components_.begin(), components_.end(), component));
 }
 }

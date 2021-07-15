@@ -45,6 +45,9 @@ class MainFrame
   void removeNode(const NodePtr& node);
   void updateNode(const NodePtr& node);
 
+  void appendComponent(const ComponentBasePtr& component, const NodePtr& node);
+  void removeComponent(const ComponentBasePtr& component);
+
  private:
   void setupMenuBar();
   void onMenuOpen(wxMenuEvent& event);
@@ -60,5 +63,13 @@ class MainFrame
   bool submitCommand(wxCommand* command);
 
   bool newNode(const NodePtr& node);
+
+  template<class T>
+  bool newComponent() {
+    if(auto node = getSelectNode()) {
+      return submitCommand<InsertComponentCommand>(std::make_shared<T>(node), node);
+    }
+    return false;
+  }
 };
 }

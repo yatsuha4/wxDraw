@@ -35,6 +35,8 @@ class Node
 
   WXDRAW_GETTER(Components, components_);
   ContainerComponentPtr getContainer() const;
+  void appendComponent(const ComponentBasePtr& component);
+  void removeComponent(const ComponentBasePtr& component);
 
   NodePtr getParent() const;
   static void Append(const NodePtr& node, const NodePtr& parent);
@@ -85,9 +87,6 @@ class Node
 
  private:
   void setup();
-
-  void appendComponent(const ComponentBasePtr& component);
-  void removeComponent(const ComponentBasePtr& component);
 
   /**
      ノードを生成する

@@ -1,3 +1,4 @@
+#include "wxdraw/command/InsertComponentCommand.hpp"
 #include "wxdraw/command/InsertNodeCommand.hpp"
 #include "wxdraw/command/RemoveNodeCommand.hpp"
 #include "wxdraw/component/BrushComponent.hpp"
@@ -93,6 +94,21 @@ void MainFrame::removeNode(const NodePtr& node) {
 void MainFrame::updateNode(const NodePtr& node) {
   node->update();
   canvas_->Refresh();
+}
+/**
+ */
+void MainFrame::appendComponent(const ComponentBasePtr& component, const NodePtr& node) {
+  node->appendComponent(component);
+  node->update();
+  selectNode(node);
+}
+/**
+ */
+void MainFrame::removeComponent(const ComponentBasePtr& component) {
+  auto node = component->getNode();
+  node->removeComponent(component);
+  node->update();
+  selectNode(node);
 }
 /**
    メニューバーのセットアップ
@@ -230,6 +246,9 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
     break;
   case Menu::ID_EDIT_REDO:
     getProject()->getCommandProcessor().Redo();
+    break;
+  case Menu::ID_EDIT_NEW_COMPONENT_BRUSH:
+    newComponent<BrushComponent>();
     break;
   case Menu::ID_WINDOW_PERSPECTIVE_RESET:
     SetSize(DEFAULT_SIZE);
