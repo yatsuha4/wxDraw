@@ -27,7 +27,7 @@ class XmlImporter
 
  private:
   NodePtr parseNode(const wxXmlNode& xml);
-  void parseComponents(Node& node, const wxXmlNode& xml);
+  ComponentBasePtr parseComponent(Node& node, const wxXmlNode& xml);
   void parseProperty(Property& property, const wxXmlNode& xml);
 
   template<class T>
@@ -44,18 +44,22 @@ class XmlImporter
   }
 
   template<class T>
-  bool parseComponent(Node& node, const wxXmlNode& xml) {
+  ComponentBasePtr parseComponent(Node& node, const wxXmlNode& xml) {
     if(xml.GetName() == T::TYPE) {
-      parseProperty(*node.getComponent<T>(), xml);
-      return true;
+      if(auto component = node.getComponent<T>()) {
+        parseProperty(*component, xml);
+        return component;
+      }
     }
-    return false;
+    return nullptr;
   }
 
   template<class T1, class T2, class... Rest>
-  bool parseComponent(Node& node, const wxXmlNode& xml) {
-    return parseComponent<T1>(node, xml) ||
-      parseComponent<T2, Rest...>(node, xml);
+  ComponentBasePtr parseComponent(Node& node, const wxXmlNode& xml) {
+    if(auto component = parseComponent<T1>(node, xml)) {
+      return component;
+    }
+    return parseComponent<T2, Rest...>(node, xml);
   }
 };
 }

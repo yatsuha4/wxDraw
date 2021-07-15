@@ -22,6 +22,7 @@ class ContainerComponent
   ~ContainerComponent() override = default;
 
   WXDRAW_GETTER(Children, children_);
+  void appendChild(const NodePtr& child);
   void insertChild(const NodePtr& child, size_t index);
   void removeChild(const NodePtr& child);
 

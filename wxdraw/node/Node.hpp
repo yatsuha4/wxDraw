@@ -16,34 +16,33 @@ class Node
   static const char* TYPE_LAYER;
   static const char* TYPE_PROJECT;
   static const char* TYPE_RECTANGLE;
+  static const char* TYPE_ROOT;
 
  private:
   std::weak_ptr<Node> parent_;
-  std::vector<NodePtr> children_;
   std::vector<ComponentBasePtr> components_;
   wxString label_;
   bool show_;
-  bool container_;
   wxString comment_;
   wxTreeListItem item_;
 
  public:
   Node(const std::string& name);
   Node(const Node& src);
-  virtual ~Node() = default;
+  ~Node() = default;
 
   WXDRAW_ACCESSOR(Label, label_);
-  WXDRAW_IS_ACCESSOR(Container, container_);
-  WXDRAW_GETTER(Children, children_);
+
   WXDRAW_GETTER(Components, components_);
+  ContainerComponentPtr getContainer() const;
 
   NodePtr getParent() const;
   static void Append(const NodePtr& node, const NodePtr& parent);
   static void Insert(const NodePtr& node, const NodePtr& parent, size_t index);
   static void Remove(const NodePtr& node);
 
-  virtual void update();
-  virtual void render(Renderer& renderer);
+  void update();
+  void render(Renderer& renderer);
 
   WXDRAW_ACCESSOR(Item, item_);
 
@@ -51,6 +50,7 @@ class Node
   static NodePtr CreateLayer();
   static NodePtr CreateProject();
   static NodePtr CreateRectangle();
+  static NodePtr CreateRoot();
 
   static NodePtr Clone(const NodePtr& src);
 
@@ -83,13 +83,6 @@ class Node
     return nullptr;
   }
 
- protected:
-  virtual void onUpdate() {}
-  virtual void onBeginRender(Renderer& renderer) {}
-  virtual void onEndRender(Renderer& renderer) {}
-
-  virtual NodePtr clone() const;
-
  private:
   void setup();
 
@@ -100,9 +93,8 @@ class Node
      ノードを生成する
   */
   template<class... ComponentTypes>
-  static NodePtr Create(const std::string& name, bool container = false) {
+  static NodePtr Create(const std::string& name) {
     auto node = std::make_shared<Node>(name);
-    node->setContainer(container);
     AppendComponent<LayoutComponent, ComponentTypes...>(node);
     return node;
   }

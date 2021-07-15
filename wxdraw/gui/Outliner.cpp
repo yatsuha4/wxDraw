@@ -1,3 +1,4 @@
+#include "wxdraw/component/ContainerComponent.hpp"
 #include "wxdraw/gui/MainFrame.hpp"
 #include "wxdraw/gui/Outliner.hpp"
 #include "wxdraw/node/Node.hpp"
@@ -19,7 +20,7 @@ Outliner::Outliner(wxWindow* parent, MainFrame& mainFrame)
  */
 const NodePtr& Outliner::getRootNode() {
   if(!rootNode_) {
-    rootNode_ = std::make_shared<Node>("Root");
+    rootNode_ = Node::CreateRoot();
     rootNode_->setItem(GetRootItem());
   }
   return rootNode_;
@@ -29,7 +30,7 @@ const NodePtr& Outliner::getRootNode() {
 void Outliner::insertNode(const NodePtr& node, const NodePtr& parent, size_t index) {
   wxASSERT(!node->getItem().IsOk());
   wxASSERT(parent->getItem().IsOk());
-  wxASSERT(index <= parent->getChildren().size());
+  //wxASSERT(index <= parent->getChildren().size());
   wxTreeListItem item;
   if(index == 0) {
     item = PrependItem(parent->getItem(), node->getName());
@@ -43,8 +44,10 @@ void Outliner::insertNode(const NodePtr& node, const NodePtr& parent, size_t ind
   }
   SetItemData(item, new ClientData(node));
   node->setItem(item);
-  for(size_t i = 0; i < node->getChildren().size(); i++) {
-    insertNode(node->getChildren().at(i), node, i);
+  if(auto container = node->getContainer()) {
+    for(size_t i = 0; i < container->getChildren().size(); i++) {
+      insertNode(container->getChildren().at(i), node, i);
+    }
   }
 }
 /**

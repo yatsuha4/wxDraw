@@ -1,4 +1,4 @@
-#include "wxdraw/component/ComponentBase.hpp"
+#include "wxdraw/component/ContainerComponent.hpp"
 #include "wxdraw/file/XmlExporter.hpp"
 #include "wxdraw/node/Node.hpp"
 #include "wxdraw/property/Member.hpp"
@@ -39,15 +39,14 @@ wxString XmlExporter::ToString(bool value) {
  */
 wxXmlNode* XmlExporter::parse(const NodePtr& node) {
   auto xml = parse(*node);
-
-  auto components = new wxXmlNode(wxXML_ELEMENT_NODE, "Components");
   for(auto& component : node->getComponents()) {
-    components->AddChild(parse(*component));
-  }
-  xml->AddChild(components);
-
-  for(auto& child : node->getChildren()) {
-    xml->AddChild(parse(child));
+    auto componentXml = parse(*component);
+    xml->AddChild(componentXml);
+    if(auto container = std::dynamic_pointer_cast<ContainerComponent>(component)) {
+      for(auto& child : container->getChildren()) {
+        componentXml->AddChild(parse(child));
+      }
+    }
   }
   return xml;
 }

@@ -1,4 +1,5 @@
 #include "wxdraw/component/BrushComponent.hpp"
+#include "wxdraw/component/ContainerComponent.hpp"
 #include "wxdraw/component/EllipseComponent.hpp"
 #include "wxdraw/component/ExportComponent.hpp"
 #include "wxdraw/component/GridComponent.hpp"
@@ -15,6 +16,7 @@ const char* Node::TYPE_ELLIPSE = "Ellipse";
 const char* Node::TYPE_LAYER = "Layer";
 const char* Node::TYPE_PROJECT = "Project";
 const char* Node::TYPE_RECTANGLE = "Rectangle";
+const char* Node::TYPE_ROOT = "Root";
 /**
    コンストラクタ
    @param name 名前
@@ -22,8 +24,7 @@ const char* Node::TYPE_RECTANGLE = "Rectangle";
 Node::Node(const std::string& name)
   : super(name), 
     label_(name), 
-    show_(true), 
-    container_(false)
+    show_(true)
 {
   setup();
 }
@@ -34,10 +35,15 @@ Node::Node(const Node& src)
   : super(src), 
     label_(src.label_), 
     show_(src.show_), 
-    container_(src.container_), 
     comment_(src.comment_)
 {
   setup();
+}
+/**
+   コンテナコンポーネントを取得する
+*/
+ContainerComponentPtr Node::getContainer() const {
+  return getComponent<ContainerComponent>();
 }
 /**
    親ノードを取得する
@@ -52,7 +58,10 @@ NodePtr Node::getParent() const {
    @param parent 親ノード
 */
 void Node::Append(const NodePtr& node, const NodePtr& parent) {
-  Insert(node, parent, parent->getChildren().size());
+  auto container = parent->getComponent<ContainerComponent>();
+  wxASSERT(container);
+  container->appendChild(node);
+  node->parent_ = parent;
 }
 /**
    ノードを挿入する
@@ -61,10 +70,10 @@ void Node::Append(const NodePtr& node, const NodePtr& parent) {
    @param index 挿入位置
 */
 void Node::Insert(const NodePtr& node, const NodePtr& parent, size_t index) {
-  wxASSERT(node->getParent() == nullptr);
-  wxASSERT(index <= parent->getChildren().size());
+  auto container = parent->getComponent<ContainerComponent>();
+  wxASSERT(container);
+  container->insertChild(node, index);
   node->parent_ = parent;
-  parent->children_.insert(parent->children_.begin() + index, node);
 }
 /**
    ノードを削除する
@@ -73,23 +82,20 @@ void Node::Insert(const NodePtr& node, const NodePtr& parent, size_t index) {
 void Node::Remove(const NodePtr& node) {
   auto parent = node->getParent();
   wxASSERT(parent);
+  auto container = parent->getComponent<ContainerComponent>();
+  wxASSERT(container);
+  container->removeChild(node);
   node->parent_.reset();
-  parent->children_.erase(std::remove(parent->children_.begin(), 
-                                      parent->children_.end(), node));
 }
 /**
    更新
 */
 void Node::update() {
-  onUpdate();
   for(auto& component : components_) {
     component->beginUpdate();
   }
   for(auto& component : components_) {
     component->update();
-  }
-  for(auto& child : children_) {
-    child->update();
   }
   for(auto& component : components_) {
     component->endUpdate();
@@ -101,17 +107,12 @@ void Node::update() {
 */
 void Node::render(Renderer& renderer) {
   if(show_) {
-    onBeginRender(renderer);
     for(auto& component : components_) {
       component->beginRender(renderer);
     }
     for(auto& component : components_) {
       component->render(renderer);
     }
-    for(auto& child : children_) {
-      child->render(renderer);
-    }
-    onEndRender(renderer);
     for(auto& component : components_) {
       component->endRender(renderer);
     }
@@ -123,16 +124,22 @@ NodePtr Node::CreateEllipse() {
   return Create<EllipseComponent>(TYPE_ELLIPSE);
 }
 NodePtr Node::CreateLayer() {
-  return Create<LayerComponent, GridComponent>(TYPE_LAYER, true);
+  return Create<LayerComponent, 
+                ContainerComponent, 
+                GridComponent>(TYPE_LAYER);
 }
 NodePtr Node::CreateProject() {
   return Create<ProjectComponent, 
+                ContainerComponent, 
                 GridComponent, 
                 PaletteComponent, 
-                BrushComponent>(TYPE_PROJECT, true);
+                BrushComponent>(TYPE_PROJECT);
 }
 NodePtr Node::CreateRectangle() {
   return Create<RectangleComponent>(TYPE_RECTANGLE);
+}
+NodePtr Node::CreateRoot() {
+  return Create<ContainerComponent>(TYPE_ROOT);
 }
 /**
    複製を生成する
@@ -140,28 +147,22 @@ NodePtr Node::CreateRectangle() {
    @return 生成した複製
 */
 NodePtr Node::Clone(const NodePtr& src) {
-  auto dst = src->clone();
+  auto dst = std::make_shared<Node>(*src);
   for(auto& component : src->getComponents()) {
     dst->appendComponent(component->clone(dst));
-  }
-  for(auto& child : src->getChildren()) {
-    Append(Clone(child), dst);
+    if(auto container = std::dynamic_pointer_cast<ContainerComponent>(component)) {
+      for(auto& child : container->getChildren()) {
+        Append(Clone(child), dst);
+      }
+    }
   }
   return dst;
-}
-/**
-   複製を生成する
-   @return 生成した複製
-*/
-NodePtr Node::clone() const {
-  return nullptr;
 }
 /**
  */
 void Node::setup() {
   appendMember("Label", label_);
   appendMember("Show", show_);
-  appendMember("Container", container_);
   appendMember("Comment", comment_);
 }
 /**

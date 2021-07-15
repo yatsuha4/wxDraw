@@ -19,10 +19,16 @@ ContainerComponent::ContainerComponent(const ContainerComponent& src, const Node
 }
 /**
  */
+void ContainerComponent::appendChild(const NodePtr& child) {
+  wxASSERT(!child->getParent());
+  children_.push_back(child);
+}
+/**
+ */
 void ContainerComponent::insertChild(const NodePtr& child, size_t index) {
   wxASSERT(!child->getParent());
-  wxASSERT(index < children_.size());
-  children_.insert(children_.begin() + index, node);
+  wxASSERT(index <= children_.size());
+  children_.insert(children_.begin() + index, child);
 }
 /**
  */
@@ -41,7 +47,7 @@ void ContainerComponent::onUpdate() {
  */
 void ContainerComponent::onRender(Renderer& renderer) {
   for(auto& child : children_) {
-    children->render(renderer);
+    child->render(renderer);
   }
 }
 }

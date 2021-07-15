@@ -27,6 +27,7 @@
 		260BBF27269ECB8C0041BD06 /* ProjectComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 260BBF26269ECB8C0041BD06 /* ProjectComponent.cpp */; };
 		260BBF2A269EF8B00041BD06 /* ColorProperty.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 260BBF29269EF8B00041BD06 /* ColorProperty.cpp */; };
 		260BBF2D269EFFFC0041BD06 /* PaletteComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 260BBF2B269EFFFC0041BD06 /* PaletteComponent.cpp */; };
+		261C06D8269FB2F8002AAC78 /* ContainerComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 261C06D6269FA4F8002AAC78 /* ContainerComponent.cpp */; };
 		263EA113268F524E003B100A /* Command.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 263EA111268F524E003B100A /* Command.cpp */; };
 		265FCA3E214ACD3100398B40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 265FCA3D214ACD3100398B40 /* Assets.xcassets */; };
 		265FCA54214AD08A00398B40 /* libwx_osx_cocoau-3.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 265FCA53214AD08A00398B40 /* libwx_osx_cocoau-3.1.a */; };
@@ -427,6 +428,7 @@
 				2605A58B264A35A100FD3DF0 /* Outliner.cpp in Sources */,
 				26CB133C269B72470025ACDD /* InsertNodeCommand.cpp in Sources */,
 				2605A579264564DB00FD3DF0 /* Application.cpp in Sources */,
+				261C06D8269FB2F8002AAC78 /* ContainerComponent.cpp in Sources */,
 				260BBF1E269E64C70041BD06 /* ImageExporter.cpp in Sources */,
 				260BBF18269E591F0041BD06 /* Menu.cpp in Sources */,
 				26BA73D126990D3C001F3C5D /* LayoutComponent.cpp in Sources */,

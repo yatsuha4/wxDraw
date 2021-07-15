@@ -1,5 +1,6 @@
 #include "wxdraw/command/InsertNodeCommand.hpp"
 #include "wxdraw/command/RemoveNodeCommand.hpp"
+#include "wxdraw/component/ContainerComponent.hpp"
 #include "wxdraw/component/ExportComponent.hpp"
 #include "wxdraw/component/ProjectComponent.hpp"
 #include "wxdraw/file/XmlExporter.hpp"
@@ -61,7 +62,10 @@ void MainFrame::selectNode(const NodePtr& node) {
    @param parent 親ノード
 */
 void MainFrame::appendNode(const NodePtr& node, const NodePtr& parent) {
-  insertNode(node, parent, parent->getChildren().size());
+  wxASSERT(parent);
+  auto container = parent->getContainer();
+  wxASSERT(container);
+  insertNode(node, parent, container->getChildren().size());
 }
 /**
    ノードを挿入する
@@ -155,7 +159,7 @@ void MainFrame::onMenuOpen(wxMenuEvent& event) {
       menu->Enable(Menu::ID_EDIT_CLONE, 
                    node && 
                    node->getParent() && 
-                   node->getParent()->isContainer());
+                   node->getParent()->getContainer());
       menu->Enable(Menu::ID_EDIT_UNDO, project && project->getCommandProcessor().CanUndo());
       menu->Enable(Menu::ID_EDIT_REDO, project && project->getCommandProcessor().CanRedo());
     }
@@ -229,11 +233,11 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
  */
 NodePtr MainFrame::getContainerNode() const {
   if(auto node = getSelectNode()) {
-    if(node->isContainer()) {
+    if(node->getContainer()) {
       return node;
     }
     if(auto parent = node->getParent()) {
-      if(parent->isContainer()) {
+      if(parent->getContainer()) {
         return parent;
       }
     }

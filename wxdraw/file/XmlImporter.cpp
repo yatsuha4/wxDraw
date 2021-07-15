@@ -1,4 +1,5 @@
 #include "wxdraw/component/BrushComponent.hpp"
+#include "wxdraw/component/ContainerComponent.hpp"
 #include "wxdraw/component/EllipseComponent.hpp"
 #include "wxdraw/component/GridComponent.hpp"
 #include "wxdraw/component/LayerComponent.hpp"
@@ -23,21 +24,6 @@ NodePtr XmlImporter::load() {
     return parseNode(*document_.GetRoot());
   }
   return nullptr;
-}
-/**
- */
-NodePtr XmlImporter::parseNode(const wxXmlNode& xml) {
-  NodePtr node = std::make_shared<Node>(xml.GetName().ToStdString());
-  parseProperty(*node, xml);
-  for(auto iter = xml.GetChildren(); iter; iter = iter->GetNext()) {
-    if(iter->GetName() == "Components") {
-      parseComponents(*node, *iter);
-    }
-    else if(auto child = parseNode(*iter)) {
-      Node::Insert(child, node, node->getChildren().size());
-    }
-  }
-  return node;
 }
 /**
  */
@@ -66,17 +52,33 @@ bool XmlImporter::FromString(const wxString& text, bool& value) {
 }
 /**
  */
-void XmlImporter::parseComponents(Node& node, const wxXmlNode& xml) {
+NodePtr XmlImporter::parseNode(const wxXmlNode& xml) {
+  NodePtr node = std::make_shared<Node>(xml.GetName().ToStdString());
+  parseProperty(*node, xml);
   for(auto iter = xml.GetChildren(); iter; iter = iter->GetNext()) {
-    if(!parseComponent<BrushComponent, 
-                       EllipseComponent, 
-                       GridComponent, 
-                       LayerComponent, 
-                       LayoutComponent, 
-                       RectangleComponent>(node, *iter)) {
-      wxLogWarning("syntax error, %s:%d", iter->GetName(), iter->GetLineNumber());
+    if(auto component = parseComponent(*node, *iter)) {
+      if(auto container = std::dynamic_pointer_cast<ContainerComponent>(component)) {
+        for(auto child = iter->GetChildren(); child; child = child->GetNext()) {
+          Node::Append(parseNode(*child), node);
+        }
+      }
+    }
+    else {
+      wxLogWarning("syntax error, '%s'(line:%d)", iter->GetName(), iter->GetLineNumber());
     }
   }
+  return node;
+}
+/**
+ */
+ComponentBasePtr XmlImporter::parseComponent(Node& node, const wxXmlNode& xml) {
+  return parseComponent<BrushComponent, 
+                        ContainerComponent, 
+                        EllipseComponent, 
+                        GridComponent, 
+                        LayerComponent, 
+                        LayoutComponent, 
+                        RectangleComponent>(node, xml);
 }
 /**
    メンバーに値を書き込む

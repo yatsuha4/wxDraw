@@ -1,4 +1,5 @@
 #include "wxdraw/command/InsertNodeCommand.hpp"
+#include "wxdraw/component/ContainerComponent.hpp"
 #include "wxdraw/gui/MainFrame.hpp"
 #include "wxdraw/node/Node.hpp"
 
@@ -9,7 +10,8 @@ namespace wxdraw::command {
 InsertNodeCommand::InsertNodeCommand(MainFrame* mainFrame, 
                                      const NodePtr& node, 
                                      const NodePtr& parent)
-  : InsertNodeCommand(mainFrame, node, parent, parent->getChildren().size())
+  : InsertNodeCommand(mainFrame, node, parent, 
+                      parent->getComponent<ContainerComponent>()->getChildren().size())
 {
 }
 /**
