@@ -11,10 +11,10 @@ class Menu
 
  public:
   enum Type {
-    None, 
-    Edit, 
-    Edit_NewNode, 
-    Edit_NewComponent, 
+    NONE, 
+    EDIT, 
+    EDIT_NEW_NODE, 
+    EDIT_NEW_COMPONENT, 
     POPUP_INSPECTOR_COMPONENT
   };
 
@@ -31,6 +31,8 @@ class Menu
     ID_EDIT_APPEND_RECTANGLE, 
     ID_EDIT_APPEND_ELLIPSE, 
     ID_EDIT_NEW_COMPONENT, 
+    ID_EDIT_NEW_COMPONENT_PEN, 
+    ID_EDIT_NEW_COMPONENT_BRUSH, 
     ID_EDIT_NEW_COMPONENT_EXPORT, 
     ID_EDIT_REMOVE, 
     ID_EDIT_CLONE, 
@@ -49,7 +51,7 @@ class Menu
   Type type_;
 
  public:
-  Menu(Type type = Type::None);
+  Menu(Type type = Type::NONE);
   ~Menu() override = default;
 
   WXDRAW_GETTER(Type, type_);

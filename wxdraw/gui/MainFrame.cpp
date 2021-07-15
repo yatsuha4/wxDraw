@@ -1,5 +1,6 @@
 #include "wxdraw/command/InsertNodeCommand.hpp"
 #include "wxdraw/command/RemoveNodeCommand.hpp"
+#include "wxdraw/component/BrushComponent.hpp"
 #include "wxdraw/component/ContainerComponent.hpp"
 #include "wxdraw/component/ExportComponent.hpp"
 #include "wxdraw/component/ProjectComponent.hpp"
@@ -112,16 +113,18 @@ void MainFrame::setupMenuBar() {
     menuBar->Append(menu, "File");
   }
   {
-    auto menu = new Menu(Menu::Type::Edit);
+    auto menu = new Menu(Menu::Type::EDIT);
     {
-      auto subMenu = new Menu(Menu::Type::Edit_NewNode);
+      auto subMenu = new Menu(Menu::Type::EDIT_NEW_NODE);
       subMenu->Append(Menu::ID_EDIT_APPEND_LAYER, "Layer");
       subMenu->Append(Menu::ID_EDIT_APPEND_RECTANGLE, "Rectangle");
       subMenu->Append(Menu::ID_EDIT_APPEND_ELLIPSE, "Ellipse");
       menu->Append(Menu::ID_EDIT_APPEND, "New Node", subMenu);
     }
     {
-      auto subMenu = new Menu(Menu::Type::Edit_NewComponent);
+      auto subMenu = new Menu(Menu::Type::EDIT_NEW_COMPONENT);
+      subMenu->Append(Menu::ID_EDIT_NEW_COMPONENT_PEN, "Pen");
+      subMenu->Append(Menu::ID_EDIT_NEW_COMPONENT_BRUSH, "Brush");
       subMenu->Append(Menu::ID_EDIT_NEW_COMPONENT_EXPORT, "Export");
       menu->Append(Menu::ID_EDIT_NEW_COMPONENT, "New Component", subMenu);
     }
@@ -153,7 +156,7 @@ void MainFrame::onMenuOpen(wxMenuEvent& event) {
   auto node = getSelectNode();
   auto project = getProject();
   switch(menu->getType()) {
-  case Menu::Type::Edit:
+  case Menu::Type::EDIT:
     {
       menu->Enable(Menu::ID_EDIT_REMOVE, node != nullptr);
       menu->Enable(Menu::ID_EDIT_CLONE, 
@@ -164,12 +167,19 @@ void MainFrame::onMenuOpen(wxMenuEvent& event) {
       menu->Enable(Menu::ID_EDIT_REDO, project && project->getCommandProcessor().CanRedo());
     }
     break;
-  case Menu::Type::Edit_NewNode:
+  case Menu::Type::EDIT_NEW_NODE:
     {
       auto enable = (getContainerNode() != nullptr);
       menu->Enable(Menu::ID_EDIT_APPEND_LAYER, enable);
       menu->Enable(Menu::ID_EDIT_APPEND_RECTANGLE, enable);
       menu->Enable(Menu::ID_EDIT_APPEND_ELLIPSE, enable);
+    }
+    break;
+  case Menu::Type::EDIT_NEW_COMPONENT:
+    {
+      auto node = getSelectNode();
+      menu->Enable(Menu::ID_EDIT_NEW_COMPONENT_BRUSH, 
+                   node && !node->getComponent<BrushComponent>());
     }
     break;
   default:
