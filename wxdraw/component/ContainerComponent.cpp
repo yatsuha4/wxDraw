@@ -20,20 +20,17 @@ ContainerComponent::ContainerComponent(const ContainerComponent& src, const Node
 /**
  */
 void ContainerComponent::appendChild(const NodePtr& child) {
-  wxASSERT(!child->getParent());
   children_.push_back(child);
 }
 /**
  */
 void ContainerComponent::insertChild(const NodePtr& child, size_t index) {
-  wxASSERT(!child->getParent());
   wxASSERT(index <= children_.size());
   children_.insert(children_.begin() + index, child);
 }
 /**
  */
 void ContainerComponent::removeChild(const NodePtr& child) {
-  wxASSERT(child->getParent() == getNode());
   children_.erase(std::remove(children_.begin(), children_.end(), child));
 }
 /**

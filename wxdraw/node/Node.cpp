@@ -58,7 +58,8 @@ NodePtr Node::getParent() const {
    @param parent 親ノード
 */
 void Node::Append(const NodePtr& node, const NodePtr& parent) {
-  auto container = parent->getComponent<ContainerComponent>();
+  wxASSERT(!node->getParent());
+  auto container = parent->getContainer();
   wxASSERT(container);
   container->appendChild(node);
   node->parent_ = parent;
@@ -70,7 +71,8 @@ void Node::Append(const NodePtr& node, const NodePtr& parent) {
    @param index 挿入位置
 */
 void Node::Insert(const NodePtr& node, const NodePtr& parent, size_t index) {
-  auto container = parent->getComponent<ContainerComponent>();
+  wxASSERT(!node->getParent());
+  auto container = parent->getContainer();
   wxASSERT(container);
   container->insertChild(node, index);
   node->parent_ = parent;
@@ -82,7 +84,7 @@ void Node::Insert(const NodePtr& node, const NodePtr& parent, size_t index) {
 void Node::Remove(const NodePtr& node) {
   auto parent = node->getParent();
   wxASSERT(parent);
-  auto container = parent->getComponent<ContainerComponent>();
+  auto container = parent->getContainer();
   wxASSERT(container);
   container->removeChild(node);
   node->parent_.reset();

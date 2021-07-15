@@ -11,7 +11,7 @@ InsertNodeCommand::InsertNodeCommand(MainFrame* mainFrame,
                                      const NodePtr& node, 
                                      const NodePtr& parent)
   : InsertNodeCommand(mainFrame, node, parent, 
-                      parent->getComponent<ContainerComponent>()->getChildren().size())
+                      parent->getContainer()->getChildren().size())
 {
 }
 /**
