@@ -7,6 +7,7 @@
 #include "wxdraw/component/RectangleComponent.hpp"
 #include "wxdraw/file/XmlImporter.hpp"
 #include "wxdraw/node/Node.hpp"
+#include "wxdraw/property/Property.hpp"
 
 namespace wxdraw::file {
 /**
@@ -21,7 +22,7 @@ XmlImporter::XmlImporter(const wxString& fileName)
  */
 NodePtr XmlImporter::load() {
   if(document_.IsOk()) {
-    return parseNode(*document_.GetRoot());
+    return createNode(*document_.GetRoot());
   }
   return nullptr;
 }
@@ -51,41 +52,36 @@ bool XmlImporter::FromString(const wxString& text, bool& value) {
   return false;
 }
 /**
- */
-NodePtr XmlImporter::parseNode(const wxXmlNode& xml) {
-  NodePtr node = std::make_shared<Node>(xml.GetName().ToStdString());
-  parseProperty(*node, xml);
-  for(auto iter = xml.GetChildren(); iter; iter = iter->GetNext()) {
-    if(auto component = parseComponent(*node, *iter)) {
+   XMLからノードを生成する
+   @param xml XML
+   @return 生成したノード
+*/
+NodePtr XmlImporter::createNode(const wxXmlNode& xml) {
+  auto node = std::make_shared<Node>(xml.GetName().ToStdString());
+  parseProperty(xml, *node->createProperty());
+  for(auto componentXml = xml.GetChildren();
+      componentXml;
+      componentXml = componentXml->GetNext()) {
+    if(auto component = CreateComponent(node, *componentXml)) {
+      parseProperty(*componentXml, *component->createProperty());
       if(auto container = std::dynamic_pointer_cast<ContainerComponent>(component)) {
-        for(auto child = iter->GetChildren(); child; child = child->GetNext()) {
-          Node::Append(parseNode(*child), node);
+        for(auto child = componentXml->GetChildren(); child; child = child->GetNext()) {
+          Node::Append(createNode(*child), node);
         }
       }
     }
     else {
-      wxLogWarning("syntax error, '%s'(line:%d)", iter->GetName(), iter->GetLineNumber());
+      Warning("syntax error", *componentXml);
     }
   }
   return node;
 }
 /**
- */
-ComponentBasePtr XmlImporter::parseComponent(Node& node, const wxXmlNode& xml) {
-  return parseComponent<BrushComponent, 
-                        ContainerComponent, 
-                        EllipseComponent, 
-                        GridComponent, 
-                        LayerComponent, 
-                        LayoutComponent, 
-                        RectangleComponent>(node, xml);
-}
-/**
    メンバーに値を書き込む
-   @param property プロパティ
    @param xml XMLノード
+   @param property プロパティ
 */
-void XmlImporter::parseProperty(Property& property, const wxXmlNode& xml) {
+void XmlImporter::parseProperty(const wxXmlNode& xml, const Property& property) {
   for(auto& member : property.getMembers()) {
     wxString text;
     if(xml.GetAttribute(member->getName(), &text)) {
@@ -106,5 +102,21 @@ void XmlImporter::parseProperty(Property& property, const wxXmlNode& xml) {
       }
     }
   }
+}
+/**
+ */
+ComponentBasePtr XmlImporter::CreateComponent(const NodePtr& node, const wxXmlNode& xml) {
+  return CreateComponent<BrushComponent, 
+                        ContainerComponent, 
+                        EllipseComponent, 
+                        GridComponent, 
+                        LayerComponent, 
+                        LayoutComponent, 
+                        RectangleComponent>(node, xml);
+}
+/**
+ */
+void XmlImporter::Warning(const wxString& message, const wxXmlNode& xml) {
+  wxLogWarning("%s, '%s'(line:%d)", message, xml.GetName(), xml.GetLineNumber());
 }
 }

@@ -2,6 +2,7 @@
 #include "wxdraw/component/RectangleComponent.hpp"
 #include "wxdraw/gui/Renderer.hpp"
 #include "wxdraw/node/Node.hpp"
+#include "wxdraw/property/Property.hpp"
 
 namespace wxdraw::component {
 const char* RectangleComponent::TYPE = "Rectangle";
@@ -12,7 +13,6 @@ RectangleComponent::RectangleComponent(const NodePtr& node)
   : super(TYPE, node), 
     round_(0.0)
 {
-  setup();
 }
 /**
    コピーコンストラクタ
@@ -22,7 +22,13 @@ RectangleComponent::RectangleComponent(const RectangleComponent& src,
   : super(src, node), 
     round_(src.round_)
 {
-  setup();
+}
+/**
+ */
+PropertyPtr RectangleComponent::createProperty() {
+  auto property = super::createProperty();
+  property->appendMember("Round", round_);
+  return property;
 }
 /**
  */
@@ -37,10 +43,5 @@ void RectangleComponent::onRender(Renderer& renderer) {
       context.DrawRoundedRectangle(rect.pos.x, rect.pos.y, rect.size.x, rect.size.y, round_);
     }
   }
-}
-/**
- */
-void RectangleComponent::setup() {
-  appendMember("Round", round_);
 }
 }

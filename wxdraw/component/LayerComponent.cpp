@@ -1,5 +1,6 @@
 #include "wxdraw/component/LayerComponent.hpp"
 #include "wxdraw/gui/Renderer.hpp"
+#include "wxdraw/property/Property.hpp"
 
 namespace wxdraw::component {
 const char* LayerComponent::TYPE = "Layer";
@@ -11,7 +12,6 @@ LayerComponent::LayerComponent(const NodePtr& node)
     opacity_(1.0), 
     clip_(false)
 {
-  setup();
 }
 /**
    コピーコンストラクタ
@@ -21,7 +21,14 @@ LayerComponent::LayerComponent(const LayerComponent& src, const NodePtr& node)
     opacity_(src.opacity_), 
     clip_(src.clip_)
 {
-  setup();
+}
+/**
+ */
+PropertyPtr LayerComponent::createProperty() {
+  auto property = super::createProperty();
+  property->appendMember("Opacity", opacity_);
+  property->appendMember("Clip", clip_);
+  return property;
 }
 /**
  */
@@ -36,11 +43,5 @@ void LayerComponent::onEndRender(Renderer& renderer) {
   auto& context = renderer.getContext();
   context.EndLayer();
   context.PopState();
-}
-/**
- */
-void LayerComponent::setup() {
-  appendMember("Opacity", opacity_);
-  appendMember("Clip", clip_);
 }
 }

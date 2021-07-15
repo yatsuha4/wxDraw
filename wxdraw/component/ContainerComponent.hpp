@@ -19,7 +19,7 @@ class ContainerComponent
  public:
   ContainerComponent(const NodePtr& node);
   ContainerComponent(const ContainerComponent& src, const NodePtr& node);
-  ~ContainerComponent() override = default;
+  ~ContainerComponent() override;
 
   WXDRAW_GETTER(Children, children_);
   void appendChild(const NodePtr& child);

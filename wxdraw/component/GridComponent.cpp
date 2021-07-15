@@ -2,6 +2,7 @@
 #include "wxdraw/component/LayoutComponent.hpp"
 #include "wxdraw/gui/Renderer.hpp"
 #include "wxdraw/node/Node.hpp"
+#include "wxdraw/property/Property.hpp"
 
 namespace wxdraw::component {
 const char* GridComponent::TYPE = "Grid";
@@ -18,7 +19,6 @@ GridComponent::GridComponent(const NodePtr& node)
     width_(0.1), 
     pen_(color_, width_)
 {
-  setup();
 }
 /**
    コピーコンストラクタ
@@ -33,7 +33,18 @@ GridComponent::GridComponent(const GridComponent& src, const NodePtr& node)
     width_(src.width_), 
     pen_(src.pen_)
 {
-  setup();
+}
+/**
+ */
+PropertyPtr GridComponent::createProperty() {
+  auto property = super::createProperty();
+  property->appendMember("Show", show_);
+  property->appendMember("Snap", snap_);
+  property->appendMember("Size", size_);
+  property->appendMember("Offset", offset_);
+  property->appendMember("Color", color_);
+  property->appendMember("Width", width_);
+  return property;
 }
 /**
  */
@@ -59,15 +70,5 @@ void GridComponent::onRender(Renderer& renderer) {
     context.StrokePath(path);
     renderer.popPen();
   }
-}
-/**
- */
-void GridComponent::setup() {
-  appendMember("Show", show_);
-  appendMember("Snap", snap_);
-  appendMember("Size", size_);
-  appendMember("Offset", offset_);
-  appendMember("Color", color_);
-  appendMember("Width", width_);
 }
 }

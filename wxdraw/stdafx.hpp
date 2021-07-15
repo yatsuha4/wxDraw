@@ -142,6 +142,7 @@ using namespace node;
 namespace property {
 WXDRAW_DECLARE_CLASS(MemberBase);
 WXDRAW_DECLARE_CLASS(Property);
+WXDRAW_DECLARE_CLASS(PropertyMember);
 }
 using namespace property;
 

@@ -1,16 +1,10 @@
 ﻿#pragma once
 
-#include "wxdraw/property/Property.hpp"
-
 namespace wxdraw::component {
 /**
    コンポーネント基底クラス
 */
-class ComponentBase
-  : public Property
-{
-  using super = Property;
-
+class ComponentBase {
  public:
   enum Priority {
     LAYOUT, 
@@ -19,6 +13,7 @@ class ComponentBase
   };
 
  private:
+  std::string name_;
   std::weak_ptr<Node> node_;
   Priority priority_;
 
@@ -28,11 +23,13 @@ class ComponentBase
                 Priority priority);
   ComponentBase(const ComponentBase& src, 
                 const NodePtr& node);
-  virtual ~ComponentBase() = default;
+  virtual ~ComponentBase();
 
+  WXDRAW_GETTER(Name, name_);
   NodePtr getNode();
-
   WXDRAW_GETTER(Priority, priority_);
+
+  virtual PropertyPtr createProperty();
 
   void beginUpdate();
   void update();

@@ -1,7 +1,5 @@
 #pragma once
 
-#include "wxdraw/node/Node.hpp"
-
 namespace wxdraw::gui {
 /**
    メインフレーム

@@ -18,6 +18,13 @@ Property::Property(const Property& src)
 {
 }
 /**
+   メンバーを追加する
+   @param member 追加するメンバー
+*/
+void Property::appendMember(const MemberBasePtr& member) {
+  members_.push_back(member);
+}
+/**
  */
 void Property::appendMember(const std::string& name, glm::ivec2& value) {
   appendMember(name + ".x", value.x);

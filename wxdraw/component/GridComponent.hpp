@@ -28,11 +28,10 @@ class GridComponent
   GridComponent(const GridComponent& src, const NodePtr& node);
   ~GridComponent() override = default;
 
+  PropertyPtr createProperty() override;
+
  protected:
   void onUpdate() override;
   void onRender(Renderer& renderer) override;
-
- private:
-  void setup();
 };
 }

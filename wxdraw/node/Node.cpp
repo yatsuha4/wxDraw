@@ -10,6 +10,8 @@
 #include "wxdraw/component/RectangleComponent.hpp"
 #include "wxdraw/gui/Renderer.hpp"
 #include "wxdraw/node/Node.hpp"
+#include "wxdraw/property/Property.hpp"
+#include "wxdraw/property/PropertyMember.hpp"
 
 namespace wxdraw::node {
 const char* Node::TYPE_ELLIPSE = "Ellipse";
@@ -22,22 +24,26 @@ const char* Node::TYPE_ROOT = "Root";
    @param name 名前
 */
 Node::Node(const std::string& name)
-  : super(name), 
+  : name_(name), 
     label_(name), 
     show_(true)
 {
-  setup();
 }
 /**
    コピーコンストラクタ
 */
 Node::Node(const Node& src)
-  : super(src), 
+  : name_(src.name_), 
     label_(src.label_), 
     show_(src.show_), 
     comment_(src.comment_)
 {
-  setup();
+}
+/**
+   デストラクタ
+*/
+Node::~Node() {
+  components_.clear();
 }
 /**
    コンテナコンポーネントを取得する
@@ -111,6 +117,19 @@ void Node::Remove(const NodePtr& node) {
   node->parent_.reset();
 }
 /**
+   プロパティを生成する
+*/
+PropertyPtr Node::createProperty() {
+  auto property = std::make_shared<Property>(name_);
+  property->appendMember("Label", label_);
+  property->appendMember("Show", show_);
+  property->appendMember("Comment", comment_);
+  for(auto& component : components_) {
+    property->appendMember(std::make_shared<PropertyMember>(component->createProperty()));
+  }
+  return property;
+}
+/**
    更新
 */
 void Node::update() {
@@ -180,12 +199,5 @@ NodePtr Node::Clone(const NodePtr& src) {
     }
   }
   return dst;
-}
-/**
- */
-void Node::setup() {
-  appendMember("Label", label_);
-  appendMember("Show", show_);
-  appendMember("Comment", comment_);
 }
 }

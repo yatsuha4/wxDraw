@@ -1,6 +1,7 @@
 #include "wxdraw/component/ComponentBase.hpp"
 #include "wxdraw/component/PaletteComponent.hpp"
 #include "wxdraw/node/Node.hpp"
+#include "wxdraw/property/Property.hpp"
 
 namespace wxdraw::component {
 /**
@@ -12,7 +13,7 @@ namespace wxdraw::component {
 ComponentBase::ComponentBase(const std::string& name, 
                              const NodePtr& node, 
                              Priority priority)
-  : super(name), 
+  : name_(name), 
     node_(node), 
     priority_(priority)
 {
@@ -21,15 +22,27 @@ ComponentBase::ComponentBase(const std::string& name,
    コピーコンストラクタ
 */
 ComponentBase::ComponentBase(const ComponentBase& src, const NodePtr& node)
-  : super(src), 
+  : name_(src.name_), 
     node_(node), 
     priority_(src.priority_)
 {
 }
 /**
+   デストラクタ
+*/
+ComponentBase::~ComponentBase() {
+  node_.reset();
+}
+/**
  */
 NodePtr ComponentBase::getNode() {
   return node_.lock();
+}
+/**
+   プロパティを生成する
+*/
+PropertyPtr ComponentBase::createProperty() {
+  return std::make_shared<Property>(getName());
 }
 /**
    更新を開始する

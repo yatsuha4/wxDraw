@@ -2,8 +2,8 @@
 #include "wxdraw/gui/ColorProperty.hpp"
 #include "wxdraw/gui/Inspector.hpp"
 #include "wxdraw/gui/Menu.hpp"
-#include "wxdraw/node/Node.hpp"
-#include "wxdraw/property/Member.hpp"
+#include "wxdraw/property/Property.hpp"
+#include "wxdraw/property/PropertyMember.hpp"
 
 namespace wxdraw::gui {
 /**
@@ -20,31 +20,29 @@ Inspector::Inspector(wxWindow* parent, MainFrame* mainFrame)
 }
 /**
  */
-void Inspector::show(const NodePtr& node) {
+void Inspector::show(const PropertyPtr& property) {
   clear();
-  node_ = node;
-  if(node) {
-    showProperty(*node);
-    for(auto& component : node->getComponents()) {
-      Append(new wxPropertyCategory(component->getName()));
-      showProperty(*component);
-    }
-    SetPropertyAttributeAll(wxPG_BOOL_USE_CHECKBOX, true);
-    SetPropertyAttributeAll(wxPG_COLOUR_ALLOW_CUSTOM, true);
-    SetPropertyAttributeAll(wxPG_COLOUR_HAS_ALPHA, true);
-  }
+  property_ = property;
+  showProperty(*property);
+  SetPropertyAttributeAll(wxPG_BOOL_USE_CHECKBOX, true);
+  SetPropertyAttributeAll(wxPG_COLOUR_ALLOW_CUSTOM, true);
+  SetPropertyAttributeAll(wxPG_COLOUR_HAS_ALPHA, true);
 }
 /**
  */
 void Inspector::clear() {
   Clear();
-  node_ = nullptr;
+  property_ = nullptr;
 }
 /**
  */
-void Inspector::showProperty(Property& property) {
+void Inspector::showProperty(const Property& property) {
   for(auto& iter : property.getMembers()) {
-    if(auto member = Member<int>::As(iter)) {
+    if(auto m = std::dynamic_pointer_cast<PropertyMember>(iter)) {
+      Append(new wxPropertyCategory(m->getName()));
+      showProperty(*m->getProperty());
+    }
+    else if(auto member = Member<int>::As(iter)) {
       append<wxIntProperty>(member);
     }
     else if(auto member = Member<double>::As(iter)) {
@@ -52,10 +50,6 @@ void Inspector::showProperty(Property& property) {
     }
     else if(auto member = Member<bool>::As(iter)) {
       append<wxBoolProperty>(member);
-    }
-    else if(auto member = Member<ColorIndex>::As(iter)) {
-      append<ColorProperty>(member, member->getValue(), 
-                            static_cast<ComponentBase&>(property));
     }
     else if(auto member = Member<wxString>::As(iter)) {
       append<wxStringProperty>(member);
@@ -65,9 +59,6 @@ void Inspector::showProperty(Property& property) {
     }
     else if(auto member = Member<wxFileName>::As(iter)) {
       append<wxFileProperty>(member, member->getValue().GetFullPath());
-    }
-    else if(auto child = std::dynamic_pointer_cast<Property>(iter)) {
-      showProperty(*child);
     }
   }
 }
@@ -85,8 +76,7 @@ void Inspector::onChanged(wxPropertyGridEvent& event) {
            bool, 
            wxString, 
            wxColour, 
-           wxFileName, 
-           ColorIndex>(event);
+           wxFileName>(event);
 }
 /**
  */
@@ -99,15 +89,5 @@ void Inspector::onRightClick(wxPropertyGridEvent& event) {
     menu->Append(Menu::ID_COMPONENT_DOWN, "Down");
     PopupMenu(menu);
   }
-}
-/**
- */
-bool Inspector::getValue(const wxAny& src, ColorIndex& dst) const {
-  wxColourPropertyValue value;
-  if(src.GetAs(&value)) {
-    dst = value.m_type;
-    return true;
-  }
-  return false;
 }
 }

@@ -38,13 +38,13 @@ class LayoutComponent
   WXDRAW_GETTER(Matrix, matrix_);
   WXDRAW_GETTER(Rect, rect_);
 
+  PropertyPtr createProperty() override;
+
  protected:
   void onUpdate() override;
   void onBeginRender(Renderer& renderer) override;
 
  private:
-  void setup();
-
   LayoutComponentPtr getParent();
 };
 }

@@ -26,8 +26,8 @@ class XmlExporter
   static wxString ToString(bool value);
 
  private:
-  wxXmlNode* parse(const NodePtr& node);
-  wxXmlNode* parse(const Property& property);
+  wxXmlNode* createXml(Node& node);
+  wxXmlNode* createXml(Node& node, const Property& property);
   wxString getValue(const MemberBasePtr& member);
 };
 }

@@ -2,6 +2,8 @@
 #include "wxdraw/file/XmlExporter.hpp"
 #include "wxdraw/node/Node.hpp"
 #include "wxdraw/property/Member.hpp"
+#include "wxdraw/property/Property.hpp"
+#include "wxdraw/property/PropertyMember.hpp"
 
 namespace wxdraw::file {
 /**
@@ -11,7 +13,7 @@ XmlExporter::XmlExporter(const NodePtr& node, const wxFileName& fileName)
   : super(node), 
     fileName_(fileName)
 {
-  document_.SetRoot(parse(node));
+  document_.SetRoot(createXml(*node));
 }
 /**
    出力
@@ -37,25 +39,26 @@ wxString XmlExporter::ToString(bool value) {
 }
 /**
  */
-wxXmlNode* XmlExporter::parse(const NodePtr& node) {
-  auto xml = parse(*node);
-  for(auto& component : node->getComponents()) {
-    auto componentXml = parse(*component);
-    xml->AddChild(componentXml);
-    if(auto container = std::dynamic_pointer_cast<ContainerComponent>(component)) {
-      for(auto& child : container->getChildren()) {
-        componentXml->AddChild(parse(child));
-      }
-    }
-  }
-  return xml;
+wxXmlNode* XmlExporter::createXml(Node& node) {
+  return createXml(node, *node.createProperty());
 }
 /**
  */
-wxXmlNode* XmlExporter::parse(const Property& property) {
+wxXmlNode* XmlExporter::createXml(Node& node, const Property& property) {
   auto xml = new wxXmlNode(wxXML_ELEMENT_NODE, property.getName());
   for(auto& member : property.getMembers()) {
-    xml->AddAttribute(member->getName(), getValue(member));
+    if(auto component = std::dynamic_pointer_cast<PropertyMember>(member)) {
+      auto componentXml = createXml(node, *component->getProperty());
+      xml->AddChild(componentXml);
+      if(component->getProperty()->getName() == ContainerComponent::TYPE) {
+        for(auto& child : node.getContainer()->getChildren()) {
+          componentXml->AddChild(createXml(*child));
+        }
+      }
+    }
+    else {
+      xml->AddAttribute(member->getName(), getValue(member));
+    }
   }
   return xml;
 }

@@ -1,6 +1,7 @@
 #include "wxdraw/component/LayoutComponent.hpp"
 #include "wxdraw/gui/Renderer.hpp"
 #include "wxdraw/node/Node.hpp"
+#include "wxdraw/property/Property.hpp"
 
 namespace wxdraw::component {
 const char* LayoutComponent::TYPE = "Layout";
@@ -18,7 +19,6 @@ LayoutComponent::LayoutComponent(const NodePtr& node)
     matrix_(1.0), 
     rect_(glm::dvec2(0.0), glm::dvec2(0.0))
 {
-  setup();
 }
 /**
    コピーコンストラクタ
@@ -35,7 +35,19 @@ LayoutComponent::LayoutComponent(const LayoutComponent& src, const NodePtr& node
     matrix_(src.matrix_), 
     rect_(src.rect_)
 {
-  setup();
+}
+/**
+ */
+PropertyPtr LayoutComponent::createProperty() {
+  auto property = super::createProperty();
+  property->appendMember("Size.Relative", size_.relative);
+  property->appendMember("Size.Absolute", size_.absolute);
+  property->appendMember("Pos.Relative", pos_.relative);
+  property->appendMember("Pos.Absolute", pos_.absolute);
+  property->appendMember("Alignment", alignment_);
+  property->appendMember("Scale", scale_);
+  property->appendMember("Rotate", rotate_);
+  return property;
 }
 /**
  */
@@ -62,17 +74,6 @@ void LayoutComponent::onUpdate() {
  */
 void LayoutComponent::onBeginRender(Renderer& renderer) {
   renderer.setMatrix(matrix_);
-}
-/**
- */
-void LayoutComponent::setup() {
-  appendMember("Size.Relative", size_.relative);
-  appendMember("Size.Absolute", size_.absolute);
-  appendMember("Pos.Relative", pos_.relative);
-  appendMember("Pos.Absolute", pos_.absolute);
-  appendMember("Alignment", alignment_);
-  appendMember("Scale", scale_);
-  appendMember("Rotate", rotate_);
 }
 /**
    親を取得する

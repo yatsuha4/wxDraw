@@ -1,5 +1,6 @@
 #include "wxdraw/component/ExportComponent.hpp"
 #include "wxdraw/file/ImageExporter.hpp"
+#include "wxdraw/property/Property.hpp"
 
 namespace wxdraw::component {
 const char* ExportComponent::TYPE = "Export";
@@ -12,7 +13,6 @@ ExportComponent::ExportComponent(const NodePtr& node)
     scale_(1.0), 
     alignment_(0.5)
 {
-  setup();
 }
 /**
    コピーコンストラクタ
@@ -24,20 +24,21 @@ ExportComponent::ExportComponent(const ExportComponent& src, const NodePtr& node
     scale_(src.scale_), 
     alignment_(src.alignment_)
 {
-  setup();
+}
+/**
+ */
+PropertyPtr ExportComponent::createProperty() {
+  auto property = super::createProperty();
+  property->appendMember("FileName", fileName_);
+  property->appendMember("Size", size_);
+  property->appendMember("Scale", scale_);
+  property->appendMember("Alignment", alignment_);
+  return property;
 }
 /**
  */
 bool ExportComponent::save() {
   ImageExporter exporter(getNode(), fileName_, size_, scale_, alignment_);
   return exporter.save();
-}
-/**
- */
-void ExportComponent::setup() {
-  appendMember("FileName", fileName_);
-  appendMember("Size", size_);
-  appendMember("Scale", scale_);
-  appendMember("Alignment", alignment_);
 }
 }

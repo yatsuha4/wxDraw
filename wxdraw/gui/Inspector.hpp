@@ -2,6 +2,7 @@
 
 #include "wxdraw/command/ChangePropertyCommand.hpp"
 #include "wxdraw/gui/MainFrame.hpp"
+#include "wxdraw/property/Member.hpp"
 
 namespace wxdraw::gui {
 /**
@@ -14,17 +15,17 @@ class Inspector
 
  private:
   MainFrame* mainFrame_;
-  NodePtr node_;
+  PropertyPtr property_;
 
  public:
   Inspector(wxWindow* parent, MainFrame* mainFrame);
   ~Inspector() override = default;
 
-  void show(const NodePtr& node);
+  void show(const PropertyPtr& property);
   void clear();
 
  private:
-  void showProperty(Property& property);
+  void showProperty(const Property& property);
 
   template<class PropertyType, class MemberType>
   PropertyType* append(const std::shared_ptr<MemberType>& member) {
@@ -50,7 +51,7 @@ class Inspector
     if(auto m = dynamic_cast<Member<T>*>(member)) {
       T value;
       if(getValue(wxAny(event.GetValue()), value)) {
-        mainFrame_->submitCommand<ChangePropertyCommand<T>>(node_, m->getValue(), value);
+        //mainFrame_->submitCommand<ChangePropertyCommand<T>>(node_, m->getValue(), value);
       }
       return true;
     }
@@ -66,7 +67,5 @@ class Inspector
   bool getValue(const wxAny& src, T& dst) const {
     return src.GetAs(&dst);
   }
-
-  bool getValue(const wxAny& src, ColorIndex& dst) const;
 };
 }

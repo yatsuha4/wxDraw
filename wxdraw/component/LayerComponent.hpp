@@ -22,11 +22,10 @@ class LayerComponent
   LayerComponent(const LayerComponent& src, const NodePtr& node);
   ~LayerComponent() override = default;
 
+  PropertyPtr createProperty() override;
+
  protected:
   void onBeginRender(Renderer& renderer) override;
   void onEndRender(Renderer& renderer) override;
-
- private:
-  void setup();
 };
 }

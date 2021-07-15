@@ -22,10 +22,9 @@ class RectangleComponent
   RectangleComponent(const RectangleComponent& src, const NodePtr& node);
   ~RectangleComponent() override = default;
 
+  PropertyPtr createProperty() override;
+
  protected:
   void onRender(Renderer& renderer) override;
-
- private:
-  void setup();
 };
 }

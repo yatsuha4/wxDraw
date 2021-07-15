@@ -1,5 +1,6 @@
 #include "wxdraw/component/BrushComponent.hpp"
 #include "wxdraw/gui/Renderer.hpp"
+#include "wxdraw/property/Property.hpp"
 
 namespace wxdraw::component {
 const char* BrushComponent::TYPE = "Brush";
@@ -10,7 +11,6 @@ BrushComponent::BrushComponent(const NodePtr& node)
   : super(TYPE, node), 
     colorIndex_(0)
 {
-  setup();
 }
 /**
    コピーコンストラクタ
@@ -20,7 +20,13 @@ BrushComponent::BrushComponent(const BrushComponent& src, const NodePtr& node)
     colorIndex_(src.colorIndex_), 
     brush_(src.brush_)
 {
-  setup();
+}
+/**
+ */
+PropertyPtr BrushComponent::createProperty() {
+  auto property = super::createProperty();
+  property->appendMember("Color", colorIndex_);
+  return property;
 }
 /**
  */
@@ -36,10 +42,5 @@ void BrushComponent::onBeginRender(Renderer& renderer) {
  */
 void BrushComponent::onEndRender(Renderer& renderer) {
   renderer.popBrush();
-}
-/**
- */
-void BrushComponent::setup() {
-  appendMember("Color", colorIndex_);
 }
 }

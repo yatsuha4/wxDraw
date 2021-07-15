@@ -19,6 +19,11 @@ ContainerComponent::ContainerComponent(const ContainerComponent& src, const Node
 }
 /**
  */
+ContainerComponent::~ContainerComponent() {
+  children_.clear();
+}
+/**
+ */
 void ContainerComponent::appendChild(const NodePtr& child) {
   children_.push_back(child);
 }

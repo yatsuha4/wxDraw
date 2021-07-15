@@ -27,6 +27,8 @@ class ExportComponent
 
   WXDRAW_ACCESSOR(FileName, fileName_);
 
+  PropertyPtr createProperty() override;
+
   bool save();
 
  private:

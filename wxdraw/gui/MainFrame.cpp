@@ -60,8 +60,9 @@ MainFrame::~MainFrame() {
 */
 void MainFrame::selectNode(const NodePtr& node) {
   selectNode_ = node;
-  project_ = node ? node->getParentComponent<ProjectComponent>() : nullptr;
-  inspector_->show(node);
+  if(node) {
+    inspector_->show(node->createProperty());
+  }
   canvas_->Refresh();
 }
 /**
