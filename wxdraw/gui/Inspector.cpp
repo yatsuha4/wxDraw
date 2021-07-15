@@ -54,7 +54,6 @@ void Inspector::showProperty(Property& property) {
       append<wxBoolProperty>(member);
     }
     else if(auto member = Member<ColorIndex>::As(iter)) {
-      //append<wxSystemColourProperty>(member);
       append<ColorProperty>(member, member->getValue(), 
                             static_cast<ComponentBase&>(property));
     }
@@ -86,7 +85,8 @@ void Inspector::onChanged(wxPropertyGridEvent& event) {
            bool, 
            wxString, 
            wxColour, 
-           wxFileName>(event);
+           wxFileName, 
+           ColorIndex>(event);
 }
 /**
  */
@@ -99,5 +99,15 @@ void Inspector::onRightClick(wxPropertyGridEvent& event) {
     menu->Append(Menu::ID_COMPONENT_DOWN, "Down");
     PopupMenu(menu);
   }
+}
+/**
+ */
+bool Inspector::getValue(const wxAny& src, ColorIndex& dst) const {
+  wxColourPropertyValue value;
+  if(src.GetAs(&value)) {
+    dst = value.m_type;
+    return true;
+  }
+  return false;
 }
 }

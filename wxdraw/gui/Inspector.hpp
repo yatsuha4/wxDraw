@@ -48,8 +48,10 @@ class Inspector
   bool doChange(const wxPropertyGridEvent& event) {
     auto member = static_cast<MemberBase*>(event.GetProperty()->GetClientData());
     if(auto m = dynamic_cast<Member<T>*>(member)) {
-      mainFrame_->submitCommand<ChangePropertyCommand<T>>(node_, m->getValue(), 
-                                                          wxAny(event.GetValue()).As<T>());
+      T value;
+      if(getValue(wxAny(event.GetValue()), value)) {
+        mainFrame_->submitCommand<ChangePropertyCommand<T>>(node_, m->getValue(), value);
+      }
       return true;
     }
     return false;
@@ -59,5 +61,12 @@ class Inspector
   bool doChange(const wxPropertyGridEvent& event) {
     return doChange<T1>(event) || doChange<T2, Rest...>(event);
   }
+
+  template<class T>
+  bool getValue(const wxAny& src, T& dst) const {
+    return src.GetAs(&dst);
+  }
+
+  bool getValue(const wxAny& src, ColorIndex& dst) const;
 };
 }

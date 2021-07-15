@@ -29,6 +29,7 @@
 		260BBF2D269EFFFC0041BD06 /* PaletteComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 260BBF2B269EFFFC0041BD06 /* PaletteComponent.cpp */; };
 		261C06D8269FB2F8002AAC78 /* ContainerComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 261C06D6269FA4F8002AAC78 /* ContainerComponent.cpp */; };
 		261C06DB269FCB71002AAC78 /* InsertComponentCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 261C06DA269FCB71002AAC78 /* InsertComponentCommand.cpp */; };
+		261C06DE26A02227002AAC78 /* Gradient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 261C06DC26A02226002AAC78 /* Gradient.cpp */; };
 		263EA113268F524E003B100A /* Command.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 263EA111268F524E003B100A /* Command.cpp */; };
 		265FCA3E214ACD3100398B40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 265FCA3D214ACD3100398B40 /* Assets.xcassets */; };
 		265FCA54214AD08A00398B40 /* libwx_osx_cocoau-3.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 265FCA53214AD08A00398B40 /* libwx_osx_cocoau-3.1.a */; };
@@ -99,6 +100,8 @@
 		261C06D7269FA4F8002AAC78 /* ContainerComponent.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ContainerComponent.hpp; sourceTree = "<group>"; };
 		261C06D9269FCB71002AAC78 /* InsertComponentCommand.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = InsertComponentCommand.hpp; sourceTree = "<group>"; };
 		261C06DA269FCB71002AAC78 /* InsertComponentCommand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InsertComponentCommand.cpp; sourceTree = "<group>"; };
+		261C06DC26A02226002AAC78 /* Gradient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Gradient.cpp; sourceTree = "<group>"; };
+		261C06DD26A02226002AAC78 /* Gradient.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Gradient.hpp; sourceTree = "<group>"; };
 		263EA111268F524E003B100A /* Command.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Command.cpp; sourceTree = "<group>"; };
 		263EA112268F524E003B100A /* Command.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Command.hpp; sourceTree = "<group>"; };
 		265FCA37214ACD2D00398B40 /* wxDraw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wxDraw.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -314,6 +317,8 @@
 			isa = PBXGroup;
 			children = (
 				260BBF2E269F001D0041BD06 /* Color.hpp */,
+				261C06DC26A02226002AAC78 /* Gradient.cpp */,
+				261C06DD26A02226002AAC78 /* Gradient.hpp */,
 				26CB13232699FB790025ACDD /* Layout.hpp */,
 				26CB13222699F8BB0025ACDD /* Rect.hpp */,
 			);
@@ -431,6 +436,7 @@
 				263EA113268F524E003B100A /* Command.cpp in Sources */,
 				26BA73CE26987D20001F3C5D /* BrushComponent.cpp in Sources */,
 				2605A587264A312F00FD3DF0 /* Canvas.cpp in Sources */,
+				261C06DE26A02227002AAC78 /* Gradient.cpp in Sources */,
 				2605A58B264A35A100FD3DF0 /* Outliner.cpp in Sources */,
 				26CB133C269B72470025ACDD /* InsertNodeCommand.cpp in Sources */,
 				2605A579264564DB00FD3DF0 /* Application.cpp in Sources */,
