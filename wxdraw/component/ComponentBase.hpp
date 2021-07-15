@@ -11,15 +11,28 @@ class ComponentBase
 {
   using super = Property;
 
+ public:
+  enum Priority {
+    LAYOUT, 
+    DEFAULT, 
+    CONTAINER
+  };
+
  private:
   std::weak_ptr<Node> node_;
+  Priority priority_;
 
  public:
-  ComponentBase(const std::string& name, const NodePtr& node);
-  ComponentBase(const ComponentBase& src, const NodePtr& node);
+  ComponentBase(const std::string& name, 
+                const NodePtr& node, 
+                Priority priority);
+  ComponentBase(const ComponentBase& src, 
+                const NodePtr& node);
   virtual ~ComponentBase() = default;
 
   NodePtr getNode();
+
+  WXDRAW_GETTER(Priority, priority_);
 
   void beginUpdate();
   void update();

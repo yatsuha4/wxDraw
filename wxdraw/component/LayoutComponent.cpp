@@ -9,7 +9,7 @@ const char* LayoutComponent::TYPE = "Layout";
    @param node ノード
 */
 LayoutComponent::LayoutComponent(const NodePtr& node)
-  : super(TYPE, node), 
+  : super(TYPE, node, Priority::LAYOUT), 
     size_(glm::dvec2(0.0), glm::dvec2(100.0)), 
     pos_(glm::dvec2(0.5), glm::dvec2(0.0)), 
     alignment_(0.5), 

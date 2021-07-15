@@ -7,7 +7,7 @@ const char* ContainerComponent::TYPE = "Container";
    コンストラクタ
 */
 ContainerComponent::ContainerComponent(const NodePtr& node)
-  : super(TYPE, node)
+  : super(TYPE, node, Priority::CONTAINER)
 {
 }
 /**

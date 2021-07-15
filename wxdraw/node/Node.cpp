@@ -172,7 +172,14 @@ void Node::setup() {
    @param component 追加するコンポーネント
 */
 void Node::appendComponent(const ComponentBasePtr& component) {
-  components_.push_back(component);
+  auto pos = std::upper_bound(components_.begin(), 
+                              components_.end(), 
+                              component->getPriority(), 
+                              [](ComponentBase::Priority priority, 
+                                 const ComponentBasePtr& iter) {
+                                return priority < iter->getPriority();
+                              });
+  components_.insert(pos, component);
 }
 /**
    コンポーネントを削除する

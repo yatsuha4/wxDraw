@@ -13,10 +13,13 @@ class Component
   using super = ComponentBase;
 
  public:
-  Component(const std::string& name, const NodePtr& node)
-    : super(name, node)
+  Component(const std::string& name, 
+            const NodePtr& node, 
+            Priority priority = Priority::DEFAULT)
+    : super(name, node, priority)
   {}
-  Component(const Component& src, const NodePtr& node)
+  Component(const Component& src, 
+            const NodePtr& node)
     : super(src, node)
   {}
   ~Component() override = default;

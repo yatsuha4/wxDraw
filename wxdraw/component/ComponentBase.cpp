@@ -7,10 +7,14 @@ namespace wxdraw::component {
    コンストラクタ
    @param name 名前
    @param node ノード
+   @param priority 優先順位
 */
-ComponentBase::ComponentBase(const std::string& name, const NodePtr& node)
+ComponentBase::ComponentBase(const std::string& name, 
+                             const NodePtr& node, 
+                             Priority priority)
   : super(name), 
-    node_(node)
+    node_(node), 
+    priority_(priority)
 {
 }
 /**
@@ -18,7 +22,8 @@ ComponentBase::ComponentBase(const std::string& name, const NodePtr& node)
 */
 ComponentBase::ComponentBase(const ComponentBase& src, const NodePtr& node)
   : super(src), 
-    node_(node)
+    node_(node), 
+    priority_(src.priority_)
 {
 }
 /**
