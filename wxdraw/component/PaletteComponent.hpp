@@ -16,14 +16,13 @@ class PaletteComponent
   static const char* TYPE;
 
  private:
-  std::vector<Color> colors_;
+  std::vector<GradientPtr> gradients_;
 
  public:
   PaletteComponent(const NodePtr& node);
   PaletteComponent(const PaletteComponent& src, const NodePtr& node);
   ~PaletteComponent() override = default;
 
-  WXDRAW_GETTER(Colors, colors_);
-  std::vector<const char*> getLabels() const;
+  WXDRAW_ACCESSOR(Gradients, gradients_);
 };
 }

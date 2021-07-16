@@ -1,5 +1,4 @@
 #include "wxdraw/component/Component.hpp"
-#include "wxdraw/gui/ColorProperty.hpp"
 #include "wxdraw/gui/Inspector.hpp"
 #include "wxdraw/gui/Menu.hpp"
 #include "wxdraw/property/Property.hpp"

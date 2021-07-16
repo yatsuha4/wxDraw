@@ -25,7 +25,6 @@
 		260BBF22269E6F360041BD06 /* libwxtiff-3.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 260BBF20269E6F360041BD06 /* libwxtiff-3.1.a */; };
 		260BBF24269E6F7D0041BD06 /* liblzma.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 260BBF23269E6F7D0041BD06 /* liblzma.tbd */; };
 		260BBF27269ECB8C0041BD06 /* ProjectComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 260BBF26269ECB8C0041BD06 /* ProjectComponent.cpp */; };
-		260BBF2A269EF8B00041BD06 /* ColorProperty.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 260BBF29269EF8B00041BD06 /* ColorProperty.cpp */; };
 		260BBF2D269EFFFC0041BD06 /* PaletteComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 260BBF2B269EFFFC0041BD06 /* PaletteComponent.cpp */; };
 		261C06D8269FB2F8002AAC78 /* ContainerComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 261C06D6269FA4F8002AAC78 /* ContainerComponent.cpp */; };
 		261C06DB269FCB71002AAC78 /* InsertComponentCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 261C06DA269FCB71002AAC78 /* InsertComponentCommand.cpp */; };
@@ -99,8 +98,6 @@
 		260BBF23269E6F7D0041BD06 /* liblzma.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = liblzma.tbd; path = usr/lib/liblzma.tbd; sourceTree = SDKROOT; };
 		260BBF25269ECB8C0041BD06 /* ProjectComponent.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ProjectComponent.hpp; sourceTree = "<group>"; };
 		260BBF26269ECB8C0041BD06 /* ProjectComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProjectComponent.cpp; sourceTree = "<group>"; };
-		260BBF28269EF8B00041BD06 /* ColorProperty.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ColorProperty.hpp; sourceTree = "<group>"; };
-		260BBF29269EF8B00041BD06 /* ColorProperty.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ColorProperty.cpp; sourceTree = "<group>"; };
 		260BBF2B269EFFFC0041BD06 /* PaletteComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PaletteComponent.cpp; sourceTree = "<group>"; };
 		260BBF2C269EFFFC0041BD06 /* PaletteComponent.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PaletteComponent.hpp; sourceTree = "<group>"; };
 		260BBF2E269F001D0041BD06 /* Color.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Color.hpp; sourceTree = "<group>"; };
@@ -234,8 +231,6 @@
 				2605A586264A312F00FD3DF0 /* Canvas.hpp */,
 				261C06E926A04C6B002AAC78 /* ColorList.cpp */,
 				261C06E826A04C6A002AAC78 /* ColorList.hpp */,
-				260BBF29269EF8B00041BD06 /* ColorProperty.cpp */,
-				260BBF28269EF8B00041BD06 /* ColorProperty.hpp */,
 				261C06E226A04172002AAC78 /* GradientList.cpp */,
 				261C06E326A04172002AAC78 /* GradientList.hpp */,
 				266A37A326684E1A00EA192B /* Inspector.cpp */,
@@ -491,7 +486,6 @@
 				260BBF2D269EFFFC0041BD06 /* PaletteComponent.cpp in Sources */,
 				266A37AA2669D79600EA192B /* MemberBase.cpp in Sources */,
 				260BBF1B269E5D040041BD06 /* ExportComponent.cpp in Sources */,
-				260BBF2A269EF8B00041BD06 /* ColorProperty.cpp in Sources */,
 				266A37A426684E1A00EA192B /* Inspector.cpp in Sources */,
 				261C06EF26A04F82002AAC78 /* PenList.cpp in Sources */,
 				26CB132F269A91030025ACDD /* LayerComponent.cpp in Sources */,

@@ -10,7 +10,7 @@
 #include "wxdraw/component/RectangleComponent.hpp"
 #include "wxdraw/gui/Renderer.hpp"
 #include "wxdraw/node/Node.hpp"
-#include "wxdraw/property/Property.hpp"
+#include "wxdraw/property/OptionProperty.hpp"
 #include "wxdraw/property/PropertyMember.hpp"
 
 namespace wxdraw::node {
@@ -120,7 +120,8 @@ void Node::Remove(const NodePtr& node) {
    プロパティを生成する
 */
 PropertyPtr Node::createProperty() {
-  auto property = std::make_shared<Property>(name_);
+  auto property = std::make_shared<OptionProperty<PaletteComponentPtr>>
+    (name_, getComponent<PaletteComponent>());
   property->appendMember("Label", label_);
   property->appendMember("Show", show_);
   property->appendMember("Comment", comment_);

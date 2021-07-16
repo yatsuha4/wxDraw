@@ -1,4 +1,5 @@
 #include "wxdraw/component/BrushComponent.hpp"
+#include "wxdraw/container/Gradient.hpp"
 #include "wxdraw/gui/Renderer.hpp"
 #include "wxdraw/property/Property.hpp"
 
@@ -8,8 +9,7 @@ const char* BrushComponent::TYPE = "Brush";
    コンストラクタ
 */
 BrushComponent::BrushComponent(const NodePtr& node)
-  : super(TYPE, node), 
-    colorIndex_(0)
+  : super(TYPE, node)
 {
 }
 /**
@@ -17,7 +17,7 @@ BrushComponent::BrushComponent(const NodePtr& node)
 */
 BrushComponent::BrushComponent(const BrushComponent& src, const NodePtr& node)
   : super(src, node), 
-    colorIndex_(src.colorIndex_), 
+    gradient_(src.gradient_), 
     brush_(src.brush_)
 {
 }
@@ -25,13 +25,13 @@ BrushComponent::BrushComponent(const BrushComponent& src, const NodePtr& node)
  */
 PropertyPtr BrushComponent::createProperty() {
   auto property = super::createProperty();
-  property->appendMember("Color", colorIndex_);
+  property->appendMember("Gradient", gradient_);
   return property;
 }
 /**
  */
 void BrushComponent::onUpdate() {
-  brush_.SetColour(getColor(colorIndex_));
+  brush_.SetColour(gradient_ ? gradient_->getColor() : wxTransparentColour);
 }
 /**
  */

@@ -1,8 +1,18 @@
 #include "wxdraw/container/Gradient.hpp"
 #include "wxdraw/container/GradientColor.hpp"
 #include "wxdraw/gui/Renderer.hpp"
+#include "wxdraw/property/OptionProperty.hpp"
 
 namespace wxdraw::container {
+const char* Gradient::TYPE = "Gradient";
+/**
+   プロパティを生成する
+*/
+PropertyPtr Gradient::createProperty(const PaletteComponentPtr& palette) {
+  auto property = std::make_shared<OptionProperty<PaletteComponentPtr>>(TYPE, palette);
+  property->appendMember("Name", name_);
+  return property;
+}
 /**
  */
 void Gradient::sort() {

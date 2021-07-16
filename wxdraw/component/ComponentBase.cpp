@@ -83,15 +83,4 @@ void ComponentBase::render(Renderer& renderer) {
 void ComponentBase::endRender(Renderer& renderer) {
   onEndRender(renderer);
 }
-/**
- */
-wxColour ComponentBase::getColor(ColorIndex index) {
-  if(auto palette = Node::GetParentComponent<PaletteComponent>(getNode())) {
-    auto& colors = palette->getColors();
-    if(index < colors.size()) {
-      return colors.at(index).color;
-    }
-  }
-  return *wxRED;
-}
 }
