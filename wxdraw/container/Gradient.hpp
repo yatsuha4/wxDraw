@@ -2,10 +2,10 @@
 
 namespace wxdraw::container {
 /**
-   グラデーションカラー
+   グラデーション
 */
 class Gradient
-  : public std::vector<wxGraphicsGradientStop>
+  : public std::vector<GradientColorPtr>
 {
  public:
   Gradient() = default;

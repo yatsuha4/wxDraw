@@ -4,7 +4,7 @@
 
 namespace wxdraw::component {
 /**
-   グラデーションカラーリストコンポーネント
+   グラデーションリストコンポーネント
 */
 class GradientListComponent
   : public Component<GradientListComponent>

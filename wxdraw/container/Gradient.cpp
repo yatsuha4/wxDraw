@@ -1,19 +1,20 @@
 #include "wxdraw/container/Gradient.hpp"
+#include "wxdraw/container/GradientColor.hpp"
 #include "wxdraw/gui/Renderer.hpp"
 
 namespace wxdraw::container {
 /**
  */
 void Gradient::sort() {
-  std::stable_sort(begin(), end(), [](const wxGraphicsGradientStop& lhs, 
-                                      const wxGraphicsGradientStop& rhs) {
-    return lhs.GetPosition() < rhs.GetPosition();
+  std::stable_sort(begin(), end(), [](const GradientColorPtr& lhs, 
+                                      const GradientColorPtr& rhs) {
+    return lhs->getPos() < rhs->getPos();
   });
 }
 /**
  */
 wxColour Gradient::getColor() const {
-  return empty() ? wxTransparentColour : front().GetColour();
+  return empty() ? wxTransparentColour : front()->getColor();
 }
 /**
  */
@@ -21,26 +22,25 @@ Gradient::operator wxGraphicsGradientStops() {
   wxASSERT(size() >= 2);
   sort();
   auto startPos = 
-    std::lower_bound(begin(), end(), 0.0f, [](const wxGraphicsGradientStop& iter, 
-                                              float value) {
-                                              
-      return iter.GetPosition() < value;
+    std::lower_bound(begin(), end(), 0.0, [](const GradientColorPtr& iter, 
+                                             double value) {
+      return iter->getPos() < value;
     });
   if(startPos == end()) {
     startPos = begin();
   }
   auto endPos = 
-    std::lower_bound(startPos, end(), 1.0f, [](const wxGraphicsGradientStop& iter, 
-                                               float value) {
-      return iter.GetPosition() < value;
+    std::lower_bound(startPos, end(), 1.0, [](const GradientColorPtr& iter, 
+                                              double value) {
+      return iter->getPos() < value;
     });
   if(endPos == end()) {
     --endPos;
   }
-  wxGraphicsGradientStops stops(startPos->GetColour(), endPos->GetColour());
+  wxGraphicsGradientStops stops((*startPos)->getColor(), (*endPos)->getColor());
   for(auto iter = startPos; iter != endPos; iter++) {
-    if(iter->GetPosition() > 0.0f && iter->GetPosition() < 1.0f) {
-      stops.Add(*iter);
+    if((*iter)->getPos() > 0.0 && (*iter)->getPos() < 1.0) {
+      stops.Add(**iter);
     }
   }
   return stops;

@@ -104,6 +104,8 @@ using namespace component;
 
 namespace container {
 WXDRAW_DECLARE_CLASS(Color);
+WXDRAW_DECLARE_CLASS(Gradient);
+WXDRAW_DECLARE_CLASS(GradientColor);
 WXDRAW_DECLARE_CLASS(Layout);
 WXDRAW_DECLARE_CLASS(Rect);
 }
