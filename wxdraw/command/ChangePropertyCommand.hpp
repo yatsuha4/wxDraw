@@ -13,18 +13,15 @@ class ChangePropertyCommand
   using super = Command;
 
  private:
-  const NodePtr& node_;
   T& property_;
   T srcValue_;
   T dstValue_;
 
  public:
   ChangePropertyCommand(MainFrame* mainFrame, 
-                        const NodePtr& node, 
                         T& property, 
                         const T& value)
     : super("ChangeProperty", mainFrame), 
-      node_(node), 
       property_(property), 
       srcValue_(property), 
       dstValue_(value)
@@ -34,13 +31,11 @@ class ChangePropertyCommand
  protected:
   bool Do() override {
     property_ = dstValue_;
-    getMainFrame()->updateNode(node_);
     return true;
   }
 
   bool Undo() override {
     property_ = srcValue_;
-    getMainFrame()->updateNode(node_);
     return true;
   }
 };

@@ -64,12 +64,6 @@ void Inspector::showProperty(const Property& property) {
 }
 /**
  */
-void Inspector::append(wxPGProperty* property, const MemberBasePtr& member) {
-  property->SetClientData(member.get());
-  Append(property);
-}
-/**
- */
 void Inspector::onChanged(wxPropertyGridEvent& event) {
   doChange<int, 
            double, 
@@ -77,6 +71,12 @@ void Inspector::onChanged(wxPropertyGridEvent& event) {
            wxString, 
            wxColour, 
            wxFileName>(event);
+}
+/**
+ */
+void Inspector::append(wxPGProperty* property, const MemberBasePtr& member) {
+  property->SetClientData(member.get());
+  Append(property);
 }
 /**
  */

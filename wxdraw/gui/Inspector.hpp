@@ -27,6 +27,8 @@ class Inspector
  private:
   void showProperty(const Property& property);
 
+  void onChanged(wxPropertyGridEvent& event);
+
   template<class PropertyType, class MemberType>
   PropertyType* append(const std::shared_ptr<MemberType>& member) {
     return append<PropertyType>(member, member->getValue());
@@ -41,8 +43,6 @@ class Inspector
 
   void append(wxPGProperty* property, const MemberBasePtr& member);
 
-  void onChanged(wxPropertyGridEvent& event);
-
   void onRightClick(wxPropertyGridEvent& event);
 
   template<class T>
@@ -50,8 +50,8 @@ class Inspector
     auto member = static_cast<MemberBase*>(event.GetProperty()->GetClientData());
     if(auto m = dynamic_cast<Member<T>*>(member)) {
       T value;
-      if(getValue(wxAny(event.GetValue()), value)) {
-        //mainFrame_->submitCommand<ChangePropertyCommand<T>>(node_, m->getValue(), value);
+      if(getValue(event, value)) {
+        mainFrame_->submitCommand<ChangePropertyCommand<T>>(m->getValue(), value);
       }
       return true;
     }
@@ -64,8 +64,8 @@ class Inspector
   }
 
   template<class T>
-  bool getValue(const wxAny& src, T& dst) const {
-    return src.GetAs(&dst);
+  bool getValue(const wxPropertyGridEvent& event, T& value) const {
+    return wxAny(event.GetValue()).GetAs(&value);
   }
 };
 }

@@ -60,6 +60,7 @@ MainFrame::~MainFrame() {
 */
 void MainFrame::selectNode(const NodePtr& node) {
   selectNode_ = node;
+  project_ = Node::GetParentComponent<ProjectComponent>(node);
   if(node) {
     inspector_->show(node->createProperty());
   }
@@ -320,17 +321,15 @@ void MainFrame::saveProject(const ProjectComponentPtr& project) {
 /**
  */
 void MainFrame::onSelectFileExport() {
-  if(auto node = getSelectNode()) {
-    if(auto component = node->getParentComponent<ExportComponent>()) {
-      wxFileDialog dialog(this, wxFileSelectorPromptStr, 
-                          component->getFileName().GetPath(), 
-                          component->getFileName().GetName(), 
-                          wxImage::GetImageExtWildcard(), 
-                          wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
-      if(dialog.ShowModal() == wxID_OK) {
-        component->getFileName().Assign(dialog.GetPath());
-        component->save();
-      }
+  if(auto component = Node::GetParentComponent<ExportComponent>(getSelectNode())) {
+    wxFileDialog dialog(this, wxFileSelectorPromptStr, 
+                        component->getFileName().GetPath(), 
+                        component->getFileName().GetName(), 
+                        wxImage::GetImageExtWildcard(), 
+                        wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
+    if(dialog.ShowModal() == wxID_OK) {
+      component->getFileName().Assign(dialog.GetPath());
+      component->save();
     }
   }
 }

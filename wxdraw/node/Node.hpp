@@ -73,12 +73,12 @@ class Node {
      @return コンポーネント(もしくはnullptr)
   */
   template<class T>
-  std::shared_ptr<T> getParentComponent() const {
-    if(auto component = getComponent<T>()) {
-      return component;
-    }
-    if(auto parent = getParent()) {
-      return parent->getParentComponent<T>();
+  static std::shared_ptr<T> GetParentComponent(const NodePtr& node) {
+    if(node) {
+      if(auto component = node->getComponent<T>()) {
+        return component;
+      }
+      return GetParentComponent<T>(node->getParent());
     }
     return nullptr;
   }
