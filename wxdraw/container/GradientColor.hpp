@@ -17,8 +17,8 @@ class GradientColor {
   GradientColor(const GradientColor& src) = default;
   ~GradientColor() = default;
 
-  WXDRAW_GETTER(Color, color_);
-  WXDRAW_GETTER(Pos, pos_);
+  WXDRAW_ACCESSOR(Color, color_);
+  WXDRAW_ACCESSOR(Pos, pos_);
 
   PropertyPtr createProperty();
 

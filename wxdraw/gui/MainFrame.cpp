@@ -118,6 +118,7 @@ void MainFrame::update() {
     project->getNode()->update();
   }
   canvas_->Refresh();
+  palette_->update();
 }
 /**
    メニューバーのセットアップ

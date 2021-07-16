@@ -11,12 +11,17 @@ class PaletteList
 
  private:
   Palette* palette_;
-  wxListCtrl* listCtrl_;
+  wxListView* list_;
 
  public:
   PaletteList(wxWindow* parent, Palette* palette, const wxString& label);
   ~PaletteList() override = default;
 
   WXDRAW_GETTER(Palette, palette_);
+
+ protected:
+  WXDRAW_GETTER(List, list_);
+
+  virtual void onListItemSelected(wxListEvent& event) {}
 };
 }

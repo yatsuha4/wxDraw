@@ -15,9 +15,16 @@ class Palette
   BrushList* brushList_;
   GradientList* gradientList_;
   ColorList* colorList_;
+  GradientPtr gradient_;
 
  public:
   Palette(wxWindow* parent, MainFrame* mainFrame);
   ~Palette() override = default;
+
+  WXDRAW_GETTER(MainFrame, mainFrame_);
+
+  void setGradient(const GradientPtr& gradient);
+
+  void update();
 };
 }

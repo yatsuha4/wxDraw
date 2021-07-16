@@ -30,6 +30,7 @@ class MainFrame
   ~MainFrame() override;
 
   WXDRAW_GETTER(Outliner, outliner_);
+  WXDRAW_GETTER(Inspector, inspector_);
 
   void selectNode(const NodePtr& node);
   WXDRAW_GETTER(SelectNode, selectNode_);

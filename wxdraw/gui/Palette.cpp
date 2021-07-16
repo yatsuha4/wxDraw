@@ -16,11 +16,21 @@ Palette::Palette(wxWindow* parent, MainFrame* mainFrame)
     gradientList_(new GradientList(this, this)), 
     colorList_(new ColorList(this, this))
 {
-  auto sizer = new wxBoxSizer(wxHORIZONTAL);
+  auto sizer = new wxGridSizer(4);
   sizer->Add(penList_, wxSizerFlags().Expand().Proportion(1));
   sizer->Add(brushList_, wxSizerFlags().Expand().Proportion(1));
   sizer->Add(gradientList_, wxSizerFlags().Expand().Proportion(1));
   sizer->Add(colorList_, wxSizerFlags().Expand().Proportion(1));
   SetSizerAndFit(sizer);
+}
+/**
+ */
+void Palette::setGradient(const GradientPtr& gradient) {
+  colorList_->setGradient(gradient);
+}
+/**
+ */
+void Palette::update() {
+  colorList_->update();
 }
 }
