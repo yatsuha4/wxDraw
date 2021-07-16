@@ -64,7 +64,7 @@ void MainFrame::selectNode(const NodePtr& node) {
   if(node) {
     inspector_->show(node->createProperty());
   }
-  canvas_->Refresh();
+  update();
 }
 /**
    ノードを追加する
@@ -99,15 +99,8 @@ void MainFrame::removeNode(const NodePtr& node) {
 }
 /**
  */
-void MainFrame::updateNode(const NodePtr& node) {
-  node->update();
-  canvas_->Refresh();
-}
-/**
- */
 void MainFrame::appendComponent(const ComponentBasePtr& component, const NodePtr& node) {
   node->appendComponent(component);
-  node->update();
   selectNode(node);
 }
 /**
@@ -115,8 +108,16 @@ void MainFrame::appendComponent(const ComponentBasePtr& component, const NodePtr
 void MainFrame::removeComponent(const ComponentBasePtr& component) {
   auto node = component->getNode();
   node->removeComponent(component);
-  node->update();
   selectNode(node);
+}
+/**
+   更新
+*/
+void MainFrame::update() {
+  if(auto project = getProject()) {
+    project->getNode()->update();
+  }
+  canvas_->Refresh();
 }
 /**
    メニューバーのセットアップ

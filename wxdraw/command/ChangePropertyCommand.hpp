@@ -31,11 +31,13 @@ class ChangePropertyCommand
  protected:
   bool Do() override {
     property_ = dstValue_;
+    getMainFrame()->update();
     return true;
   }
 
   bool Undo() override {
     property_ = srcValue_;
+    getMainFrame()->update();
     return true;
   }
 };

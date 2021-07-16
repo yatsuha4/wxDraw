@@ -10,7 +10,7 @@ ColorProperty::ColorProperty(const wxString& label,
                              ColorIndex value, 
                              ComponentBase& component)
   : ColorProperty(label, name, value, component, 
-                  component.getNode()->getParentComponent<PaletteComponent>())
+                  Node::GetParentComponent<PaletteComponent>(component.getNode()))
 {
 }
 /**
