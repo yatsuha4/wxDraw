@@ -50,20 +50,18 @@ Gradient::operator wxGraphicsGradientStops() {
 }
 /**
  */
-wxImage Gradient::createImage(const wxSize& size) {
-  wxImage image(size);
-  {
-    Renderer renderer(image, glm::dmat3(1.0));
-    auto& context = renderer.getContext();
-    if(colors_.size() < 2) {
-      context.SetBrush(wxBrush(getColor()));
-    }
-    else {
-      context.SetBrush(context.CreateLinearGradientBrush(0.0, 0.0, size.x, size.y, *this));
-    }
-    context.DrawRectangle(0.0, 0.0, size.x, size.y);
+void Gradient::createImage(wxImage& image) {
+  Renderer renderer(image, glm::dmat3(1.0));
+  auto& context = renderer.getContext();
+  if(colors_.size() < 2) {
+    context.SetBrush(wxBrush(getColor()));
   }
-  return image;
+  else {
+    context.SetBrush(context.CreateLinearGradientBrush(0.0, 0.0, 
+                                                       image.GetWidth(), 
+                                                       image.GetHeight(), *this));
+  }
+  context.DrawRectangle(0.0, 0.0, image.GetWidth(), image.GetHeight());
 }
 /**
  */

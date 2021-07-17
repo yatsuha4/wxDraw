@@ -28,7 +28,10 @@ class PaletteListBase
 
  protected:
   WXDRAW_GETTER(List, list_);
+
   WXDRAW_GETTER(ImageList, imageList_);
+  int appendGradientImage(const GradientPtr& gradient);
+  int appendColorImage(const wxColour& color);
 
   const PaletteComponentPtr& getPaletteComponent() const;
 

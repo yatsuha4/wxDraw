@@ -13,6 +13,8 @@ class ColorList
  private:
   GradientPtr gradient_;
 
+  static std::vector<ColorPtr> EMPTY;
+
  public:
   ColorList(wxWindow* parent, Palette* palette);
   ~ColorList() override = default;
@@ -21,7 +23,7 @@ class ColorList
 
  protected:
   std::vector<ColorPtr>& getItems() const override;
-  void onUpdate() override;
+  void onUpdate(const ColorPtr& color, wxListItem& item) override;
 
  private:
   void updateImageList();

@@ -17,14 +17,8 @@ std::vector<BrushPtr>& BrushList::getItems() const {
 }
 /**
  */
-void BrushList::onUpdate() {
-  auto& brushes = getItems();
-  long index = 0;
-  for(auto& brush : brushes) {
-    wxListItem item;
-    item.SetId(index++);
-    item.SetText(brush->getName());
-    getList()->InsertItem(item);
-  }
+void BrushList::onUpdate(const BrushPtr& brush, wxListItem& item) {
+  item.SetText(brush->getName());
+  item.SetImage(appendGradientImage(brush->getGradient()));
 }
 }

@@ -42,5 +42,17 @@ class PaletteList
       update();
     }
   }
+
+  void onUpdate() override {
+    long index = 0;
+    for(auto& item : getItems()) {
+      wxListItem listItem;
+      listItem.SetId(index++);
+      onUpdate(item, listItem);
+      getList()->InsertItem(listItem);
+    }
+  }
+
+  virtual void onUpdate(const std::shared_ptr<T>& item, wxListItem& listItem) = 0;
 };
 }

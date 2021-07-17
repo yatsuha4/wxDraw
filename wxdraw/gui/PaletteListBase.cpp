@@ -3,7 +3,7 @@
 #include "wxdraw/gui/Menu.hpp"
 #include "wxdraw/gui/Palette.hpp"
 #include "wxdraw/gui/PaletteListBase.hpp"
-#include "wxdraw/palette/PaletteItem.hpp"
+#include "wxdraw/palette/Gradient.hpp"
 
 namespace wxdraw::gui {
 const wxSize PaletteListBase::IMAGE_SIZE(32, 32);
@@ -34,8 +34,25 @@ PaletteListBase::PaletteListBase(wxWindow* window, Palette* palette)
 void PaletteListBase::update() {
   list_->Freeze();
   list_->DeleteAllItems();
+  imageList_->RemoveAll();
   onUpdate();
   list_->Thaw();
+}
+/**
+ */
+int PaletteListBase::appendGradientImage(const GradientPtr& gradient) {
+  wxImage image(IMAGE_SIZE);
+  if(gradient) {
+    gradient->createImage(image);
+  }
+  return imageList_->Add(image);
+}
+/**
+ */
+int PaletteListBase::appendColorImage(const wxColour& color) {
+  wxImage image(IMAGE_SIZE);
+  image.SetRGB(image.GetSize(), color.Red(), color.Green(), color.Blue());
+  return imageList_->Add(image);
 }
 /**
  */

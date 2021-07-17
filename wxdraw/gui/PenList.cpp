@@ -17,14 +17,8 @@ std::vector<PenPtr>& PenList::getItems() const {
 }
 /**
  */
-void PenList::onUpdate() {
-  auto& pens = getItems();
-  long index = 0;
-  for(auto& pen : pens) {
-    wxListItem item;
-    item.SetId(index++);
-    item.SetText(pen->getName());
-    getList()->InsertItem(item);
-  }
+void PenList::onUpdate(const PenPtr& pen, wxListItem& item) {
+  item.SetText(pen->getName());
+  item.SetImage(appendGradientImage(pen->getGradient()));
 }
 }

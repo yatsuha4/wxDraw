@@ -17,14 +17,8 @@ std::vector<GradientPtr>& GradientList::getItems() const {
 }
 /**
  */
-void GradientList::onUpdate() {
-  auto& gradients = getItems();
-  long index = 0;
-  for(auto& gradient : gradients) {
-    wxListItem item;
-    item.SetId(index++);
-    item.SetText(gradient->getName());
-    getList()->InsertItem(item);
-  }
+void GradientList::onUpdate(const GradientPtr& gradient, wxListItem& item) {
+  item.SetText(gradient->getName());
+  item.SetImage(appendGradientImage(gradient));
 }
 }
