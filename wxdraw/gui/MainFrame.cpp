@@ -4,6 +4,7 @@
 #include "wxdraw/component/BrushComponent.hpp"
 #include "wxdraw/component/ContainerComponent.hpp"
 #include "wxdraw/component/ExportComponent.hpp"
+#include "wxdraw/component/PaletteComponent.hpp"
 #include "wxdraw/component/ProjectComponent.hpp"
 #include "wxdraw/file/XmlExporter.hpp"
 #include "wxdraw/file/XmlImporter.hpp"
@@ -61,6 +62,7 @@ MainFrame::~MainFrame() {
 void MainFrame::selectNode(const NodePtr& node) {
   selectNode_ = node;
   project_ = Node::GetParentComponent<ProjectComponent>(node);
+  paletteComponent_ = Node::GetParentComponent<PaletteComponent>(node);
   if(node) {
     inspector_->show(node->createProperty());
   }

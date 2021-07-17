@@ -1,6 +1,6 @@
 #include "wxdraw/component/BrushComponent.hpp"
-#include "wxdraw/container/Gradient.hpp"
 #include "wxdraw/gui/Renderer.hpp"
+#include "wxdraw/palette/Gradient.hpp"
 #include "wxdraw/property/Property.hpp"
 
 namespace wxdraw::component {

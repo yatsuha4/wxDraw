@@ -1,5 +1,9 @@
-#include "wxdraw/gui/PaletteList.hpp"
+#include "wxdraw/gui/Inspector.hpp"
+#include "wxdraw/gui/MainFrame.hpp"
 #include "wxdraw/gui/Menu.hpp"
+#include "wxdraw/gui/Palette.hpp"
+#include "wxdraw/gui/PaletteList.hpp"
+#include "wxdraw/palette/PaletteItem.hpp"
 
 namespace wxdraw::gui {
 /**
@@ -19,5 +23,11 @@ PaletteList::PaletteList(wxWindow* window, Palette* palette, const wxString& lab
   sizer->Add(toolBar, wxSizerFlags().Expand());
   SetSizerAndFit(sizer);
   Bind(wxEVT_LIST_ITEM_SELECTED, &PaletteList::onListItemSelected, this, list_->GetId());
+}
+/**
+ */
+void PaletteList::selectItem(PaletteItem& item) {
+  auto mainFrame = getPalette()->getMainFrame();
+  mainFrame->getInspector()->show(item.createProperty(mainFrame->getPaletteComponent()));
 }
 }

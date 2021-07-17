@@ -23,5 +23,6 @@ class PaletteList
   WXDRAW_GETTER(List, list_);
 
   virtual void onListItemSelected(wxListEvent& event) {}
+  void selectItem(PaletteItem& item);
 };
 }

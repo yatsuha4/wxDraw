@@ -1,10 +1,16 @@
 ﻿#pragma once
 
-namespace wxdraw::container {
+#include "wxdraw/palette/PaletteItem.hpp"
+
+namespace wxdraw::palette {
 /**
    ペン
 */
-class Pen {
+class Pen
+  : public PaletteItem
+{
+  using super = PaletteItem;
+
  public:
   static const char* TYPE;
 
@@ -15,11 +21,11 @@ class Pen {
  public:
   Pen();
   Pen(const Pen& src) = default;
-  ~Pen() = default;
+  ~Pen() override = default;
 
   WXDRAW_GETTER(Gradient, gradient_);
   WXDRAW_GETTER(Width, width_);
 
-  PropertyPtr createProperty(const PaletteComponentPtr& palette) const;
+  PropertyPtr createProperty(const PaletteComponentPtr& palette) override;
 };
 }
