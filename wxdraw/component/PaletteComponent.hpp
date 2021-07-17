@@ -29,5 +29,10 @@ class PaletteComponent
   WXDRAW_ACCESSOR(Brushes, brushes_);
   WXDRAW_ACCESSOR(Gradients, gradients_);
   WXDRAW_ACCESSOR(Colors, colors_);
+
+  size_t getIndex(const PenPtr& pen) const;
+  size_t getIndex(const BrushPtr& brush) const;
+  size_t getIndex(const GradientPtr& gradient) const;
+  size_t getIndex(const ColorPtr& color) const;
 };
 }
