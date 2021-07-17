@@ -16,6 +16,7 @@ class PaletteComponent
   static const char* TYPE;
 
  private:
+  std::vector<PenPtr> pens_;
   std::vector<GradientPtr> gradients_;
 
  public:
@@ -23,6 +24,7 @@ class PaletteComponent
   PaletteComponent(const PaletteComponent& src, const NodePtr& node);
   ~PaletteComponent() override = default;
 
+  WXDRAW_ACCESSOR(Pens, pens_);
   WXDRAW_ACCESSOR(Gradients, gradients_);
 };
 }
