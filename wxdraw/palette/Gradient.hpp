@@ -31,8 +31,7 @@ class Gradient
   wxColour getColor() const;
   operator wxGraphicsGradientStops();
 
-  void createImage(wxImage& image);
-
+  void update() override;
   void onCreate(const PaletteComponentPtr& palette) override;
   PropertyPtr createProperty() override;
 };

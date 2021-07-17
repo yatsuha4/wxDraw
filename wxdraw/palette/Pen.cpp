@@ -1,3 +1,4 @@
+#include "wxdraw/palette/Gradient.hpp"
 #include "wxdraw/palette/Pen.hpp"
 #include "wxdraw/property/Property.hpp"
 
@@ -16,6 +17,10 @@ Pen::Pen()
  */
 void Pen::onCreate(const PaletteComponentPtr& palette) {
   setName(wxString::Format("%s_%d", TYPE, ++Serial));
+}
+void Pen::update() {
+  super::update();
+  setBitmap(gradient_ ? gradient_->getBitmap() : GetNullBitmap());
 }
 /**
  */

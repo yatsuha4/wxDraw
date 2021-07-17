@@ -29,6 +29,7 @@ class Pen
   WXDRAW_GETTER(Width, width_);
 
   void onCreate(const PaletteComponentPtr& palette) override;
+  void update() override;
   PropertyPtr createProperty() override;
 };
 }

@@ -52,18 +52,25 @@ Gradient::operator wxGraphicsGradientStops() {
 }
 /**
  */
-void Gradient::createImage(wxImage& image) {
-  Renderer renderer(image, glm::dmat3(1.0));
-  auto& context = renderer.getContext();
-  if(stops_.size() < 2) {
-    context.SetBrush(wxBrush(getColor()));
+void Gradient::update() {
+  if(stops_.empty()) {
+    setBitmap(GetNullBitmap());
   }
   else {
-    context.SetBrush(context.CreateLinearGradientBrush(0.0, 0.0, 
-                                                       image.GetWidth(), 
-                                                       image.GetHeight(), *this));
+    wxImage image(BITMAP_SIZE);
+    Renderer renderer(image, glm::dmat3(1.0));
+    auto& context = renderer.getContext();
+    if(stops_.size() < 2) {
+      context.SetBrush(wxBrush(stops_.front()->getColor()->getColor()));
+    }
+    else {
+      context.SetBrush(context.CreateLinearGradientBrush(0.0, 0.0, 
+                                                         image.GetWidth(), 
+                                                         image.GetHeight(), *this));
+    }
+    context.DrawRectangle(0.0, 0.0, image.GetWidth(), image.GetHeight());
+    setBitmap(image);
   }
-  context.DrawRectangle(0.0, 0.0, image.GetWidth(), image.GetHeight());
 }
 /**
  */

@@ -1,4 +1,5 @@
 #include "wxdraw/palette/Brush.hpp"
+#include "wxdraw/palette/Gradient.hpp"
 #include "wxdraw/property/Property.hpp"
 
 namespace wxdraw::palette {
@@ -15,6 +16,12 @@ Brush::Brush()
  */
 void Brush::onCreate(const PaletteComponentPtr& palette) {
   setName(wxString::Format("%s_%d", TYPE, ++Serial));
+}
+/**
+ */
+void Brush::update() {
+  super::update();
+  setBitmap(gradient_ ? gradient_->getBitmap() : GetNullBitmap());
 }
 /**
  */
