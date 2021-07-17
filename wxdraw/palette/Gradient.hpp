@@ -36,6 +36,6 @@ class Gradient
   void createImage(wxImage& image);
 
   void onCreate(const PaletteComponentPtr& palette) override;
-  PropertyPtr createProperty(const PaletteComponentPtr& palette) override;
+  PropertyPtr createProperty() override;
 };
 }

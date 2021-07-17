@@ -1,5 +1,5 @@
 #include "wxdraw/palette/Brush.hpp"
-#include "wxdraw/property/OptionProperty.hpp"
+#include "wxdraw/property/Property.hpp"
 
 namespace wxdraw::palette {
 const char* Brush::TYPE = "Brush";
@@ -18,8 +18,8 @@ void Brush::onCreate(const PaletteComponentPtr& palette) {
 }
 /**
  */
-PropertyPtr Brush::createProperty(const PaletteComponentPtr& palette) {
-  auto property = super::createProperty(TYPE, palette);
+PropertyPtr Brush::createProperty() {
+  auto property = PropertyOwner::createProperty(TYPE);
   property->appendMember("Name", name_);
   return property;
 }

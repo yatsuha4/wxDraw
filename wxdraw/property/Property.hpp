@@ -9,14 +9,15 @@ namespace wxdraw::property {
 class Property {
  private:
   std::string name_;
+  PropertyOwnerPtr owner_;
   std::vector<MemberBasePtr> members_;
 
  public:
-  Property(const std::string& name);
-  Property(const Property& src);
+  Property(const std::string& name, const PropertyOwnerPtr& owner = nullptr);
   virtual ~Property() = default;
 
   WXDRAW_GETTER(Name, name_);
+  WXDRAW_GETTER(Owner, owner_);
   WXDRAW_GETTER(Members, members_);
 
   void appendMember(const MemberBasePtr& member);

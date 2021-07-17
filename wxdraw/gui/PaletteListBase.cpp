@@ -68,8 +68,7 @@ PaletteItemPtr PaletteListBase::getItem(size_t index) const {
 /**
  */
 void PaletteListBase::onSelectItem(const PaletteItemPtr& item) {
-  getPalette()->getMainFrame()->getInspector()->
-    show(item->createProperty(getPaletteComponent()));
+  getPalette()->getMainFrame()->getInspector()->show(item->createProperty());
 }
 /**
  */

@@ -1,5 +1,5 @@
 #include "wxdraw/palette/Pen.hpp"
-#include "wxdraw/property/OptionProperty.hpp"
+#include "wxdraw/property/Property.hpp"
 
 namespace wxdraw::palette {
 const char* Pen::TYPE = "Pen";
@@ -19,8 +19,8 @@ void Pen::onCreate(const PaletteComponentPtr& palette) {
 }
 /**
  */
-PropertyPtr Pen::createProperty(const PaletteComponentPtr& palette) {
-  auto property = super::createProperty(TYPE, palette);
+PropertyPtr Pen::createProperty() {
+  auto property = PropertyOwner::createProperty(TYPE);
   property->appendMember("Name", name_);
   property->appendMember("Width", width_);
   return property;

@@ -30,6 +30,6 @@ class GradientStop
   operator wxGraphicsGradientStop() const;
 
   void onCreate(const PaletteComponentPtr& palette) override;
-  PropertyPtr createProperty(const PaletteComponentPtr& palette) override;
+  PropertyPtr createProperty() override;
 };
 }

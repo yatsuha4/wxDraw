@@ -1,10 +1,16 @@
 #pragma once
 
+#include "wxdraw/property/PropertyOwner.hpp"
+
 namespace wxdraw::node {
 /**
    ノード基底クラス
 */
-class Node {
+class Node
+  : public PropertyOwner
+{
+  using super = PropertyOwner;
+
  public:
   static const char* TYPE_ELLIPSE;
   static const char* TYPE_LAYER;

@@ -18,8 +18,8 @@ void Color::onCreate(const PaletteComponentPtr& palette) {
 }
 /**
  */
-PropertyPtr Color::createProperty(const PaletteComponentPtr& palette) {
-  auto property = super::createProperty(TYPE, palette);
+PropertyPtr Color::createProperty() {
+  auto property = PropertyOwner::createProperty(TYPE);
   property->appendMember("Name", name_);
   property->appendMember("Color", color_);
   return property;

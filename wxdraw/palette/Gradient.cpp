@@ -76,8 +76,8 @@ void Gradient::onCreate(const PaletteComponentPtr& palette) {
 /**
    プロパティを生成する
 */
-PropertyPtr Gradient::createProperty(const PaletteComponentPtr& palette) {
-  auto property = super::createProperty(TYPE, palette);
+PropertyPtr Gradient::createProperty() {
+  auto property = PropertyOwner::createProperty(TYPE);
   property->appendMember("Name", name_);
   return property;
 }

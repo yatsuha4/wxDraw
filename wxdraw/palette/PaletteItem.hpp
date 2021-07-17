@@ -1,20 +1,20 @@
 ﻿#pragma once
 
+#include "wxdraw/property/PropertyOwner.hpp"
+
 namespace wxdraw::palette {
 /**
    パレット要素基底クラス
 */
-class PaletteItem {
+class PaletteItem
+  : public PropertyOwner
+{
  public:
   PaletteItem() = default;
   PaletteItem(const PaletteItem& src) = default;
-  virtual ~PaletteItem() = default;
+  ~PaletteItem() override = default;
 
   virtual void onCreate(const PaletteComponentPtr& palette) {}
-  virtual PropertyPtr createProperty(const PaletteComponentPtr& palette) = 0;
-
- protected:
-  PropertyPtr createProperty(const char* type, 
-                             const PaletteComponentPtr& palette);
+  virtual PropertyPtr createProperty() = 0;
 };
 }

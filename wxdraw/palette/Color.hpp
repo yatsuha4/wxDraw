@@ -29,6 +29,6 @@ class Color
   WXDRAW_ACCESSOR(Color, color_);
 
   void onCreate(const PaletteComponentPtr& palette) override;
-  PropertyPtr createProperty(const PaletteComponentPtr& palette) override;
+  PropertyPtr createProperty() override;
 };
 }

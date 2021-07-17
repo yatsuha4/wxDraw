@@ -153,6 +153,7 @@ namespace property {
 WXDRAW_DECLARE_CLASS(MemberBase);
 WXDRAW_DECLARE_CLASS(Property);
 WXDRAW_DECLARE_CLASS(PropertyMember);
+WXDRAW_DECLARE_CLASS(PropertyOwner);
 }
 using namespace property;
 }

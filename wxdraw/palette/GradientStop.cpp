@@ -33,8 +33,8 @@ void GradientStop::onCreate(const PaletteComponentPtr& palette) {
 }
 /**
  */
-PropertyPtr GradientStop::createProperty(const PaletteComponentPtr& palette) {
-  auto property = super::createProperty(TYPE, palette);
+PropertyPtr GradientStop::createProperty() {
+  auto property = PropertyOwner::createProperty(TYPE);
   property->appendMember("Color", color_);
   property->appendMember("Pos", pos_);
   return property;
