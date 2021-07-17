@@ -31,7 +31,7 @@ class PaletteList
       item = std::make_shared<T>();
       items.push_back(item);
     }
-    item->onCreate();
+    item->onCreate(getPaletteComponent());
     update();
   }
 
@@ -49,10 +49,11 @@ class PaletteList
       wxListItem listItem;
       listItem.SetId(index++);
       onUpdate(item, listItem);
-      getList()->InsertItem(listItem);
     }
   }
 
-  virtual void onUpdate(const std::shared_ptr<T>& item, wxListItem& listItem) = 0;
+  virtual void onUpdate(const std::shared_ptr<T>& item, wxListItem& listItem) {
+    getList()->InsertItem(listItem);
+  }
 };
 }

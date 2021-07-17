@@ -14,13 +14,13 @@ Pen::Pen()
 }
 /**
  */
-void Pen::onCreate() {
+void Pen::onCreate(const PaletteComponentPtr& palette) {
   name_ = wxString::Format("%s_%d", TYPE, ++Serial);
 }
 /**
  */
 PropertyPtr Pen::createProperty(const PaletteComponentPtr& palette) {
-  auto property = std::make_shared<OptionProperty<PaletteComponentPtr>>(TYPE, palette);
+  auto property = super::createProperty(TYPE, palette);
   property->appendMember("Name", name_);
   property->appendMember("Width", width_);
   return property;

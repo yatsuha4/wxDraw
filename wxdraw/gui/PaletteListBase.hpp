@@ -38,6 +38,7 @@ class PaletteListBase
   virtual PaletteItemPtr getItem(size_t index) const;
   virtual void appendItem(size_t index) {}
   virtual void removeItem(size_t index) {}
+  virtual void onSelectItem(const PaletteItemPtr& item);
   virtual void onUpdate() {}
 
   void onListItemSelected(wxListEvent& event);

@@ -41,6 +41,8 @@
 		2637D74926A2C39100BF8F37 /* Color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2637D74726A2C39100BF8F37 /* Color.cpp */; };
 		2637D74C26A2EC0100BF8F37 /* PaletteListBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2637D74A26A2EC0100BF8F37 /* PaletteListBase.cpp */; };
 		2637D74F26A2EDC400BF8F37 /* Brush.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2637D74E26A2EDC400BF8F37 /* Brush.cpp */; };
+		2637D75226A323DE00BF8F37 /* GradientStop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2637D75126A323DE00BF8F37 /* GradientStop.cpp */; };
+		2637D75526A3295700BF8F37 /* GradientStopList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2637D75326A3295700BF8F37 /* GradientStopList.cpp */; };
 		263EA113268F524E003B100A /* Command.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 263EA111268F524E003B100A /* Command.cpp */; };
 		265FCA3E214ACD3100398B40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 265FCA3D214ACD3100398B40 /* Assets.xcassets */; };
 		265FCA54214AD08A00398B40 /* libwx_osx_cocoau-3.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 265FCA53214AD08A00398B40 /* libwx_osx_cocoau-3.1.a */; };
@@ -104,7 +106,6 @@
 		260BBF26269ECB8C0041BD06 /* ProjectComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProjectComponent.cpp; sourceTree = "<group>"; };
 		260BBF2B269EFFFC0041BD06 /* PaletteComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PaletteComponent.cpp; sourceTree = "<group>"; };
 		260BBF2C269EFFFC0041BD06 /* PaletteComponent.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PaletteComponent.hpp; sourceTree = "<group>"; };
-		260BBF2E269F001D0041BD06 /* Color.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Color.hpp; sourceTree = "<group>"; };
 		261C06D6269FA4F8002AAC78 /* ContainerComponent.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ContainerComponent.cpp; sourceTree = "<group>"; };
 		261C06D7269FA4F8002AAC78 /* ContainerComponent.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ContainerComponent.hpp; sourceTree = "<group>"; };
 		261C06D9269FCB71002AAC78 /* InsertComponentCommand.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = InsertComponentCommand.hpp; sourceTree = "<group>"; };
@@ -136,6 +137,10 @@
 		2637D74B26A2EC0100BF8F37 /* PaletteListBase.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PaletteListBase.hpp; sourceTree = "<group>"; };
 		2637D74D26A2EDC400BF8F37 /* Brush.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Brush.hpp; sourceTree = "<group>"; };
 		2637D74E26A2EDC400BF8F37 /* Brush.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Brush.cpp; sourceTree = "<group>"; };
+		2637D75026A323DE00BF8F37 /* GradientStop.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GradientStop.hpp; sourceTree = "<group>"; };
+		2637D75126A323DE00BF8F37 /* GradientStop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GradientStop.cpp; sourceTree = "<group>"; };
+		2637D75326A3295700BF8F37 /* GradientStopList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GradientStopList.cpp; sourceTree = "<group>"; };
+		2637D75426A3295700BF8F37 /* GradientStopList.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GradientStopList.hpp; sourceTree = "<group>"; };
 		263EA111268F524E003B100A /* Command.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Command.cpp; sourceTree = "<group>"; };
 		263EA112268F524E003B100A /* Command.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Command.hpp; sourceTree = "<group>"; };
 		265FCA37214ACD2D00398B40 /* wxDraw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wxDraw.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -249,6 +254,8 @@
 				261C06E326A04172002AAC78 /* GradientList.hpp */,
 				2637D73426A17E5B00BF8F37 /* GradientProperty.cpp */,
 				2637D73526A17E5B00BF8F37 /* GradientProperty.hpp */,
+				2637D75326A3295700BF8F37 /* GradientStopList.cpp */,
+				2637D75426A3295700BF8F37 /* GradientStopList.hpp */,
 				266A37A326684E1A00EA192B /* Inspector.cpp */,
 				266A37A226684E1A00EA192B /* Inspector.hpp */,
 				2605A584264A312F00FD3DF0 /* MainFrame.cpp */,
@@ -273,6 +280,8 @@
 		2637D73A26A2C0AC00BF8F37 /* palette */ = {
 			isa = PBXGroup;
 			children = (
+				2637D75126A323DE00BF8F37 /* GradientStop.cpp */,
+				2637D75026A323DE00BF8F37 /* GradientStop.hpp */,
 				2637D74E26A2EDC400BF8F37 /* Brush.cpp */,
 				2637D74D26A2EDC400BF8F37 /* Brush.hpp */,
 				2637D74726A2C39100BF8F37 /* Color.cpp */,
@@ -383,7 +392,6 @@
 		26CB13212699F8BB0025ACDD /* container */ = {
 			isa = PBXGroup;
 			children = (
-				260BBF2E269F001D0041BD06 /* Color.hpp */,
 				26CB13232699FB790025ACDD /* Layout.hpp */,
 				26CB13222699F8BB0025ACDD /* Rect.hpp */,
 			);
@@ -491,6 +499,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				261C06E726A0467E002AAC78 /* Palette.cpp in Sources */,
+				2637D75226A323DE00BF8F37 /* GradientStop.cpp in Sources */,
 				26BA73D426991A64001F3C5D /* EllipseComponent.cpp in Sources */,
 				26F5A9202673111B009B0657 /* Renderer.cpp in Sources */,
 				266A37AC2669D80000EA192B /* Property.cpp in Sources */,
@@ -503,6 +512,7 @@
 				2605A57A264564DB00FD3DF0 /* main.cpp in Sources */,
 				26CB132A269A537B0025ACDD /* XmlExporter.cpp in Sources */,
 				26CB1327269A524E0025ACDD /* Exporter.cpp in Sources */,
+				2637D75526A3295700BF8F37 /* GradientStopList.cpp in Sources */,
 				263EA113268F524E003B100A /* Command.cpp in Sources */,
 				26BA73CE26987D20001F3C5D /* BrushComponent.cpp in Sources */,
 				261C06EA26A04C6B002AAC78 /* ColorList.cpp in Sources */,

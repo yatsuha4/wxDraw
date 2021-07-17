@@ -15,21 +15,20 @@ class Color
   static const char* TYPE;
 
  private:
+  wxString name_;
   wxColour color_;
-  double pos_;
+
+  static int Serial;
 
  public:
   Color();
   Color(const Color& src) = default;
   ~Color() = default;
 
-  bool operator<(const Color& rhs) const;
-
+  WXDRAW_GETTER(Name, name_);
   WXDRAW_ACCESSOR(Color, color_);
-  WXDRAW_ACCESSOR(Pos, pos_);
 
-  operator wxGraphicsGradientStop() const;
-
+  void onCreate(const PaletteComponentPtr& palette) override;
   PropertyPtr createProperty(const PaletteComponentPtr& palette) override;
 };
 }

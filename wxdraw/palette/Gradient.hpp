@@ -16,7 +16,7 @@ class Gradient
 
  private:
   wxString name_;
-  std::vector<ColorPtr> colors_;
+  std::vector<GradientStopPtr> stops_;
 
   static int Serial;
 
@@ -26,7 +26,7 @@ class Gradient
   ~Gradient() = default;
 
   WXDRAW_GETTER(Name, name_);
-  WXDRAW_ACCESSOR(Colors, colors_);
+  WXDRAW_ACCESSOR(Stops, stops_);
 
   void sort();
 
@@ -35,7 +35,7 @@ class Gradient
 
   void createImage(wxImage& image);
 
-  void onCreate() override;
+  void onCreate(const PaletteComponentPtr& palette) override;
   PropertyPtr createProperty(const PaletteComponentPtr& palette) override;
 };
 }

@@ -3,30 +3,25 @@
 
 namespace wxdraw::palette {
 const char* Color::TYPE = "Color";
+int Color::Serial = 0;
 /**
    コンストラクタ
 */
 Color::Color()
-  : color_(wxTransparentColour), 
-    pos_(0.0)
+  : color_(wxTransparentColour)
 {
 }
 /**
  */
-bool Color::operator<(const Color& rhs) const {
-  return getPos() < rhs.getPos();
-}
-/**
- */
-Color::operator wxGraphicsGradientStop() const {
-  return wxGraphicsGradientStop(color_, pos_);
+void Color::onCreate(const PaletteComponentPtr& palette) {
+  name_ = wxString::Format("%s_%d", TYPE, ++Serial);
 }
 /**
  */
 PropertyPtr Color::createProperty(const PaletteComponentPtr& palette) {
   auto property = super::createProperty(TYPE, palette);
+  property->appendMember("Name", name_);
   property->appendMember("Color", color_);
-  property->appendMember("Pos", pos_);
   return property;
 }
 }

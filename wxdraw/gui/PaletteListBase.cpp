@@ -26,6 +26,7 @@ PaletteListBase::PaletteListBase(wxWindow* window, Palette* palette)
   sizer->Add(toolBar, wxSizerFlags().Expand());
   SetSizerAndFit(sizer);
   list_->SetImageList(imageList_.get(), wxIMAGE_LIST_NORMAL);
+  Bind(wxEVT_LIST_ITEM_ACTIVATED, &PaletteListBase::onListItemSelected, this, list_->GetId());
   Bind(wxEVT_LIST_ITEM_SELECTED, &PaletteListBase::onListItemSelected, this, list_->GetId());
   Bind(wxEVT_TOOL, &PaletteListBase::onTool, this);
 }
@@ -66,11 +67,16 @@ PaletteItemPtr PaletteListBase::getItem(size_t index) const {
 }
 /**
  */
+void PaletteListBase::onSelectItem(const PaletteItemPtr& item) {
+  getPalette()->getMainFrame()->getInspector()->
+    show(item->createProperty(getPaletteComponent()));
+}
+/**
+ */
 void PaletteListBase::onListItemSelected(wxListEvent& event) {
   index_ = event.GetIndex();
   if(auto item = getItem(index_)) {
-    getPalette()->getMainFrame()->getInspector()->
-      show(item->createProperty(getPaletteComponent()));
+    onSelectItem(item);
   }
 }
 /**

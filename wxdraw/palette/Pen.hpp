@@ -30,7 +30,7 @@ class Pen
   WXDRAW_GETTER(Gradient, gradient_);
   WXDRAW_GETTER(Width, width_);
 
-  void onCreate() override;
+  void onCreate(const PaletteComponentPtr& palette) override;
   PropertyPtr createProperty(const PaletteComponentPtr& palette) override;
 };
 }

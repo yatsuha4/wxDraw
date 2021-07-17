@@ -5,7 +5,7 @@
 namespace wxdraw::palette {
 /**
  */
-class Brush
+class GradientStop
   : public PaletteItem
 {
   using super = PaletteItem;
@@ -14,18 +14,20 @@ class Brush
   static const char* TYPE;
 
  private:
-  wxString name_;
-  GradientPtr gradient_;
-
-  static int Serial;
+  ColorPtr color_;
+  double pos_;
 
  public:
-  Brush();
-  Brush(const Brush& src) = default;
-  ~Brush() override = default;
+  GradientStop();
+  GradientStop(const GradientStop& src) = default;
+  ~GradientStop() = default;
 
-  WXDRAW_GETTER(Name, name_);
-  WXDRAW_GETTER(Gradient, gradient_);
+  bool operator<(const GradientStop& rhs) const;
+
+  WXDRAW_ACCESSOR(Color, color_);
+  WXDRAW_ACCESSOR(Pos, pos_);
+
+  operator wxGraphicsGradientStop() const;
 
   void onCreate(const PaletteComponentPtr& palette) override;
   PropertyPtr createProperty(const PaletteComponentPtr& palette) override;

@@ -1,7 +1,6 @@
 ﻿#pragma once
 
 #include "wxdraw/component/Component.hpp"
-#include "wxdraw/container/Color.hpp"
 
 namespace wxdraw::component {
 /**
@@ -19,6 +18,7 @@ class PaletteComponent
   std::vector<PenPtr> pens_;
   std::vector<BrushPtr> brushes_;
   std::vector<GradientPtr> gradients_;
+  std::vector<ColorPtr> colors_;
 
  public:
   PaletteComponent(const NodePtr& node);
@@ -28,5 +28,6 @@ class PaletteComponent
   WXDRAW_ACCESSOR(Pens, pens_);
   WXDRAW_ACCESSOR(Brushes, brushes_);
   WXDRAW_ACCESSOR(Gradients, gradients_);
+  WXDRAW_ACCESSOR(Colors, colors_);
 };
 }

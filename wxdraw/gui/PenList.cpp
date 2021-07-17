@@ -20,5 +20,6 @@ std::vector<PenPtr>& PenList::getItems() const {
 void PenList::onUpdate(const PenPtr& pen, wxListItem& item) {
   item.SetText(pen->getName());
   item.SetImage(appendGradientImage(pen->getGradient()));
+  super::onUpdate(pen, item);
 }
 }

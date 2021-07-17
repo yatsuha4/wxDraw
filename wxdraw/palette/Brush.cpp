@@ -13,13 +13,14 @@ Brush::Brush()
 }
 /**
  */
-void Brush::onCreate() {
+void Brush::onCreate(const PaletteComponentPtr& palette) {
   name_ = wxString::Format("%s_%d", TYPE, ++Serial);
 }
 /**
  */
 PropertyPtr Brush::createProperty(const PaletteComponentPtr& palette) {
-  auto property = std::make_shared<OptionProperty<PaletteComponentPtr>>(TYPE, palette);
+  auto property = super::createProperty(TYPE, palette);
+  property->appendMember("Name", name_);
   return property;
 }
 }

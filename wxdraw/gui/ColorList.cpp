@@ -1,18 +1,15 @@
+#include "wxdraw/component/PaletteComponent.hpp"
 #include "wxdraw/gui/ColorList.hpp"
-#include "wxdraw/gui/Inspector.hpp"
-#include "wxdraw/gui/MainFrame.hpp"
-#include "wxdraw/gui/Palette.hpp"
 #include "wxdraw/palette/Color.hpp"
-#include "wxdraw/palette/Gradient.hpp"
 
 namespace wxdraw::gui {
-std::vector<ColorPtr> ColorList::EMPTY;
 /**
  */
 ColorList::ColorList(wxWindow* parent, Palette* palette)
   : super(parent, palette)
 {
   getList()->AppendColumn("Color");
+  /*
   {
     auto gradient = std::make_shared<Gradient>();
     for(int i = 0; i < 8; i++) {
@@ -22,22 +19,18 @@ ColorList::ColorList(wxWindow* parent, Palette* palette)
     }
     setGradient(gradient);
   }
-}
-/**
- */
-void ColorList::setGradient(const GradientPtr& gradient) {
-  gradient_ = gradient;
-  update();
+  */
 }
 /**
  */
 std::vector<ColorPtr>& ColorList::getItems() const {
-  return gradient_ ? gradient_->getColors() : EMPTY;
+  return getPaletteComponent()->getColors();
 }
 /**
  */
 void ColorList::onUpdate(const ColorPtr& color, wxListItem& item) {
-  item.SetText(wxString::FromDouble(color->getPos()));
+  item.SetText(color->getName());
   item.SetImage(appendColorImage(color->getColor()));
+  super::onUpdate(color, item);
 }
 }

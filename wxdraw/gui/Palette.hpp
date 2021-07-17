@@ -14,6 +14,7 @@ class Palette
   PenList* penList_;
   BrushList* brushList_;
   GradientList* gradientList_;
+  GradientStopList* gradientStopList_;
   ColorList* colorList_;
   GradientPtr gradient_;
   PaletteComponentPtr paletteComponent_;

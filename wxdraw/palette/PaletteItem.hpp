@@ -10,7 +10,7 @@ class PaletteItem {
   PaletteItem(const PaletteItem& src) = default;
   virtual ~PaletteItem() = default;
 
-  virtual void onCreate() {}
+  virtual void onCreate(const PaletteComponentPtr& palette) {}
   virtual PropertyPtr createProperty(const PaletteComponentPtr& palette) = 0;
 
  protected:
