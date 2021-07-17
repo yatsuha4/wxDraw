@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "wxdraw/gui/PaletteListBase.hpp"
+#include "wxdraw/palette/PaletteItem.hpp"
 
 namespace wxdraw::gui {
 /**
@@ -22,16 +23,13 @@ class PaletteList
 
   void appendItem(size_t index) override {
     auto& items = getItems();
-    std::shared_ptr<T> item;
     if(index < items.size()) {
-      item = std::make_shared<T>(*items.at(index));
-      items.insert(items.begin() + index, item);
+      items.insert(items.begin() + index, 
+                   PaletteItem::Create<T>(getPaletteComponent(), *items.at(index)));
     }
     else {
-      item = std::make_shared<T>();
-      items.push_back(item);
+      items.push_back(PaletteItem::Create<T>(getPaletteComponent()));
     }
-    item->onCreate(getPaletteComponent());
     update();
   }
 

@@ -16,5 +16,12 @@ class PaletteItem
 
   virtual void onCreate(const PaletteComponentPtr& palette) {}
   virtual PropertyPtr createProperty() = 0;
+
+  template<class T, class... Args>
+  static std::shared_ptr<T> Create(const PaletteComponentPtr& palette, Args... args) {
+    auto item = std::make_shared<T>(args...);
+    item->onCreate(palette);
+    return item;
+  }
 };
 }

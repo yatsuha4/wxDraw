@@ -69,9 +69,7 @@ void Gradient::createImage(wxImage& image) {
  */
 void Gradient::onCreate(const PaletteComponentPtr& palette) {
   name_ = wxString::Format("%s_%d", TYPE, ++Serial);
-  auto stop = std::make_shared<GradientStop>();
-  stop->onCreate(palette);
-  stops_.push_back(stop);
+  stops_.push_back(Create<GradientStop>(palette));
 }
 /**
    プロパティを生成する

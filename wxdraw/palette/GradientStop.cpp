@@ -27,7 +27,7 @@ GradientStop::operator wxGraphicsGradientStop() const {
 void GradientStop::onCreate(const PaletteComponentPtr& palette) {
   auto& colors = palette->getColors();
   if(colors.empty()) {
-    colors.push_back(std::make_shared<Color>());
+    colors.push_back(Create<Color>(palette));
   }
   color_ = colors.front();
 }
