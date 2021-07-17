@@ -29,7 +29,6 @@ std::vector<GradientStopPtr>& GradientStopList::getItems() const {
  */
 void GradientStopList::onUpdate(const GradientStopPtr& stop, wxListItem& item) {
   item.SetText(wxString::FromDouble(stop->getPos()));
-  item.SetImage(appendColorImage(stop->getColor()->getColor()));
   super::onUpdate(stop, item);
   /*
   {

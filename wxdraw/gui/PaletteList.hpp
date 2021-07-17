@@ -49,6 +49,7 @@ class PaletteList
     for(auto& item : getItems()) {
       wxListItem listItem;
       listItem.SetId(index++);
+      listItem.SetImage(appendImage(item->getBitmap()));
       onUpdate(item, listItem);
     }
   }

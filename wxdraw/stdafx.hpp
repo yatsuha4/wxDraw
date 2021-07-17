@@ -48,8 +48,10 @@
   auto set##name(const decltype(var)& value) -> decltype(*this)& {      \
     var = value;                                                        \
     return *this;                                                       \
+  }                                                                     \
+  decltype(var)& get##name() {                                          \
+    return var;                                                         \
   }
-
 #define WXDRAW_GETTER(name, var)                \
   const decltype(var)& get##name() const {      \
     return var;                                 \
@@ -62,13 +64,9 @@
   bool can##name() const {                      \
     return var;                                 \
   }
-
 #define WXDRAW_ACCESSOR(name, var)              \
   WXDRAW_SETTER(name, var);                     \
-  WXDRAW_GETTER(name, var);                     \
-  decltype(var)& get##name() {                  \
-    return var;                                 \
-  }
+  WXDRAW_GETTER(name, var);
 #define WXDRAW_IS_ACCESSOR(name, var)           \
   WXDRAW_SETTER(name, var);                     \
   WXDRAW_IS_GETTER(name, var);

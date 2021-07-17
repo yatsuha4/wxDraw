@@ -13,14 +13,21 @@ Color::Color()
 }
 /**
  */
+void Color::update() {
+  wxImage image(BITMAP_SIZE);
+  image.SetRGB(image.GetSize(), color_.Red(), color_.Green(), color_.Blue());
+  setBitmap(image);
+}
+/**
+ */
 void Color::onCreate(const PaletteComponentPtr& palette) {
-  name_ = wxString::Format("%s_%d", TYPE, ++Serial);
+  setName(wxString::Format("%s_%d", TYPE, ++Serial));
 }
 /**
  */
 PropertyPtr Color::createProperty() {
   auto property = PropertyOwner::createProperty(TYPE);
-  property->appendMember("Name", name_);
+  property->appendMember("Name", getName());
   property->appendMember("Color", color_);
   return property;
 }

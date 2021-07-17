@@ -32,6 +32,7 @@ class PaletteListBase
   WXDRAW_GETTER(ImageList, imageList_);
   int appendGradientImage(const GradientPtr& gradient);
   int appendColorImage(const wxColour& color);
+  int appendImage(const wxBitmap& bitmap);
 
   const PaletteComponentPtr& getPaletteComponent() const;
 

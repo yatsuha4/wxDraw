@@ -6,6 +6,7 @@
 #include "wxdraw/node/Node.hpp"
 
 namespace wxdraw::gui {
+wxBrush Canvas::BackgroundBrush;
 /**
    コンストラクタ
    @param parent 親
@@ -19,17 +20,39 @@ Canvas::Canvas(wxWindow* parent, MainFrame* mainFrame)
     viewMatrix_(1.0)
 {
   SetDoubleBuffered(true);
-  setupBrush(8, wxColour(0x70, 0x70, 0x70), wxColour(0x90, 0x90, 0x90));
   Bind(wxEVT_RIGHT_DOWN, &Canvas::onRightDown, this);
   Bind(wxEVT_MOTION, &Canvas::onMotion, this);
   Bind(wxEVT_MOUSEWHEEL, &Canvas::onMouseWheel, this);
+}
+/**
+ */
+const wxBrush& Canvas::GetBackgroundBrush() {
+  const int SIZE = 8;
+  const wxColour C1(0x70, 0x70, 0x70);
+  const wxColour C2(0x90, 0x90, 0x90);
+  if(!BackgroundBrush.IsOk()) {
+    wxImage image(SIZE * 2, SIZE * 2);
+    for(int x = 0; x < 2; x++) {
+      for(int y = 0; y < 2; y++) {
+        wxRect rect(wxPoint(SIZE * x, SIZE * y), wxSize(SIZE, SIZE));
+        if(((x + y) & 1) == 0) {
+          image.SetRGB(rect, C1.Red(), C1.Green(), C1.Blue());
+        }
+        else {
+          image.SetRGB(rect, C2.Red(), C2.Green(), C2.Blue());
+        }
+      }
+    }
+    BackgroundBrush.SetStipple(image);
+  }
+  return BackgroundBrush;
 }
 /**
    描画
 */
 void Canvas::OnDraw(wxDC& dc) {
   super::OnDraw(dc);
-  dc.SetBackground(brush_);
+  dc.SetBackground(GetBackgroundBrush());
   dc.Clear();
   if(auto project = mainFrame_->getProject()) {
     auto size = GetSize();
@@ -40,22 +63,6 @@ void Canvas::OnDraw(wxDC& dc) {
     project->getNode()->render(renderer);
     drawCursor(renderer, mainFrame_->getSelectNode());
   }
-}
-/**
- */
-void Canvas::setupBrush(int size, const wxColour& c1, const wxColour& c2) {
-  wxImage image(size * 2, size * 2);
-  for(int x = 0; x < size * 2; x++) {
-    for(int y = 0; y < size * 2; y++) {
-      if((((x / size) + (y / size)) & 1) == 0) {
-        image.SetRGB(x, y, c1.Red(), c1.Green(), c1.Blue());
-      }
-      else {
-        image.SetRGB(x, y, c2.Red(), c2.Green(), c2.Blue());
-      }
-    }
-  }
-  brush_.SetStipple(wxBitmap(image));
 }
 /**
  */

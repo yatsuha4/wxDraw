@@ -30,7 +30,6 @@ void GradientList::onSelectItem(const PaletteItemPtr& item) {
  */
 void GradientList::onUpdate(const GradientPtr& gradient, wxListItem& item) {
   item.SetText(gradient->getName());
-  item.SetImage(appendGradientImage(gradient));
   super::onUpdate(gradient, item);
 }
 }

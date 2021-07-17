@@ -14,13 +14,13 @@ Brush::Brush()
 /**
  */
 void Brush::onCreate(const PaletteComponentPtr& palette) {
-  name_ = wxString::Format("%s_%d", TYPE, ++Serial);
+  setName(wxString::Format("%s_%d", TYPE, ++Serial));
 }
 /**
  */
 PropertyPtr Brush::createProperty() {
   auto property = PropertyOwner::createProperty(TYPE);
-  property->appendMember("Name", name_);
+  property->appendMember("Name", getName());
   return property;
 }
 }

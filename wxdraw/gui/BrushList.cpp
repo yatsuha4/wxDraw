@@ -22,7 +22,6 @@ std::vector<BrushPtr>& BrushList::getItems() const {
  */
 void BrushList::onUpdate(const BrushPtr& brush, wxListItem& item) {
   item.SetText(brush->getName());
-  item.SetImage(appendGradientImage(brush->getGradient()));
   super::onUpdate(brush, item);
 }
 }

@@ -68,7 +68,7 @@ void Gradient::createImage(wxImage& image) {
 /**
  */
 void Gradient::onCreate(const PaletteComponentPtr& palette) {
-  name_ = wxString::Format("%s_%d", TYPE, ++Serial);
+  setName(wxString::Format("%s_%d", TYPE, ++Serial));
   stops_.push_back(Create<GradientStop>(palette));
 }
 /**
@@ -76,7 +76,7 @@ void Gradient::onCreate(const PaletteComponentPtr& palette) {
 */
 PropertyPtr Gradient::createProperty() {
   auto property = PropertyOwner::createProperty(TYPE);
-  property->appendMember("Name", name_);
+  property->appendMember("Name", getName());
   return property;
 }
 }

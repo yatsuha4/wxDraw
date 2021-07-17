@@ -15,7 +15,6 @@ class Pen
   static const char* TYPE;
 
  private:
-  wxString name_;
   GradientPtr gradient_;
   double width_;
 
@@ -26,7 +25,6 @@ class Pen
   Pen(const Pen& src) = default;
   ~Pen() override = default;
 
-  WXDRAW_GETTER(Name, name_);
   WXDRAW_GETTER(Gradient, gradient_);
   WXDRAW_GETTER(Width, width_);
 

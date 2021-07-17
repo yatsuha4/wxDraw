@@ -15,7 +15,6 @@ class Color
   static const char* TYPE;
 
  private:
-  wxString name_;
   wxColour color_;
 
   static int Serial;
@@ -25,9 +24,9 @@ class Color
   Color(const Color& src) = default;
   ~Color() = default;
 
-  WXDRAW_GETTER(Name, name_);
   WXDRAW_ACCESSOR(Color, color_);
 
+  void update() override;
   void onCreate(const PaletteComponentPtr& palette) override;
   PropertyPtr createProperty() override;
 };

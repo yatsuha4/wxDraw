@@ -14,7 +14,6 @@ class Brush
   static const char* TYPE;
 
  private:
-  wxString name_;
   GradientPtr gradient_;
 
   static int Serial;
@@ -24,7 +23,6 @@ class Brush
   Brush(const Brush& src) = default;
   ~Brush() override = default;
 
-  WXDRAW_GETTER(Name, name_);
   WXDRAW_GETTER(Gradient, gradient_);
 
   void onCreate(const PaletteComponentPtr& palette) override;

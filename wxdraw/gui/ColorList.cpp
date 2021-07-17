@@ -33,7 +33,6 @@ std::vector<ColorPtr>& ColorList::getItems() const {
  */
 void ColorList::onUpdate(const ColorPtr& color, wxListItem& item) {
   item.SetText(color->getName());
-  item.SetImage(appendColorImage(color->getColor()));
   super::onUpdate(color, item);
 }
 }

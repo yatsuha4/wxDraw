@@ -15,7 +15,6 @@ class Gradient
   static const char* TYPE;
 
  private:
-  wxString name_;
   std::vector<GradientStopPtr> stops_;
 
   static int Serial;
@@ -25,7 +24,6 @@ class Gradient
   Gradient(const Gradient& src) = default;
   ~Gradient() = default;
 
-  WXDRAW_GETTER(Name, name_);
   WXDRAW_ACCESSOR(Stops, stops_);
 
   void sort();

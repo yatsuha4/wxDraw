@@ -24,6 +24,13 @@ GradientStop::operator wxGraphicsGradientStop() const {
 }
 /**
  */
+void GradientStop::update() {
+  super::update();
+  setName(wxString::FromDouble(pos_));
+  setBitmap(color_->getBitmap());
+}
+/**
+ */
 void GradientStop::onCreate(const PaletteComponentPtr& palette) {
   auto& colors = palette->getColors();
   if(colors.empty()) {

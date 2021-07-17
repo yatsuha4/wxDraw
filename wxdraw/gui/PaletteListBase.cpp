@@ -46,14 +46,19 @@ int PaletteListBase::appendGradientImage(const GradientPtr& gradient) {
   if(gradient) {
     gradient->createImage(image);
   }
-  return imageList_->Add(image);
+  return appendImage(image);
 }
 /**
  */
 int PaletteListBase::appendColorImage(const wxColour& color) {
   wxImage image(IMAGE_SIZE);
   image.SetRGB(image.GetSize(), color.Red(), color.Green(), color.Blue());
-  return imageList_->Add(image);
+  return appendImage(image);
+}
+/**
+ */
+int PaletteListBase::appendImage(const wxBitmap& bitmap) {
+  return imageList_->Add(bitmap);
 }
 /**
  */
