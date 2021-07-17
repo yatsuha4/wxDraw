@@ -9,7 +9,7 @@ namespace wxdraw::gui {
 /**
  */
 ColorList::ColorList(wxWindow* parent, Palette* palette)
-  : super(parent, palette, "Color")
+  : super(parent, palette)
 {
   getList()->AppendColumn("Color");
   {
@@ -33,24 +33,46 @@ void ColorList::setGradient(const GradientPtr& gradient) {
 void ColorList::update() {
   getList()->DeleteAllItems();
   if(gradient_) {
+    updateImageList();
     for(size_t i = 0; i < gradient_->getColors().size(); i++) {
       auto& color = gradient_->getColors().at(i);
       wxListItem item;
       item.SetId(i);
       item.SetText(wxString::FromDouble(color->getPos()));
-      item.SetTextColour((color->getColor().GetLuminance() < 0.5) ? *wxWHITE : *wxBLACK);
-      item.SetBackgroundColour(color->getColor());
+      item.SetImage(static_cast<int>(i));
       getList()->InsertItem(item);
     }
   }
 }
 /**
  */
-void ColorList::onListItemSelected(wxListEvent& event) {
-  if(gradient_ && event.GetIndex() < gradient_->getColors().size()) {
-    if(auto color = gradient_->getColors().at(event.GetIndex())) {
-      selectItem(*color);
-    }
+PaletteItemPtr ColorList::getItem(size_t index) const {
+  return GetItem(index, gradient_->getColors());
+}
+/**
+ */
+void ColorList::appendItem(size_t index) {
+}
+/**
+ */
+void ColorList::removeItem(size_t index) {
+}
+/**
+ */
+void ColorList::updateImageList() {
+  getImageList()->RemoveAll();
+  for(auto& color : gradient_->getColors()) {
+    getImageList()->Add(CreateBitmap(*color));
   }
+}
+/**
+ */
+wxBitmap ColorList::CreateBitmap(const Color& color) {
+  wxImage image(IMAGE_SIZE);
+  image.SetRGB(IMAGE_SIZE, 
+               color.getColor().Red(), 
+               color.getColor().Green(), 
+               color.getColor().Blue());
+  return wxBitmap(image);
 }
 }

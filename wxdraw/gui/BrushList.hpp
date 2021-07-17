@@ -13,5 +13,8 @@ class BrushList
  public:
   BrushList(wxWindow* parent, Palette* palette);
   ~BrushList() override = default;
+
+ protected:
+  PaletteItemPtr getItem(size_t index) const override;
 };
 }

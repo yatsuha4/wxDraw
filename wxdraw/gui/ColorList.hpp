@@ -22,6 +22,13 @@ class ColorList
   void update();
 
  protected:
-  void onListItemSelected(wxListEvent& event) override;
+  PaletteItemPtr getItem(size_t index) const override;
+  void appendItem(size_t index) override;
+  void removeItem(size_t index) override;
+
+ private:
+  void updateImageList();
+
+  static wxBitmap CreateBitmap(const Color& color);
 };
 }

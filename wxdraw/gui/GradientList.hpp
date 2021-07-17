@@ -13,5 +13,8 @@ class GradientList
  public:
   GradientList(wxWindow* parent, Palette* palette);
   ~GradientList() override = default;
+
+ protected:
+  PaletteItemPtr getItem(size_t index) const override;
 };
 }

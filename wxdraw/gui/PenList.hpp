@@ -13,5 +13,8 @@ class PenList
  public:
   PenList(wxWindow* parent, Palette* palette);
   ~PenList() override = default;
+
+ protected:
+  PaletteItemPtr getItem(size_t index) const override;
 };
 }
