@@ -5,6 +5,7 @@
 
 namespace wxdraw::palette {
 const char* Gradient::TYPE = "Gradient";
+int Gradient::Serial = 0;
 /**
  */
 void Gradient::sort() {
@@ -63,6 +64,11 @@ wxImage Gradient::createImage(const wxSize& size) {
     context.DrawRectangle(0.0, 0.0, size.x, size.y);
   }
   return image;
+}
+/**
+ */
+void Gradient::onCreate() {
+  name_ = wxString::Format("%s_%d", TYPE, ++Serial);
 }
 /**
    プロパティを生成する

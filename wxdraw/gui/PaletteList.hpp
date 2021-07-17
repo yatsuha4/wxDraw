@@ -22,12 +22,16 @@ class PaletteList
 
   void appendItem(size_t index) override {
     auto& items = getItems();
+    std::shared_ptr<T> item;
     if(index < items.size()) {
-      items.insert(items.begin() + index, std::make_shared<T>(*items.at(index)));
+      item = std::make_shared<T>(*items.at(index));
+      items.insert(items.begin() + index, item);
     }
     else {
-      items.push_back(std::make_shared<T>());
+      item = std::make_shared<T>();
+      items.push_back(item);
     }
+    item->onCreate();
     update();
   }
 

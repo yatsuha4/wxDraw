@@ -19,10 +19,9 @@ class ColorList
 
   void setGradient(const GradientPtr& gradient);
 
-  void update() override;
-
  protected:
   std::vector<ColorPtr>& getItems() const override;
+  void onUpdate() override;
 
  private:
   void updateImageList();

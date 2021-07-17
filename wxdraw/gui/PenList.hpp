@@ -16,5 +16,7 @@ class PenList
 
  protected:
   std::vector<PenPtr>& getItems() const override;
+
+  void onUpdate() override;
 };
 }

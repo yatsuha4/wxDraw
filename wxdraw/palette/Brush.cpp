@@ -3,12 +3,18 @@
 
 namespace wxdraw::palette {
 const char* Brush::TYPE = "Brush";
+int Brush::Serial = 0;
 /**
    デフォルトコンストラクタ
 */
 Brush::Brush()
   : super()
 {
+}
+/**
+ */
+void Brush::onCreate() {
+  name_ = wxString::Format("%s_%d", TYPE, ++Serial);
 }
 /**
  */

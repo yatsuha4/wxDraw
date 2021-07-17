@@ -16,5 +16,6 @@ class BrushList
 
  protected:
   std::vector<BrushPtr>& getItems() const override;
+  void onUpdate() override;
 };
 }

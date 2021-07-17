@@ -30,8 +30,12 @@ void ColorList::setGradient(const GradientPtr& gradient) {
 }
 /**
  */
-void ColorList::update() {
-  getList()->DeleteAllItems();
+std::vector<ColorPtr>& ColorList::getItems() const {
+  return gradient_->getColors();
+}
+/**
+ */
+void ColorList::onUpdate() {
   if(gradient_) {
     updateImageList();
     for(size_t i = 0; i < gradient_->getColors().size(); i++) {
@@ -43,11 +47,6 @@ void ColorList::update() {
       getList()->InsertItem(item);
     }
   }
-}
-/**
- */
-std::vector<ColorPtr>& ColorList::getItems() const {
-  return gradient_->getColors();
 }
 /**
  */

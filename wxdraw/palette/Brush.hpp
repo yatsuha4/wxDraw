@@ -14,15 +14,20 @@ class Brush
   static const char* TYPE;
 
  private:
+  wxString name_;
   GradientPtr gradient_;
+
+  static int Serial;
 
  public:
   Brush();
   Brush(const Brush& src) = default;
   ~Brush() override = default;
 
+  WXDRAW_GETTER(Name, name_);
   WXDRAW_GETTER(Gradient, gradient_);
 
+  void onCreate() override;
   PropertyPtr createProperty(const PaletteComponentPtr& palette) override;
 };
 }

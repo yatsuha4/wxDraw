@@ -31,6 +31,14 @@ PaletteListBase::PaletteListBase(wxWindow* window, Palette* palette)
 }
 /**
  */
+void PaletteListBase::update() {
+  list_->Freeze();
+  list_->DeleteAllItems();
+  onUpdate();
+  list_->Thaw();
+}
+/**
+ */
 const PaletteComponentPtr& PaletteListBase::getPaletteComponent() const {
   return getPalette()->getPaletteComponent();
 }

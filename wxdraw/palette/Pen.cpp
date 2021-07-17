@@ -3,6 +3,7 @@
 
 namespace wxdraw::palette {
 const char* Pen::TYPE = "Pen";
+int Pen::Serial = 0;
 /**
    デフォルトコンストラクタ
 */
@@ -13,8 +14,14 @@ Pen::Pen()
 }
 /**
  */
+void Pen::onCreate() {
+  name_ = wxString::Format("%s_%d", TYPE, ++Serial);
+}
+/**
+ */
 PropertyPtr Pen::createProperty(const PaletteComponentPtr& palette) {
   auto property = std::make_shared<OptionProperty<PaletteComponentPtr>>(TYPE, palette);
+  property->appendMember("Name", name_);
   property->appendMember("Width", width_);
   return property;
 }

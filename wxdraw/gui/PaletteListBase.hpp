@@ -24,7 +24,7 @@ class PaletteListBase
 
   WXDRAW_GETTER(Palette, palette_);
 
-  virtual void update() {}
+  void update();
 
  protected:
   WXDRAW_GETTER(List, list_);
@@ -33,15 +33,9 @@ class PaletteListBase
   const PaletteComponentPtr& getPaletteComponent() const;
 
   virtual PaletteItemPtr getItem(size_t index) const;
-
-  template<class T>
-  static std::shared_ptr<T>
-  GetItem(size_t index, const std::vector<std::shared_ptr<T>>& items) {
-    return (index < items.size()) ? items.at(index) : nullptr;
-  }
-
   virtual void appendItem(size_t index) {}
   virtual void removeItem(size_t index) {}
+  virtual void onUpdate() {}
 
   void onListItemSelected(wxListEvent& event);
   void onTool(wxCommandEvent& event);

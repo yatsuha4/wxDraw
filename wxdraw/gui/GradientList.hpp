@@ -16,5 +16,6 @@ class GradientList
 
  protected:
   std::vector<GradientPtr>& getItems() const override;
+  void onUpdate() override;
 };
 }
