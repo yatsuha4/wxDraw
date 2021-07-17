@@ -13,7 +13,10 @@ PenList::PenList(wxWindow* parent, Palette* palette)
 /**
  */
 std::vector<PenPtr>& PenList::getItems() const {
-  return getPaletteComponent()->getPens();
+  if(auto palette = getPaletteComponent()) {
+    return palette->getPens();
+  }
+  return super::getItems();
 }
 /**
  */

@@ -24,7 +24,10 @@ ColorList::ColorList(wxWindow* parent, Palette* palette)
 /**
  */
 std::vector<ColorPtr>& ColorList::getItems() const {
-  return getPaletteComponent()->getColors();
+  if(auto palette = getPaletteComponent()) {
+    return palette->getColors();
+  }
+  return super::getItems();
 }
 /**
  */

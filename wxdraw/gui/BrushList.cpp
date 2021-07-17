@@ -13,7 +13,10 @@ BrushList::BrushList(wxWindow* parent, Palette* palette)
 /**
  */
 std::vector<BrushPtr>& BrushList::getItems() const {
-  return getPaletteComponent()->getBrushes();
+  if(auto palette = getPaletteComponent()) {
+    return palette->getBrushes();
+  }
+  return super::getItems();
 }
 /**
  */

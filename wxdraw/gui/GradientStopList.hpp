@@ -13,8 +13,6 @@ class GradientStopList
  private:
   GradientPtr gradient_;
 
-  static std::vector<GradientStopPtr> EMPTY;
-
  public:
   GradientStopList(wxWindow* parent, Palette* palette);
   ~GradientStopList() override = default;

@@ -14,8 +14,7 @@ class BrushComponent
   static const char* TYPE;
 
  private:
-  GradientPtr gradient_;
-  wxBrush brush_;
+  BrushPtr brush_;
 
  public:
   BrushComponent(const NodePtr& node);

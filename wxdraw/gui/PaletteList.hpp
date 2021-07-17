@@ -14,7 +14,10 @@ class PaletteList
   using PaletteListBase::PaletteListBase;
 
  protected:
-  virtual std::vector<std::shared_ptr<T>>& getItems() const = 0;
+  virtual std::vector<std::shared_ptr<T>>& getItems() const {
+    static std::vector<std::shared_ptr<T>> EMPTY;
+    return EMPTY;
+  }
 
   PaletteItemPtr getItem(size_t index) const override {
     auto& items = getItems();

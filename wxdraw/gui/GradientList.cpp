@@ -14,7 +14,10 @@ GradientList::GradientList(wxWindow* parent, Palette* palette)
 /**
  */
 std::vector<GradientPtr>& GradientList::getItems() const {
-  return getPaletteComponent()->getGradients();
+  if(auto palette = getPaletteComponent()) {
+    return palette->getGradients();
+  }
+  return super::getItems();
 }
 /**
  */

@@ -26,6 +26,8 @@ class Inspector
 
  private:
   void showProperty(const Property& property);
+  wxPGChoices createPenChoices() const;
+  wxPGChoices createBrushChoices() const;
 
   void onChanged(wxPropertyGridEvent& event);
 

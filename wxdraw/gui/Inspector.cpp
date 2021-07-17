@@ -1,6 +1,8 @@
-#include "wxdraw/component/Component.hpp"
+#include "wxdraw/component/PaletteComponent.hpp"
 #include "wxdraw/gui/Inspector.hpp"
 #include "wxdraw/gui/Menu.hpp"
+#include "wxdraw/palette/Pen.hpp"
+#include "wxdraw/palette/Brush.hpp"
 #include "wxdraw/property/Property.hpp"
 #include "wxdraw/property/PropertyMember.hpp"
 
@@ -59,7 +61,37 @@ void Inspector::showProperty(const Property& property) {
     else if(auto member = Member<wxFileName>::As(iter)) {
       append<wxFileProperty>(member, member->getValue().GetFullPath());
     }
+    else if(auto m = Member<PenPtr>::As(iter)) {
+      append<wxEnumProperty>(m, createPenChoices());
+    }
+    else if(auto m = Member<BrushPtr>::As(iter)) {
+      append<wxEnumProperty>(m, createBrushChoices());
+    }
   }
+}
+/**
+ */
+wxPGChoices Inspector::createPenChoices() const {
+  wxPGChoices choices;
+  choices.Add("Null");
+  if(auto palette = mainFrame_->getPaletteComponent()) {
+    for(auto& pen : palette->getPens()) {
+      choices.Add(pen->getName());
+    }
+  }
+  return choices;
+}
+/**
+ */
+wxPGChoices Inspector::createBrushChoices() const {
+  wxPGChoices choices;
+  choices.Add("Null");
+  if(auto palette = mainFrame_->getPaletteComponent()) {
+    for(auto& brush : palette->getBrushes()) {
+      choices.Add(brush->getName());
+    }
+  }
+  return choices;
 }
 /**
  */

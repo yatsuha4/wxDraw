@@ -18,6 +18,7 @@ class MainFrame
   Palette* palette_;
   NodePtr selectNode_;
   ProjectComponentPtr project_;
+  PaletteComponentPtr paletteComponent_;
   wxString defaultPerspective_;
 
   static const wxSize DEFAULT_SIZE;
@@ -35,6 +36,7 @@ class MainFrame
   void selectNode(const NodePtr& node);
   WXDRAW_GETTER(SelectNode, selectNode_);
   WXDRAW_GETTER(Project, project_);
+  WXDRAW_GETTER(PaletteComponent, paletteComponent_);
 
   template<class CommandType, class... Args>
   bool submitCommand(Args&&... args) {

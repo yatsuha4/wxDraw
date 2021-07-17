@@ -6,7 +6,6 @@
 #include "wxdraw/palette/GradientStop.hpp"
 
 namespace wxdraw::gui {
-std::vector<GradientStopPtr> GradientStopList::EMPTY;
 /**
  */
 GradientStopList::GradientStopList(wxWindow* parent, Palette* palette)
@@ -24,7 +23,7 @@ void GradientStopList::setGradient(const GradientPtr& gradient) {
 /**
  */
 std::vector<GradientStopPtr>& GradientStopList::getItems() const {
-  return gradient_ ? gradient_->getStops() : EMPTY;
+  return gradient_ ? gradient_->getStops() : super::getItems();
 }
 /**
  */

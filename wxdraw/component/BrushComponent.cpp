@@ -17,7 +17,6 @@ BrushComponent::BrushComponent(const NodePtr& node)
 */
 BrushComponent::BrushComponent(const BrushComponent& src, const NodePtr& node)
   : super(src, node), 
-    gradient_(src.gradient_), 
     brush_(src.brush_)
 {
 }
@@ -25,22 +24,22 @@ BrushComponent::BrushComponent(const BrushComponent& src, const NodePtr& node)
  */
 PropertyPtr BrushComponent::createProperty() {
   auto property = super::createProperty();
-  property->appendMember("Gradient", gradient_);
+  property->appendMember("Brush", brush_);
   return property;
 }
 /**
  */
 void BrushComponent::onUpdate() {
-  brush_.SetColour(gradient_ ? gradient_->getColor() : wxTransparentColour);
+  //brush_.SetColour(gradient_ ? gradient_->getColor() : wxTransparentColour);
 }
 /**
  */
 void BrushComponent::onBeginRender(Renderer& renderer) {
-  renderer.pushBrush(brush_);
+  //renderer.pushBrush(brush_);
 }
 /**
  */
 void BrushComponent::onEndRender(Renderer& renderer) {
-  renderer.popBrush();
+  //renderer.popBrush();
 }
 }
