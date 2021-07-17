@@ -6,9 +6,9 @@ namespace wxdraw::gui {
 /**
  */
 class ColorList
-  : public PaletteList
+  : public PaletteList<Color>
 {
-  using super = PaletteList;
+  using super = PaletteList<Color>;
 
  private:
   GradientPtr gradient_;
@@ -19,12 +19,10 @@ class ColorList
 
   void setGradient(const GradientPtr& gradient);
 
-  void update();
+  void update() override;
 
  protected:
-  PaletteItemPtr getItem(size_t index) const override;
-  void appendItem(size_t index) override;
-  void removeItem(size_t index) override;
+  std::vector<ColorPtr>& getItems() const override;
 
  private:
   void updateImageList();

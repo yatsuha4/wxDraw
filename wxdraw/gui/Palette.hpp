@@ -16,6 +16,7 @@ class Palette
   GradientList* gradientList_;
   ColorList* colorList_;
   GradientPtr gradient_;
+  PaletteComponentPtr paletteComponent_;
 
  public:
   Palette(wxWindow* parent, MainFrame* mainFrame);
@@ -24,6 +25,9 @@ class Palette
   WXDRAW_GETTER(MainFrame, mainFrame_);
 
   void setGradient(const GradientPtr& gradient);
+
+  void setPaletteComponent(const PaletteComponentPtr& component);
+  WXDRAW_GETTER(PaletteComponent, paletteComponent_);
 
   void update();
 };

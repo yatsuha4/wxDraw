@@ -11,7 +11,7 @@ BrushList::BrushList(wxWindow* parent, Palette* palette)
 }
 /**
  */
-PaletteItemPtr BrushList::getItem(size_t index) const {
-  return GetItem(index, getPaletteComponent()->getBrushes());
+std::vector<BrushPtr>& BrushList::getItems() const {
+  return getPaletteComponent()->getBrushes();
 }
 }

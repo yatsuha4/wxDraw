@@ -11,7 +11,7 @@ PenList::PenList(wxWindow* parent, Palette* palette)
 }
 /**
  */
-PaletteItemPtr PenList::getItem(size_t index) const {
-  return GetItem(index, getPaletteComponent()->getPens());
+std::vector<PenPtr>& PenList::getItems() const {
+  return getPaletteComponent()->getPens();
 }
 }

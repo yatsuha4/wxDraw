@@ -22,11 +22,18 @@ Palette::Palette(wxWindow* parent, MainFrame* mainFrame)
   sizer->Add(gradientList_, wxSizerFlags().Expand().Proportion(1));
   sizer->Add(colorList_, wxSizerFlags().Expand().Proportion(1));
   SetSizerAndFit(sizer);
+  setPaletteComponent(nullptr);
 }
 /**
  */
 void Palette::setGradient(const GradientPtr& gradient) {
   colorList_->setGradient(gradient);
+}
+/**
+ */
+void Palette::setPaletteComponent(const PaletteComponentPtr& component) {
+  paletteComponent_ = component;
+  Enable(component != nullptr);
 }
 /**
  */

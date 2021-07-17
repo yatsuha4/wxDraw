@@ -6,15 +6,15 @@ namespace wxdraw::gui {
 /**
  */
 class BrushList
-  : public PaletteList
+  : public PaletteList<Brush>
 {
-  using super = PaletteList;
+  using super = PaletteList<Brush>;
 
  public:
   BrushList(wxWindow* parent, Palette* palette);
   ~BrushList() override = default;
 
  protected:
-  PaletteItemPtr getItem(size_t index) const override;
+  std::vector<BrushPtr>& getItems() const override;
 };
 }

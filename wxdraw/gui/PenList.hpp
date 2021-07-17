@@ -6,15 +6,15 @@ namespace wxdraw::gui {
 /**
  */
 class PenList
-  : public PaletteList
+  : public PaletteList<Pen>
 {
-  using super = PaletteList;
+  using super = PaletteList<Pen>;
 
  public:
   PenList(wxWindow* parent, Palette* palette);
   ~PenList() override = default;
 
  protected:
-  PaletteItemPtr getItem(size_t index) const override;
+  std::vector<PenPtr>& getItems() const override;
 };
 }

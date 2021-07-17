@@ -6,15 +6,15 @@ namespace wxdraw::gui {
 /**
  */
 class GradientList
-  : public PaletteList
+  : public PaletteList<Gradient>
 {
-  using super = PaletteList;
+  using super = PaletteList<Gradient>;
 
  public:
   GradientList(wxWindow* parent, Palette* palette);
   ~GradientList() override = default;
 
  protected:
-  PaletteItemPtr getItem(size_t index) const override;
+  std::vector<GradientPtr>& getItems() const override;
 };
 }

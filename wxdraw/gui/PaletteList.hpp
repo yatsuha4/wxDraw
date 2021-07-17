@@ -1,47 +1,42 @@
 ﻿#pragma once
 
+#include "wxdraw/gui/PaletteListBase.hpp"
+
 namespace wxdraw::gui {
 /**
-   編集可能リスト
-*/
+ */
+template<class T>
 class PaletteList
-  : public wxWindow
+  : public PaletteListBase
 {
-  using super = wxWindow;
+  using super = PaletteListBase;
+  using PaletteListBase::PaletteListBase;
 
  protected:
-  static const wxSize IMAGE_SIZE;
+  virtual std::vector<std::shared_ptr<T>>& getItems() const = 0;
 
- private:
-  Palette* palette_;
-  wxListView* list_;
-  std::unique_ptr<wxImageList> imageList_;
-  size_t index_;
-
- public:
-  PaletteList(wxWindow* parent, Palette* palette);
-  ~PaletteList() override = default;
-
-  WXDRAW_GETTER(Palette, palette_);
-
- protected:
-  WXDRAW_GETTER(List, list_);
-  WXDRAW_GETTER(ImageList, imageList_);
-
-  const PaletteComponentPtr& getPaletteComponent() const;
-
-  virtual PaletteItemPtr getItem(size_t index) const;
-
-  template<class T>
-  static std::shared_ptr<T>
-  GetItem(size_t index, const std::vector<std::shared_ptr<T>>& items) {
+  PaletteItemPtr getItem(size_t index) const override {
+    auto& items = getItems();
     return (index < items.size()) ? items.at(index) : nullptr;
   }
 
-  virtual void appendItem(size_t index) {}
-  virtual void removeItem(size_t index) {}
+  void appendItem(size_t index) override {
+    auto& items = getItems();
+    if(index < items.size()) {
+      items.insert(items.begin() + index, std::make_shared<T>(*items.at(index)));
+    }
+    else {
+      items.push_back(std::make_shared<T>());
+    }
+    update();
+  }
 
-  void onListItemSelected(wxListEvent& event);
-  void onTool(wxCommandEvent& event);
+  void removeItem(size_t index) override {
+    auto& items = getItems();
+    if(index < items.size()) {
+      items.erase(items.begin() + index);
+      update();
+    }
+  }
 };
 }

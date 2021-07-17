@@ -46,16 +46,8 @@ void ColorList::update() {
 }
 /**
  */
-PaletteItemPtr ColorList::getItem(size_t index) const {
-  return GetItem(index, gradient_->getColors());
-}
-/**
- */
-void ColorList::appendItem(size_t index) {
-}
-/**
- */
-void ColorList::removeItem(size_t index) {
+std::vector<ColorPtr>& ColorList::getItems() const {
+  return gradient_->getColors();
 }
 /**
  */
