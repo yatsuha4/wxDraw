@@ -9,9 +9,6 @@ class PaletteListBase
 {
   using super = wxWindow;
 
- protected:
-  static const wxSize IMAGE_SIZE;
-
  private:
   Palette* palette_;
   wxListView* list_;

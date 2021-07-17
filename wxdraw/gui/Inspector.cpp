@@ -87,9 +87,7 @@ wxPGChoices Inspector::createBrushChoices() const {
   wxPGChoices choices;
   choices.Add("Null");
   if(auto palette = mainFrame_->getPaletteComponent()) {
-    for(auto& brush : palette->getBrushes()) {
-      choices.Add(brush->getName());
-    }
+    createPaletteItemChoices(choices, palette->getBrushes());
   }
   return choices;
 }

@@ -29,6 +29,14 @@ class Inspector
   wxPGChoices createPenChoices() const;
   wxPGChoices createBrushChoices() const;
 
+  template<class T>
+  void createPaletteItemChoices(wxPGChoices& choices, 
+                                const std::vector<std::shared_ptr<T>>& items) const {
+    for(auto& item : items) {
+      choices.Add(item->getName(), item->getBitmap());
+    }
+  }
+
   void onChanged(wxPropertyGridEvent& event);
 
   template<class PropertyType, class MemberType>

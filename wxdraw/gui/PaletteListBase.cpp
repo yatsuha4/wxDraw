@@ -6,7 +6,6 @@
 #include "wxdraw/palette/Gradient.hpp"
 
 namespace wxdraw::gui {
-const wxSize PaletteListBase::IMAGE_SIZE(32, 32);
 /**
  */
 PaletteListBase::PaletteListBase(wxWindow* window, Palette* palette)
@@ -14,7 +13,8 @@ PaletteListBase::PaletteListBase(wxWindow* window, Palette* palette)
     palette_(palette), 
     list_(new wxListView(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 
                          wxLC_REPORT | wxLC_ICON)), 
-    imageList_(new wxImageList(IMAGE_SIZE.GetWidth(), IMAGE_SIZE.GetHeight()))
+    imageList_(new wxImageList(PaletteItem::BITMAP_SIZE.GetWidth(), 
+                               PaletteItem::BITMAP_SIZE.GetHeight()))
 {
   auto sizer = new wxBoxSizer(wxVERTICAL);
   sizer->Add(list_, wxSizerFlags().Expand().Proportion(1));
@@ -37,6 +37,7 @@ void PaletteListBase::update() {
   list_->DeleteAllItems();
   imageList_->RemoveAll();
   onUpdate();
+  list_->SetImageList(imageList_.get(), wxIMAGE_LIST_NORMAL);
   list_->Thaw();
 }
 /**

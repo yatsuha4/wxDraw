@@ -2,7 +2,7 @@
 #include "wxdraw/palette/PaletteItem.hpp"
 
 namespace wxdraw::palette {
-const wxSize PaletteItem::BITMAP_SIZE(32, 32);
+const wxSize PaletteItem::BITMAP_SIZE(16, 16);
 wxBitmap PaletteItem::NullBitmap;
 /**
  */
