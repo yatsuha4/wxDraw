@@ -8,7 +8,7 @@ int Brush::Serial = 0;
    デフォルトコンストラクタ
 */
 Brush::Brush()
-  : super()
+  : direction_(0.0)
 {
 }
 /**
@@ -20,6 +20,7 @@ void Brush::onCreate(const PaletteComponentPtr& palette) {
  */
 PropertyPtr Brush::createProperty() {
   auto property = super::createProperty(TYPE);
+  property->appendMember("Direction", direction_);
   return property;
 }
 }

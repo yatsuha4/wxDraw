@@ -92,10 +92,10 @@ wxPGChoices Inspector::createPenChoices() const {
  */
 wxPGChoices Inspector::createBrushChoices() const {
   wxPGChoices choices;
-  choices.Add("Null");
   if(auto palette = getPaletteComponent()) {
     createPaletteItemChoices(choices, palette->getBrushes());
   }
+  choices.Add("Null");
   return choices;
 }
 /**
@@ -122,14 +122,17 @@ wxPGChoices Inspector::createColorBaseChoices() const {
 /**
  */
 void Inspector::onChanged(wxPropertyGridEvent& event) {
-  doChange<int, 
-           double, 
-           bool, 
-           wxString, 
-           wxColour, 
-           wxFileName, 
-           ColorPtr, 
-           ColorBasePtr>(event);
+  doChange<
+    bool, 
+    double, 
+    int, 
+    wxColour, 
+    wxFileName, 
+    wxString, 
+    BrushPtr, 
+    ColorBasePtr, 
+    ColorPtr
+    >(event);
 }
 /**
  */
@@ -151,11 +154,9 @@ void Inspector::onRightClick(wxPropertyGridEvent& event) {
 }
 /**
  */
-bool Inspector::getValue(const wxPropertyGridEvent& event, ColorPtr& value) const {
+bool Inspector::getValue(const wxPropertyGridEvent& event, BrushPtr& value) const {
   if(auto palette = getPaletteComponent()) {
-    auto& colors = palette->getColors();
-    auto index = event.GetValue().GetLong();
-    value = (index < colors.size()) ? colors.at(index) : nullptr;
+    value = palette->getBrush(event.GetValue().GetLong());
     return true;
   }
   return false;
@@ -165,6 +166,15 @@ bool Inspector::getValue(const wxPropertyGridEvent& event, ColorPtr& value) cons
 bool Inspector::getValue(const wxPropertyGridEvent& event, ColorBasePtr& value) const {
   if(auto palette = getPaletteComponent()) {
     value = palette->getColorBase(event.GetValue().GetLong());
+    return true;
+  }
+  return false;
+}
+/**
+ */
+bool Inspector::getValue(const wxPropertyGridEvent& event, ColorPtr& value) const {
+  if(auto palette = getPaletteComponent()) {
+    value = palette->getColor(event.GetValue().GetLong());
     return true;
   }
   return false;

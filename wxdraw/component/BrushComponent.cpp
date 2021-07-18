@@ -1,6 +1,5 @@
 #include "wxdraw/component/BrushComponent.hpp"
 #include "wxdraw/gui/Renderer.hpp"
-#include "wxdraw/palette/Gradient.hpp"
 #include "wxdraw/property/Property.hpp"
 
 namespace wxdraw::component {
@@ -29,17 +28,16 @@ PropertyPtr BrushComponent::createProperty() {
 }
 /**
  */
-void BrushComponent::onUpdate() {
-  //brush_.SetColour(gradient_ ? gradient_->getColor() : wxTransparentColour);
-}
-/**
- */
 void BrushComponent::onBeginRender(Renderer& renderer) {
-  //renderer.pushBrush(brush_);
+  if(brush_) {
+    renderer.pushBrush(*brush_);
+  }
 }
 /**
  */
 void BrushComponent::onEndRender(Renderer& renderer) {
-  //renderer.popBrush();
+  if(brush_) {
+    renderer.popBrush();
+  }
 }
 }

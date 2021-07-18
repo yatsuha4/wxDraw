@@ -1,4 +1,6 @@
 #include "wxdraw/gui/Renderer.hpp"
+#include "wxdraw/palette/Brush.hpp"
+#include "wxdraw/palette/Color.hpp"
 
 namespace wxdraw::gui {
 /**
@@ -9,6 +11,7 @@ namespace wxdraw::gui {
 Renderer::Renderer(wxDC& dc, const glm::dmat3& viewMatrix)
   : Renderer(wxGraphicsContext::CreateFromUnknownDC(dc), viewMatrix)
 {
+  pushBrush(*wxWHITE_BRUSH);
 }
 /**
    コンストラクタ
@@ -25,9 +28,7 @@ Renderer::Renderer(wxImage& image, const glm::dmat3& viewMatrix)
 */
 void Renderer::setMatrix(const glm::dmat3& matrix) {
   matrix_ = viewMatrix_ * matrix;
-  context_->SetTransform(context_->CreateMatrix(matrix_[0][0], matrix_[0][1], 
-                                                matrix_[1][0], matrix_[1][1], 
-                                                matrix_[2][0], matrix_[2][1]));
+  context_->SetTransform(createMatrix(matrix_));
 }
 /**
  */
@@ -36,10 +37,17 @@ glm::dvec2 Renderer::getScale() const {
 }
 /**
  */
-void Renderer::pushBrush(const wxBrush& brush) {
-  auto graphicsBrush = context_->CreateBrush(brush);
-  brushes_.push(graphicsBrush);
-  context_->SetBrush(graphicsBrush);
+void Renderer::pushBrush(const Brush& brush) {
+  /*
+  if(auto gradient = std::dynamic_pointer_cast<Gradient>(brush->getColor())) {
+  }
+  */
+  if(auto color = std::dynamic_pointer_cast<Color>(brush.getColor())) {
+    pushBrush(wxBrush(color->getColor()));
+  }
+  else {
+    pushBrush(*wxTRANSPARENT_BRUSH);
+  }
 }
 /**
  */
@@ -69,5 +77,23 @@ Renderer::Renderer(wxGraphicsContext* context, const glm::dmat3& viewMatrix)
   : context_(context), 
     viewMatrix_(viewMatrix)
 {
+}
+/**
+ */
+wxGraphicsMatrix Renderer::createMatrix(const glm::dmat3& matrix) const {
+  return context_->CreateMatrix(matrix_[0][0], matrix_[0][1], 
+                                matrix_[1][0], matrix_[1][1], 
+                                matrix_[2][0], matrix_[2][1]);
+}
+/**
+ */
+void Renderer::pushBrush(const wxBrush& brush) {
+  pushBrush(context_->CreateBrush(brush));
+}
+/**
+ */
+void Renderer::pushBrush(const wxGraphicsBrush& brush) {
+  brushes_.push(brush);
+  context_->SetBrush(brush);
 }
 }

@@ -26,7 +26,7 @@ class Renderer {
   void setMatrix(const glm::dmat3& matrix);
   glm::dvec2 getScale() const;
 
-  void pushBrush(const wxBrush& brush);
+  void pushBrush(const Brush& brush);
   void popBrush();
 
   void pushPen(const wxGraphicsPenInfo& info);
@@ -34,5 +34,11 @@ class Renderer {
 
  protected:
   Renderer(wxGraphicsContext* context, const glm::dmat3& viewMatrix);
+
+ private:
+  wxGraphicsMatrix createMatrix(const glm::dmat3& matrix) const;
+
+  void pushBrush(const wxBrush& brush);
+  void pushBrush(const wxGraphicsBrush& brush);
 };
 }

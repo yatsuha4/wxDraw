@@ -74,13 +74,18 @@ size_t PaletteComponent::getIndex(const ColorBasePtr& color) const {
 }
 /**
  */
+BrushPtr PaletteComponent::getBrush(size_t index) const {
+  return GetItem(index, brushes_);
+}
+/**
+ */
 GradientPtr PaletteComponent::getGradient(size_t index) const {
-  return (index < gradients_.size()) ? gradients_.at(index) : nullptr;
+  return GetItem(index, gradients_);
 }
 /**
  */
 ColorPtr PaletteComponent::getColor(size_t index) const {
-  return (index < colors_.size()) ? colors_.at(index) : nullptr;
+  return GetItem(index, colors_);
 }
 /**
  */
@@ -92,6 +97,11 @@ ColorBasePtr PaletteComponent::getColorBase(size_t index) const {
     return gradient;
   }
   return nullptr;
+}
+/**
+ */
+PenPtr PaletteComponent::getPen(size_t index) const {
+  return GetItem(index, pens_);
 }
 /**
  */

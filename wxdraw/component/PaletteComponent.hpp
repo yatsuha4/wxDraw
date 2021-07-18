@@ -36,9 +36,11 @@ class PaletteComponent
   size_t getIndex(const ColorPtr& color) const;
   size_t getIndex(const ColorBasePtr& color) const;
 
-  GradientPtr getGradient(size_t index) const;
-  ColorPtr getColor(size_t index) const;
+  BrushPtr getBrush(size_t index) const;
   ColorBasePtr getColorBase(size_t index) const;
+  ColorPtr getColor(size_t index) const;
+  GradientPtr getGradient(size_t index) const;
+  PenPtr getPen(size_t index) const;
 
  private:
   GradientPtr clone(const PaletteComponent& palette, const GradientPtr& src) const;
@@ -49,6 +51,12 @@ class PaletteComponent
     auto dst = std::make_shared<PenBaseType>(*src);
     dst->setColor(getColor(palette.getIndex(src->getColor())));
     return dst;
+  }
+
+  template<class ItemType>
+  static std::shared_ptr<ItemType>
+  GetItem(size_t index, const std::vector<std::shared_ptr<ItemType>>& items) {
+    return (index < items.size()) ? items.at(index) : nullptr;
   }
 };
 }

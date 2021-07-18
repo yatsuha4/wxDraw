@@ -26,7 +26,6 @@ class BrushComponent
   PropertyPtr createProperty() override;
 
  protected:
-  void onUpdate() override;
   void onBeginRender(Renderer& renderer) override;
   void onEndRender(Renderer& renderer) override;
 };
