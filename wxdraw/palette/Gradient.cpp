@@ -8,6 +8,17 @@ namespace wxdraw::palette {
 const char* Gradient::TYPE = "Gradient";
 int Gradient::Serial = 0;
 /**
+   コピーコンストラクタ
+ */
+Gradient::Gradient(const Gradient& src)
+  : super(src)
+{
+  std::transform(src.stops_.begin(), src.stops_.end(), std::back_inserter(stops_), 
+                 [](const auto& stop) {
+                   return std::make_shared<GradientStop>(*stop);
+                 });
+}
+/**
  */
 void Gradient::sort() {
   std::stable_sort(stops_.begin(), stops_.end(), 
@@ -70,7 +81,13 @@ void Gradient::update() {
  */
 void Gradient::onCreate(const PaletteComponentPtr& palette) {
   setName(wxString::Format("%s_%d", TYPE, ++Serial));
-  stops_.push_back(Create<GradientStop>(palette));
+  if(stops_.empty()) {
+    for(int i = 0; i < 2; i++) {
+      auto stop = Create<GradientStop>(palette);
+      stop->setPos(i);
+      stops_.push_back(stop);
+    }
+  }
 }
 /**
    プロパティを生成する

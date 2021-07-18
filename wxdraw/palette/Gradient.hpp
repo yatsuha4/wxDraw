@@ -21,7 +21,7 @@ class Gradient
 
  public:
   Gradient() = default;
-  Gradient(const Gradient& src) = default;
+  Gradient(const Gradient& src);
   ~Gradient() = default;
 
   WXDRAW_ACCESSOR(Stops, stops_);
