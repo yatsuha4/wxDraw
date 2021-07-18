@@ -17,11 +17,6 @@ void Gradient::sort() {
 }
 /**
  */
-wxColour Gradient::getColor() const {
-  return stops_.empty() ? wxTransparentColour : stops_.front()->getWxColor();
-}
-/**
- */
 Gradient::operator wxGraphicsGradientStops() {
   wxASSERT(stops_.size() >= 2);
   sort();

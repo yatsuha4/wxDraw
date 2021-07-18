@@ -1,15 +1,15 @@
 ﻿#pragma once
 
-#include "wxdraw/palette/PaletteItem.hpp"
+#include "wxdraw/palette/ColorBase.hpp"
 
 namespace wxdraw::palette {
 /**
-   グラデーションの要素
+   単色
 */
 class Color
-  : public PaletteItem
+  : public ColorBase
 {
-  using super = PaletteItem;
+  using super = ColorBase;
 
  public:
   static const char* TYPE;

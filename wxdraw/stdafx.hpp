@@ -140,6 +140,7 @@ using namespace node;
 namespace palette {
 WXDRAW_DECLARE_CLASS(Brush);
 WXDRAW_DECLARE_CLASS(Color);
+WXDRAW_DECLARE_CLASS(ColorBase);
 WXDRAW_DECLARE_CLASS(Gradient);
 WXDRAW_DECLARE_CLASS(GradientStop);
 WXDRAW_DECLARE_CLASS(PaletteItem);

@@ -1,4 +1,4 @@
-#include "wxdraw/palette/Gradient.hpp"
+#include "wxdraw/palette/ColorBase.hpp"
 #include "wxdraw/palette/Pen.hpp"
 #include "wxdraw/property/Property.hpp"
 
@@ -9,8 +9,7 @@ int Pen::Serial = 0;
    デフォルトコンストラクタ
 */
 Pen::Pen()
-  : super(), 
-    width_(0.1)
+  : width_(0.1)
 {
 }
 /**
@@ -18,9 +17,11 @@ Pen::Pen()
 void Pen::onCreate(const PaletteComponentPtr& palette) {
   setName(wxString::Format("%s_%d", TYPE, ++Serial));
 }
+/**
+ */
 void Pen::update() {
   super::update();
-  setBitmap(gradient_ ? gradient_->getBitmap() : GetNullBitmap());
+  setBitmap(color_ ? color_->getBitmap() : GetNullBitmap());
 }
 /**
  */

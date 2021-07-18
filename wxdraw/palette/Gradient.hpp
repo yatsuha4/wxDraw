@@ -1,15 +1,15 @@
 ﻿#pragma once
 
-#include "wxdraw/palette/PaletteItem.hpp"
+#include "wxdraw/palette/ColorBase.hpp"
 
 namespace wxdraw::palette {
 /**
    グラデーション
 */
 class Gradient
-  : public PaletteItem
+  : public ColorBase
 {
-  using super = PaletteItem;
+  using super = ColorBase;
 
  public:
   static const char* TYPE;
@@ -28,7 +28,6 @@ class Gradient
 
   void sort();
 
-  wxColour getColor() const;
   operator wxGraphicsGradientStops();
 
   void update() override;
