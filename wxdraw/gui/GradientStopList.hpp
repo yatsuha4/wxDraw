@@ -21,6 +21,7 @@ class GradientStopList
 
  protected:
   std::vector<GradientStopPtr>& getItems() const override;
+  bool canAppendItem(size_t index) const override;
   bool canRemoveItem(size_t index) const override;
 };
 }

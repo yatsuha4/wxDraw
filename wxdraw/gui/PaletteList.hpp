@@ -56,17 +56,23 @@ class PaletteList
   }
 
   void appendItem(size_t index) override {
-    auto& items = getItems();
-    std::shared_ptr<T> item;
-    if(index < items.size()) {
-      item = PaletteItem::Create<T>(getPaletteComponent(), *items.at(index));
-      items.insert(items.begin() + index, item);
+    if(canAppendItem(index)) {
+      auto& items = getItems();
+      std::shared_ptr<T> item;
+      if(index < items.size()) {
+        item = PaletteItem::Create<T>(getPaletteComponent(), *items.at(index));
+        items.insert(items.begin() + index, item);
+      }
+      else {
+        item = PaletteItem::Create<T>(getPaletteComponent());
+        items.push_back(item);
+      }
+      getList()->InsertItem(*createListItem(index, item));
     }
-    else {
-      item = PaletteItem::Create<T>(getPaletteComponent());
-      items.push_back(item);
-    }
-    getList()->InsertItem(*createListItem(index, item));
+  }
+
+  virtual bool canAppendItem(size_t index) const {
+    return true;
   }
 
   void removeItem(size_t index) override {

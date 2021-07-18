@@ -16,8 +16,10 @@ GradientStopList::GradientStopList(wxWindow* parent, Palette* palette)
 /**
  */
 void GradientStopList::setGradient(const GradientPtr& gradient) {
-  gradient_ = gradient;
-  refresh();
+  if(gradient != gradient_) {
+    gradient_ = gradient;
+    refresh();
+  }
 }
 /**
  */
@@ -26,7 +28,12 @@ std::vector<GradientStopPtr>& GradientStopList::getItems() const {
 }
 /**
  */
+bool GradientStopList::canAppendItem(size_t index) const {
+  return gradient_ && super::canAppendItem(index);
+}
+/**
+ */
 bool GradientStopList::canRemoveItem(size_t index) const {
-  return super::canRemoveItem(index) && getItems().size() > 2;
+  return getItems().size() > 2 && super::canRemoveItem(index);
 }
 }
