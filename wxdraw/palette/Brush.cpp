@@ -1,5 +1,4 @@
 #include "wxdraw/palette/Brush.hpp"
-#include "wxdraw/palette/ColorBase.hpp"
 #include "wxdraw/property/Property.hpp"
 
 namespace wxdraw::palette {
@@ -19,16 +18,8 @@ void Brush::onCreate(const PaletteComponentPtr& palette) {
 }
 /**
  */
-void Brush::update() {
-  super::update();
-  setBitmap(color_ ? color_->getBitmap() : GetNullBitmap());
-}
-/**
- */
 PropertyPtr Brush::createProperty() {
-  auto property = PropertyOwner::createProperty(TYPE);
-  property->appendMember("Name", getName());
-  property->appendMember("Color", color_);
+  auto property = super::createProperty(TYPE);
   return property;
 }
 }

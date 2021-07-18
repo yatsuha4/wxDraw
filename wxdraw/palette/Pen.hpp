@@ -1,21 +1,20 @@
 ﻿#pragma once
 
-#include "wxdraw/palette/PaletteItem.hpp"
+#include "wxdraw/palette/PenBase.hpp"
 
 namespace wxdraw::palette {
 /**
    ペン
 */
 class Pen
-  : public PaletteItem
+  : public PenBase
 {
-  using super = PaletteItem;
+  using super = PenBase;
 
  public:
   static const char* TYPE;
 
  private:
-  ColorBasePtr color_;
   double width_;
 
   static int Serial;
@@ -25,11 +24,9 @@ class Pen
   Pen(const Pen& src) = default;
   ~Pen() override = default;
 
-  WXDRAW_GETTER(Color, color_);
   WXDRAW_GETTER(Width, width_);
 
   void onCreate(const PaletteComponentPtr& palette) override;
-  void update() override;
   PropertyPtr createProperty() override;
 };
 }

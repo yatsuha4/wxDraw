@@ -145,6 +145,7 @@ WXDRAW_DECLARE_CLASS(Gradient);
 WXDRAW_DECLARE_CLASS(GradientStop);
 WXDRAW_DECLARE_CLASS(PaletteItem);
 WXDRAW_DECLARE_CLASS(Pen);
+WXDRAW_DECLARE_CLASS(PenBase);
 }
 using namespace palette;
 

@@ -1,21 +1,19 @@
 ﻿#pragma once
 
-#include "wxdraw/palette/PaletteItem.hpp"
+#include "wxdraw/palette/PenBase.hpp"
 
 namespace wxdraw::palette {
 /**
  */
 class Brush
-  : public PaletteItem
+  : public PenBase
 {
-  using super = PaletteItem;
+  using super = PenBase;
 
  public:
   static const char* TYPE;
 
  private:
-  ColorBasePtr color_;
-
   static int Serial;
 
  public:
@@ -23,10 +21,7 @@ class Brush
   Brush(const Brush& src) = default;
   ~Brush() override = default;
 
-  WXDRAW_GETTER(Color, color_);
-
   void onCreate(const PaletteComponentPtr& palette) override;
-  void update() override;
   PropertyPtr createProperty() override;
 };
 }
