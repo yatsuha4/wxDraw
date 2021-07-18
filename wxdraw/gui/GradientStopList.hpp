@@ -21,6 +21,5 @@ class GradientStopList
 
  protected:
   std::vector<GradientStopPtr>& getItems() const override;
-  void onUpdate(const GradientStopPtr& gradient, wxListItem& item) override;
 };
 }

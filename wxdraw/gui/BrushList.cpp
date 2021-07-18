@@ -18,10 +18,4 @@ std::vector<BrushPtr>& BrushList::getItems() const {
   }
   return super::getItems();
 }
-/**
- */
-void BrushList::onUpdate(const BrushPtr& brush, wxListItem& item) {
-  item.SetText(brush->getName());
-  super::onUpdate(brush, item);
-}
 }

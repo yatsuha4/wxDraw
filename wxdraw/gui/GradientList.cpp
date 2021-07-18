@@ -26,10 +26,4 @@ void GradientList::onSelectItem(const PaletteItemPtr& item) {
   auto gradient = std::static_pointer_cast<Gradient>(item);
   getPalette()->setGradient(gradient);
 }
-/**
- */
-void GradientList::onUpdate(const GradientPtr& gradient, wxListItem& item) {
-  item.SetText(gradient->getName());
-  super::onUpdate(gradient, item);
-}
 }

@@ -18,7 +18,7 @@ void Gradient::sort() {
 /**
  */
 wxColour Gradient::getColor() const {
-  return stops_.empty() ? wxTransparentColour : stops_.front()->getColor()->getColor();
+  return stops_.empty() ? wxTransparentColour : stops_.front()->getWxColor();
 }
 /**
  */
@@ -41,8 +41,7 @@ Gradient::operator wxGraphicsGradientStops() {
   if(endPos == stops_.end()) {
     --endPos;
   }
-  wxGraphicsGradientStops stops((*startPos)->getColor()->getColor(), 
-                                (*endPos)->getColor()->getColor());
+  wxGraphicsGradientStops stops((*startPos)->getWxColor(), (*endPos)->getWxColor());
   for(auto iter = startPos; iter != endPos; iter++) {
     if((*iter)->getPos() > 0.0 && (*iter)->getPos() < 1.0) {
       stops.Add(**iter);
@@ -61,7 +60,7 @@ void Gradient::update() {
     Renderer renderer(image, glm::dmat3(1.0));
     auto& context = renderer.getContext();
     if(stops_.size() < 2) {
-      context.SetBrush(wxBrush(stops_.front()->getColor()->getColor()));
+      context.SetBrush(wxBrush(stops_.front()->getWxColor()));
     }
     else {
       context.SetBrush(context.CreateLinearGradientBrush(0.0, 0.0, 

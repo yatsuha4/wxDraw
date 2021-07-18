@@ -32,16 +32,6 @@ PaletteListBase::PaletteListBase(wxWindow* window, Palette* palette)
 }
 /**
  */
-void PaletteListBase::update() {
-  list_->Freeze();
-  list_->DeleteAllItems();
-  imageList_->RemoveAll();
-  onUpdate();
-  list_->SetImageList(imageList_.get(), wxIMAGE_LIST_NORMAL);
-  list_->Thaw();
-}
-/**
- */
 int PaletteListBase::appendImage(const wxBitmap& bitmap) {
   return imageList_->Add(bitmap);
 }
@@ -49,11 +39,6 @@ int PaletteListBase::appendImage(const wxBitmap& bitmap) {
  */
 const PaletteComponentPtr& PaletteListBase::getPaletteComponent() const {
   return getPalette()->getPaletteComponent();
-}
-/**
- */
-PaletteItemPtr PaletteListBase::getItem(size_t index) const {
-  return nullptr;
 }
 /**
  */

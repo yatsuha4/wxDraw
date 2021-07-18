@@ -21,8 +21,6 @@ class PaletteListBase
 
   WXDRAW_GETTER(Palette, palette_);
 
-  void update();
-
  protected:
   WXDRAW_GETTER(List, list_);
 
@@ -31,12 +29,12 @@ class PaletteListBase
 
   const PaletteComponentPtr& getPaletteComponent() const;
 
-  virtual PaletteItemPtr getItem(size_t index) const;
-  virtual void appendItem(size_t index) {}
-  virtual void removeItem(size_t index) {}
+  virtual PaletteItemPtr getItem(size_t index) const = 0;
+  virtual void appendItem(size_t index) = 0;
+  virtual void removeItem(size_t index) = 0;
   virtual void onSelectItem(const PaletteItemPtr& item);
-  virtual void onUpdate() {}
 
+ private:
   void onListItemSelected(wxListEvent& event);
   void onTool(wxCommandEvent& event);
 };

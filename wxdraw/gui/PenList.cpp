@@ -18,10 +18,4 @@ std::vector<PenPtr>& PenList::getItems() const {
   }
   return super::getItems();
 }
-/**
- */
-void PenList::onUpdate(const PenPtr& pen, wxListItem& item) {
-  item.SetText(pen->getName());
-  super::onUpdate(pen, item);
-}
 }

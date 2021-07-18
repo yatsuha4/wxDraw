@@ -20,23 +20,27 @@ bool GradientStop::operator<(const GradientStop& rhs) const {
 /**
  */
 GradientStop::operator wxGraphicsGradientStop() const {
-  return wxGraphicsGradientStop(color_->getColor(), pos_);
+  return wxGraphicsGradientStop(getWxColor(), pos_);
+}
+/**
+ */
+wxColour GradientStop::getWxColor() const {
+  return color_ ? color_->getColor() : wxTransparentColour;
 }
 /**
  */
 void GradientStop::update() {
   super::update();
   setName(wxString::FromDouble(pos_));
-  setBitmap(color_->getBitmap());
+  setBitmap(color_ ? color_->getBitmap() : GetNullBitmap());
 }
 /**
  */
 void GradientStop::onCreate(const PaletteComponentPtr& palette) {
   auto& colors = palette->getColors();
-  if(colors.empty()) {
-    colors.push_back(Create<Color>(palette));
+  if(!colors.empty()) {
+    color_ = colors.front();
   }
-  color_ = colors.front();
 }
 /**
  */

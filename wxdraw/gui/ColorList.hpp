@@ -16,6 +16,5 @@ class ColorList
 
  protected:
   std::vector<ColorPtr>& getItems() const override;
-  void onUpdate(const ColorPtr& color, wxListItem& item) override;
 };
 }

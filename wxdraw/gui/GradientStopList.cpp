@@ -12,32 +12,16 @@ GradientStopList::GradientStopList(wxWindow* parent, Palette* palette)
   : super(parent, palette)
 {
   getList()->AppendColumn("Stop");
-  getList()->AppendColumn("Color");
 }
 /**
  */
 void GradientStopList::setGradient(const GradientPtr& gradient) {
   gradient_ = gradient;
-  update();
+  refresh();
 }
 /**
  */
 std::vector<GradientStopPtr>& GradientStopList::getItems() const {
   return gradient_ ? gradient_->getStops() : super::getItems();
-}
-/**
- */
-void GradientStopList::onUpdate(const GradientStopPtr& stop, wxListItem& item) {
-  item.SetText(wxString::FromDouble(stop->getPos()));
-  super::onUpdate(stop, item);
-  /*
-  {
-    wxListItem second;
-    second.SetId(item.GetId());
-    second.SetColumn(1);
-    second.SetText(stop->getColor()->getName());
-    getList()->SetItem(second);
-  }
-  */
 }
 }

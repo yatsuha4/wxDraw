@@ -28,6 +28,7 @@ class GradientStop
   WXDRAW_ACCESSOR(Pos, pos_);
 
   operator wxGraphicsGradientStop() const;
+  wxColour getWxColor() const;
 
   void update() override;
   void onCreate(const PaletteComponentPtr& palette) override;

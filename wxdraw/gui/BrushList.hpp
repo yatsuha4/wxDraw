@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "wxdraw/gui/PaletteList.hpp"
+#include "wxdraw/palette/Brush.hpp"
 
 namespace wxdraw::gui {
 /**
@@ -16,6 +17,5 @@ class BrushList
 
  protected:
   std::vector<BrushPtr>& getItems() const override;
-  void onUpdate(const BrushPtr& brush, wxListItem& item) override;
 };
 }

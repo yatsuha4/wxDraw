@@ -17,6 +17,5 @@ class GradientList
  protected:
   void onSelectItem(const PaletteItemPtr& item) override;
   std::vector<GradientPtr>& getItems() const override;
-  void onUpdate(const GradientPtr& gradient, wxListItem& item) override;
 };
 }

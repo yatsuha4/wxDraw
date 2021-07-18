@@ -29,10 +29,4 @@ std::vector<ColorPtr>& ColorList::getItems() const {
   }
   return super::getItems();
 }
-/**
- */
-void ColorList::onUpdate(const ColorPtr& color, wxListItem& item) {
-  item.SetText(color->getName());
-  super::onUpdate(color, item);
-}
 }

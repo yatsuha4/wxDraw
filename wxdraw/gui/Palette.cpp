@@ -41,6 +41,10 @@ void Palette::setPaletteComponent(const PaletteComponentPtr& component) {
 /**
  */
 void Palette::update() {
+  penList_->update();
+  brushList_->update();
+  gradientList_->update();
+  gradientStopList_->update();
   colorList_->update();
 }
 }
