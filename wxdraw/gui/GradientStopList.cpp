@@ -24,4 +24,9 @@ void GradientStopList::setGradient(const GradientPtr& gradient) {
 std::vector<GradientStopPtr>& GradientStopList::getItems() const {
   return gradient_ ? gradient_->getStops() : super::getItems();
 }
+/**
+ */
+bool GradientStopList::canRemoveItem(size_t index) const {
+  return super::canRemoveItem(index) && getItems().size() > 2;
+}
 }

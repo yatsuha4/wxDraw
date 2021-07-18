@@ -70,11 +70,15 @@ class PaletteList
   }
 
   void removeItem(size_t index) override {
-    auto& items = getItems();
-    if(index < items.size()) {
+    if(canRemoveItem(index)) {
+      auto& items = getItems();
       items.erase(items.begin() + index);
       getList()->DeleteItem(index);
     }
+  }
+
+  virtual bool canRemoveItem(size_t index) const {
+    return index < getItems().size();
   }
 
  private:
