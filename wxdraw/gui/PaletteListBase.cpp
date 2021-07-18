@@ -14,7 +14,8 @@ PaletteListBase::PaletteListBase(wxWindow* window, Palette* palette)
     list_(new wxListView(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 
                          wxLC_REPORT | wxLC_ICON)), 
     imageList_(new wxImageList(PaletteItem::BITMAP_SIZE.GetWidth(), 
-                               PaletteItem::BITMAP_SIZE.GetHeight()))
+                               PaletteItem::BITMAP_SIZE.GetHeight())), 
+    index_(0)
 {
   auto sizer = new wxBoxSizer(wxVERTICAL);
   sizer->Add(list_, wxSizerFlags().Expand().Proportion(1));
@@ -48,9 +49,15 @@ void PaletteListBase::onSelectItem(const PaletteItemPtr& item) {
 /**
  */
 void PaletteListBase::onListItemSelected(wxListEvent& event) {
-  index_ = event.GetIndex();
-  if(auto item = getItem(index_)) {
+  auto index = event.GetIndex();
+  if(auto item = getItem(index)) {
+    if(index_ < list_->GetItemCount()) {
+      list_->SetItemBackgroundColour(index_, wxTransparentColor);
+    }
+    index_ = index;
+    list_->SetItemBackgroundColour(index_, wxSystemSettings::GetColour(wxSYS_COLOUR_HIGHLIGHT));
     onSelectItem(item);
+    list_->SetItemState(index_, 0, wxLIST_STATE_SELECTED);
   }
 }
 /**
