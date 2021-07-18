@@ -34,5 +34,8 @@ class PaletteComponent
   size_t getIndex(const BrushPtr& brush) const;
   size_t getIndex(const GradientPtr& gradient) const;
   size_t getIndex(const ColorPtr& color) const;
+  size_t getIndex(const ColorBasePtr& color) const;
+
+  ColorBasePtr getColorBase(size_t index) const;
 };
 }

@@ -28,6 +28,7 @@ void Pen::update() {
 PropertyPtr Pen::createProperty() {
   auto property = PropertyOwner::createProperty(TYPE);
   property->appendMember("Name", getName());
+  property->appendMember("Color", color_);
   property->appendMember("Width", width_);
   return property;
 }

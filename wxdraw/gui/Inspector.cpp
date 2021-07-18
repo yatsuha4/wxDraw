@@ -1,8 +1,9 @@
-#include "wxdraw/component/PaletteComponent.hpp"
 #include "wxdraw/gui/Inspector.hpp"
 #include "wxdraw/gui/Menu.hpp"
-#include "wxdraw/palette/Pen.hpp"
 #include "wxdraw/palette/Brush.hpp"
+#include "wxdraw/palette/Color.hpp"
+#include "wxdraw/palette/Gradient.hpp"
+#include "wxdraw/palette/Pen.hpp"
 #include "wxdraw/property/Property.hpp"
 #include "wxdraw/property/PropertyMember.hpp"
 
@@ -62,10 +63,16 @@ void Inspector::showProperty(const Property& property) {
       append<wxFileProperty>(member, member->getValue().GetFullPath());
     }
     else if(auto m = Member<PenPtr>::As(iter)) {
-      append<wxEnumProperty>(m, createPenChoices());
+      appendPaletteChoices(m, createPenChoices());
     }
     else if(auto m = Member<BrushPtr>::As(iter)) {
-      append<wxEnumProperty>(m, createBrushChoices());
+      appendPaletteChoices(m, createBrushChoices());
+    }
+    else if(auto m = Member<ColorPtr>::As(iter)) {
+      appendPaletteChoices(m, createColorChoices());
+    }
+    else if(auto m = Member<ColorBasePtr>::As(iter)) {
+      appendPaletteChoices(m, createColorBaseChoices());
     }
   }
 }
@@ -74,7 +81,7 @@ void Inspector::showProperty(const Property& property) {
 wxPGChoices Inspector::createPenChoices() const {
   wxPGChoices choices;
   choices.Add("Null");
-  if(auto palette = mainFrame_->getPaletteComponent()) {
+  if(auto palette = getPaletteComponent()) {
     for(auto& pen : palette->getPens()) {
       choices.Add(pen->getName());
     }
@@ -86,9 +93,30 @@ wxPGChoices Inspector::createPenChoices() const {
 wxPGChoices Inspector::createBrushChoices() const {
   wxPGChoices choices;
   choices.Add("Null");
-  if(auto palette = mainFrame_->getPaletteComponent()) {
+  if(auto palette = getPaletteComponent()) {
     createPaletteItemChoices(choices, palette->getBrushes());
   }
+  return choices;
+}
+/**
+ */
+wxPGChoices Inspector::createColorChoices() const {
+  wxPGChoices choices;
+  if(auto palette = getPaletteComponent()) {
+    createPaletteItemChoices(choices, palette->getColors());
+  }
+  choices.Add("Null");
+  return choices;
+}
+/**
+ */
+wxPGChoices Inspector::createColorBaseChoices() const {
+  wxPGChoices choices;
+  if(auto palette = getPaletteComponent()) {
+    createPaletteItemChoices(choices, palette->getColors());
+    createPaletteItemChoices(choices, palette->getGradients());
+  }
+  choices.Add("Null");
   return choices;
 }
 /**
@@ -99,7 +127,9 @@ void Inspector::onChanged(wxPropertyGridEvent& event) {
            bool, 
            wxString, 
            wxColour, 
-           wxFileName>(event);
+           wxFileName, 
+           ColorPtr, 
+           ColorBasePtr>(event);
 }
 /**
  */
@@ -118,5 +148,30 @@ void Inspector::onRightClick(wxPropertyGridEvent& event) {
     menu->Append(Menu::ID_COMPONENT_DOWN, "Down");
     PopupMenu(menu);
   }
+}
+/**
+ */
+bool Inspector::getValue(const wxPropertyGridEvent& event, ColorPtr& value) const {
+  if(auto palette = getPaletteComponent()) {
+    auto& colors = palette->getColors();
+    auto index = event.GetValue().GetLong();
+    value = (index < colors.size()) ? colors.at(index) : nullptr;
+    return true;
+  }
+  return false;
+}
+/**
+ */
+bool Inspector::getValue(const wxPropertyGridEvent& event, ColorBasePtr& value) const {
+  if(auto palette = getPaletteComponent()) {
+    value = palette->getColorBase(event.GetValue().GetLong());
+    return true;
+  }
+  return false;
+}
+/**
+ */
+const PaletteComponentPtr& Inspector::getPaletteComponent() const {
+  return mainFrame_->getPaletteComponent();
 }
 }

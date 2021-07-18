@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "wxdraw/command/ChangePropertyCommand.hpp"
+#include "wxdraw/component/PaletteComponent.hpp"
 #include "wxdraw/gui/MainFrame.hpp"
 #include "wxdraw/property/Member.hpp"
 
@@ -28,6 +29,8 @@ class Inspector
   void showProperty(const Property& property);
   wxPGChoices createPenChoices() const;
   wxPGChoices createBrushChoices() const;
+  wxPGChoices createColorChoices() const;
+  wxPGChoices createColorBaseChoices() const;
 
   template<class T>
   void createPaletteItemChoices(wxPGChoices& choices, 
@@ -42,6 +45,20 @@ class Inspector
   template<class PropertyType, class MemberType>
   PropertyType* append(const std::shared_ptr<MemberType>& member) {
     return append<PropertyType>(member, member->getValue());
+  }
+
+  template<class MemberType>
+  wxEnumProperty* appendPaletteChoices(const std::shared_ptr<MemberType>& member, 
+                                       wxPGChoices choices) {
+    return appendChoices(member, choices, 
+                         getPaletteComponent()->getIndex(member->getValue()));
+  }
+
+  template<class MemberType>
+  wxEnumProperty* appendChoices(const std::shared_ptr<MemberType>& member, 
+                                wxPGChoices choices, 
+                                size_t index) {
+    return append<wxEnumProperty>(member, choices, static_cast<int>(index));
   }
 
   template<class PropertyType, class... Args>
@@ -77,5 +94,10 @@ class Inspector
   bool getValue(const wxPropertyGridEvent& event, T& value) const {
     return wxAny(event.GetValue()).GetAs(&value);
   }
+
+  bool getValue(const wxPropertyGridEvent& event, ColorPtr& value) const;
+  bool getValue(const wxPropertyGridEvent& event, ColorBasePtr& value) const;
+
+  const PaletteComponentPtr& getPaletteComponent() const;
 };
 }
