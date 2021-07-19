@@ -78,6 +78,7 @@ void Gradient::update() {
     }
     setBitmap(image);
   }
+  super::update();
 }
 /**
  */

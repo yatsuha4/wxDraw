@@ -6,8 +6,8 @@ namespace wxdraw::palette {
 /**
  */
 void PenBase::update() {
-  super::update();
   setBitmap(color_ ? color_->getBitmap() : GetNullBitmap());
+  super::update();
 }
 /**
  */

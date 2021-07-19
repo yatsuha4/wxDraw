@@ -30,9 +30,9 @@ wxColour GradientStop::getWxColor() const {
 /**
  */
 void GradientStop::update() {
-  super::update();
   setName(wxString::FromDouble(pos_));
   setBitmap(color_ ? color_->getBitmap() : GetNullBitmap());
+  super::update();
 }
 /**
  */

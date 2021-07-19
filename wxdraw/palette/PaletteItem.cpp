@@ -12,6 +12,14 @@ PaletteItem::PaletteItem()
 }
 /**
  */
+void PaletteItem::update() {
+  wxMemoryDC dc(bitmap_);
+  dc.SetPen(*wxBLACK_PEN);
+  dc.SetBrush(*wxTRANSPARENT_BRUSH);
+  dc.DrawRectangle(bitmap_.GetSize());
+}
+/**
+ */
 const wxBitmap& PaletteItem::GetNullBitmap() {
   if(!NullBitmap.IsOk()) {
     NullBitmap.Create(BITMAP_SIZE);

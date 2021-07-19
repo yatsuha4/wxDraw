@@ -17,6 +17,7 @@ void Color::update() {
   wxImage image(BITMAP_SIZE);
   image.SetRGB(image.GetSize(), color_.Red(), color_.Green(), color_.Blue());
   setBitmap(image);
+  super::update();
 }
 /**
  */

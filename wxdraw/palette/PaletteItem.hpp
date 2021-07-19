@@ -26,7 +26,7 @@ class PaletteItem
   WXDRAW_ACCESSOR(Name, name_);
   WXDRAW_ACCESSOR(Bitmap, bitmap_);
 
-  virtual void update() {}
+  virtual void update();
   virtual void onCreate(const PaletteComponentPtr& palette) {}
   virtual PropertyPtr createProperty() = 0;
 
