@@ -1,5 +1,4 @@
 #include "wxdraw/component/PaletteComponent.hpp"
-#include "wxdraw/palette/GradientStop.hpp"
 
 namespace wxdraw::component {
 const char* PaletteComponent::TYPE = "Palette";
@@ -57,34 +56,16 @@ size_t PaletteComponent::getIndex(const ColorBasePtr& color) const {
 }
 /**
  */
-BrushPtr PaletteComponent::getBrush(size_t index) const {
-  return GetItem(index, brushes_);
-}
-/**
- */
-GradientPtr PaletteComponent::getGradient(size_t index) const {
-  return GetItem(index, gradients_);
-}
-/**
- */
-ColorPtr PaletteComponent::getColor(size_t index) const {
-  return GetItem(index, colors_);
-}
-/**
- */
-ColorBasePtr PaletteComponent::getColorBase(size_t index) const {
-  if(auto color = getColor(index)) {
-    return color;
+void PaletteComponent::getItem(size_t index, ColorBasePtr& item) const {
+  if(auto color = getItem<Color>(index)) {
+    item = color;
   }
-  if(auto gradient = getGradient(index - colors_.size())) {
-    return gradient;
+  else if(auto gradient = getItem<Gradient>(index - colors_.size())) {
+    item = gradient;
   }
-  return nullptr;
-}
-/**
- */
-PenPtr PaletteComponent::getPen(size_t index) const {
-  return GetItem(index, pens_);
+  else {
+    item = nullptr;
+  }
 }
 /**
  */
@@ -119,7 +100,7 @@ GradientPtr PaletteComponent::clone(const PaletteComponent& palette,
                                     const GradientPtr& src) const {
   auto dst = std::make_shared<Gradient>(*src);
   for(auto& stop : dst->getStops()) {
-    stop->setColor(getColor(palette.getIndex(stop->getColor())));
+    stop->setColor(getItem<Color>(palette.getIndex(stop->getColor())));
   }
   return dst;
 }

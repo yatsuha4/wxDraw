@@ -53,26 +53,41 @@ class PaletteComponent
 
   size_t getIndex(const ColorBasePtr& color) const;
 
-  BrushPtr getBrush(size_t index) const;
-  ColorBasePtr getColorBase(size_t index) const;
-  ColorPtr getColor(size_t index) const;
-  GradientPtr getGradient(size_t index) const;
-  PenPtr getPen(size_t index) const;
+  template<class T>
+  std::shared_ptr<T> getItem(size_t index) const {
+    std::shared_ptr<T> item;
+    getItem(index, item);
+    return item;
+  }
 
  private:
   void getItems(const std::vector<PenPtr>** items) const {
     *items = &pens_;
   }
+
   void getItems(const std::vector<BrushPtr>** items) const {
     *items = &brushes_;
   }
+
   void getItems(const std::vector<GradientPtr>** items) const {
     *items = &gradients_;
   }
-  void getItems(const std::vector<GradientStopPtr>** items) const {}
+
+  void getItems(const std::vector<GradientStopPtr>** items) const {
+    wxLogFatalError("illegal access");
+  }
+
   void getItems(const std::vector<ColorPtr>** items) const {
     *items = &colors_;
   }
+
+  template<class T>
+  void getItem(size_t index, std::shared_ptr<T>& item) const {
+    auto& items = getItems<T>();
+    item = (index < items.size()) ? items.at(index) : nullptr;
+  }
+
+  void getItem(size_t index, ColorBasePtr& item) const;
 
   PenPtr appendPen(const wxString& name, const ColorPtr& color = nullptr);
   BrushPtr appendBrush(const wxString& name, const ColorPtr& olor = nullptr);
@@ -84,14 +99,8 @@ class PaletteComponent
   std::shared_ptr<PenBaseType> clone(const PaletteComponent& palette, 
                                      const std::shared_ptr<PenBaseType>& src) const {
     auto dst = std::make_shared<PenBaseType>(*src);
-    dst->setColor(getColor(palette.getIndex(src->getColor())));
+    dst->setColor(getItem<Color>(palette.getIndex(src->getColor())));
     return dst;
-  }
-
-  template<class ItemType>
-  static std::shared_ptr<ItemType>
-  GetItem(size_t index, const std::vector<std::shared_ptr<ItemType>>& items) {
-    return (index < items.size()) ? items.at(index) : nullptr;
   }
 };
 }

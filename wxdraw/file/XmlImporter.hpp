@@ -79,6 +79,17 @@ class XmlImporter
   bool fromString(const wxString& src, ColorPtr& dst) const;
   bool fromString(const wxString& src, ColorBasePtr& dst) const;
 
+  template<class T>
+  bool fromStringPalette(const wxString& src, std::shared_ptr<T>& dst) const {
+    if(palette_) {
+      int index;
+      if(fromString(src, index)) {
+        dst = palette_->getItem<T>(index);
+        return true;
+      }
+    }
+    return false;
+  }
 
   static void Warning(const wxString& message, const wxXmlNode& xml);
 };

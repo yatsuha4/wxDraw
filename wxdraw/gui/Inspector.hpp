@@ -95,10 +95,31 @@ class Inspector
     return wxAny(event.GetValue()).GetAs(&value);
   }
 
-  bool getValue(const wxPropertyGridEvent& event, BrushPtr& value) const;
-  bool getValue(const wxPropertyGridEvent& event, ColorBasePtr& value) const;
-  bool getValue(const wxPropertyGridEvent& event, ColorPtr& value) const;
-  bool getValue(const wxPropertyGridEvent& event, PenPtr& value) const;
+  bool getValue(const wxPropertyGridEvent& event, BrushPtr& value) const {
+    return getValuePalette(event, value);
+  }
+
+  bool getValue(const wxPropertyGridEvent& event, ColorBasePtr& value) const {
+    return getValuePalette(event, value);
+  }
+
+  bool getValue(const wxPropertyGridEvent& event, ColorPtr& value) const {
+    return getValuePalette(event, value);
+  }
+
+  bool getValue(const wxPropertyGridEvent& event, PenPtr& value) const {
+    return getValuePalette(event, value);
+  }
+
+  template<class T>
+  bool getValuePalette(const wxPropertyGridEvent& event, 
+                       std::shared_ptr<T>& value) const {
+    if(auto palette = getPaletteComponent()) {
+      value = palette->getItem<T>(event.GetValue().GetLong());
+      return true;
+    }
+    return false;
+  }
 
   const PaletteComponentPtr& getPaletteComponent() const;
 };

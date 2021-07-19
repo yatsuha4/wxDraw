@@ -145,42 +145,6 @@ void Inspector::onRightClick(wxPropertyGridEvent& event) {
 }
 /**
  */
-bool Inspector::getValue(const wxPropertyGridEvent& event, BrushPtr& value) const {
-  if(auto palette = getPaletteComponent()) {
-    value = palette->getBrush(event.GetValue().GetLong());
-    return true;
-  }
-  return false;
-}
-/**
- */
-bool Inspector::getValue(const wxPropertyGridEvent& event, ColorBasePtr& value) const {
-  if(auto palette = getPaletteComponent()) {
-    value = palette->getColorBase(event.GetValue().GetLong());
-    return true;
-  }
-  return false;
-}
-/**
- */
-bool Inspector::getValue(const wxPropertyGridEvent& event, ColorPtr& value) const {
-  if(auto palette = getPaletteComponent()) {
-    value = palette->getColor(event.GetValue().GetLong());
-    return true;
-  }
-  return false;
-}
-/**
- */
-bool Inspector::getValue(const wxPropertyGridEvent& event, PenPtr& value) const {
-  if(auto palette = getPaletteComponent()) {
-    value = palette->getPen(event.GetValue().GetLong());
-    return true;
-  }
-  return false;
-}
-/**
- */
 const PaletteComponentPtr& Inspector::getPaletteComponent() const {
   return mainFrame_->getPaletteComponent();
 }

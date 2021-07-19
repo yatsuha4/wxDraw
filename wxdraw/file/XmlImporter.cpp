@@ -186,50 +186,22 @@ bool XmlImporter::fromString(const wxString& src, wxFont& dst) const {
 /**
  */
 bool XmlImporter::fromString(const wxString& src, PenPtr& dst) const {
-  if(palette_) {
-    int index;
-    if(fromString(src, index)) {
-      dst = palette_->getPen(index);
-      return true;
-    }
-  }
-  return false;
+  return fromStringPalette(src, dst);
 }
 /**
  */
 bool XmlImporter::fromString(const wxString& src, BrushPtr& dst) const {
-  if(palette_) {
-    int index;
-    if(fromString(src, index)) {
-      dst = palette_->getBrush(index);
-      return true;
-    }
-  }
-  return false;
+  return fromStringPalette(src, dst);
 }
 /**
  */
 bool XmlImporter::fromString(const wxString& src, ColorPtr& dst) const {
-  if(palette_) {
-    int index;
-    if(fromString(src, index)) {
-      dst = palette_->getColor(index);
-      return true;
-    }
-  }
-  return false;
+  return fromStringPalette(src, dst);
 }
 /**
  */
 bool XmlImporter::fromString(const wxString& src, ColorBasePtr& dst) const {
-  if(palette_) {
-    int index;
-    if(fromString(src, index)) {
-      dst = palette_->getColorBase(index);
-      return true;
-    }
-  }
-  return false;
+  return fromStringPalette(src, dst);
 }
 /**
  */
