@@ -1,4 +1,5 @@
 #include "wxdraw/component/ContainerComponent.hpp"
+#include "wxdraw/component/PaletteComponent.hpp"
 #include "wxdraw/file/XmlExporter.hpp"
 #include "wxdraw/node/Node.hpp"
 #include "wxdraw/property/Member.hpp"
@@ -11,7 +12,8 @@ namespace wxdraw::file {
 */
 XmlExporter::XmlExporter(const NodePtr& node, const wxFileName& fileName)
   : super(node), 
-    fileName_(fileName)
+    fileName_(fileName), 
+    palette_(Node::GetParentComponent<PaletteComponent>(node))
 {
   document_.SetRoot(createXml(*node));
 }
@@ -21,21 +23,6 @@ XmlExporter::XmlExporter(const NodePtr& node, const wxFileName& fileName)
 bool XmlExporter::save() {
   wxFileOutputStream output(fileName_.GetFullPath());
   return document_.Save(output);
-}
-/**
- */
-wxString XmlExporter::ToString(int value) {
-  return wxNumberFormatter::ToString(static_cast<long>(value), wxNumberFormatter::Style_None);
-}
-/**
- */
-wxString XmlExporter::ToString(double value) {
-  return wxNumberFormatter::ToString(value, 16, wxNumberFormatter::Style_NoTrailingZeroes);
-}
-/**
- */
-wxString XmlExporter::ToString(bool value) {
-  return ToString(static_cast<int>(value));
 }
 /**
  */
@@ -65,27 +52,52 @@ wxXmlNode* XmlExporter::createXml(Node& node, const Property& property) {
 /**
  */
 wxString XmlExporter::getValue(const MemberBasePtr& member) {
-  if(auto m = Member<int>::As(member)) {
-    return ToString(m->getValue());
+  wxString value;
+  if(!getValue<WXDRAW_PROPERTY_CLASSES>(member, value)) {
+    wxLogError("illegal member");
   }
-  else if(auto m = Member<double>::As(member)) {
-    return ToString(m->getValue());
-  }
-  else if(auto m = Member<bool>::As(member)) {
-    return ToString(m->getValue());
-  }
-  else if(auto m = Member<wxString>::As(member)) {
-    return m->getValue();
-  }
-  else if(auto m = Member<wxColour>::As(member)) {
-    return m->getValue().GetAsString();
-  }
-  else if(auto m = Member<wxFileName>::As(member)) {
-    auto fileName(m->getValue());
-    fileName.MakeRelativeTo(fileName_.GetPath());
-    return fileName.GetFullPath();
-  }
-  wxLogError("illegal member");
-  return wxEmptyString;
+  return value;
+}
+/**
+ */
+wxString XmlExporter::toString(int value) const {
+  return wxNumberFormatter::ToString(static_cast<long>(value), wxNumberFormatter::Style_None);
+}
+/**
+ */
+wxString XmlExporter::toString(double value) const {
+  return wxNumberFormatter::ToString(value, 16, wxNumberFormatter::Style_NoTrailingZeroes);
+}
+/**
+ */
+wxString XmlExporter::toString(bool value) const {
+  return toString(static_cast<int>(value));
+}
+/**
+ */
+wxString XmlExporter::toString(const wxString& value) const {
+  return value;
+}
+/**
+ */
+wxString XmlExporter::toString(const wxColour& value) const {
+  return value.GetAsString(wxC2S_HTML_SYNTAX);
+}
+/**
+ */
+wxString XmlExporter::toString(const wxFileName& value) const {
+  auto fileName(value);
+  fileName.MakeRelativeTo(fileName_.GetPath());
+  return fileName.GetFullPath();
+}
+/**
+ */
+wxString XmlExporter::toString(const PenPtr& value) const {
+  return toString(static_cast<int>(palette_->getIndex(value)));
+}
+/**
+ */
+wxString XmlExporter::toString(const BrushPtr& value) const {
+  return toString(static_cast<int>(palette_->getIndex(value)));
 }
 }

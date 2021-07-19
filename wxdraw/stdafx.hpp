@@ -158,3 +158,12 @@ WXDRAW_DECLARE_CLASS(PropertyOwner);
 }
 using namespace property;
 }
+#define WXDRAW_PROPERTY_CLASSES                 \
+  int,                                          \
+    double,                                     \
+    bool,                                       \
+    wxString,                                   \
+    wxColour,                                   \
+    wxFileName,                                 \
+    PenPtr,                                     \
+    BrushPtr
