@@ -29,6 +29,7 @@ PaletteListBase::PaletteListBase(wxWindow* window, Palette* palette)
   list_->SetImageList(imageList_.get(), wxIMAGE_LIST_NORMAL);
   Bind(wxEVT_LIST_ITEM_ACTIVATED, &PaletteListBase::onListItemSelected, this, list_->GetId());
   Bind(wxEVT_LIST_ITEM_SELECTED, &PaletteListBase::onListItemSelected, this, list_->GetId());
+  Bind(wxEVT_SIZE, &PaletteListBase::onSize, this);
   Bind(wxEVT_TOOL, &PaletteListBase::onTool, this);
 }
 /**
@@ -59,6 +60,12 @@ void PaletteListBase::onListItemSelected(wxListEvent& event) {
     onSelectItem(item);
     list_->SetItemState(index_, 0, wxLIST_STATE_SELECTED);
   }
+}
+/**
+ */
+void PaletteListBase::onSize(wxSizeEvent& event) {
+  list_->SetColumnWidth(0, event.GetSize().GetWidth());
+  event.Skip();
 }
 /**
  */

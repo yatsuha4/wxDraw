@@ -36,6 +36,7 @@ class PaletteListBase
 
  private:
   void onListItemSelected(wxListEvent& event);
+  void onSize(wxSizeEvent& event);
   void onTool(wxCommandEvent& event);
 };
 }
