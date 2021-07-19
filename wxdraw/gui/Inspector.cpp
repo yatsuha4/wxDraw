@@ -74,9 +74,6 @@ void Inspector::showProperty(const Property& property) {
     else if(auto m = Member<ColorBasePtr>::As(iter)) {
       appendPaletteChoices(m, createColorBaseChoices());
     }
-    else if(auto m = Member<PenPtr>::As(iter)) {
-      appendPaletteChoices(m, createPenChoices());
-    }
   }
 }
 /**
@@ -123,18 +120,7 @@ wxPGChoices Inspector::createColorBaseChoices() const {
 /**
  */
 void Inspector::onChanged(wxPropertyGridEvent& event) {
-  doChange<
-    bool, 
-    double, 
-    int, 
-    wxColour, 
-    wxFileName, 
-    wxString, 
-    BrushPtr, 
-    ColorBasePtr, 
-    ColorPtr, 
-    PenPtr
-    >(event);
+  doChange<WXDRAW_PROPERTY_CLASSES>(event);
 }
 /**
  */
