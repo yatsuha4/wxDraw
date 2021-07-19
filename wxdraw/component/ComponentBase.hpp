@@ -1,10 +1,16 @@
 ﻿#pragma once
 
+#include "wxdraw/property/PropertyOwner.hpp"
+
 namespace wxdraw::component {
 /**
    コンポーネント基底クラス
 */
-class ComponentBase {
+class ComponentBase
+  : public PropertyOwner
+{
+  using super = PropertyOwner;
+
  public:
   enum Priority {
     LAYOUT, 

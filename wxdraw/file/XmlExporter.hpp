@@ -25,7 +25,9 @@ class XmlExporter
 
  private:
   wxXmlNode* createXml(Node& node);
-  wxXmlNode* createXml(Node& node, const Property& property);
+  wxXmlNode* createXml(const Property& property);
+  void parsePalette(const PaletteComponentPtr& palette, wxXmlNode* parent);
+
   wxString getValue(const MemberBasePtr& member);
 
   template<class T>
@@ -50,5 +52,7 @@ class XmlExporter
   wxString toString(const wxFileName& value) const;
   wxString toString(const PenPtr& value) const;
   wxString toString(const BrushPtr& value) const;
+  wxString toString(const ColorPtr& value) const;
+  wxString toString(const ColorBasePtr& value) const;
 };
 }

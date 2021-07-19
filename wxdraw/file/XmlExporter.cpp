@@ -2,6 +2,11 @@
 #include "wxdraw/component/PaletteComponent.hpp"
 #include "wxdraw/file/XmlExporter.hpp"
 #include "wxdraw/node/Node.hpp"
+#include "wxdraw/palette/Brush.hpp"
+#include "wxdraw/palette/Color.hpp"
+#include "wxdraw/palette/Gradient.hpp"
+#include "wxdraw/palette/GradientStop.hpp"
+#include "wxdraw/palette/Pen.hpp"
 #include "wxdraw/property/Member.hpp"
 #include "wxdraw/property/Property.hpp"
 #include "wxdraw/property/PropertyMember.hpp"
@@ -27,27 +32,56 @@ bool XmlExporter::save() {
 /**
  */
 wxXmlNode* XmlExporter::createXml(Node& node) {
-  return createXml(node, *node.createProperty());
+  return createXml(*node.createProperty());
 }
 /**
  */
-wxXmlNode* XmlExporter::createXml(Node& node, const Property& property) {
+wxXmlNode* XmlExporter::createXml(const Property& property) {
   auto xml = new wxXmlNode(wxXML_ELEMENT_NODE, property.getName());
   for(auto& member : property.getMembers()) {
-    if(auto component = std::dynamic_pointer_cast<PropertyMember>(member)) {
-      auto componentXml = createXml(node, *component->getProperty());
-      xml->AddChild(componentXml);
-      if(component->getProperty()->getName() == ContainerComponent::TYPE) {
-        for(auto& child : node.getContainer()->getChildren()) {
-          componentXml->AddChild(createXml(*child));
+    if(auto child = std::dynamic_pointer_cast<PropertyMember>(member)) {
+      auto childXml = createXml(*child->getProperty());
+      auto component = std::dynamic_pointer_cast<ComponentBase>
+        (child->getProperty()->getOwner());
+      wxASSERT(component);
+      if(auto palette = PaletteComponent::As(component)) {
+        parsePalette(palette, childXml);
+      }
+      else if(auto container = ContainerComponent::As(component)) {
+        for(auto& node : container->getChildren()) {
+          childXml->AddChild(createXml(*node));
         }
       }
+      xml->AddChild(childXml);
     }
     else {
       xml->AddAttribute(member->getName(), getValue(member));
     }
   }
   return xml;
+}
+/**
+   パレットをXMLに書き出す
+   @param palette パレット
+   @param parent 親XMLノード
+*/
+void XmlExporter::parsePalette(const PaletteComponentPtr& palette, wxXmlNode* parent) {
+  for(auto& color : palette->getColors()) {
+    parent->AddChild(createXml(*color->createProperty()));
+  }
+  for(auto& gradient : palette->getGradients()) {
+    auto xml = createXml(*gradient->createProperty());
+    for(auto& stop : gradient->getStops()) {
+      xml->AddChild(createXml(*stop->createProperty()));
+    }
+    parent->AddChild(xml);
+  }
+  for(auto& pen : palette->getPens()) {
+    parent->AddChild(createXml(*pen->createProperty()));
+  }
+  for(auto& brush : palette->getBrushes()) {
+    parent->AddChild(createXml(*brush->createProperty()));
+  }
 }
 /**
  */
@@ -98,6 +132,16 @@ wxString XmlExporter::toString(const PenPtr& value) const {
 /**
  */
 wxString XmlExporter::toString(const BrushPtr& value) const {
+  return toString(static_cast<int>(palette_->getIndex(value)));
+}
+/**
+ */
+wxString XmlExporter::toString(const ColorPtr& value) const {
+  return toString(static_cast<int>(palette_->getIndex(value)));
+}
+/**
+ */
+wxString XmlExporter::toString(const ColorBasePtr& value) const {
   return toString(static_cast<int>(palette_->getIndex(value)));
 }
 }

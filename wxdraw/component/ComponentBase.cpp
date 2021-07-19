@@ -42,7 +42,7 @@ NodePtr ComponentBase::getNode() {
    プロパティを生成する
 */
 PropertyPtr ComponentBase::createProperty() {
-  return std::make_shared<Property>(getName());
+  return super::createProperty(getName());
 }
 /**
    更新を開始する

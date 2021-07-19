@@ -166,4 +166,6 @@ using namespace property;
     wxColour,                                   \
     wxFileName,                                 \
     PenPtr,                                     \
-    BrushPtr
+    BrushPtr,                                   \
+    ColorPtr,                                   \
+    ColorBasePtr
