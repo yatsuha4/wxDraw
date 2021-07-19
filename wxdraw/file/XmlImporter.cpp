@@ -8,6 +8,7 @@
 #include "wxdraw/component/PenComponent.hpp"
 #include "wxdraw/component/ProjectComponent.hpp"
 #include "wxdraw/component/RectangleComponent.hpp"
+#include "wxdraw/component/TextComponent.hpp"
 #include "wxdraw/file/XmlImporter.hpp"
 #include "wxdraw/node/Node.hpp"
 #include "wxdraw/palette/Brush.hpp"
@@ -130,7 +131,8 @@ ComponentBasePtr XmlImporter::CreateComponent(const NodePtr& node, const wxXmlNo
     PaletteComponent, 
     PenComponent, 
     ProjectComponent, 
-    RectangleComponent
+    RectangleComponent, 
+    TextComponent
     >(node, xml);
 }
 /**
@@ -174,6 +176,12 @@ bool XmlImporter::fromString(const wxString& src, wxColour& dst) const {
  */
 bool XmlImporter::fromString(const wxString& src, wxFileName& dst) const {
   return false;
+}
+/**
+ */
+bool XmlImporter::fromString(const wxString& src, wxFont& dst) const {
+  dst = wxFont(src);
+  return true;
 }
 /**
  */

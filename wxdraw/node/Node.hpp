@@ -17,6 +17,7 @@ class Node
   static const char* TYPE_PROJECT;
   static const char* TYPE_RECTANGLE;
   static const char* TYPE_ROOT;
+  static const char* TYPE_TEXT;
 
  private:
   std::string name_;
@@ -57,6 +58,7 @@ class Node
   static NodePtr NewProject();
   static NodePtr NewRectangle();
   static NodePtr NewRoot();
+  static NodePtr NewText();
 
   static NodePtr Clone(const NodePtr& src);
 

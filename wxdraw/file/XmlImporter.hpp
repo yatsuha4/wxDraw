@@ -73,6 +73,7 @@ class XmlImporter
   bool fromString(const wxString& src, wxString& dst) const;
   bool fromString(const wxString& src, wxColour& dst) const;
   bool fromString(const wxString& src, wxFileName& dst) const;
+  bool fromString(const wxString& src, wxFont& dst) const;
   bool fromString(const wxString& src, PenPtr& dst) const;
   bool fromString(const wxString& src, BrushPtr& dst) const;
   bool fromString(const wxString& src, ColorPtr& dst) const;

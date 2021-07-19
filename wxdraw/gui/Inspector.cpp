@@ -62,6 +62,9 @@ void Inspector::showProperty(const Property& property) {
     else if(auto member = Member<wxFileName>::As(iter)) {
       append<wxFileProperty>(member, member->getValue().GetFullPath());
     }
+    else if(auto m = Member<wxFont>::As(iter)) {
+      append<wxFontProperty>(m);
+    }
     else if(auto m = Member<PenPtr>::As(iter)) {
       appendPaletteChoices(m, createPenChoices());
     }

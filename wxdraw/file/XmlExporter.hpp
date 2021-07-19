@@ -50,6 +50,7 @@ class XmlExporter
   wxString toString(const wxString& value) const;
   wxString toString(const wxColour& value) const;
   wxString toString(const wxFileName& value) const;
+  wxString toString(const wxFont& value) const;
   wxString toString(const PenPtr& value) const;
   wxString toString(const BrushPtr& value) const;
   wxString toString(const ColorPtr& value) const;

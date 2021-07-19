@@ -148,6 +148,7 @@ void MainFrame::setupMenuBar() {
       subMenu->Append(Menu::ID_EDIT_APPEND_LAYER, "Layer");
       subMenu->Append(Menu::ID_EDIT_APPEND_RECTANGLE, "Rectangle");
       subMenu->Append(Menu::ID_EDIT_APPEND_ELLIPSE, "Ellipse");
+      subMenu->Append(Menu::ID_EDIT_NEW_TEXT, "Text");
       menu->Append(Menu::ID_EDIT_APPEND, "New Node", subMenu);
     }
     {
@@ -202,6 +203,7 @@ void MainFrame::onMenuOpen(wxMenuEvent& event) {
       menu->Enable(Menu::ID_EDIT_APPEND_LAYER, enable);
       menu->Enable(Menu::ID_EDIT_APPEND_RECTANGLE, enable);
       menu->Enable(Menu::ID_EDIT_APPEND_ELLIPSE, enable);
+      menu->Enable(Menu::ID_EDIT_NEW_TEXT, enable);
     }
     break;
   case Menu::Type::EDIT_NEW_COMPONENT:
@@ -246,6 +248,9 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
     break;
   case Menu::ID_EDIT_APPEND_ELLIPSE:
     newNode(Node::NewEllipse());
+    break;
+  case Menu::ID_EDIT_NEW_TEXT:
+    newNode(Node::NewText());
     break;
   case Menu::ID_EDIT_REMOVE:
     submitCommand<RemoveNodeCommand>(getSelectNode());

@@ -98,6 +98,7 @@ WXDRAW_DECLARE_CLASS(PaletteComponent);
 WXDRAW_DECLARE_CLASS(PenComponent);
 WXDRAW_DECLARE_CLASS(ProjectComponent);
 WXDRAW_DECLARE_CLASS(RectangleComponent);
+WXDRAW_DECLARE_CLASS(TextComponent);
 }
 using namespace component;
 
@@ -165,6 +166,7 @@ using namespace property;
     wxString,                                   \
     wxColour,                                   \
     wxFileName,                                 \
+    wxFont,                                     \
     PenPtr,                                     \
     BrushPtr,                                   \
     ColorPtr,                                   \

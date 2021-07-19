@@ -9,6 +9,7 @@
 #include "wxdraw/component/PenComponent.hpp"
 #include "wxdraw/component/ProjectComponent.hpp"
 #include "wxdraw/component/RectangleComponent.hpp"
+#include "wxdraw/component/TextComponent.hpp"
 #include "wxdraw/gui/Renderer.hpp"
 #include "wxdraw/node/Node.hpp"
 #include "wxdraw/property/Property.hpp"
@@ -20,6 +21,7 @@ const char* Node::TYPE_LAYER = "Layer";
 const char* Node::TYPE_PROJECT = "Project";
 const char* Node::TYPE_RECTANGLE = "Rectangle";
 const char* Node::TYPE_ROOT = "Root";
+const char* Node::TYPE_TEXT = "Text";
 /**
    コンストラクタ
    @param name 名前
@@ -184,6 +186,9 @@ NodePtr Node::NewRectangle() {
 }
 NodePtr Node::NewRoot() {
   return New<ContainerComponent>(TYPE_ROOT);
+}
+NodePtr Node::NewText() {
+  return New<TextComponent>(TYPE_TEXT);
 }
 /**
    複製を生成する

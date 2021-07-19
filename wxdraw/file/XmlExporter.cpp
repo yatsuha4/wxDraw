@@ -126,6 +126,11 @@ wxString XmlExporter::toString(const wxFileName& value) const {
 }
 /**
  */
+wxString XmlExporter::toString(const wxFont& value) const {
+  return value.GetNativeFontInfoUserDesc();
+}
+/**
+ */
 wxString XmlExporter::toString(const PenPtr& value) const {
   return toString(static_cast<int>(palette_->getIndex(value)));
 }
