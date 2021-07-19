@@ -95,6 +95,7 @@ WXDRAW_DECLARE_CLASS(GridComponent);
 WXDRAW_DECLARE_CLASS(LayerComponent);
 WXDRAW_DECLARE_CLASS(LayoutComponent);
 WXDRAW_DECLARE_CLASS(PaletteComponent);
+WXDRAW_DECLARE_CLASS(PenComponent);
 WXDRAW_DECLARE_CLASS(ProjectComponent);
 WXDRAW_DECLARE_CLASS(RectangleComponent);
 }

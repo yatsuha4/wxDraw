@@ -13,6 +13,7 @@ namespace wxdraw::gui {
 Renderer::Renderer(wxDC& dc, const glm::dmat3& viewMatrix)
   : Renderer(wxGraphicsContext::CreateFromUnknownDC(dc), viewMatrix)
 {
+  pushPen(wxGraphicsPenInfo(*wxBLACK));
   pushBrush(*wxWHITE_BRUSH);
 }
 /**
@@ -57,21 +58,21 @@ void Renderer::pushBrush(const Brush& brush, const Rect& rect) {
 /**
  */
 void Renderer::popBrush() {
-  context_->SetBrush(brushes_.top());
   brushes_.pop();
+  context_->SetBrush(brushes_.top());
 }
 /**
  */
-void Renderer::pushPen(const wxGraphicsPenInfo& info) {
-  auto pen = context_->CreatePen(info);
+void Renderer::pushPen(const wxGraphicsPenInfo& penInfo) {
+  auto pen = context_->CreatePen(penInfo);
   pens_.push(pen);
   context_->SetPen(pen);
 }
 /**
  */
 void Renderer::popPen() {
-  context_->SetPen(pens_.top());
   pens_.pop();
+  context_->SetPen(pens_.top());
 }
 /**
    コンストラクタ

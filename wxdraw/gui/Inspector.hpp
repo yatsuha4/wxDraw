@@ -98,6 +98,7 @@ class Inspector
   bool getValue(const wxPropertyGridEvent& event, BrushPtr& value) const;
   bool getValue(const wxPropertyGridEvent& event, ColorBasePtr& value) const;
   bool getValue(const wxPropertyGridEvent& event, ColorPtr& value) const;
+  bool getValue(const wxPropertyGridEvent& event, PenPtr& value) const;
 
   const PaletteComponentPtr& getPaletteComponent() const;
 };

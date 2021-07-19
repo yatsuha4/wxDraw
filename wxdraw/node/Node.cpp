@@ -6,6 +6,7 @@
 #include "wxdraw/component/LayerComponent.hpp"
 #include "wxdraw/component/LayoutComponent.hpp"
 #include "wxdraw/component/PaletteComponent.hpp"
+#include "wxdraw/component/PenComponent.hpp"
 #include "wxdraw/component/ProjectComponent.hpp"
 #include "wxdraw/component/RectangleComponent.hpp"
 #include "wxdraw/gui/Renderer.hpp"
@@ -175,6 +176,7 @@ NodePtr Node::CreateProject() {
                 ContainerComponent, 
                 GridComponent, 
                 PaletteComponent, 
+                PenComponent, 
                 BrushComponent>(TYPE_PROJECT);
 }
 NodePtr Node::CreateRectangle() {

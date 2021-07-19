@@ -45,6 +45,7 @@
 		2637D75826A372C300BF8F37 /* PropertyOwner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2637D75626A372C300BF8F37 /* PropertyOwner.cpp */; };
 		2637D75A26A38BAE00BF8F37 /* PaletteItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2637D75926A38BAE00BF8F37 /* PaletteItem.cpp */; };
 		2637D75E26A4EB9900BF8F37 /* PenBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2637D75B26A4EB9900BF8F37 /* PenBase.cpp */; };
+		2637D76126A4FC3500BF8F37 /* PenComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2637D75F26A4FC3500BF8F37 /* PenComponent.cpp */; };
 		263EA113268F524E003B100A /* Command.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 263EA111268F524E003B100A /* Command.cpp */; };
 		265FCA3E214ACD3100398B40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 265FCA3D214ACD3100398B40 /* Assets.xcassets */; };
 		265FCA54214AD08A00398B40 /* libwx_osx_cocoau-3.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 265FCA53214AD08A00398B40 /* libwx_osx_cocoau-3.1.a */; };
@@ -148,6 +149,8 @@
 		2637D75B26A4EB9900BF8F37 /* PenBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PenBase.cpp; sourceTree = "<group>"; };
 		2637D75C26A4EB9900BF8F37 /* ColorBase.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ColorBase.hpp; sourceTree = "<group>"; };
 		2637D75D26A4EB9900BF8F37 /* PenBase.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PenBase.hpp; sourceTree = "<group>"; };
+		2637D75F26A4FC3500BF8F37 /* PenComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PenComponent.cpp; sourceTree = "<group>"; };
+		2637D76026A4FC3500BF8F37 /* PenComponent.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PenComponent.hpp; sourceTree = "<group>"; };
 		263EA111268F524E003B100A /* Command.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Command.cpp; sourceTree = "<group>"; };
 		263EA112268F524E003B100A /* Command.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Command.hpp; sourceTree = "<group>"; };
 		265FCA37214ACD2D00398B40 /* wxDraw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wxDraw.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -393,6 +396,8 @@
 				26BA73CF26990D3C001F3C5D /* LayoutComponent.hpp */,
 				260BBF2B269EFFFC0041BD06 /* PaletteComponent.cpp */,
 				260BBF2C269EFFFC0041BD06 /* PaletteComponent.hpp */,
+				2637D75F26A4FC3500BF8F37 /* PenComponent.cpp */,
+				2637D76026A4FC3500BF8F37 /* PenComponent.hpp */,
 				260BBF26269ECB8C0041BD06 /* ProjectComponent.cpp */,
 				260BBF25269ECB8C0041BD06 /* ProjectComponent.hpp */,
 				26CB1331269A9A8B0025ACDD /* RectangleComponent.cpp */,
@@ -533,6 +538,7 @@
 				2637D74426A2C0AC00BF8F37 /* Pen.cpp in Sources */,
 				26CB133C269B72470025ACDD /* InsertNodeCommand.cpp in Sources */,
 				2605A579264564DB00FD3DF0 /* Application.cpp in Sources */,
+				2637D76126A4FC3500BF8F37 /* PenComponent.cpp in Sources */,
 				261C06D8269FB2F8002AAC78 /* ContainerComponent.cpp in Sources */,
 				260BBF1E269E64C70041BD06 /* ImageExporter.cpp in Sources */,
 				260BBF18269E591F0041BD06 /* Menu.cpp in Sources */,
