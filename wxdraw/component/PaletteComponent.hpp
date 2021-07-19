@@ -25,6 +25,8 @@ class PaletteComponent
   PaletteComponent(const PaletteComponent& src, const NodePtr& node);
   ~PaletteComponent() override = default;
 
+  void onCreate() override;
+
   WXDRAW_ACCESSOR(Pens, pens_);
   WXDRAW_ACCESSOR(Brushes, brushes_);
   WXDRAW_ACCESSOR(Gradients, gradients_);
@@ -43,6 +45,10 @@ class PaletteComponent
   PenPtr getPen(size_t index) const;
 
  private:
+  PenPtr appendPen(const wxString& name, const ColorPtr& color = nullptr);
+  BrushPtr appendBrush(const wxString& name, const ColorPtr& olor = nullptr);
+  ColorPtr appendColor(const wxString& name, const wxColour& color);
+
   GradientPtr clone(const PaletteComponent& palette, const GradientPtr& src) const;
 
   template<class PenBaseType>

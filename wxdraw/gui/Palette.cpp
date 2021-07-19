@@ -37,6 +37,11 @@ void Palette::setGradient(const GradientPtr& gradient) {
 void Palette::setPaletteComponent(const PaletteComponentPtr& component) {
   paletteComponent_ = component;
   Enable(component != nullptr);
+  colorList_->refresh();
+  gradientStopList_->refresh();
+  gradientList_->refresh();
+  brushList_->refresh();
+  penList_->refresh();
 }
 /**
  */

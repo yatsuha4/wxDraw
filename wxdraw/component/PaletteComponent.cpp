@@ -40,6 +40,17 @@ PaletteComponent::PaletteComponent(const PaletteComponent& src, const NodePtr& n
 }
 /**
  */
+void PaletteComponent::onCreate() {
+  super::onCreate();
+  auto penColor = appendColor("Pen", *wxBLACK);
+  auto brushColor = appendColor("Brush", *wxWHITE);
+  appendPen("Transparent");
+  appendPen("Default", penColor);
+  appendBrush("Transparent");
+  appendBrush("Default", brushColor);
+}
+/**
+ */
 size_t PaletteComponent::getIndex(const PenPtr& pen) const {
   return std::distance(pens_.begin(), 
                        std::find(pens_.begin(), pens_.end(), pen));
@@ -102,6 +113,33 @@ ColorBasePtr PaletteComponent::getColorBase(size_t index) const {
  */
 PenPtr PaletteComponent::getPen(size_t index) const {
   return GetItem(index, pens_);
+}
+/**
+ */
+PenPtr PaletteComponent::appendPen(const wxString& name, const ColorPtr& color) {
+  auto pen = std::make_shared<Pen>();
+  pen->setName(name);
+  pen->setColor(color);
+  pens_.push_back(pen);
+  return pen;
+}
+/**
+ */
+BrushPtr PaletteComponent::appendBrush(const wxString& name, const ColorPtr& color) {
+  auto brush = std::make_shared<Brush>();
+  brush->setName(name);
+  brush->setColor(color);
+  brushes_.push_back(brush);
+  return brush;
+}
+/**
+ */
+ColorPtr PaletteComponent::appendColor(const wxString& name, const wxColour& color) {
+  auto item = std::make_shared<Color>();
+  item->setName(name);
+  item->setColor(color);
+  colors_.push_back(item);
+  return item;
 }
 /**
  */

@@ -96,6 +96,7 @@ class Node
   static std::shared_ptr<T> AppendComponent(const NodePtr& node) {
     auto component = std::make_shared<T>(node);
     node->appendComponent(component);
+    component->onCreate();
     return component;
   }
 

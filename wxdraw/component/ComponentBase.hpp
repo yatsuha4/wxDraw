@@ -29,6 +29,7 @@ class ComponentBase {
   NodePtr getNode();
   WXDRAW_GETTER(Priority, priority_);
 
+  virtual void onCreate() {}
   virtual PropertyPtr createProperty();
 
   void beginUpdate();
