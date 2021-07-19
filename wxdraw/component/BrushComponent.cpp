@@ -1,5 +1,7 @@
 #include "wxdraw/component/BrushComponent.hpp"
+#include "wxdraw/component/LayoutComponent.hpp"
 #include "wxdraw/gui/Renderer.hpp"
+#include "wxdraw/node/Node.hpp"
 #include "wxdraw/property/Property.hpp"
 
 namespace wxdraw::component {
@@ -30,7 +32,8 @@ PropertyPtr BrushComponent::createProperty() {
  */
 void BrushComponent::onBeginRender(Renderer& renderer) {
   if(brush_) {
-    renderer.pushBrush(*brush_);
+    auto layout = getNode()->getComponent<LayoutComponent>();
+    renderer.pushBrush(*brush_, layout->getRect());
   }
 }
 /**

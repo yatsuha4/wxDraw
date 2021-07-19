@@ -1,6 +1,8 @@
+#include "wxdraw/container/Rect.hpp"
 #include "wxdraw/gui/Renderer.hpp"
 #include "wxdraw/palette/Brush.hpp"
 #include "wxdraw/palette/Color.hpp"
+#include "wxdraw/palette/Gradient.hpp"
 
 namespace wxdraw::gui {
 /**
@@ -37,13 +39,16 @@ glm::dvec2 Renderer::getScale() const {
 }
 /**
  */
-void Renderer::pushBrush(const Brush& brush) {
-  /*
-  if(auto gradient = std::dynamic_pointer_cast<Gradient>(brush->getColor())) {
-  }
-  */
+void Renderer::pushBrush(const Brush& brush, const Rect& rect) {
   if(auto color = std::dynamic_pointer_cast<Color>(brush.getColor())) {
     pushBrush(wxBrush(color->getColor()));
+  }
+  else if(auto gradient = std::dynamic_pointer_cast<Gradient>(brush.getColor())) {
+    pushBrush(context_->CreateLinearGradientBrush(rect.pos.x, 
+                                                  rect.pos.y, 
+                                                  rect.pos.x + rect.size.x, 
+                                                  rect.pos.y + rect.size.y, 
+                                                  *gradient));
   }
   else {
     pushBrush(*wxTRANSPARENT_BRUSH);
