@@ -30,9 +30,6 @@
 		261C06DB269FCB71002AAC78 /* InsertComponentCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 261C06DA269FCB71002AAC78 /* InsertComponentCommand.cpp */; };
 		261C06E426A04172002AAC78 /* GradientList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 261C06E226A04172002AAC78 /* GradientList.cpp */; };
 		261C06E726A0467E002AAC78 /* Palette.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 261C06E526A0467E002AAC78 /* Palette.cpp */; };
-		261C06EA26A04C6B002AAC78 /* ColorList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 261C06E926A04C6B002AAC78 /* ColorList.cpp */; };
-		261C06EF26A04F82002AAC78 /* PenList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 261C06EB26A04F82002AAC78 /* PenList.cpp */; };
-		261C06F026A04F82002AAC78 /* BrushList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 261C06ED26A04F82002AAC78 /* BrushList.cpp */; };
 		261C06F626A0DCA7002AAC78 /* PropertyMember.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 261C06F426A0DCA7002AAC78 /* PropertyMember.cpp */; };
 		2637D73626A17E5B00BF8F37 /* GradientProperty.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2637D73426A17E5B00BF8F37 /* GradientProperty.cpp */; };
 		2637D74326A2C0AC00BF8F37 /* Gradient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2637D74026A2C0AC00BF8F37 /* Gradient.cpp */; };
@@ -119,10 +116,7 @@
 		261C06E526A0467E002AAC78 /* Palette.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Palette.cpp; sourceTree = "<group>"; };
 		261C06E626A0467E002AAC78 /* Palette.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Palette.hpp; sourceTree = "<group>"; };
 		261C06E826A04C6A002AAC78 /* ColorList.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ColorList.hpp; sourceTree = "<group>"; };
-		261C06E926A04C6B002AAC78 /* ColorList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ColorList.cpp; sourceTree = "<group>"; };
-		261C06EB26A04F82002AAC78 /* PenList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PenList.cpp; sourceTree = "<group>"; };
 		261C06EC26A04F82002AAC78 /* PenList.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PenList.hpp; sourceTree = "<group>"; };
-		261C06ED26A04F82002AAC78 /* BrushList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BrushList.cpp; sourceTree = "<group>"; };
 		261C06EE26A04F82002AAC78 /* BrushList.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BrushList.hpp; sourceTree = "<group>"; };
 		261C06F226A0529D002AAC78 /* PaletteList.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PaletteList.hpp; sourceTree = "<group>"; };
 		261C06F426A0DCA7002AAC78 /* PropertyMember.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PropertyMember.cpp; sourceTree = "<group>"; };
@@ -257,11 +251,9 @@
 		2605A582264A312E00FD3DF0 /* gui */ = {
 			isa = PBXGroup;
 			children = (
-				261C06ED26A04F82002AAC78 /* BrushList.cpp */,
 				261C06EE26A04F82002AAC78 /* BrushList.hpp */,
 				2605A583264A312F00FD3DF0 /* Canvas.cpp */,
 				2605A586264A312F00FD3DF0 /* Canvas.hpp */,
-				261C06E926A04C6B002AAC78 /* ColorList.cpp */,
 				261C06E826A04C6A002AAC78 /* ColorList.hpp */,
 				261C06E226A04172002AAC78 /* GradientList.cpp */,
 				261C06E326A04172002AAC78 /* GradientList.hpp */,
@@ -282,7 +274,6 @@
 				261C06F226A0529D002AAC78 /* PaletteList.hpp */,
 				2637D74A26A2EC0100BF8F37 /* PaletteListBase.cpp */,
 				2637D74B26A2EC0100BF8F37 /* PaletteListBase.hpp */,
-				261C06EB26A04F82002AAC78 /* PenList.cpp */,
 				261C06EC26A04F82002AAC78 /* PenList.hpp */,
 				26F5A91E2673111B009B0657 /* Renderer.cpp */,
 				26F5A91F2673111B009B0657 /* Renderer.hpp */,
@@ -537,7 +528,6 @@
 				2637D75526A3295700BF8F37 /* GradientStopList.cpp in Sources */,
 				263EA113268F524E003B100A /* Command.cpp in Sources */,
 				26BA73CE26987D20001F3C5D /* BrushComponent.cpp in Sources */,
-				261C06EA26A04C6B002AAC78 /* ColorList.cpp in Sources */,
 				2605A587264A312F00FD3DF0 /* Canvas.cpp in Sources */,
 				2605A58B264A35A100FD3DF0 /* Outliner.cpp in Sources */,
 				2637D74426A2C0AC00BF8F37 /* Pen.cpp in Sources */,
@@ -553,7 +543,6 @@
 				266A37AA2669D79600EA192B /* MemberBase.cpp in Sources */,
 				260BBF1B269E5D040041BD06 /* ExportComponent.cpp in Sources */,
 				266A37A426684E1A00EA192B /* Inspector.cpp in Sources */,
-				261C06EF26A04F82002AAC78 /* PenList.cpp in Sources */,
 				26CB132F269A91030025ACDD /* LayerComponent.cpp in Sources */,
 				260BBF0B269C45D40041BD06 /* XmlImporter.cpp in Sources */,
 				2637D75826A372C300BF8F37 /* PropertyOwner.cpp in Sources */,
@@ -564,7 +553,6 @@
 				2605A57E264826ED00FD3DF0 /* Node.cpp in Sources */,
 				261C06F626A0DCA7002AAC78 /* PropertyMember.cpp in Sources */,
 				2637D74326A2C0AC00BF8F37 /* Gradient.cpp in Sources */,
-				261C06F026A04F82002AAC78 /* BrushList.cpp in Sources */,
 				260BBF14269E50800041BD06 /* ComponentBase.cpp in Sources */,
 				260BBF0E269D17340041BD06 /* RemoveNodeCommand.cpp in Sources */,
 				26CB1333269A9A8B0025ACDD /* RectangleComponent.cpp in Sources */,

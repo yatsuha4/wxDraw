@@ -9,12 +9,6 @@ class PenList
   : public PaletteList<Pen>
 {
   using super = PaletteList<Pen>;
-
- public:
-  PenList(wxWindow* parent, Palette* palette);
-  ~PenList() override = default;
-
- protected:
-  std::vector<PenPtr>& getItems() const override;
+  using PaletteList<Pen>::PaletteList;
 };
 }

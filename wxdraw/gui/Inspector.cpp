@@ -84,7 +84,7 @@ void Inspector::showProperty(const Property& property) {
 wxPGChoices Inspector::createPenChoices() const {
   wxPGChoices choices;
   if(auto palette = getPaletteComponent()) {
-    createPaletteItemChoices(choices, palette->getPens());
+    createPaletteItemChoices(choices, palette->getItems<Pen>());
   }
   choices.Add("Null");
   return choices;
@@ -94,7 +94,7 @@ wxPGChoices Inspector::createPenChoices() const {
 wxPGChoices Inspector::createBrushChoices() const {
   wxPGChoices choices;
   if(auto palette = getPaletteComponent()) {
-    createPaletteItemChoices(choices, palette->getBrushes());
+    createPaletteItemChoices(choices, palette->getItems<Brush>());
   }
   choices.Add("Null");
   return choices;
@@ -104,7 +104,7 @@ wxPGChoices Inspector::createBrushChoices() const {
 wxPGChoices Inspector::createColorChoices() const {
   wxPGChoices choices;
   if(auto palette = getPaletteComponent()) {
-    createPaletteItemChoices(choices, palette->getColors());
+    createPaletteItemChoices(choices, palette->getItems<Color>());
   }
   choices.Add("Null");
   return choices;
@@ -114,8 +114,8 @@ wxPGChoices Inspector::createColorChoices() const {
 wxPGChoices Inspector::createColorBaseChoices() const {
   wxPGChoices choices;
   if(auto palette = getPaletteComponent()) {
-    createPaletteItemChoices(choices, palette->getColors());
-    createPaletteItemChoices(choices, palette->getGradients());
+    createPaletteItemChoices(choices, palette->getItems<Color>());
+    createPaletteItemChoices(choices, palette->getItems<Gradient>());
   }
   choices.Add("Null");
   return choices;

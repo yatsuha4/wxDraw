@@ -66,20 +66,20 @@ wxXmlNode* XmlExporter::createXml(const Property& property) {
    @param parent 親XMLノード
 */
 void XmlExporter::parsePalette(const PaletteComponentPtr& palette, wxXmlNode* parent) {
-  for(auto& color : palette->getColors()) {
+  for(auto& color : palette->getItems<Color>()) {
     parent->AddChild(createXml(*color->createProperty()));
   }
-  for(auto& gradient : palette->getGradients()) {
+  for(auto& gradient : palette->getItems<Gradient>()) {
     auto xml = createXml(*gradient->createProperty());
     for(auto& stop : gradient->getStops()) {
       xml->AddChild(createXml(*stop->createProperty()));
     }
     parent->AddChild(xml);
   }
-  for(auto& pen : palette->getPens()) {
+  for(auto& pen : palette->getItems<Pen>()) {
     parent->AddChild(createXml(*pen->createProperty()));
   }
-  for(auto& brush : palette->getBrushes()) {
+  for(auto& brush : palette->getItems<Brush>()) {
     parent->AddChild(createXml(*brush->createProperty()));
   }
 }

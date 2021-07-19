@@ -9,14 +9,12 @@ class GradientStopList
   : public PaletteList<GradientStop>
 {
   using super = PaletteList<GradientStop>;
+  using super::PaletteList;
 
  private:
   GradientPtr gradient_;
 
  public:
-  GradientStopList(wxWindow* parent, Palette* palette);
-  ~GradientStopList() override = default;
-
   void setGradient(const GradientPtr& gradient);
 
  protected:

@@ -1,6 +1,11 @@
 ﻿#pragma once
 
 #include "wxdraw/component/Component.hpp"
+#include "wxdraw/palette/Brush.hpp"
+#include "wxdraw/palette/Color.hpp"
+#include "wxdraw/palette/Gradient.hpp"
+#include "wxdraw/palette/GradientStop.hpp"
+#include "wxdraw/palette/Pen.hpp"
 
 namespace wxdraw::component {
 /**
@@ -27,15 +32,25 @@ class PaletteComponent
 
   void onCreate() override;
 
-  WXDRAW_ACCESSOR(Pens, pens_);
-  WXDRAW_ACCESSOR(Brushes, brushes_);
-  WXDRAW_ACCESSOR(Gradients, gradients_);
-  WXDRAW_ACCESSOR(Colors, colors_);
+  template<class T>
+  const std::vector<std::shared_ptr<T>>& getItems() const {
+    const std::vector<std::shared_ptr<T>>* items;
+    getItems(&items);
+    return *items;
+  }
 
-  size_t getIndex(const PenPtr& pen) const;
-  size_t getIndex(const BrushPtr& brush) const;
-  size_t getIndex(const GradientPtr& gradient) const;
-  size_t getIndex(const ColorPtr& color) const;
+  template<class T>
+  std::vector<std::shared_ptr<T>>& getItems() {
+    auto& items = const_cast<const PaletteComponent*>(this)->getItems<T>();
+    return const_cast<std::vector<std::shared_ptr<T>>&>(items);
+  }
+
+  template<class T>
+  size_t getIndex(const std::shared_ptr<T>& item) const {
+    auto& items = getItems<T>();
+    return std::distance(items.begin(), std::find(items.begin(), items.end(), item));
+  }
+
   size_t getIndex(const ColorBasePtr& color) const;
 
   BrushPtr getBrush(size_t index) const;
@@ -45,6 +60,20 @@ class PaletteComponent
   PenPtr getPen(size_t index) const;
 
  private:
+  void getItems(const std::vector<PenPtr>** items) const {
+    *items = &pens_;
+  }
+  void getItems(const std::vector<BrushPtr>** items) const {
+    *items = &brushes_;
+  }
+  void getItems(const std::vector<GradientPtr>** items) const {
+    *items = &gradients_;
+  }
+  void getItems(const std::vector<GradientStopPtr>** items) const {}
+  void getItems(const std::vector<ColorPtr>** items) const {
+    *items = &colors_;
+  }
+
   PenPtr appendPen(const wxString& name, const ColorPtr& color = nullptr);
   BrushPtr appendBrush(const wxString& name, const ColorPtr& olor = nullptr);
   ColorPtr appendColor(const wxString& name, const wxColour& color);

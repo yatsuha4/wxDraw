@@ -37,7 +37,7 @@ void GradientStop::update() {
 /**
  */
 void GradientStop::onCreate(const PaletteComponentPtr& palette) {
-  auto& colors = palette->getColors();
+  auto& colors = palette->getItems<Color>();
   if(!colors.empty()) {
     color_ = colors.front();
   }

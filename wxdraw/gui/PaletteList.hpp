@@ -1,11 +1,8 @@
 ﻿#pragma once
 
+#include "wxdraw/component/PaletteComponent.hpp"
 #include "wxdraw/gui/PaletteListBase.hpp"
-#include "wxdraw/palette/Brush.hpp"
-#include "wxdraw/palette/Color.hpp"
-#include "wxdraw/palette/Gradient.hpp"
 #include "wxdraw/palette/GradientStop.hpp"
-#include "wxdraw/palette/Pen.hpp"
 
 namespace wxdraw::gui {
 /**
@@ -15,9 +12,14 @@ class PaletteList
   : public PaletteListBase
 {
   using super = PaletteListBase;
-  using PaletteListBase::PaletteListBase;
 
  public:
+  PaletteList(wxWindow* window, Palette* palette)
+    : super(window, palette)
+  {
+    getList()->AppendColumn(T::TYPE);
+  }
+
   /**
    */
   void refresh() {
@@ -47,6 +49,9 @@ class PaletteList
  protected:
   virtual std::vector<std::shared_ptr<T>>& getItems() const {
     static std::vector<std::shared_ptr<T>> EMPTY;
+    if(auto palette = getPaletteComponent()) {
+      return palette->template getItems<T>();
+    }
     return EMPTY;
   }
 

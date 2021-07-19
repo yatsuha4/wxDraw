@@ -71,7 +71,7 @@ void XmlImporter::parsePalette(const wxXmlNode& parent) {
     if(xml->GetName() == Color::TYPE) {
       auto color = std::make_shared<Color>();
       parseProperty(*xml, *color->createProperty());
-      palette_->getColors().push_back(color);
+      palette_->getItems<Color>().push_back(color);
     }
     else if(xml->GetName() == Gradient::TYPE) {
       auto gradient = std::make_shared<Gradient>();
@@ -86,17 +86,17 @@ void XmlImporter::parsePalette(const wxXmlNode& parent) {
           Warning("syntax error", *child);
         }
       }
-      palette_->getGradients().push_back(gradient);
+      palette_->getItems<Gradient>().push_back(gradient);
     }
     else if(xml->GetName() == Pen::TYPE) {
       auto pen = std::make_shared<Pen>();
       parseProperty(*xml, *pen->createProperty());
-      palette_->getPens().push_back(pen);
+      palette_->getItems<Pen>().push_back(pen);
     }
     else if(xml->GetName() == Brush::TYPE) {
       auto brush = std::make_shared<Brush>();
       parseProperty(*xml, *brush->createProperty());
-      palette_->getBrushes().push_back(brush);
+      palette_->getItems<Brush>().push_back(brush);
     }
     else {
       Warning("syntax error", *xml);

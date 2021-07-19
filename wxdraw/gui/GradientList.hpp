@@ -9,13 +9,9 @@ class GradientList
   : public PaletteList<Gradient>
 {
   using super = PaletteList<Gradient>;
-
- public:
-  GradientList(wxWindow* parent, Palette* palette);
-  ~GradientList() override = default;
+  using super::PaletteList;
 
  protected:
   void onSelectItem(const PaletteItemPtr& item) override;
-  std::vector<GradientPtr>& getItems() const override;
 };
 }
