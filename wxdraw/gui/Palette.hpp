@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include "wxdraw/gui/PaletteList.hpp"
+
 namespace wxdraw::gui {
 /**
    パレット
@@ -11,12 +13,7 @@ class Palette
 
  private:
   MainFrame* mainFrame_;
-  PenList* penList_;
-  BrushList* brushList_;
-  GradientList* gradientList_;
-  GradientStopList* gradientStopList_;
-  ColorList* colorList_;
-  GradientPtr gradient_;
+  std::vector<PaletteListBase*> lists_;
   PaletteComponentPtr paletteComponent_;
 
  public:
@@ -25,11 +22,25 @@ class Palette
 
   WXDRAW_GETTER(MainFrame, mainFrame_);
 
-  void setGradient(const GradientPtr& gradient);
-
   void setPaletteComponent(const PaletteComponentPtr& component);
   WXDRAW_GETTER(PaletteComponent, paletteComponent_);
 
+  void setGradient(const GradientPtr& gradient);
+
   void update();
+
+ private:
+  template<class T1, class T2, class... Rest>
+  void appendList() {
+    appendList<T1>();
+    appendList<T2, Rest...>();
+  }
+
+  template<class T>
+  void appendList() {
+    auto list = new T(this, this);
+    GetSizer()->Add(list, wxSizerFlags().Expand().Proportion(1));
+    lists_.push_back(list);
+  }
 };
 }

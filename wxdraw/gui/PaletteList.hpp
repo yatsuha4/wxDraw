@@ -2,7 +2,6 @@
 
 #include "wxdraw/component/PaletteComponent.hpp"
 #include "wxdraw/gui/PaletteListBase.hpp"
-#include "wxdraw/palette/GradientStop.hpp"
 
 namespace wxdraw::gui {
 /**
@@ -22,7 +21,7 @@ class PaletteList
 
   /**
    */
-  void refresh() {
+  void refresh() override {
     getList()->Freeze();
     getList()->DeleteAllItems();
     getImageList()->RemoveAll();
@@ -36,7 +35,7 @@ class PaletteList
   /**
      リストを更新する
   */
-  void update() {
+  void update() override {
     getList()->Freeze();
     getImageList()->RemoveAll();
     size_t index = 0;

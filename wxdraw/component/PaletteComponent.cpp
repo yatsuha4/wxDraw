@@ -13,30 +13,13 @@ PaletteComponent::PaletteComponent(const NodePtr& node)
 PaletteComponent::PaletteComponent(const PaletteComponent& src, const NodePtr& node)
   : super(src, node)
 {
-  std::transform(src.colors_.begin(), src.colors_.end(), std::back_inserter(colors_), 
-                 [](auto& color) {
-                   return std::make_shared<Color>(*color);
-                 });
-  std::transform(src.gradients_.begin(), src.gradients_.end(), 
-                 std::back_inserter(gradients_), 
-                 [&](auto& gradient) {
-                   return clone(src, gradient);
-                 });
-  std::transform(src.pens_.begin(), src.pens_.end(), 
-                 std::back_inserter(pens_), 
-                 [&](auto& pen) {
-                   return clone(src, pen);
-                 });
-  std::transform(src.brushes_.begin(), src.brushes_.end(), 
-                 std::back_inserter(brushes_), 
-                 [&](auto& brush) {
-                   return clone(src, brush);
-                 });
+  cloneItems<Font, Color, Gradient, Pen, Brush>(src);
 }
 /**
  */
 void PaletteComponent::onCreate() {
   super::onCreate();
+  appendItem<Font>(*wxNORMAL_FONT);
   auto penColor = appendColor("Pen", *wxBLACK);
   auto brushColor = appendColor("Brush", *wxWHITE);
   appendPen("Transparent");
@@ -96,12 +79,28 @@ ColorPtr PaletteComponent::appendColor(const wxString& name, const wxColour& col
 }
 /**
  */
-GradientPtr PaletteComponent::clone(const PaletteComponent& palette, 
-                                    const GradientPtr& src) const {
+GradientPtr PaletteComponent::cloneItem(const PaletteComponent& palette, 
+                                        const GradientPtr& src) const {
   auto dst = std::make_shared<Gradient>(*src);
   for(auto& stop : dst->getStops()) {
     stop->setColor(getItem<Color>(palette.getIndex(stop->getColor())));
   }
+  return dst;
+}
+/**
+ */
+PenPtr PaletteComponent::cloneItem(const PaletteComponent& palette, 
+                                   const PenPtr& src) const {
+  auto dst = std::make_shared<Pen>(*src);
+  dst->setColor(getItem<ColorBase>(palette.getIndex(src->getColor())));
+  return dst;
+}
+/**
+ */
+BrushPtr PaletteComponent::cloneItem(const PaletteComponent& palette, 
+                                     const BrushPtr& src) const {
+  auto dst = std::make_shared<Brush>(*src);
+  dst->setColor(getItem<ColorBase>(palette.getIndex(src->getColor())));
   return dst;
 }
 }

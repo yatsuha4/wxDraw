@@ -15,7 +15,7 @@ class GradientStopList
   GradientPtr gradient_;
 
  public:
-  void setGradient(const GradientPtr& gradient);
+  void setGradient(const GradientPtr& gradient) override;
 
  protected:
   std::vector<GradientStopPtr>& getItems() const override;

@@ -3,13 +3,14 @@
 #include "wxdraw/component/Component.hpp"
 #include "wxdraw/palette/Brush.hpp"
 #include "wxdraw/palette/Color.hpp"
+#include "wxdraw/palette/Font.hpp"
 #include "wxdraw/palette/Gradient.hpp"
 #include "wxdraw/palette/GradientStop.hpp"
 #include "wxdraw/palette/Pen.hpp"
 
 namespace wxdraw::component {
 /**
-   カラーパレットコンポーネント
+   パレットコンポーネント
 */
 class PaletteComponent
   : public Component<PaletteComponent>
@@ -20,6 +21,7 @@ class PaletteComponent
   static const char* TYPE;
 
  private:
+  std::vector<FontPtr> fonts_;
   std::vector<PenPtr> pens_;
   std::vector<BrushPtr> brushes_;
   std::vector<GradientPtr> gradients_;
@@ -61,6 +63,10 @@ class PaletteComponent
   }
 
  private:
+  void getItems(const std::vector<FontPtr>** items) const {
+    *items = &fonts_;
+  }
+
   void getItems(const std::vector<PenPtr>** items) const {
     *items = &pens_;
   }
@@ -93,14 +99,36 @@ class PaletteComponent
   BrushPtr appendBrush(const wxString& name, const ColorPtr& olor = nullptr);
   ColorPtr appendColor(const wxString& name, const wxColour& color);
 
-  GradientPtr clone(const PaletteComponent& palette, const GradientPtr& src) const;
-
-  template<class PenBaseType>
-  std::shared_ptr<PenBaseType> clone(const PaletteComponent& palette, 
-                                     const std::shared_ptr<PenBaseType>& src) const {
-    auto dst = std::make_shared<PenBaseType>(*src);
-    dst->setColor(getItem<Color>(palette.getIndex(src->getColor())));
-    return dst;
+  template<class T, class... Args>
+  std::shared_ptr<T> appendItem(Args&&... args) {
+    auto item = std::make_shared<T>(args...);
+    getItems<T>().push_back(item);
+    return item;
   }
+
+  template<class T>
+  void cloneItems(const PaletteComponent& src) {
+    auto& items = src.getItems<T>();
+    std::transform(items.begin(), items.end(), std::back_inserter(getItems<T>()), 
+                   [&](auto& item) {
+                   return cloneItem(src, item);
+                   });
+  }
+
+  template<class T1, class T2, class... Rest>
+  void cloneItems(const PaletteComponent& src) {
+    cloneItems<T1>(src);
+    cloneItems<T2, Rest...>(src);
+  }
+
+  template<class T>
+  std::shared_ptr<T> cloneItem(const PaletteComponent& palette, 
+                               const std::shared_ptr<T>& src) const {
+    return std::make_shared<T>(*src);
+  }
+
+  GradientPtr cloneItem(const PaletteComponent& palette, const GradientPtr& src) const;
+  PenPtr cloneItem(const PaletteComponent& palette, const PenPtr& src) const;
+  BrushPtr cloneItem(const PaletteComponent& palette, const BrushPtr& src) const;
 };
 }

@@ -118,9 +118,7 @@ WXDRAW_DECLARE_CLASS(XmlImporter);
 using namespace file;
 
 namespace gui {
-WXDRAW_DECLARE_CLASS(BrushList);
 WXDRAW_DECLARE_CLASS(Canvas);
-WXDRAW_DECLARE_CLASS(ColorList);
 WXDRAW_DECLARE_CLASS(GradientList);
 WXDRAW_DECLARE_CLASS(GradientStopList);
 WXDRAW_DECLARE_CLASS(Inspector);
@@ -129,7 +127,6 @@ WXDRAW_DECLARE_CLASS(Menu);
 WXDRAW_DECLARE_CLASS(Outliner);
 WXDRAW_DECLARE_CLASS(Palette);
 WXDRAW_DECLARE_CLASS(PaletteListBase);
-WXDRAW_DECLARE_CLASS(PenList);
 WXDRAW_DECLARE_CLASS(Renderer);
 }
 using namespace gui;

@@ -21,6 +21,11 @@ class PaletteListBase
 
   WXDRAW_GETTER(Palette, palette_);
 
+  virtual void refresh() = 0;
+  virtual void update() = 0;
+
+  virtual void setGradient(const GradientPtr& gradient) {}
+
  protected:
   WXDRAW_GETTER(List, list_);
 
