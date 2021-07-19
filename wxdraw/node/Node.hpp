@@ -52,11 +52,11 @@ class Node
 
   WXDRAW_ACCESSOR(Item, item_);
 
-  static NodePtr CreateEllipse();
-  static NodePtr CreateLayer();
-  static NodePtr CreateProject();
-  static NodePtr CreateRectangle();
-  static NodePtr CreateRoot();
+  static NodePtr NewEllipse();
+  static NodePtr NewLayer();
+  static NodePtr NewProject();
+  static NodePtr NewRectangle();
+  static NodePtr NewRoot();
 
   static NodePtr Clone(const NodePtr& src);
 
@@ -96,18 +96,27 @@ class Node
   static std::shared_ptr<T> AppendComponent(const NodePtr& node) {
     auto component = std::make_shared<T>(node);
     node->appendComponent(component);
+    return component;
+  }
+
+  /**
+     新規コンポーネントを追加する
+  */
+  template<class T>
+  static std::shared_ptr<T> NewComponent(const NodePtr& node) {
+    auto component = AppendComponent<T>(node);
     component->onCreate();
     return component;
   }
 
  private:
   /**
-     ノードを生成する
+     新規ノードを生成する
   */
   template<class... ComponentTypes>
-  static NodePtr Create(const std::string& name) {
+  static NodePtr New(const std::string& name) {
     auto node = std::make_shared<Node>(name);
-    AppendComponent<LayoutComponent, ComponentTypes...>(node);
+    NewComponent<LayoutComponent, ComponentTypes...>(node);
     return node;
   }
 
@@ -115,9 +124,9 @@ class Node
      コンポーネントを追加する
   */
   template<class T1, class T2, class... Rest>
-  static void AppendComponent(const NodePtr& node) {
-    AppendComponent<T1>(node);
-    AppendComponent<T2, Rest...>(node);
+  static void NewComponent(const NodePtr& node) {
+    NewComponent<T1>(node);
+    NewComponent<T2, Rest...>(node);
   }
 };
 }

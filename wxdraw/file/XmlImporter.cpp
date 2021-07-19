@@ -4,9 +4,17 @@
 #include "wxdraw/component/GridComponent.hpp"
 #include "wxdraw/component/LayerComponent.hpp"
 #include "wxdraw/component/LayoutComponent.hpp"
+#include "wxdraw/component/PaletteComponent.hpp"
+#include "wxdraw/component/PenComponent.hpp"
+#include "wxdraw/component/ProjectComponent.hpp"
 #include "wxdraw/component/RectangleComponent.hpp"
 #include "wxdraw/file/XmlImporter.hpp"
 #include "wxdraw/node/Node.hpp"
+#include "wxdraw/palette/Brush.hpp"
+#include "wxdraw/palette/Color.hpp"
+#include "wxdraw/palette/Gradient.hpp"
+#include "wxdraw/palette/GradientStop.hpp"
+#include "wxdraw/palette/Pen.hpp"
 #include "wxdraw/property/Property.hpp"
 
 namespace wxdraw::file {
@@ -27,31 +35,6 @@ NodePtr XmlImporter::load() {
   return nullptr;
 }
 /**
- */
-bool XmlImporter::FromString(const wxString& text, int& value) {
-  long v;
-  if(wxNumberFormatter::FromString(text, &v)) {
-    value = static_cast<int>(v);
-    return true;
-  }
-  return false;
-}
-/**
- */
-bool XmlImporter::FromString(const wxString& text, double& value) {
-  return wxNumberFormatter::FromString(text, &value);
-}
-/**
- */
-bool XmlImporter::FromString(const wxString& text, bool& value) {
-  long v;
-  if(wxNumberFormatter::FromString(text, &v)) {
-    value = static_cast<bool>(v);
-    return true;
-  }
-  return false;
-}
-/**
    XMLからノードを生成する
    @param xml XML
    @return 生成したノード
@@ -64,10 +47,14 @@ NodePtr XmlImporter::createNode(const wxXmlNode& xml) {
       componentXml = componentXml->GetNext()) {
     if(auto component = CreateComponent(node, *componentXml)) {
       parseProperty(*componentXml, *component->createProperty());
-      if(auto container = std::dynamic_pointer_cast<ContainerComponent>(component)) {
+      if(auto container = ContainerComponent::As(component)) {
         for(auto child = componentXml->GetChildren(); child; child = child->GetNext()) {
           Node::Append(createNode(*child), node);
         }
+      }
+      else if(auto palette = PaletteComponent::As(component)) {
+        palette_ = palette;
+        parsePalette(*componentXml);
       }
     }
     else {
@@ -77,28 +64,55 @@ NodePtr XmlImporter::createNode(const wxXmlNode& xml) {
   return node;
 }
 /**
+ */
+void XmlImporter::parsePalette(const wxXmlNode& parent) {
+  for(auto xml = parent.GetChildren(); xml; xml = xml->GetNext()) {
+    if(xml->GetName() == Color::TYPE) {
+      auto color = std::make_shared<Color>();
+      parseProperty(*xml, *color->createProperty());
+      palette_->getColors().push_back(color);
+    }
+    else if(xml->GetName() == Gradient::TYPE) {
+      auto gradient = std::make_shared<Gradient>();
+      parseProperty(*xml, *gradient->createProperty());
+      for(auto child = xml->GetChildren(); child; child = child->GetNext()) {
+        if(child->GetName() == GradientStop::TYPE) {
+          auto stop = std::make_shared<GradientStop>();
+          parseProperty(*child, *stop->createProperty());
+          gradient->getStops().push_back(stop);
+        }
+        else {
+          Warning("syntax error", *child);
+        }
+      }
+      palette_->getGradients().push_back(gradient);
+    }
+    else if(xml->GetName() == Pen::TYPE) {
+      auto pen = std::make_shared<Pen>();
+      parseProperty(*xml, *pen->createProperty());
+      palette_->getPens().push_back(pen);
+    }
+    else if(xml->GetName() == Brush::TYPE) {
+      auto brush = std::make_shared<Brush>();
+      parseProperty(*xml, *brush->createProperty());
+      palette_->getBrushes().push_back(brush);
+    }
+    else {
+      Warning("syntax error", *xml);
+    }
+  }
+}
+/**
    メンバーに値を書き込む
    @param xml XMLノード
    @param property プロパティ
 */
 void XmlImporter::parseProperty(const wxXmlNode& xml, const Property& property) {
   for(auto& member : property.getMembers()) {
-    wxString text;
-    if(xml.GetAttribute(member->getName(), &text)) {
-      if(auto m = Member<int>::As(member)) {
-        FromString(text, m->getValue());
-      }
-      else if(auto m = Member<double>::As(member)) {
-        FromString(text, m->getValue());
-      }
-      else if(auto m = Member<bool>::As(member)) {
-        FromString(text, m->getValue());
-      }
-      else if(auto m = Member<wxString>::As(member)) {
-        m->getValue() = text;
-      }
-      else if(auto m =  Member<wxColour>::As(member)) {
-        m->getValue() = wxColour(text);
+    wxString value;
+    if(xml.GetAttribute(member->getName(), &value)) {
+      if(!parseMember<WXDRAW_PROPERTY_CLASSES>(member, value)) {
+        Warning("illegal member", xml);
       }
     }
   }
@@ -106,13 +120,108 @@ void XmlImporter::parseProperty(const wxXmlNode& xml, const Property& property) 
 /**
  */
 ComponentBasePtr XmlImporter::CreateComponent(const NodePtr& node, const wxXmlNode& xml) {
-  return CreateComponent<BrushComponent, 
-                        ContainerComponent, 
-                        EllipseComponent, 
-                        GridComponent, 
-                        LayerComponent, 
-                        LayoutComponent, 
-                        RectangleComponent>(node, xml);
+  return CreateComponent<
+    BrushComponent, 
+    ContainerComponent, 
+    EllipseComponent, 
+    GridComponent, 
+    LayerComponent, 
+    LayoutComponent, 
+    PaletteComponent, 
+    PenComponent, 
+    ProjectComponent, 
+    RectangleComponent
+    >(node, xml);
+}
+/**
+ */
+bool XmlImporter::fromString(const wxString& src, int& dst) const {
+  long value;
+  if(wxNumberFormatter::FromString(src, &value)) {
+    dst = static_cast<int>(value);
+    return true;
+  }
+  return false;
+}
+/**
+ */
+bool XmlImporter::fromString(const wxString& src, double& dst) const {
+  return wxNumberFormatter::FromString(src, &dst);
+}
+/**
+ */
+bool XmlImporter::fromString(const wxString& src, bool& dst) const {
+  int value;
+  if(fromString(src, value)) {
+    dst = static_cast<bool>(value);
+    return true;
+  }
+  return false;
+}
+/**
+ */
+bool XmlImporter::fromString(const wxString& src, wxString& dst) const {
+  dst = src;
+  return true;
+}
+/**
+ */
+bool XmlImporter::fromString(const wxString& src, wxColour& dst) const {
+  dst = wxColour(src);
+  return true;
+}
+/**
+ */
+bool XmlImporter::fromString(const wxString& src, wxFileName& dst) const {
+  return false;
+}
+/**
+ */
+bool XmlImporter::fromString(const wxString& src, PenPtr& dst) const {
+  if(palette_) {
+    int index;
+    if(fromString(src, index)) {
+      dst = palette_->getPen(index);
+      return true;
+    }
+  }
+  return false;
+}
+/**
+ */
+bool XmlImporter::fromString(const wxString& src, BrushPtr& dst) const {
+  if(palette_) {
+    int index;
+    if(fromString(src, index)) {
+      dst = palette_->getBrush(index);
+      return true;
+    }
+  }
+  return false;
+}
+/**
+ */
+bool XmlImporter::fromString(const wxString& src, ColorPtr& dst) const {
+  if(palette_) {
+    int index;
+    if(fromString(src, index)) {
+      dst = palette_->getColor(index);
+      return true;
+    }
+  }
+  return false;
+}
+/**
+ */
+bool XmlImporter::fromString(const wxString& src, ColorBasePtr& dst) const {
+  if(palette_) {
+    int index;
+    if(fromString(src, index)) {
+      dst = palette_->getColorBase(index);
+      return true;
+    }
+  }
+  return false;
 }
 /**
  */

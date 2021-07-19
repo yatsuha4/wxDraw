@@ -20,7 +20,7 @@ Outliner::Outliner(wxWindow* parent, MainFrame& mainFrame)
  */
 const NodePtr& Outliner::getRootNode() {
   if(!rootNode_) {
-    rootNode_ = Node::CreateRoot();
+    rootNode_ = Node::NewRoot();
     rootNode_->setItem(GetRootItem());
   }
   return rootNode_;

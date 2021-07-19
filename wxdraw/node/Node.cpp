@@ -163,27 +163,27 @@ void Node::render(Renderer& renderer) {
 }
 /**
  */
-NodePtr Node::CreateEllipse() {
-  return Create<EllipseComponent>(TYPE_ELLIPSE);
+NodePtr Node::NewEllipse() {
+  return New<EllipseComponent>(TYPE_ELLIPSE);
 }
-NodePtr Node::CreateLayer() {
-  return Create<LayerComponent, 
-                ContainerComponent, 
-                GridComponent>(TYPE_LAYER);
+NodePtr Node::NewLayer() {
+  return New<LayerComponent, 
+             ContainerComponent, 
+             GridComponent>(TYPE_LAYER);
 }
-NodePtr Node::CreateProject() {
-  return Create<ProjectComponent, 
-                ContainerComponent, 
-                GridComponent, 
-                PaletteComponent, 
-                PenComponent, 
-                BrushComponent>(TYPE_PROJECT);
+NodePtr Node::NewProject() {
+  return New<ProjectComponent, 
+             ContainerComponent, 
+             GridComponent, 
+             PaletteComponent, 
+             PenComponent, 
+             BrushComponent>(TYPE_PROJECT);
 }
-NodePtr Node::CreateRectangle() {
-  return Create<RectangleComponent>(TYPE_RECTANGLE);
+NodePtr Node::NewRectangle() {
+  return New<RectangleComponent>(TYPE_RECTANGLE);
 }
-NodePtr Node::CreateRoot() {
-  return Create<ContainerComponent>(TYPE_ROOT);
+NodePtr Node::NewRoot() {
+  return New<ContainerComponent>(TYPE_ROOT);
 }
 /**
    複製を生成する

@@ -222,7 +222,7 @@ void MainFrame::onMenuOpen(wxMenuEvent& event) {
 void MainFrame::onSelectMenu(wxCommandEvent& event) {
   switch(event.GetId()) {
   case Menu::ID_FILE_NEW:
-    appendNode(Node::CreateProject(), outliner_->getRootNode());
+    appendNode(Node::NewProject(), outliner_->getRootNode());
     break;
   case Menu::ID_FILE_OPEN:
     open();
@@ -239,13 +239,13 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
     Close();
     break;
   case Menu::ID_EDIT_APPEND_LAYER:
-    newNode(Node::CreateLayer());
+    newNode(Node::NewLayer());
     break;
   case Menu::ID_EDIT_APPEND_RECTANGLE:
-    newNode(Node::CreateRectangle());
+    newNode(Node::NewRectangle());
     break;
   case Menu::ID_EDIT_APPEND_ELLIPSE:
-    newNode(Node::CreateEllipse());
+    newNode(Node::NewEllipse());
     break;
   case Menu::ID_EDIT_REMOVE:
     submitCommand<RemoveNodeCommand>(getSelectNode());
