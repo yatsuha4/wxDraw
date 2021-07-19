@@ -61,6 +61,7 @@
 		26BA73D126990D3C001F3C5D /* LayoutComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26BA73D026990D3C001F3C5D /* LayoutComponent.cpp */; };
 		26BA73D426991A64001F3C5D /* EllipseComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26BA73D226991A64001F3C5D /* EllipseComponent.cpp */; };
 		26C8D8FD26A596EC003CB994 /* TextComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26C8D8FC26A596EC003CB994 /* TextComponent.cpp */; };
+		26C8D90026A63519003CB994 /* Font.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26C8D8FF26A63519003CB994 /* Font.cpp */; };
 		26CB1327269A524E0025ACDD /* Exporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26CB1325269A524E0025ACDD /* Exporter.cpp */; };
 		26CB132A269A537B0025ACDD /* XmlExporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26CB1328269A537B0025ACDD /* XmlExporter.cpp */; };
 		26CB132C269A54140025ACDD /* libexpat.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 26CB132B269A54140025ACDD /* libexpat.tbd */; };
@@ -176,6 +177,8 @@
 		26BA73D326991A64001F3C5D /* EllipseComponent.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EllipseComponent.hpp; sourceTree = "<group>"; };
 		26C8D8FB26A596EC003CB994 /* TextComponent.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextComponent.hpp; sourceTree = "<group>"; };
 		26C8D8FC26A596EC003CB994 /* TextComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextComponent.cpp; sourceTree = "<group>"; };
+		26C8D8FE26A63519003CB994 /* Font.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Font.hpp; sourceTree = "<group>"; };
+		26C8D8FF26A63519003CB994 /* Font.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Font.cpp; sourceTree = "<group>"; };
 		26CB13222699F8BB0025ACDD /* Rect.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Rect.hpp; sourceTree = "<group>"; };
 		26CB13232699FB790025ACDD /* Layout.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Layout.hpp; sourceTree = "<group>"; };
 		26CB1325269A524E0025ACDD /* Exporter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Exporter.cpp; sourceTree = "<group>"; };
@@ -289,6 +292,8 @@
 				2637D74726A2C39100BF8F37 /* Color.cpp */,
 				2637D74626A2C39100BF8F37 /* Color.hpp */,
 				2637D75C26A4EB9900BF8F37 /* ColorBase.hpp */,
+				26C8D8FF26A63519003CB994 /* Font.cpp */,
+				26C8D8FE26A63519003CB994 /* Font.hpp */,
 				2637D74026A2C0AC00BF8F37 /* Gradient.cpp */,
 				2637D73C26A2C0AC00BF8F37 /* Gradient.hpp */,
 				2637D75126A323DE00BF8F37 /* GradientStop.cpp */,
@@ -543,6 +548,7 @@
 				266A37AA2669D79600EA192B /* MemberBase.cpp in Sources */,
 				260BBF1B269E5D040041BD06 /* ExportComponent.cpp in Sources */,
 				266A37A426684E1A00EA192B /* Inspector.cpp in Sources */,
+				26C8D90026A63519003CB994 /* Font.cpp in Sources */,
 				26CB132F269A91030025ACDD /* LayerComponent.cpp in Sources */,
 				260BBF0B269C45D40041BD06 /* XmlImporter.cpp in Sources */,
 				2637D75826A372C300BF8F37 /* PropertyOwner.cpp in Sources */,
