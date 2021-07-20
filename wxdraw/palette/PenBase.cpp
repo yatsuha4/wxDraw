@@ -4,6 +4,21 @@
 
 namespace wxdraw::palette {
 /**
+   コンストラクタ
+   @param type 型名
+   @param palette パレットコンポーネント
+   @param name 名前
+   @param color カラー
+*/
+PenBase::PenBase(const wxString& type, 
+                 const PaletteComponentPtr& palette, 
+                 const wxString& name, 
+                 const ColorBasePtr& color)
+  : super(type, palette, name), 
+    color_(color)
+{
+}
+/**
  */
 void PenBase::update() {
   setBitmap(color_ ? color_->getBitmap() : GetNullBitmap());

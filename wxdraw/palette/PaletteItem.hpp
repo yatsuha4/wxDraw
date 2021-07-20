@@ -21,7 +21,11 @@ class PaletteItem
   static wxBitmap NullBitmap;
 
  public:
-  PaletteItem(const wxString& type, const PaletteComponentPtr& palette);
+  PaletteItem(const wxString& type, 
+              const PaletteComponentPtr& palette);
+  PaletteItem(const wxString& type, 
+              const PaletteComponentPtr& palette, 
+              const wxString& name);
   PaletteItem(const PaletteItem& src) = default;
   ~PaletteItem() override = default;
 

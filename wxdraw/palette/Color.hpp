@@ -19,6 +19,9 @@ class Color
 
  public:
   Color(const PaletteComponentPtr& palette);
+  Color(const PaletteComponentPtr& palette, 
+        const wxString& name, 
+        const wxColour& color);
   Color(const Color& src) = default;
   ~Color() = default;
 

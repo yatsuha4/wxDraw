@@ -12,6 +12,16 @@ Pen::Pen(const PaletteComponentPtr& palette)
 {
 }
 /**
+   コンストラクタ
+*/
+Pen::Pen(const PaletteComponentPtr& palette, 
+         const wxString& name, 
+         const ColorBasePtr& color)
+  : super(TYPE, palette, name, color), 
+    width_(0.1)
+{
+}
+/**
  */
 PropertyPtr Pen::createProperty() {
   auto property = super::createProperty();

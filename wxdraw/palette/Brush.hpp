@@ -18,6 +18,9 @@ class Brush
 
  public:
   Brush(const PaletteComponentPtr& palette);
+  Brush(const PaletteComponentPtr& palette, 
+        const wxString& name, 
+        const ColorBasePtr& color = nullptr);
   Brush(const Brush& src) = default;
   ~Brush() override = default;
 

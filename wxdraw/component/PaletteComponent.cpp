@@ -20,12 +20,10 @@ PaletteComponent::PaletteComponent(const PaletteComponent& src, const NodePtr& n
 void PaletteComponent::onNew() {
   super::onNew();
   appendItem<Font>(*wxNORMAL_FONT);
-  auto penColor = appendColor("Pen", *wxBLACK);
-  auto brushColor = appendColor("Brush", *wxWHITE);
-  appendPen("Transparent");
-  appendPen("Default", penColor);
-  appendBrush("Transparent");
-  appendBrush("Default", brushColor);
+  appendItem<Pen>("Transparent");
+  appendItem<Pen>("Default", appendItem<Color>("Pen", *wxBLACK));
+  appendItem<Brush>("Transparent");
+  appendItem<Brush>("Default", appendItem<Color>("Brush", *wxWHITE));
 }
 /**
  */
@@ -49,30 +47,6 @@ void PaletteComponent::getItem(size_t index, ColorBasePtr& item) const {
   else {
     item = nullptr;
   }
-}
-/**
- */
-PenPtr PaletteComponent::appendPen(const wxString& name, const ColorPtr& color) {
-  auto pen = appendItem<Pen>();
-  pen->setName(name);
-  pen->setColor(color);
-  return pen;
-}
-/**
- */
-BrushPtr PaletteComponent::appendBrush(const wxString& name, const ColorPtr& color) {
-  auto brush = appendItem<Brush>();
-  brush->setName(name);
-  brush->setColor(color);
-  return brush;
-}
-/**
- */
-ColorPtr PaletteComponent::appendColor(const wxString& name, const wxColour& color) {
-  auto item = appendItem<Color>();
-  item->setName(name);
-  item->setColor(color);
-  return item;
 }
 /**
  */

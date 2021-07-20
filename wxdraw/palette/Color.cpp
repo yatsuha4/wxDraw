@@ -12,6 +12,16 @@ Color::Color(const PaletteComponentPtr& palette)
 {
 }
 /**
+   コンストラクタ
+*/
+Color::Color(const PaletteComponentPtr& palette, 
+             const wxString& name, 
+             const wxColour& color)
+  : super(TYPE, palette, name), 
+    color_(color)
+{
+}
+/**
  */
 void Color::update() {
   wxImage image(BITMAP_SIZE);

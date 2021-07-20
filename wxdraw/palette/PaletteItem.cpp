@@ -5,13 +5,29 @@ namespace wxdraw::palette {
 const wxSize PaletteItem::BITMAP_SIZE(16, 16);
 wxBitmap PaletteItem::NullBitmap;
 /**
- */
+   コンストラクタ
+   @param type 型名
+   @param palette パレットコンポーネント
+*/
 PaletteItem::PaletteItem(const wxString& type, 
                          const PaletteComponentPtr& palette)
   : super(type), 
     palette_(palette), 
     bitmap_(GetNullBitmap())
 {
+}
+/**
+   コンストラクタ
+   @param type 型名
+   @param palette パレットコンポーネント
+   @param name 名前
+*/
+PaletteItem::PaletteItem(const wxString& type, 
+                         const PaletteComponentPtr& palette, 
+                         const wxString& name)
+  : PaletteItem(type, palette)
+{
+  setName(name);
 }
 /**
  */

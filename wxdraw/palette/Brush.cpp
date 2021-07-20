@@ -12,6 +12,16 @@ Brush::Brush(const PaletteComponentPtr& palette)
 {
 }
 /**
+   コンストラクタ
+*/
+Brush::Brush(const PaletteComponentPtr& palette, 
+             const wxString& name, 
+             const ColorBasePtr& color)
+  : super(TYPE, palette, name, color), 
+    direction_(0.0)
+{
+}
+/**
  */
 PropertyPtr Brush::createProperty() {
   auto property = super::createProperty();

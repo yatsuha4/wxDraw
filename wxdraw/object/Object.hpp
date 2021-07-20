@@ -12,7 +12,7 @@ class Object
   wxString id_;
   wxString name_;
 
-  static std::map<wxString, int> Serials;
+  static std::map<std::type_index, std::map<wxString, int>> Serials;
 
  public:
   Object(const wxString& type);
@@ -36,5 +36,8 @@ class Object
   static wxString NewId();
 
   virtual void onNew();
+
+ private:
+  void onNew(const std::type_index& type);
 };
 }

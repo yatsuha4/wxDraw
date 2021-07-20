@@ -36,9 +36,8 @@
    C++
 */
 #include <map>
-#include <regex>
-#include <sstream>
 #include <stack>
+#include <typeindex>
 /**
    マクロ定義
 */

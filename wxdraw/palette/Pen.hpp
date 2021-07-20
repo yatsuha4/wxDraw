@@ -19,6 +19,9 @@ class Pen
 
  public:
   Pen(const PaletteComponentPtr& palette);
+  Pen(const PaletteComponentPtr& palette, 
+      const wxString& name, 
+      const ColorBasePtr& color = nullptr);
   Pen(const Pen& src) = default;
   ~Pen() override = default;
 

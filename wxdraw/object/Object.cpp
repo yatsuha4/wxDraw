@@ -3,7 +3,7 @@
 #include "wxdraw/property/Property.hpp"
 
 namespace wxdraw::object {
-std::map<wxString, int> Object::Serials;
+std::map<std::type_index, std::map<wxString, int>> Object::Serials;
 /**
    コンストラクタ
    @param type 型名
@@ -19,7 +19,7 @@ Object::Object(const wxString& type)
 Object::Object(const Object& src)
   : type_(src.type_)
 {
-  onNew();
+  onNew(typeid(src));
 }
 /**
  */
@@ -33,10 +33,11 @@ PropertyPtr Object::createProperty() {
 void Object::onUpdateProperty() {
   wxRegEx match("^([A-Za-z]+)_(\\d+)");
   if(match.Matches(name_)) {
+    std::type_index type(typeid(*this));
     auto name = match.GetMatch(name_, 1);
     auto index = wxAtoi(match.GetMatch(name_, 2));
-    if(index > Serials[name]) {
-      Serials[name] = index;
+    if(index > Serials[type][name]) {
+      Serials[type][name] = index;
     }
   }
 }
@@ -55,7 +56,15 @@ wxString Object::NewId() {
    新規に生成されたときの処理
 */
 void Object::onNew() {
-  setId(NewId());
-  setName(wxString::Format("%s_%d", type_, ++Serials[type_]));
+  onNew(typeid(*this));
+}
+/**
+   新規に生成されたときの処理
+*/
+void Object::onNew(const std::type_index& type) {
+  id_ = NewId();
+  if(name_.IsEmpty()) {
+    name_ = wxString::Format("%s_%d", type_, ++Serials[type][type_]);
+  }
 }
 }

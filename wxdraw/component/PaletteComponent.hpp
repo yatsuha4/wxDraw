@@ -95,13 +95,10 @@ class PaletteComponent
 
   void getItem(size_t index, ColorBasePtr& item) const;
 
-  PenPtr appendPen(const wxString& name, const ColorPtr& color = nullptr);
-  BrushPtr appendBrush(const wxString& name, const ColorPtr& olor = nullptr);
-  ColorPtr appendColor(const wxString& name, const wxColour& color);
-
   template<class T, class... Args>
   std::shared_ptr<T> appendItem(Args&&... args) {
     auto item = New<T>(getThis(), args...);
+    item->update();
     getItems<T>().push_back(item);
     return item;
   }

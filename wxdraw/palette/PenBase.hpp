@@ -16,6 +16,10 @@ class PenBase
   ColorBasePtr color_;
 
  public:
+  PenBase(const wxString& type, 
+          const PaletteComponentPtr& palette, 
+          const wxString& name, 
+          const ColorBasePtr& color);
   PenBase(const PenBase& src) = default;
   ~PenBase() override = default;
 
