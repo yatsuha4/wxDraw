@@ -21,7 +21,7 @@ class PaletteItem
   static wxBitmap NullBitmap;
 
  public:
-  PaletteItem(const std::string& type, const PaletteComponentPtr& palette);
+  PaletteItem(const wxString& type, const PaletteComponentPtr& palette);
   PaletteItem(const PaletteItem& src) = default;
   ~PaletteItem() override = default;
 

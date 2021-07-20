@@ -18,6 +18,6 @@ class Command
   WXDRAW_GETTER(MainFrame, mainFrame_);
 
  protected:
-  Command(const std::string& name, MainFrame* mainFrame);
+  Command(const wxString& name, MainFrame* mainFrame);
 };
 }

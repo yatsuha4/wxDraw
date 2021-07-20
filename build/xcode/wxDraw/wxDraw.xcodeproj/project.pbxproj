@@ -61,6 +61,7 @@
 		26C8D8FD26A596EC003CB994 /* TextComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26C8D8FC26A596EC003CB994 /* TextComponent.cpp */; };
 		26C8D90026A63519003CB994 /* Font.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26C8D8FF26A63519003CB994 /* Font.cpp */; };
 		26C8D90426A6B844003CB994 /* Object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26C8D90226A6B844003CB994 /* Object.cpp */; };
+		26C8D90626A6EDA4003CB994 /* libwxregexu-3.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 26C8D90526A6EDA4003CB994 /* libwxregexu-3.1.a */; };
 		26CB1327269A524E0025ACDD /* Exporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26CB1325269A524E0025ACDD /* Exporter.cpp */; };
 		26CB132A269A537B0025ACDD /* XmlExporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26CB1328269A537B0025ACDD /* XmlExporter.cpp */; };
 		26CB132C269A54140025ACDD /* libexpat.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 26CB132B269A54140025ACDD /* libexpat.tbd */; };
@@ -173,6 +174,7 @@
 		26C8D8FF26A63519003CB994 /* Font.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Font.cpp; sourceTree = "<group>"; };
 		26C8D90226A6B844003CB994 /* Object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Object.cpp; sourceTree = "<group>"; };
 		26C8D90326A6B844003CB994 /* Object.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Object.hpp; sourceTree = "<group>"; };
+		26C8D90526A6EDA4003CB994 /* libwxregexu-3.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libwxregexu-3.1.a"; path = "../../../external/opt/mac/wxWidgets/lib/libwxregexu-3.1.a"; sourceTree = "<group>"; };
 		26CB13222699F8BB0025ACDD /* Rect.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Rect.hpp; sourceTree = "<group>"; };
 		26CB13232699FB790025ACDD /* Layout.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Layout.hpp; sourceTree = "<group>"; };
 		26CB1325269A524E0025ACDD /* Exporter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Exporter.cpp; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 				265FCA54214AD08A00398B40 /* libwx_osx_cocoau-3.1.a in Frameworks */,
 				260BBF21269E6F360041BD06 /* libwxjpeg-3.1.a in Frameworks */,
 				265FCA60214AD12700398B40 /* libwxpng-3.1.a in Frameworks */,
+				26C8D90626A6EDA4003CB994 /* libwxregexu-3.1.a in Frameworks */,
 				260BBF22269E6F360041BD06 /* libwxtiff-3.1.a in Frameworks */,
 				265FCA5C214AD0E300398B40 /* AudioToolbox.framework in Frameworks */,
 				265FCA58214AD0CF00398B40 /* Carbon.framework in Frameworks */,
@@ -332,6 +335,7 @@
 				265FCA53214AD08A00398B40 /* libwx_osx_cocoau-3.1.a */,
 				260BBF1F269E6F360041BD06 /* libwxjpeg-3.1.a */,
 				265FCA5F214AD12700398B40 /* libwxpng-3.1.a */,
+				26C8D90526A6EDA4003CB994 /* libwxregexu-3.1.a */,
 				260BBF20269E6F360041BD06 /* libwxtiff-3.1.a */,
 				265FCA5B214AD0E300398B40 /* AudioToolbox.framework */,
 				265FCA57214AD0CF00398B40 /* Carbon.framework */,

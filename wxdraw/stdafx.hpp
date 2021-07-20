@@ -23,6 +23,7 @@
 #include <wx/numformatter.h>
 #include <wx/propgrid/advprops.h>
 #include <wx/propgrid/propgrid.h>
+#include <wx/regex.h>
 #include <wx/treelist.h>
 #include <wx/wfstream.h>
 #include <wx/xml/xml.h>

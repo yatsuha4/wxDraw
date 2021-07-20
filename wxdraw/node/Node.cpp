@@ -24,9 +24,9 @@ const char* Node::TYPE_ROOT = "Root";
 const char* Node::TYPE_TEXT = "Text";
 /**
    コンストラクタ
-   @param name 名前
+   @param type 型名
 */
-Node::Node(const std::string& type)
+Node::Node(const wxString& type)
   : super(type), 
     label_(type), 
     show_(true)

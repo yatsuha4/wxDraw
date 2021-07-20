@@ -28,7 +28,7 @@ class Node
   wxTreeListItem item_;
 
  public:
-  Node(const std::string& type);
+  Node(const wxString& type);
   Node(const Node& src);
   ~Node();
 

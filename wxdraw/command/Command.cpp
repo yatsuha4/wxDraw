@@ -6,7 +6,7 @@ namespace wxdraw::command {
    @param name 名前
    @param mainFrame メインフレーム
 */
-Command::Command(const std::string& name, MainFrame* mainFrame)
+Command::Command(const wxString& name, MainFrame* mainFrame)
   : super(true, name), 
     mainFrame_(mainFrame)
 {

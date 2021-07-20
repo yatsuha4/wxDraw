@@ -23,13 +23,13 @@ void Property::appendMember(const MemberBasePtr& member) {
 }
 /**
  */
-void Property::appendMember(const std::string& name, glm::ivec2& value) {
+void Property::appendMember(const wxString& name, glm::ivec2& value) {
   appendMember(name + ".x", value.x);
   appendMember(name + ".y", value.y);
 }
 /**
  */
-void Property::appendMember(const std::string& name, glm::dvec2& value) {
+void Property::appendMember(const wxString& name, glm::dvec2& value) {
   appendMember(name + ".x", value.x);
   appendMember(name + ".y", value.y);
 }

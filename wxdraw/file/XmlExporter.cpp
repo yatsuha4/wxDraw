@@ -37,7 +37,7 @@ wxXmlNode* XmlExporter::createXml(Node& node) {
 /**
  */
 wxXmlNode* XmlExporter::createXml(const Property& property) {
-  auto xml = new wxXmlNode(wxXML_ELEMENT_NODE, property.getName());
+  auto xml = new wxXmlNode(wxXML_ELEMENT_NODE, property.getObject()->getType());
   for(auto& member : property.getMembers()) {
     if(auto child = std::dynamic_pointer_cast<PropertyMember>(member)) {
       auto childXml = createXml(*child->getProperty());
@@ -131,22 +131,10 @@ wxString XmlExporter::toString(const wxFont& value) const {
 }
 /**
  */
-wxString XmlExporter::toString(const PenPtr& value) const {
-  return toString(static_cast<int>(palette_->getIndex(value)));
-}
-/**
- */
-wxString XmlExporter::toString(const BrushPtr& value) const {
-  return toString(static_cast<int>(palette_->getIndex(value)));
-}
-/**
- */
-wxString XmlExporter::toString(const ColorPtr& value) const {
-  return toString(static_cast<int>(palette_->getIndex(value)));
-}
-/**
- */
-wxString XmlExporter::toString(const ColorBasePtr& value) const {
-  return toString(static_cast<int>(palette_->getIndex(value)));
+wxString XmlExporter::toString(const ObjectPtr& value) const {
+  if(value) {
+    return value->getId();
+  }
+  return wxEmptyString;
 }
 }

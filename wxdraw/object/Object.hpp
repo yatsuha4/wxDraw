@@ -8,15 +8,14 @@ class Object
   : public std::enable_shared_from_this<Object>
 {
  private:
-  std::string type_;
+  wxString type_;
   wxString id_;
   wxString name_;
 
-  static const std::regex NAME_REGEX;
-  static std::map<std::string, int> Serials;
+  static std::map<wxString, int> Serials;
 
  public:
-  Object(const std::string& type);
+  Object(const wxString& type);
   Object(const Object& src);
   virtual ~Object() = default;
 

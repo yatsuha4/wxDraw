@@ -6,7 +6,7 @@ const wxSize PaletteItem::BITMAP_SIZE(16, 16);
 wxBitmap PaletteItem::NullBitmap;
 /**
  */
-PaletteItem::PaletteItem(const std::string& type, 
+PaletteItem::PaletteItem(const wxString& type, 
                          const PaletteComponentPtr& palette)
   : super(type), 
     palette_(palette), 

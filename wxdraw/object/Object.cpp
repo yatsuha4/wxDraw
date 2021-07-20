@@ -3,13 +3,12 @@
 #include "wxdraw/property/Property.hpp"
 
 namespace wxdraw::object {
-const std::regex Object::NAME_REGEX("^([A-Za-z]+)_(\\d+)");
-std::map<std::string, int> Object::Serials;
+std::map<wxString, int> Object::Serials;
 /**
    コンストラクタ
    @param type 型名
  */
-Object::Object(const std::string& type)
+Object::Object(const wxString& type)
   : type_(type)
 {
 }
@@ -32,10 +31,10 @@ PropertyPtr Object::createProperty() {
 /**
  */
 void Object::onUpdateProperty() {
-  std::cmatch match;
-  if(std::regex_match(static_cast<const char*>(name_), match, NAME_REGEX)) {
-    auto name = match[1].str();
-    auto index = std::stoi(match[2].str());
+  wxRegEx match("^([A-Za-z]+)_(\\d+)");
+  if(match.Matches(name_)) {
+    auto name = match.GetMatch(name_, 1);
+    auto index = wxAtoi(match.GetMatch(name_, 2));
     if(index > Serials[name]) {
       Serials[name] = index;
     }

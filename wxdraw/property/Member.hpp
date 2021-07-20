@@ -19,8 +19,8 @@ class Member
   T& value_;
 
  public:
-  Member(const std::string& id, T& value)
-    : super(id), 
+  Member(const wxString& name, T& value)
+    : super(name), 
       value_(value)
   {}
   ~Member() override = default;
