@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "wxdraw/component/Component.hpp"
+#include "wxdraw/object/List.hpp"
 #include "wxdraw/palette/Brush.hpp"
 #include "wxdraw/palette/Color.hpp"
 #include "wxdraw/palette/Font.hpp"
@@ -21,11 +22,11 @@ class PaletteComponent
   static const char* TYPE;
 
  private:
-  std::vector<FontPtr> fonts_;
-  std::vector<PenPtr> pens_;
-  std::vector<BrushPtr> brushes_;
-  std::vector<GradientPtr> gradients_;
-  std::vector<ColorPtr> colors_;
+  List<Font> fonts_;
+  List<Pen> pens_;
+  List<Brush> brushes_;
+  List<Gradient> gradients_;
+  List<Color> colors_;
 
  public:
   PaletteComponent(const NodePtr& node);
@@ -35,16 +36,16 @@ class PaletteComponent
   void onNew() override;
 
   template<class T>
-  const std::vector<std::shared_ptr<T>>& getItems() const {
-    const std::vector<std::shared_ptr<T>>* items;
+  const List<T>& getItems() const {
+    const List<T>* items;
     getItems(&items);
     return *items;
   }
 
   template<class T>
-  std::vector<std::shared_ptr<T>>& getItems() {
+  List<T>& getItems() {
     auto& items = const_cast<const PaletteComponent*>(this)->getItems<T>();
-    return const_cast<std::vector<std::shared_ptr<T>>&>(items);
+    return const_cast<List<T>&>(items);
   }
 
   template<class T>
@@ -63,34 +64,33 @@ class PaletteComponent
   }
 
  private:
-  void getItems(const std::vector<FontPtr>** items) const {
+  void getItems(const List<Font>** items) const {
     *items = &fonts_;
   }
 
-  void getItems(const std::vector<PenPtr>** items) const {
+  void getItems(const List<Pen>** items) const {
     *items = &pens_;
   }
 
-  void getItems(const std::vector<BrushPtr>** items) const {
+  void getItems(const List<Brush>** items) const {
     *items = &brushes_;
   }
 
-  void getItems(const std::vector<GradientPtr>** items) const {
+  void getItems(const List<Gradient>** items) const {
     *items = &gradients_;
   }
 
-  void getItems(const std::vector<GradientStopPtr>** items) const {
+  void getItems(const List<GradientStop>** items) const {
     wxLogFatalError("illegal access");
   }
 
-  void getItems(const std::vector<ColorPtr>** items) const {
+  void getItems(const List<Color>** items) const {
     *items = &colors_;
   }
 
   template<class T>
   void getItem(size_t index, std::shared_ptr<T>& item) const {
-    auto& items = getItems<T>();
-    item = (index < items.size()) ? items.at(index) : nullptr;
+    item = getItems<T>().at(index);
   }
 
   void getItem(size_t index, ColorBasePtr& item) const;
