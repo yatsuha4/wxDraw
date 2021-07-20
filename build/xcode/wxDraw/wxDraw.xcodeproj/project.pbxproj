@@ -31,7 +31,6 @@
 		261C06E426A04172002AAC78 /* GradientList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 261C06E226A04172002AAC78 /* GradientList.cpp */; };
 		261C06E726A0467E002AAC78 /* Palette.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 261C06E526A0467E002AAC78 /* Palette.cpp */; };
 		261C06F626A0DCA7002AAC78 /* PropertyMember.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 261C06F426A0DCA7002AAC78 /* PropertyMember.cpp */; };
-		2637D73626A17E5B00BF8F37 /* GradientProperty.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2637D73426A17E5B00BF8F37 /* GradientProperty.cpp */; };
 		2637D74326A2C0AC00BF8F37 /* Gradient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2637D74026A2C0AC00BF8F37 /* Gradient.cpp */; };
 		2637D74426A2C0AC00BF8F37 /* Pen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2637D74126A2C0AC00BF8F37 /* Pen.cpp */; };
 		2637D74926A2C39100BF8F37 /* Color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2637D74726A2C39100BF8F37 /* Color.cpp */; };
@@ -119,8 +118,6 @@
 		261C06F226A0529D002AAC78 /* PaletteList.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PaletteList.hpp; sourceTree = "<group>"; };
 		261C06F426A0DCA7002AAC78 /* PropertyMember.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PropertyMember.cpp; sourceTree = "<group>"; };
 		261C06F526A0DCA7002AAC78 /* PropertyMember.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PropertyMember.hpp; sourceTree = "<group>"; };
-		2637D73426A17E5B00BF8F37 /* GradientProperty.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GradientProperty.cpp; sourceTree = "<group>"; };
-		2637D73526A17E5B00BF8F37 /* GradientProperty.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GradientProperty.hpp; sourceTree = "<group>"; };
 		2637D73C26A2C0AC00BF8F37 /* Gradient.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Gradient.hpp; sourceTree = "<group>"; };
 		2637D73D26A2C0AC00BF8F37 /* Pen.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Pen.hpp; sourceTree = "<group>"; };
 		2637D73E26A2C0AC00BF8F37 /* PaletteItem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PaletteItem.hpp; sourceTree = "<group>"; };
@@ -255,8 +252,6 @@
 				2605A586264A312F00FD3DF0 /* Canvas.hpp */,
 				261C06E226A04172002AAC78 /* GradientList.cpp */,
 				261C06E326A04172002AAC78 /* GradientList.hpp */,
-				2637D73426A17E5B00BF8F37 /* GradientProperty.cpp */,
-				2637D73526A17E5B00BF8F37 /* GradientProperty.hpp */,
 				2637D75326A3295700BF8F37 /* GradientStopList.cpp */,
 				2637D75426A3295700BF8F37 /* GradientStopList.hpp */,
 				266A37A326684E1A00EA192B /* Inspector.cpp */,
@@ -520,7 +515,6 @@
 				261C06E426A04172002AAC78 /* GradientList.cpp in Sources */,
 				260BBF27269ECB8C0041BD06 /* ProjectComponent.cpp in Sources */,
 				2637D74926A2C39100BF8F37 /* Color.cpp in Sources */,
-				2637D73626A17E5B00BF8F37 /* GradientProperty.cpp in Sources */,
 				2605A57A264564DB00FD3DF0 /* main.cpp in Sources */,
 				26CB132A269A537B0025ACDD /* XmlExporter.cpp in Sources */,
 				26CB1327269A524E0025ACDD /* Exporter.cpp in Sources */,
