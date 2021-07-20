@@ -168,4 +168,5 @@ using namespace property;
     PenPtr,                                     \
     BrushPtr,                                   \
     ColorPtr,                                   \
-    ColorBasePtr
+    ColorBasePtr,                               \
+    FontPtr

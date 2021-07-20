@@ -12,6 +12,9 @@ class Member
 {
   using super = MemberBase;
 
+ public:
+  using Ptr = std::shared_ptr<Member<T>>;
+
  private:
   T& value_;
 
@@ -24,7 +27,7 @@ class Member
 
   WXDRAW_GETTER(Value, value_);
 
-  static std::shared_ptr<Member<T>> As(const MemberBasePtr& member) {
+  static Ptr As(const MemberBasePtr& member) {
     return std::dynamic_pointer_cast<Member<T>>(member);
   }
 };

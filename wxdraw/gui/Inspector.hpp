@@ -26,11 +26,109 @@ class Inspector
   void clear();
 
  private:
+  const PaletteComponentPtr& getPaletteComponent() const;
   void showProperty(const Property& property);
-  wxPGChoices createPenChoices() const;
-  wxPGChoices createBrushChoices() const;
-  wxPGChoices createColorChoices() const;
+
+  template<class T1, class T2, class... Rest>
+  bool appendMember(const MemberBasePtr& member) {
+    return appendMember<T1>(member) || appendMember<T2, Rest...>(member);
+  }
+
+  template<class T>
+  bool appendMember(const MemberBasePtr& member) {
+    if(auto m = Member<T>::As(member)) {
+      appendMember(m);
+      return true;
+    }
+    return false;
+  }
+
+  void appendMember(const Member<int>::Ptr& member) {
+    append<wxIntProperty>(member);
+  }
+
+  void appendMember(const Member<double>::Ptr& member) {
+    append<wxFloatProperty>(member);
+  }
+
+  void appendMember(const Member<bool>::Ptr& member) {
+    append<wxBoolProperty>(member);
+  }
+
+  void appendMember(const Member<wxString>::Ptr& member) {
+    append<wxStringProperty>(member);
+  }
+
+  void appendMember(const Member<wxColour>::Ptr& member) {
+    append<wxColourProperty>(member);
+  }
+
+  void appendMember(const Member<wxFileName>::Ptr& member) {
+    append<wxFileProperty>(member, member->getValue().GetFullPath());
+  }
+
+  void appendMember(const Member<wxFont>::Ptr& member) {
+    append<wxFontProperty>(member);
+  }
+
+  void appendMember(const Member<PenPtr>::Ptr& member) {
+    appendPaletteChoices(member, createPaletteItemChoices<Pen>());
+  }
+
+  void appendMember(const Member<BrushPtr>::Ptr& member) {
+    appendPaletteChoices(member, createPaletteItemChoices<Brush>());
+  }
+
+  void appendMember(const Member<ColorPtr>::Ptr& member) {
+    appendPaletteChoices(member, createPaletteItemChoices<Color>());
+  }
+
+  void appendMember(const Member<ColorBasePtr>::Ptr& member) {
+    appendPaletteChoices(member, createColorBaseChoices());
+  }
+
+  void appendMember(const Member<FontPtr>::Ptr& member) {
+    appendPaletteChoices(member, createPaletteItemChoices<Font>());
+  }
+
+  template<class PropertyType, class T>
+  void append(const std::shared_ptr<Member<T>>& member) {
+    append<PropertyType>(member, member->getValue());
+  }
+
+  template<class T>
+  void appendPaletteChoices(const std::shared_ptr<Member<T>>& member, 
+                            wxPGChoices choices) {
+    appendChoices(member, choices, 
+                  getPaletteComponent()->getIndex(member->getValue()));
+  }
+
+  template<class T>
+  void appendChoices(const std::shared_ptr<Member<T>>& member, 
+                     wxPGChoices choices, 
+                     size_t index) {
+    append<wxEnumProperty>(member, choices, static_cast<int>(index));
+  }
+
+  template<class PropertyType, class... Args>
+  void append(const MemberBasePtr& member, Args&&... args) {
+    auto property = new PropertyType(member->getLabel(), member->getUniqueName(), args...);
+    append(property, member);
+  }
+
+  void append(wxPGProperty* property, const MemberBasePtr& member);
+
   wxPGChoices createColorBaseChoices() const;
+
+  template<class T>
+  wxPGChoices createPaletteItemChoices() const {
+    wxPGChoices choices;
+    if(auto palette = getPaletteComponent()) {
+      createPaletteItemChoices(choices, palette->getItems<T>());
+    }
+    choices.Add("Null");
+    return choices;
+  }
 
   template<class T>
   void createPaletteItemChoices(wxPGChoices& choices, 
@@ -41,35 +139,6 @@ class Inspector
   }
 
   void onChanged(wxPropertyGridEvent& event);
-
-  template<class PropertyType, class MemberType>
-  PropertyType* append(const std::shared_ptr<MemberType>& member) {
-    return append<PropertyType>(member, member->getValue());
-  }
-
-  template<class MemberType>
-  wxEnumProperty* appendPaletteChoices(const std::shared_ptr<MemberType>& member, 
-                                       wxPGChoices choices) {
-    return appendChoices(member, choices, 
-                         getPaletteComponent()->getIndex(member->getValue()));
-  }
-
-  template<class MemberType>
-  wxEnumProperty* appendChoices(const std::shared_ptr<MemberType>& member, 
-                                wxPGChoices choices, 
-                                size_t index) {
-    return append<wxEnumProperty>(member, choices, static_cast<int>(index));
-  }
-
-  template<class PropertyType, class... Args>
-  PropertyType* append(const MemberBasePtr& member, Args&&... args) {
-    auto property = new PropertyType(member->getLabel(), member->getUniqueName(), args...);
-    append(property, member);
-    return property;
-  }
-
-  void append(wxPGProperty* property, const MemberBasePtr& member);
-
   void onRightClick(wxPropertyGridEvent& event);
 
   template<class T>
@@ -111,6 +180,10 @@ class Inspector
     return getValuePalette(event, value);
   }
 
+  bool getValue(const wxPropertyGridEvent& event, FontPtr& value) const {
+    return getValuePalette(event, value);
+  }
+
   template<class T>
   bool getValuePalette(const wxPropertyGridEvent& event, 
                        std::shared_ptr<T>& value) const {
@@ -120,7 +193,5 @@ class Inspector
     }
     return false;
   }
-
-  const PaletteComponentPtr& getPaletteComponent() const;
 };
 }

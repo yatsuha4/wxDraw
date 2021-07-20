@@ -55,5 +55,9 @@ class XmlExporter
   wxString toString(const BrushPtr& value) const;
   wxString toString(const ColorPtr& value) const;
   wxString toString(const ColorBasePtr& value) const;
+
+  wxString toString(const FontPtr& value) const {
+    return toString(static_cast<int>(palette_->getIndex(value)));
+  }
 };
 }

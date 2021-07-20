@@ -1,9 +1,5 @@
 #include "wxdraw/gui/Inspector.hpp"
 #include "wxdraw/gui/Menu.hpp"
-#include "wxdraw/palette/Brush.hpp"
-#include "wxdraw/palette/Color.hpp"
-#include "wxdraw/palette/Gradient.hpp"
-#include "wxdraw/palette/Pen.hpp"
 #include "wxdraw/property/Property.hpp"
 #include "wxdraw/property/PropertyMember.hpp"
 
@@ -38,76 +34,21 @@ void Inspector::clear() {
 }
 /**
  */
+const PaletteComponentPtr& Inspector::getPaletteComponent() const {
+  return mainFrame_->getPaletteComponent();
+}
+/**
+ */
 void Inspector::showProperty(const Property& property) {
-  for(auto& iter : property.getMembers()) {
-    if(auto m = std::dynamic_pointer_cast<PropertyMember>(iter)) {
+  for(auto& member : property.getMembers()) {
+    if(auto m = std::dynamic_pointer_cast<PropertyMember>(member)) {
       Append(new wxPropertyCategory(m->getName()));
       showProperty(*m->getProperty());
     }
-    else if(auto member = Member<int>::As(iter)) {
-      append<wxIntProperty>(member);
-    }
-    else if(auto member = Member<double>::As(iter)) {
-      append<wxFloatProperty>(member);
-    }
-    else if(auto member = Member<bool>::As(iter)) {
-      append<wxBoolProperty>(member);
-    }
-    else if(auto member = Member<wxString>::As(iter)) {
-      append<wxStringProperty>(member);
-    }
-    else if(auto member = Member<wxColour>::As(iter)) {
-      append<wxColourProperty>(member);
-    }
-    else if(auto member = Member<wxFileName>::As(iter)) {
-      append<wxFileProperty>(member, member->getValue().GetFullPath());
-    }
-    else if(auto m = Member<wxFont>::As(iter)) {
-      append<wxFontProperty>(m);
-    }
-    else if(auto m = Member<PenPtr>::As(iter)) {
-      appendPaletteChoices(m, createPenChoices());
-    }
-    else if(auto m = Member<BrushPtr>::As(iter)) {
-      appendPaletteChoices(m, createBrushChoices());
-    }
-    else if(auto m = Member<ColorPtr>::As(iter)) {
-      appendPaletteChoices(m, createColorChoices());
-    }
-    else if(auto m = Member<ColorBasePtr>::As(iter)) {
-      appendPaletteChoices(m, createColorBaseChoices());
+    else if(!appendMember<WXDRAW_PROPERTY_CLASSES>(member)) {
+      wxLogFatalError("illegal member");
     }
   }
-}
-/**
- */
-wxPGChoices Inspector::createPenChoices() const {
-  wxPGChoices choices;
-  if(auto palette = getPaletteComponent()) {
-    createPaletteItemChoices(choices, palette->getItems<Pen>());
-  }
-  choices.Add("Null");
-  return choices;
-}
-/**
- */
-wxPGChoices Inspector::createBrushChoices() const {
-  wxPGChoices choices;
-  if(auto palette = getPaletteComponent()) {
-    createPaletteItemChoices(choices, palette->getItems<Brush>());
-  }
-  choices.Add("Null");
-  return choices;
-}
-/**
- */
-wxPGChoices Inspector::createColorChoices() const {
-  wxPGChoices choices;
-  if(auto palette = getPaletteComponent()) {
-    createPaletteItemChoices(choices, palette->getItems<Color>());
-  }
-  choices.Add("Null");
-  return choices;
 }
 /**
  */
@@ -142,10 +83,5 @@ void Inspector::onRightClick(wxPropertyGridEvent& event) {
     menu->Append(Menu::ID_COMPONENT_DOWN, "Down");
     PopupMenu(menu);
   }
-}
-/**
- */
-const PaletteComponentPtr& Inspector::getPaletteComponent() const {
-  return mainFrame_->getPaletteComponent();
 }
 }

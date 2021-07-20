@@ -15,9 +15,9 @@ class TextComponent
   static const char* TYPE;
 
  private:
-  wxFont font_;
-  wxString text_;
+  FontPtr font_;
   ColorPtr color_;
+  wxString text_;
   glm::dvec2 alignment_;
 
  public:
