@@ -34,6 +34,8 @@
 /**
    C++
 */
+#include <map>
+#include <regex>
 #include <sstream>
 #include <stack>
 /**
@@ -135,6 +137,11 @@ namespace node {
 WXDRAW_DECLARE_CLASS(Node);
 }
 using namespace node;
+
+namespace object {
+WXDRAW_DECLARE_CLASS(Object);
+}
+using namespace object;
 
 namespace palette {
 WXDRAW_DECLARE_CLASS(Brush);
