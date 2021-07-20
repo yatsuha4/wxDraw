@@ -17,12 +17,12 @@ class Gradient
  private:
   std::vector<GradientStopPtr> stops_;
 
-  static int Serial;
-
  public:
-  Gradient() = default;
+  Gradient(const PaletteComponentPtr& palette);
   Gradient(const Gradient& src);
   ~Gradient() = default;
+
+  void onNew() override;
 
   WXDRAW_ACCESSOR(Stops, stops_);
 
@@ -31,7 +31,6 @@ class Gradient
   operator wxGraphicsGradientStops();
 
   void update() override;
-  void onCreate(const PaletteComponentPtr& palette) override;
   PropertyPtr createProperty() override;
 };
 }

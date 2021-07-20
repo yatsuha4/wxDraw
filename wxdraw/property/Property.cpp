@@ -1,14 +1,18 @@
+#include "wxdraw/object/Object.hpp"
 #include "wxdraw/property/Property.hpp"
 
 namespace wxdraw::property {
 /**
    コンストラクタ
-   @param name 名前
 */
-Property::Property(const std::string& name, const PropertyOwnerPtr& owner)
-  : name_(name), 
-    owner_(owner)
+Property::Property(const ObjectPtr& object)
+  : object_(object)
 {
+}
+/**
+ */
+const wxString& Property::getName() const {
+  return object_->getName();
 }
 /**
    メンバーを追加する

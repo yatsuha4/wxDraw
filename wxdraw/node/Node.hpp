@@ -1,15 +1,15 @@
 #pragma once
 
-#include "wxdraw/property/PropertyOwner.hpp"
+#include "wxdraw/object/Object.hpp"
 
 namespace wxdraw::node {
 /**
-   ノード基底クラス
+   ノード
 */
 class Node
-  : public PropertyOwner
+  : public Object
 {
-  using super = PropertyOwner;
+  using super = Object;
 
  public:
   static const char* TYPE_ELLIPSE;
@@ -20,7 +20,6 @@ class Node
   static const char* TYPE_TEXT;
 
  private:
-  std::string name_;
   std::weak_ptr<Node> parent_;
   std::vector<ComponentBasePtr> components_;
   wxString label_;
@@ -29,11 +28,10 @@ class Node
   wxTreeListItem item_;
 
  public:
-  Node(const std::string& name);
+  Node(const std::string& type);
   Node(const Node& src);
   ~Node();
 
-  WXDRAW_GETTER(Name, name_);
   WXDRAW_ACCESSOR(Label, label_);
 
   WXDRAW_GETTER(Components, components_);
@@ -46,7 +44,7 @@ class Node
   static void Insert(const NodePtr& node, const NodePtr& parent, size_t index);
   static void Remove(const NodePtr& node);
 
-  PropertyPtr createProperty();
+  PropertyPtr createProperty() override;
 
   void update();
   void render(Renderer& renderer);
@@ -107,7 +105,7 @@ class Node
   template<class T>
   static std::shared_ptr<T> NewComponent(const NodePtr& node) {
     auto component = AppendComponent<T>(node);
-    component->onCreate();
+    component->onNew();
     return component;
   }
 
@@ -116,8 +114,8 @@ class Node
      新規ノードを生成する
   */
   template<class... ComponentTypes>
-  static NodePtr New(const std::string& name) {
-    auto node = std::make_shared<Node>(name);
+  static NodePtr New(const char* type) {
+    auto node = super::New<Node>(type);
     NewComponent<LayoutComponent, ComponentTypes...>(node);
     return node;
   }

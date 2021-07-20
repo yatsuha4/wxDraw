@@ -26,9 +26,9 @@ const char* Node::TYPE_TEXT = "Text";
    コンストラクタ
    @param name 名前
 */
-Node::Node(const std::string& name)
-  : name_(name), 
-    label_(name), 
+Node::Node(const std::string& type)
+  : super(type), 
+    label_(type), 
     show_(true)
 {
 }
@@ -36,7 +36,7 @@ Node::Node(const std::string& name)
    コピーコンストラクタ
 */
 Node::Node(const Node& src)
-  : name_(src.name_), 
+  : super(src), 
     label_(src.label_), 
     show_(src.show_), 
     comment_(src.comment_)
@@ -123,7 +123,7 @@ void Node::Remove(const NodePtr& node) {
    プロパティを生成する
 */
 PropertyPtr Node::createProperty() {
-  auto property = super::createProperty(name_);
+  auto property = super::createProperty();
   property->appendMember("Label", label_);
   property->appendMember("Show", show_);
   property->appendMember("Comment", comment_);

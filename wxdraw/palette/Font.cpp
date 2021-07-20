@@ -3,17 +3,23 @@
 
 namespace wxdraw::palette {
 const char* Font::TYPE = "Font";
-int Font::Serial = 0;
 /**
  */
-Font::Font(const wxFont& font)
-  : font_(font)
+Font::Font(const PaletteComponentPtr& palette)
+  : super(TYPE, palette)
+{
+}
+/**
+ */
+Font::Font(const PaletteComponentPtr& palette, const wxFont& font)
+  : super(TYPE, palette), 
+    font_(font)
 {
 }
 /**
  */
 PropertyPtr Font::createProperty() {
-  auto property = PropertyOwner::createProperty(TYPE);
+  auto property = super::createProperty();
   property->appendMember("Name", getName());
   property->appendMember("Font", font_);
   return property;

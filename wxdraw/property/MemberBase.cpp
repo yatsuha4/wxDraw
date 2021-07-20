@@ -4,14 +4,12 @@ namespace wxdraw::property {
 /**
    コンストラクタ
 */
-MemberBase::MemberBase(const std::string& name)
+MemberBase::MemberBase(const wxString& name)
   : name_(name), 
     label_(name)
 {
 }
-std::string MemberBase::getUniqueName() const {
-  std::stringstream stream;
-  stream << name_ << "." << this;
-  return stream.str();
+wxString MemberBase::getUniqueName() const {
+  return wxString::Format("%s.%p", name_, this);
 }
 }

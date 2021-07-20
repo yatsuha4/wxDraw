@@ -1,15 +1,15 @@
 ﻿#pragma once
 
-#include "wxdraw/property/PropertyOwner.hpp"
+#include "wxdraw/object/Object.hpp"
 
 namespace wxdraw::component {
 /**
    コンポーネント基底クラス
 */
 class ComponentBase
-  : public PropertyOwner
+  : public Object
 {
-  using super = PropertyOwner;
+  using super = Object;
 
  public:
   enum Priority {
@@ -19,24 +19,19 @@ class ComponentBase
   };
 
  private:
-  std::string name_;
   std::weak_ptr<Node> node_;
   Priority priority_;
 
  public:
-  ComponentBase(const std::string& name, 
+  ComponentBase(const char* type, 
                 const NodePtr& node, 
-                Priority priority);
+                Priority priority = Priority::DEFAULT);
   ComponentBase(const ComponentBase& src, 
                 const NodePtr& node);
   virtual ~ComponentBase();
 
-  WXDRAW_GETTER(Name, name_);
   NodePtr getNode();
   WXDRAW_GETTER(Priority, priority_);
-
-  virtual void onCreate() {}
-  virtual PropertyPtr createProperty();
 
   void beginUpdate();
   void update();

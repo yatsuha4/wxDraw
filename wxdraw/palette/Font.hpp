@@ -17,11 +17,9 @@ class Font
  private:
   wxFont font_;
 
-  static int Serial;
-
  public:
-  Font() = default;
-  Font(const wxFont& font);
+  Font(const PaletteComponentPtr& palette);
+  Font(const PaletteComponentPtr& palette, const wxFont& font);
   Font(const Font& src) = default;
   ~Font() override = default;
 

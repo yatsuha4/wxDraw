@@ -3,12 +3,12 @@
 
 namespace wxdraw::palette {
 const char* Color::TYPE = "Color";
-int Color::Serial = 0;
 /**
    コンストラクタ
 */
-Color::Color()
-  : color_(wxTransparentColour)
+Color::Color(const PaletteComponentPtr& palette)
+  : super(TYPE, palette), 
+    color_(wxTransparentColour)
 {
 }
 /**
@@ -21,13 +21,8 @@ void Color::update() {
 }
 /**
  */
-void Color::onCreate(const PaletteComponentPtr& palette) {
-  setName(wxString::Format("%s_%d", TYPE, ++Serial));
-}
-/**
- */
 PropertyPtr Color::createProperty() {
-  auto property = PropertyOwner::createProperty(TYPE);
+  auto property = super::createProperty();
   property->appendMember("Name", getName());
   property->appendMember("Color", color_);
   return property;

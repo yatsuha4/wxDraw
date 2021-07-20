@@ -6,7 +6,13 @@
 
 namespace wxdraw::palette {
 const char* Gradient::TYPE = "Gradient";
-int Gradient::Serial = 0;
+/**
+   コンストラクタ
+*/
+Gradient::Gradient(const PaletteComponentPtr& palette)
+  : super(TYPE, palette)
+{
+}
 /**
    コピーコンストラクタ
  */
@@ -15,7 +21,7 @@ Gradient::Gradient(const Gradient& src)
 {
   std::transform(src.stops_.begin(), src.stops_.end(), std::back_inserter(stops_), 
                  [](const auto& stop) {
-                   return std::make_shared<GradientStop>(*stop);
+                 return std::make_shared<GradientStop>(*stop);
                  });
 }
 /**
@@ -23,7 +29,7 @@ Gradient::Gradient(const Gradient& src)
 void Gradient::sort() {
   std::stable_sort(stops_.begin(), stops_.end(), 
                    [](const auto& lhs, const auto& rhs) {
-                     return *lhs < *rhs;
+                   return *lhs < *rhs;
                    });
 }
 /**
@@ -82,11 +88,11 @@ void Gradient::update() {
 }
 /**
  */
-void Gradient::onCreate(const PaletteComponentPtr& palette) {
-  setName(wxString::Format("%s_%d", TYPE, ++Serial));
+void Gradient::onNew() {
+  super::onNew();
   if(stops_.empty()) {
     for(int i = 0; i < 2; i++) {
-      auto stop = Create<GradientStop>(palette);
+      auto stop = New<GradientStop>(getPalette());
       stop->setPos(i);
       stops_.push_back(stop);
     }
@@ -96,7 +102,7 @@ void Gradient::onCreate(const PaletteComponentPtr& palette) {
    プロパティを生成する
 */
 PropertyPtr Gradient::createProperty() {
-  auto property = PropertyOwner::createProperty(TYPE);
+  auto property = super::createProperty();
   property->appendMember("Name", getName());
   return property;
 }

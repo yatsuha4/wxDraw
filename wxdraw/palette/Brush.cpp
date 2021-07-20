@@ -3,23 +3,18 @@
 
 namespace wxdraw::palette {
 const char* Brush::TYPE = "Brush";
-int Brush::Serial = 0;
 /**
-   デフォルトコンストラクタ
+   コンストラクタ
 */
-Brush::Brush()
-  : direction_(0.0)
+Brush::Brush(const PaletteComponentPtr& palette)
+  : super(TYPE, palette), 
+    direction_(0.0)
 {
 }
 /**
  */
-void Brush::onCreate(const PaletteComponentPtr& palette) {
-  setName(wxString::Format("%s_%d", TYPE, ++Serial));
-}
-/**
- */
 PropertyPtr Brush::createProperty() {
-  auto property = super::createProperty(TYPE);
+  auto property = super::createProperty();
   property->appendMember("Direction", direction_);
   return property;
 }

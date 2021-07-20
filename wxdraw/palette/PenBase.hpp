@@ -10,12 +10,12 @@ class PenBase
   : public PaletteItem
 {
   using super = PaletteItem;
+  using super::PaletteItem;
 
  private:
   ColorBasePtr color_;
 
  public:
-  PenBase() = default;
   PenBase(const PenBase& src) = default;
   ~PenBase() override = default;
 
@@ -23,7 +23,6 @@ class PenBase
 
   void update() override;
 
- protected:
-  PropertyPtr createProperty(const char* type);
+  PropertyPtr createProperty() override;
 };
 }

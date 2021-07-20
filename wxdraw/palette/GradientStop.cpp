@@ -8,8 +8,9 @@ const char* GradientStop::TYPE = "GradientStop";
 /**
    コンストラクタ
 */
-GradientStop::GradientStop()
-  : pos_(0.0)
+GradientStop::GradientStop(const PaletteComponentPtr& palette)
+  : super(TYPE, palette), 
+    pos_(0.0)
 {
 }
 /**
@@ -36,8 +37,9 @@ void GradientStop::update() {
 }
 /**
  */
-void GradientStop::onCreate(const PaletteComponentPtr& palette) {
-  auto& colors = palette->getItems<Color>();
+void GradientStop::onNew() {
+  super::onNew();
+  auto& colors = getPalette()->getItems<Color>();
   if(!colors.empty()) {
     color_ = colors.front();
   }
@@ -45,7 +47,7 @@ void GradientStop::onCreate(const PaletteComponentPtr& palette) {
 /**
  */
 PropertyPtr GradientStop::createProperty() {
-  auto property = PropertyOwner::createProperty(TYPE);
+  auto property = super::createProperty();
   property->appendMember("Color", color_);
   property->appendMember("Pos", pos_);
   return property;

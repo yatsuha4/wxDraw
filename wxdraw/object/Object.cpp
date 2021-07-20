@@ -3,14 +3,13 @@
 #include "wxdraw/property/Property.hpp"
 
 namespace wxdraw::object {
-const char* Object::TYPE = "Object";
 const std::regex Object::NAME_REGEX("^([A-Za-z]+)_(\\d+)");
 std::map<std::string, int> Object::Serials;
 /**
    コンストラクタ
    @param type 型名
  */
-Object::Object(const char* type)
+Object::Object(const std::string& type)
   : type_(type)
 {
 }
@@ -26,8 +25,8 @@ Object::Object(const Object& src)
 /**
  */
 PropertyPtr Object::createProperty() {
-  //auto property = std::make_shared<Property>(shared_from_this());
-  auto property = std::make_shared<Property>(type_);
+  auto property = std::make_shared<Property>(shared_from_this());
+  property->appendMember("Id", id_);
   return property;
 }
 /**

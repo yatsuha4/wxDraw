@@ -42,7 +42,7 @@ wxXmlNode* XmlExporter::createXml(const Property& property) {
     if(auto child = std::dynamic_pointer_cast<PropertyMember>(member)) {
       auto childXml = createXml(*child->getProperty());
       auto component = std::dynamic_pointer_cast<ComponentBase>
-        (child->getProperty()->getOwner());
+        (child->getProperty()->getObject());
       wxASSERT(component);
       if(auto palette = PaletteComponent::As(component)) {
         parsePalette(palette, childXml);

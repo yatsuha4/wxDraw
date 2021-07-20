@@ -32,7 +32,7 @@ class PaletteComponent
   PaletteComponent(const PaletteComponent& src, const NodePtr& node);
   ~PaletteComponent() override = default;
 
-  void onCreate() override;
+  void onNew() override;
 
   template<class T>
   const std::vector<std::shared_ptr<T>>& getItems() const {
@@ -101,7 +101,7 @@ class PaletteComponent
 
   template<class T, class... Args>
   std::shared_ptr<T> appendItem(Args&&... args) {
-    auto item = std::make_shared<T>(args...);
+    auto item = New<T>(getThis(), args...);
     getItems<T>().push_back(item);
     return item;
   }
@@ -130,5 +130,9 @@ class PaletteComponent
   GradientPtr cloneItem(const PaletteComponent& palette, const GradientPtr& src) const;
   PenPtr cloneItem(const PaletteComponent& palette, const PenPtr& src) const;
   BrushPtr cloneItem(const PaletteComponent& palette, const BrushPtr& src) const;
+
+  PaletteComponentPtr getThis() {
+    return std::static_pointer_cast<PaletteComponent>(shared_from_this());
+  }
 };
 }

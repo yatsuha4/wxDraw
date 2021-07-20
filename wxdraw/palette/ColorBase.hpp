@@ -10,9 +10,9 @@ class ColorBase
   : public PaletteItem
 {
   using super = PaletteItem;
+  using super::PaletteItem;
 
  public:
-  ColorBase() = default;
   ColorBase(const ColorBase& src) = default;
   ~ColorBase() override = default;
 };

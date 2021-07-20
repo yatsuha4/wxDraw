@@ -64,11 +64,11 @@ class PaletteList
       auto& items = getItems();
       std::shared_ptr<T> item;
       if(index < items.size()) {
-        item = PaletteItem::Create<T>(getPaletteComponent(), *items.at(index));
+        item = std::make_shared<T>(*items.at(index));
         items.insert(items.begin() + index, item);
       }
       else {
-        item = PaletteItem::Create<T>(getPaletteComponent());
+        item = PaletteItem::New<T>(getPaletteComponent());
         items.push_back(item);
       }
       getList()->InsertItem(*createListItem(index, item));

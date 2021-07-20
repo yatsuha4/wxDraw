@@ -17,8 +17,8 @@ PaletteComponent::PaletteComponent(const PaletteComponent& src, const NodePtr& n
 }
 /**
  */
-void PaletteComponent::onCreate() {
-  super::onCreate();
+void PaletteComponent::onNew() {
+  super::onNew();
   appendItem<Font>(*wxNORMAL_FONT);
   auto penColor = appendColor("Pen", *wxBLACK);
   auto brushColor = appendColor("Brush", *wxWHITE);
@@ -53,28 +53,25 @@ void PaletteComponent::getItem(size_t index, ColorBasePtr& item) const {
 /**
  */
 PenPtr PaletteComponent::appendPen(const wxString& name, const ColorPtr& color) {
-  auto pen = std::make_shared<Pen>();
+  auto pen = appendItem<Pen>();
   pen->setName(name);
   pen->setColor(color);
-  pens_.push_back(pen);
   return pen;
 }
 /**
  */
 BrushPtr PaletteComponent::appendBrush(const wxString& name, const ColorPtr& color) {
-  auto brush = std::make_shared<Brush>();
+  auto brush = appendItem<Brush>();
   brush->setName(name);
   brush->setColor(color);
-  brushes_.push_back(brush);
   return brush;
 }
 /**
  */
 ColorPtr PaletteComponent::appendColor(const wxString& name, const wxColour& color) {
-  auto item = std::make_shared<Color>();
+  auto item = appendItem<Color>();
   item->setName(name);
   item->setColor(color);
-  colors_.push_back(item);
   return item;
 }
 /**

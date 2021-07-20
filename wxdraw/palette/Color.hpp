@@ -17,17 +17,14 @@ class Color
  private:
   wxColour color_;
 
-  static int Serial;
-
  public:
-  Color();
+  Color(const PaletteComponentPtr& palette);
   Color(const Color& src) = default;
   ~Color() = default;
 
   WXDRAW_ACCESSOR(Color, color_);
 
   void update() override;
-  void onCreate(const PaletteComponentPtr& palette) override;
   PropertyPtr createProperty() override;
 };
 }

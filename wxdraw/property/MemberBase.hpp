@@ -6,16 +6,16 @@ namespace wxdraw::property {
 */
 class MemberBase {
  private:
-  std::string name_;
-  std::string label_;
+  wxString name_;
+  wxString label_;
 
  public:
-  MemberBase(const std::string& name);
+  MemberBase(const wxString& name);
   virtual ~MemberBase() = default;
 
   WXDRAW_GETTER(Name, name_);
   WXDRAW_ACCESSOR(Label, label_);
 
-  std::string getUniqueName() const;
+  wxString getUniqueName() const;
 };
 }

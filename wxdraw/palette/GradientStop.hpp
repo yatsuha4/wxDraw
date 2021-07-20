@@ -18,7 +18,7 @@ class GradientStop
   double pos_;
 
  public:
-  GradientStop();
+  GradientStop(const PaletteComponentPtr& palette);
   GradientStop(const GradientStop& src) = default;
   ~GradientStop() = default;
 
@@ -31,7 +31,7 @@ class GradientStop
   wxColour getWxColor() const;
 
   void update() override;
-  void onCreate(const PaletteComponentPtr& palette) override;
+  void onNew() override;
   PropertyPtr createProperty() override;
 };
 }
