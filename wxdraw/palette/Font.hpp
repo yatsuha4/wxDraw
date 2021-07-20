@@ -19,7 +19,9 @@ class Font
 
  public:
   Font(const PaletteComponentPtr& palette);
-  Font(const PaletteComponentPtr& palette, const wxFont& font);
+  Font(const PaletteComponentPtr& palette, 
+       const wxString& name, 
+       const wxFont& font);
   Font(const Font& src) = default;
   ~Font() override = default;
 

@@ -11,8 +11,10 @@ Font::Font(const PaletteComponentPtr& palette)
 }
 /**
  */
-Font::Font(const PaletteComponentPtr& palette, const wxFont& font)
-  : super(TYPE, palette), 
+Font::Font(const PaletteComponentPtr& palette, 
+           const wxString& name, 
+           const wxFont& font)
+  : super(TYPE, palette, name), 
     font_(font)
 {
 }

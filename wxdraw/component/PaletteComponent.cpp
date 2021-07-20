@@ -19,7 +19,7 @@ PaletteComponent::PaletteComponent(const PaletteComponent& src, const NodePtr& n
  */
 void PaletteComponent::onNew() {
   super::onNew();
-  appendItem<Font>(*wxNORMAL_FONT);
+  appendItem<Font>("Default", *wxNORMAL_FONT);
   appendItem<Pen>("Transparent");
   appendItem<Pen>("Default", appendItem<Color>("Pen", *wxBLACK));
   appendItem<Brush>("Transparent");
