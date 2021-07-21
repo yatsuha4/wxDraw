@@ -40,8 +40,8 @@ NodePtr XmlImporter::load() {
    @param xml XML
    @return 生成したノード
 */
-NodePtr XmlImporter::createNode(const wxXmlNode& xml) {
-  auto node = std::make_shared<Node>(xml.GetName().ToStdString());
+NodePtr XmlImporter::createNode(const wxXmlNode& xml, const NodePtr& parent) {
+  auto node = std::make_shared<Node>(xml.GetName().ToStdString(), parent);
   parseProperty(xml, *node->createProperty());
   for(auto componentXml = xml.GetChildren();
       componentXml;
@@ -50,7 +50,7 @@ NodePtr XmlImporter::createNode(const wxXmlNode& xml) {
       parseProperty(*componentXml, *component->createProperty());
       if(auto container = ContainerComponent::As(component)) {
         for(auto child = componentXml->GetChildren(); child; child = child->GetNext()) {
-          Node::Append(createNode(*child), node);
+          Node::Append(createNode(*child, node), node);
         }
       }
       else if(auto palette = PaletteComponent::As(component)) {

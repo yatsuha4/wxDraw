@@ -21,6 +21,8 @@ class BrushComponent
   BrushComponent(const BrushComponent& src, const NodePtr& node);
   ~BrushComponent() override = default;
 
+  void onCreate() override;
+
   WXDRAW_GETTER(Brush, brush_);
 
   PropertyPtr createProperty() override;

@@ -224,7 +224,8 @@ void MainFrame::onMenuOpen(wxMenuEvent& event) {
 void MainFrame::onSelectMenu(wxCommandEvent& event) {
   switch(event.GetId()) {
   case Menu::ID_FILE_NEW:
-    appendNode(Node::CreateProject(), outliner_->getRootNode());
+    appendNode(Node::Project::Create(outliner_->getRootNode()), 
+               outliner_->getRootNode());
     break;
   case Menu::ID_FILE_OPEN:
     open();
@@ -241,16 +242,16 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
     Close();
     break;
   case Menu::ID_EDIT_APPEND_LAYER:
-    createNode(Node::CreateLayer());
+    createNode<Node::Layer>();
     break;
   case Menu::ID_EDIT_APPEND_RECTANGLE:
-    createNode(Node::CreateRectangle());
+    createNode<Node::Rectangle>();
     break;
   case Menu::ID_EDIT_APPEND_ELLIPSE:
-    createNode(Node::CreateEllipse());
+    createNode<Node::Ellipse>();
     break;
   case Menu::ID_EDIT_NEW_TEXT:
-    createNode(Node::CreateText());
+    createNode<Node::Text>();
     break;
   case Menu::ID_EDIT_REMOVE:
     submitCommand<RemoveNodeCommand>(getSelectNode());
@@ -352,12 +353,5 @@ bool MainFrame::submitCommand(wxCommand* command) {
     return project->getCommandProcessor().Submit(command);
   }
   return false;
-}
-/**
-   ノードを生成する
-   @param node ノード
-*/
-bool MainFrame::createNode(const NodePtr& node) {
-  return submitCommand<InsertNodeCommand>(node, getContainerNode());
 }
 }

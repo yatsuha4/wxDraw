@@ -26,8 +26,9 @@ const char* Node::TYPE_TEXT = "Text";
    コンストラクタ
    @param type 型名
 */
-Node::Node(const wxString& type)
+Node::Node(const wxString& type, const NodePtr& parent)
   : super(type), 
+    parent_(parent), 
     show_(true)
 {
 }
@@ -36,6 +37,7 @@ Node::Node(const wxString& type)
 */
 Node::Node(const Node& src)
   : super(src), 
+    parent_(src.parent_), 
     show_(src.show_), 
     comment_(src.comment_)
 {
@@ -86,7 +88,7 @@ NodePtr Node::getParent() const {
    @param parent 親ノード
 */
 void Node::Append(const NodePtr& node, const NodePtr& parent) {
-  wxASSERT(!node->getParent());
+  wxASSERT(node->getParent() == parent);
   auto container = parent->getContainer();
   wxASSERT(container);
   container->appendChild(node);
@@ -99,7 +101,7 @@ void Node::Append(const NodePtr& node, const NodePtr& parent) {
    @param index 挿入位置
 */
 void Node::Insert(const NodePtr& node, const NodePtr& parent, size_t index) {
-  wxASSERT(!node->getParent());
+  wxASSERT(node->getParent() == parent);
   auto container = parent->getContainer();
   wxASSERT(container);
   container->insertChild(node, index);
@@ -163,30 +165,8 @@ void Node::render(Renderer& renderer) {
 }
 /**
  */
-NodePtr Node::CreateEllipse() {
-  return Create<EllipseComponent>(TYPE_ELLIPSE);
-}
-NodePtr Node::CreateLayer() {
-  return Create<LayerComponent, 
-                ContainerComponent, 
-                GridComponent>(TYPE_LAYER);
-}
-NodePtr Node::CreateProject() {
-  return Create<ProjectComponent, 
-                ContainerComponent, 
-                GridComponent, 
-                PaletteComponent, 
-                PenComponent, 
-                BrushComponent>(TYPE_PROJECT);
-}
-NodePtr Node::CreateRectangle() {
-  return Create<RectangleComponent>(TYPE_RECTANGLE);
-}
 NodePtr Node::CreateRoot() {
-  return Create<ContainerComponent>(TYPE_ROOT);
-}
-NodePtr Node::CreateText() {
-  return Create<TextComponent>(TYPE_TEXT);
+  return Create<ContainerComponent>(TYPE_ROOT, nullptr);
 }
 /**
    複製を生成する
@@ -204,5 +184,37 @@ NodePtr Node::Clone(const NodePtr& src) {
     }
   }
   return dst;
+}
+/**
+ */
+NodePtr Node::Ellipse::Create(const NodePtr& parent) {
+  return Node::Create<EllipseComponent>(Node::TYPE_ELLIPSE, parent);
+}
+/**
+ */
+NodePtr Node::Layer::Create(const NodePtr& parent) {
+  return Node::Create<LayerComponent, 
+                      ContainerComponent, 
+                      GridComponent>(TYPE_LAYER, parent);
+}
+/**
+ */
+NodePtr Node::Project::Create(const NodePtr& parent) {
+  return Node::Create<ProjectComponent, 
+                      ContainerComponent, 
+                      GridComponent, 
+                      PaletteComponent, 
+                      PenComponent, 
+                      BrushComponent>(TYPE_PROJECT, parent);
+}
+/**
+ */
+NodePtr Node::Rectangle::Create(const NodePtr& parent) {
+  return Node::Create<RectangleComponent>(TYPE_RECTANGLE, parent);
+}
+/**
+ */
+NodePtr Node::Text::Create(const NodePtr& parent) {
+  return Node::Create<TextComponent>(TYPE_TEXT, parent);
 }
 }

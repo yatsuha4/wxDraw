@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "wxdraw/component/Component.hpp"
 #include "wxdraw/palette/Brush.hpp"
@@ -68,6 +68,15 @@ class PaletteComponent
     std::shared_ptr<T> item;
     findItem(key, item);
     return item;
+  }
+
+  template<class T>
+  std::shared_ptr<T> getDefaultItem(const wxString& name) const {
+    auto& items = getItems<T>();
+    if(auto item = items.find(name)) {
+      return item;
+    }
+    return items.empty() ? nullptr : items.back();
   }
 
  private:

@@ -66,7 +66,14 @@ class MainFrame
 
   bool submitCommand(wxCommand* command);
 
-  bool createNode(const NodePtr& node);
+  template<class T>
+  bool createNode() {
+    if(auto parent = getContainerNode()) {
+      auto node = T::Create(parent);
+      return submitCommand<InsertNodeCommand>(node, parent);
+    }
+    return false;
+  }
 
   template<class T>
   bool createComponent() {

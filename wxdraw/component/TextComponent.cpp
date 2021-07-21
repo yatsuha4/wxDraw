@@ -1,5 +1,6 @@
 #include "wxdraw/component/LayoutComponent.hpp"
 #include "wxdraw/component/TextComponent.hpp"
+#include "wxdraw/component/PaletteComponent.hpp"
 #include "wxdraw/gui/Renderer.hpp"
 #include "wxdraw/node/Node.hpp"
 #include "wxdraw/palette/Color.hpp"
@@ -26,6 +27,15 @@ TextComponent::TextComponent(const TextComponent& src, const NodePtr& node)
     text_(src.text_), 
     alignment_(src.alignment_)
 {
+}
+/**
+ */
+void TextComponent::onCreate() {
+  super::onCreate();
+  if(auto palette = Node::GetParentComponent<PaletteComponent>(getNode())) {
+    font_ = palette->getDefaultItem<Font>("Default");
+    color_ = palette->getDefaultItem<Color>("Pen");
+  }
 }
 /**
  */

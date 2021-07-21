@@ -23,6 +23,8 @@ class PenComponent
   PenComponent(const PenComponent& src, const NodePtr& node);
   ~PenComponent() override = default;
 
+  void onCreate() override;
+
   WXDRAW_GETTER(Pen, pen_);
 
   PropertyPtr createProperty() override;

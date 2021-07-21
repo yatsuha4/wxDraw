@@ -19,6 +19,32 @@ class Node
   static const char* TYPE_ROOT;
   static const char* TYPE_TEXT;
 
+ public:
+  class Ellipse {
+   public:
+    static NodePtr Create(const NodePtr& parent);
+  };
+
+  class Layer {
+   public:
+    static NodePtr Create(const NodePtr& parent);
+  };
+
+  class Project {
+   public:
+    static NodePtr Create(const NodePtr& parent);
+  };
+
+  class Rectangle {
+   public:
+    static NodePtr Create(const NodePtr& parent);
+  };
+
+  class Text {
+   public:
+    static NodePtr Create(const NodePtr& parent);
+  };
+
  private:
   std::weak_ptr<Node> parent_;
   std::vector<ComponentBasePtr> components_;
@@ -27,7 +53,7 @@ class Node
   wxTreeListItem item_;
 
  public:
-  Node(const wxString& type);
+  Node(const wxString& type, const NodePtr& parent);
   Node(const Node& src);
   ~Node();
 
@@ -48,14 +74,18 @@ class Node
 
   WXDRAW_ACCESSOR(Item, item_);
 
-  static NodePtr CreateEllipse();
-  static NodePtr CreateLayer();
-  static NodePtr CreateProject();
-  static NodePtr CreateRectangle();
   static NodePtr CreateRoot();
-  static NodePtr CreateText();
-
   static NodePtr Clone(const NodePtr& src);
+
+  /**
+     新規ノードを生成する
+  */
+  template<class... ComponentTypes>
+  static NodePtr Create(const char* type, const NodePtr& parent) {
+    auto node = super::Create<Node>(type, parent);
+    CreateComponent<LayoutComponent, ComponentTypes...>(node);
+    return node;
+  }
 
   /**
      コンポーネントを取得する
@@ -107,16 +137,6 @@ class Node
   }
 
  private:
-  /**
-     新規ノードを生成する
-  */
-  template<class... ComponentTypes>
-  static NodePtr Create(const char* type) {
-    auto node = super::Create<Node>(type);
-    CreateComponent<LayoutComponent, ComponentTypes...>(node);
-    return node;
-  }
-
   /**
      コンポーネントを追加する
   */

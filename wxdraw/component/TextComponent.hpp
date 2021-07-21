@@ -28,6 +28,7 @@ class TextComponent
   WXDRAW_ACCESSOR(Font, font_);
   WXDRAW_ACCESSOR(Text, text_);
 
+  void onCreate() override;
   PropertyPtr createProperty() override;
 
  protected:

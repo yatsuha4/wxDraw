@@ -28,7 +28,7 @@ class XmlImporter
   static bool FromString(const wxString& text, bool& value);
 
  private:
-  NodePtr createNode(const wxXmlNode& xml);
+  NodePtr createNode(const wxXmlNode& xml, const NodePtr& parent = nullptr);
   void parsePalette(const wxXmlNode& xml);
   void parseProperty(const wxXmlNode& xml, const Property& property);
 

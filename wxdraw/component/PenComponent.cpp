@@ -1,5 +1,7 @@
+#include "wxdraw/component/PaletteComponent.hpp"
 #include "wxdraw/component/PenComponent.hpp"
 #include "wxdraw/gui/Renderer.hpp"
+#include "wxdraw/node/Node.hpp"
 #include "wxdraw/palette/Color.hpp"
 #include "wxdraw/palette/Gradient.hpp"
 #include "wxdraw/palette/Pen.hpp"
@@ -21,6 +23,14 @@ PenComponent::PenComponent(const PenComponent& src, const NodePtr& node)
   : super(src, node), 
     pen_(src.pen_)
 {
+}
+/**
+ */
+void PenComponent::onCreate() {
+  super::onCreate();
+  if(auto palette = Node::GetParentComponent<PaletteComponent>(getNode())) {
+    pen_ = palette->getDefaultItem<Pen>("Default");
+  }
 }
 /**
  */

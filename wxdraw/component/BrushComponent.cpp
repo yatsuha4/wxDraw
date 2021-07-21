@@ -1,5 +1,6 @@
 #include "wxdraw/component/BrushComponent.hpp"
 #include "wxdraw/component/LayoutComponent.hpp"
+#include "wxdraw/component/PaletteComponent.hpp"
 #include "wxdraw/gui/Renderer.hpp"
 #include "wxdraw/node/Node.hpp"
 #include "wxdraw/property/Property.hpp"
@@ -20,6 +21,14 @@ BrushComponent::BrushComponent(const BrushComponent& src, const NodePtr& node)
   : super(src, node), 
     brush_(src.brush_)
 {
+}
+/**
+ */
+void BrushComponent::onCreate() {
+  super::onCreate();
+  if(auto palette = Node::GetParentComponent<PaletteComponent>(getNode())) {
+    brush_ = palette->getDefaultItem<Brush>("Default");
+  }
 }
 /**
  */
