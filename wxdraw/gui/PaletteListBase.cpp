@@ -44,22 +44,33 @@ const PaletteComponentPtr& PaletteListBase::getPaletteComponent() const {
 }
 /**
  */
+void PaletteListBase::selectItem(size_t index) {
+  if(auto item = getItem(index)) {
+    list_->SetItemBackgroundColour(index, wxSystemSettings::GetColour(wxSYS_COLOUR_HIGHLIGHT));
+    list_->SetItemState(index, 0, wxLIST_STATE_SELECTED);
+    onSelectItem(item);
+  }
+  index_ = index;
+}
+/**
+ */
+void PaletteListBase::unselectItem() {
+  auto size = list_->GetItemCount();
+  if(index_ < size) {
+    list_->SetItemBackgroundColour(index_, wxTransparentColor);
+  }
+  index_ = size;
+}
+/**
+ */
 void PaletteListBase::onSelectItem(const PaletteItemPtr& item) {
   getPalette()->getMainFrame()->getInspector()->show(item->createProperty());
 }
 /**
  */
 void PaletteListBase::onListItemSelected(wxListEvent& event) {
-  auto index = event.GetIndex();
-  if(auto item = getItem(index)) {
-    if(index_ < list_->GetItemCount()) {
-      list_->SetItemBackgroundColour(index_, wxTransparentColor);
-    }
-    index_ = index;
-    list_->SetItemBackgroundColour(index_, wxSystemSettings::GetColour(wxSYS_COLOUR_HIGHLIGHT));
-    onSelectItem(item);
-    list_->SetItemState(index_, 0, wxLIST_STATE_SELECTED);
-  }
+  unselectItem();
+  selectItem(event.GetIndex());
 }
 /**
  */

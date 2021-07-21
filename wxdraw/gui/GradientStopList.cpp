@@ -13,8 +13,8 @@ void GradientStopList::setGradient(const GradientPtr& gradient) {
 }
 /**
  */
-std::vector<GradientStopPtr>& GradientStopList::getItems() const {
-  static std::vector<GradientStopPtr> EMPTY;
+List<GradientStop>& GradientStopList::getItems() const {
+  static List<GradientStop> EMPTY;
   return gradient_ ? gradient_->getStops() : EMPTY;
 }
 /**

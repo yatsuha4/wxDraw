@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#include "wxdraw/object/List.hpp"
 #include "wxdraw/palette/ColorBase.hpp"
 
 namespace wxdraw::palette {
@@ -15,7 +16,7 @@ class Gradient
   static const char* TYPE;
 
  private:
-  std::vector<GradientStopPtr> stops_;
+  List<GradientStop> stops_;
 
  public:
   Gradient(const PaletteComponentPtr& palette);

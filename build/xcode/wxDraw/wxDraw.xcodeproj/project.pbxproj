@@ -175,6 +175,7 @@
 		26C8D90226A6B844003CB994 /* Object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Object.cpp; sourceTree = "<group>"; };
 		26C8D90326A6B844003CB994 /* Object.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Object.hpp; sourceTree = "<group>"; };
 		26C8D90526A6EDA4003CB994 /* libwxregexu-3.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libwxregexu-3.1.a"; path = "../../../external/opt/mac/wxWidgets/lib/libwxregexu-3.1.a"; sourceTree = "<group>"; };
+		26C8D90726A859F3003CB994 /* List.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = List.hpp; sourceTree = "<group>"; };
 		26CB13222699F8BB0025ACDD /* Rect.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Rect.hpp; sourceTree = "<group>"; };
 		26CB13232699FB790025ACDD /* Layout.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Layout.hpp; sourceTree = "<group>"; };
 		26CB1325269A524E0025ACDD /* Exporter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Exporter.cpp; sourceTree = "<group>"; };
@@ -402,6 +403,7 @@
 		26C8D90126A6B844003CB994 /* object */ = {
 			isa = PBXGroup;
 			children = (
+				26C8D90726A859F3003CB994 /* List.hpp */,
 				26C8D90226A6B844003CB994 /* Object.cpp */,
 				26C8D90326A6B844003CB994 /* Object.hpp */,
 			);

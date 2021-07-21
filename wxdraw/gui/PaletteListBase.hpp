@@ -28,11 +28,13 @@ class PaletteListBase
 
  protected:
   WXDRAW_GETTER(List, list_);
-
   WXDRAW_GETTER(ImageList, imageList_);
-  int appendImage(const wxBitmap& bitmap);
 
+  int appendImage(const wxBitmap& bitmap);
   const PaletteComponentPtr& getPaletteComponent() const;
+
+  void selectItem(size_t index);
+  void unselectItem();
 
   virtual PaletteItemPtr getItem(size_t index) const = 0;
   virtual void appendItem(size_t index) = 0;

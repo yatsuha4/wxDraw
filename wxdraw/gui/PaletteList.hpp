@@ -20,7 +20,8 @@ class PaletteList
   }
 
   /**
-   */
+     リストを更新する
+  */
   void refresh() override {
     getList()->Freeze();
     getList()->DeleteAllItems();
@@ -30,10 +31,11 @@ class PaletteList
       getList()->InsertItem(*createListItem(index++, item));
     }
     getList()->Thaw();
+    unselectItem();
   }
 
   /**
-     リストを更新する
+     リストの内容を更新する
   */
   void update() override {
     getList()->Freeze();
@@ -46,8 +48,8 @@ class PaletteList
   }
 
  protected:
-  virtual std::vector<std::shared_ptr<T>>& getItems() const {
-    static std::vector<std::shared_ptr<T>> EMPTY;
+  virtual List<T>& getItems() const {
+    static List<T> EMPTY;
     if(auto palette = getPaletteComponent()) {
       return palette->template getItems<T>();
     }
@@ -61,17 +63,18 @@ class PaletteList
 
   void appendItem(size_t index) override {
     if(canAppendItem(index)) {
+      unselectItem();
       auto& items = getItems();
       std::shared_ptr<T> item;
       if(index < items.size()) {
-        item = std::make_shared<T>(*items.at(index));
-        items.insert(items.begin() + index, item);
+        item = items.create(index + 1, *items.at(index));
+        index++;
       }
       else {
-        item = PaletteItem::Create<T>(getPaletteComponent());
-        items.push_back(item);
+        item = items.create(index, getPaletteComponent());
       }
       getList()->InsertItem(*createListItem(index, item));
+      selectItem(index);
     }
   }
 
@@ -81,9 +84,11 @@ class PaletteList
 
   void removeItem(size_t index) override {
     if(canRemoveItem(index)) {
+      unselectItem();
       auto& items = getItems();
       items.erase(items.begin() + index);
       getList()->DeleteItem(index);
+      selectItem(index);
     }
   }
 

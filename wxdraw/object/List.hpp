@@ -37,9 +37,9 @@ class List
 
   template<class... Args>
   std::shared_ptr<T> create(size_t index, Args&&... args) {
-    auto object = T::Create(args...);
+    auto object = T::template Create<T>(args...);
     super::insert(((index < super::size())
-                   ? super::begin() + index + 1
+                   ? super::begin() + index
                    : super::end()), object);
     return object;
   }
