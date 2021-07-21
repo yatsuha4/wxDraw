@@ -147,7 +147,7 @@ class Inspector
     if(auto m = dynamic_cast<Member<T>*>(member)) {
       T value;
       if(getValue(event, value)) {
-        mainFrame_->submitCommand<ChangePropertyCommand<T>>(m->getValue(), value);
+        mainFrame_->submitCommand<ChangePropertyCommand<T>>(mainFrame_, m->getValue(), value);
       }
       return true;
     }

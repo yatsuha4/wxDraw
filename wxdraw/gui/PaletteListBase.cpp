@@ -34,6 +34,11 @@ PaletteListBase::PaletteListBase(wxWindow* window, Palette* palette)
 }
 /**
  */
+MainFrame* PaletteListBase::getMainFrame() const {
+  return palette_->getMainFrame();
+}
+/**
+ */
 int PaletteListBase::appendImage(const wxBitmap& bitmap) {
   return imageList_->Add(bitmap);
 }

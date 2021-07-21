@@ -19,6 +19,14 @@ class List
     return (index < super::size()) ? super::at(index) : nullptr;
   }
 
+  void insert(size_t index, const std::shared_ptr<T>& object) {
+    super::insert(super::begin() + index, object);
+  }
+
+  void remove(size_t index) {
+    super::erase(super::begin() + index);
+  }
+
   std::shared_ptr<T> find(const wxString& key) const {
     auto iter = std::find_if(super::begin(), super::end(), 
                              [&](auto& object) {

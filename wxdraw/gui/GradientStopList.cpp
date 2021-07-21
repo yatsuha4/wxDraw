@@ -24,7 +24,7 @@ bool GradientStopList::canAppendItem(size_t index) const {
 }
 /**
  */
-bool GradientStopList::canRemoveItem(size_t index) const {
-  return getItems().size() > 2 && super::canRemoveItem(index);
+GradientStopPtr GradientStopList::getRemoveItem(size_t index) const {
+  return (getItems().size() > 2) ? super::getRemoveItem(index) : nullptr;
 }
 }

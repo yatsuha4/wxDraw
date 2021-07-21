@@ -30,6 +30,8 @@ class PaletteListBase
   WXDRAW_GETTER(List, list_);
   WXDRAW_GETTER(ImageList, imageList_);
 
+  MainFrame* getMainFrame() const;
+
   int appendImage(const wxBitmap& bitmap);
   const PaletteComponentPtr& getPaletteComponent() const;
 

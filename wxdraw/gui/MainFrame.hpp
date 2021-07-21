@@ -40,7 +40,7 @@ class MainFrame
 
   template<class CommandType, class... Args>
   bool submitCommand(Args&&... args) {
-    return submitCommand(new CommandType(this, args...));
+    return submitCommand(new CommandType(args...));
   }
 
   void appendNode(const NodePtr& node, const NodePtr& parent);
@@ -70,7 +70,7 @@ class MainFrame
   bool createNode() {
     if(auto parent = getContainerNode()) {
       auto node = T::Create(parent);
-      return submitCommand<InsertNodeCommand>(node, parent);
+      return submitCommand<InsertNodeCommand>(this, node, parent);
     }
     return false;
   }
@@ -78,7 +78,7 @@ class MainFrame
   template<class T>
   bool createComponent() {
     if(auto node = getSelectNode()) {
-      return submitCommand<InsertComponentCommand>(T::template Create<T>(node), node);
+      return submitCommand<InsertComponentCommand>(this, T::template Create<T>(node), node);
     }
     return false;
   }

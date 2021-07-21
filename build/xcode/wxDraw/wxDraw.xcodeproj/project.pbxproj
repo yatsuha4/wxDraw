@@ -176,6 +176,8 @@
 		26C8D90326A6B844003CB994 /* Object.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Object.hpp; sourceTree = "<group>"; };
 		26C8D90526A6EDA4003CB994 /* libwxregexu-3.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libwxregexu-3.1.a"; path = "../../../external/opt/mac/wxWidgets/lib/libwxregexu-3.1.a"; sourceTree = "<group>"; };
 		26C8D90726A859F3003CB994 /* List.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = List.hpp; sourceTree = "<group>"; };
+		26C8D90826A87522003CB994 /* InsertCommand.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = InsertCommand.hpp; sourceTree = "<group>"; };
+		26C8D90926A87522003CB994 /* RemoveCommand.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RemoveCommand.hpp; sourceTree = "<group>"; };
 		26CB13222699F8BB0025ACDD /* Rect.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Rect.hpp; sourceTree = "<group>"; };
 		26CB13232699FB790025ACDD /* Layout.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Layout.hpp; sourceTree = "<group>"; };
 		26CB1325269A524E0025ACDD /* Exporter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Exporter.cpp; sourceTree = "<group>"; };
@@ -441,10 +443,12 @@
 				26CB1330269A94DA0025ACDD /* ChangePropertyCommand.hpp */,
 				263EA111268F524E003B100A /* Command.cpp */,
 				263EA112268F524E003B100A /* Command.hpp */,
+				26C8D90826A87522003CB994 /* InsertCommand.hpp */,
 				261C06DA269FCB71002AAC78 /* InsertComponentCommand.cpp */,
 				261C06D9269FCB71002AAC78 /* InsertComponentCommand.hpp */,
 				26CB133B269B72470025ACDD /* InsertNodeCommand.cpp */,
 				26CB133A269B72470025ACDD /* InsertNodeCommand.hpp */,
+				26C8D90926A87522003CB994 /* RemoveCommand.hpp */,
 				260BBF0D269D17340041BD06 /* RemoveNodeCommand.cpp */,
 				260BBF0C269D17340041BD06 /* RemoveNodeCommand.hpp */,
 			);

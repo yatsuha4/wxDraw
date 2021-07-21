@@ -20,6 +20,6 @@ class GradientStopList
  protected:
   List<GradientStop>& getItems() const override;
   bool canAppendItem(size_t index) const override;
-  bool canRemoveItem(size_t index) const override;
+  GradientStopPtr getRemoveItem(size_t index) const override;
 };
 }

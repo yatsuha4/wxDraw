@@ -254,10 +254,11 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
     createNode<Node::Text>();
     break;
   case Menu::ID_EDIT_REMOVE:
-    submitCommand<RemoveNodeCommand>(getSelectNode());
+    submitCommand<RemoveNodeCommand>(this, getSelectNode());
     break;
   case Menu::ID_EDIT_CLONE:
-    submitCommand<InsertNodeCommand>(Node::Clone(getSelectNode()), 
+    submitCommand<InsertNodeCommand>(this, 
+                                     Node::Clone(getSelectNode()), 
                                      getSelectNode()->getParent());
     break;
   case Menu::ID_EDIT_UNDO:
