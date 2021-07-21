@@ -15,7 +15,8 @@ class RemoveCommand
   RemoveCommand(const std::shared_ptr<typename super::Observer>& observer, 
                 const std::shared_ptr<T>& object, 
                 size_t index)
-    : super(observer, object, index)
+    : super(wxString::Format("Remove %s", object->getType()), 
+            observer, object, index)
   {}
   ~RemoveCommand() override = default;
 

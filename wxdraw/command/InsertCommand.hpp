@@ -28,14 +28,22 @@ class InsertCommand
   InsertCommand(const std::shared_ptr<Observer>& observer, 
                 const std::shared_ptr<T>& object, 
                 size_t index)
-    : super(true, wxString::Format("Insert %s", object->getType())), 
-      observer_(observer), 
-      object_(object), 
-      index_(index)
+    : InsertCommand(wxString::Format("Insert %s", object->getType()), 
+                    observer, object, index)
   {}
   ~InsertCommand() override = default;
 
  protected:
+  InsertCommand(const wxString& label, 
+                const std::shared_ptr<Observer>& observer, 
+                const std::shared_ptr<T>& object, 
+                size_t index)
+    : super(true, label), 
+      observer_(observer), 
+      object_(object), 
+      index_(index)
+  {}
+
   bool Do() override {
     observer_->doInsert(object_, index_);
     return true;
