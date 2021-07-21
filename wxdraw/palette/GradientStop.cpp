@@ -37,8 +37,8 @@ void GradientStop::update() {
 }
 /**
  */
-void GradientStop::onNew() {
-  super::onNew();
+void GradientStop::onCreate() {
+  super::onCreate();
   auto& colors = getPalette()->getItems<Color>();
   if(!colors.empty()) {
     color_ = colors.front();

@@ -1,13 +1,13 @@
 ﻿#pragma once
 
 #include "wxdraw/component/Component.hpp"
-#include "wxdraw/object/List.hpp"
 #include "wxdraw/palette/Brush.hpp"
 #include "wxdraw/palette/Color.hpp"
 #include "wxdraw/palette/Font.hpp"
 #include "wxdraw/palette/Gradient.hpp"
 #include "wxdraw/palette/GradientStop.hpp"
 #include "wxdraw/palette/Pen.hpp"
+#include "wxdraw/object/List.hpp"
 
 namespace wxdraw::component {
 /**
@@ -33,7 +33,7 @@ class PaletteComponent
   PaletteComponent(const PaletteComponent& src, const NodePtr& node);
   ~PaletteComponent() override = default;
 
-  void onNew() override;
+  void onCreate() override;
 
   template<class T>
   const List<T>& getItems() const {
@@ -60,6 +60,13 @@ class PaletteComponent
   std::shared_ptr<T> getItem(size_t index) const {
     std::shared_ptr<T> item;
     getItem(index, item);
+    return item;
+  }
+
+  template<class T>
+  std::shared_ptr<T> findItem(const wxString& key) const {
+    std::shared_ptr<T> item;
+    findItem(key, item);
     return item;
   }
 
@@ -95,12 +102,16 @@ class PaletteComponent
 
   void getItem(size_t index, ColorBasePtr& item) const;
 
+  template<class T>
+  void findItem(const wxString& key, std::shared_ptr<T>& item) const {
+    item = getItems<T>().find(key);
+  }
+
+  void findItem(const wxString& key, ColorBasePtr& item) const;
+
   template<class T, class... Args>
-  std::shared_ptr<T> appendItem(Args&&... args) {
-    auto item = New<T>(getThis(), args...);
-    item->update();
-    getItems<T>().push_back(item);
-    return item;
+  std::shared_ptr<T> createItem(Args&&... args) {
+    return getItems<T>().create(getThis(), args...);
   }
 
   template<class T>

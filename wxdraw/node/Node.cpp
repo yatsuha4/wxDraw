@@ -28,7 +28,6 @@ const char* Node::TYPE_TEXT = "Text";
 */
 Node::Node(const wxString& type)
   : super(type), 
-    label_(type), 
     show_(true)
 {
 }
@@ -37,7 +36,6 @@ Node::Node(const wxString& type)
 */
 Node::Node(const Node& src)
   : super(src), 
-    label_(src.label_), 
     show_(src.show_), 
     comment_(src.comment_)
 {
@@ -124,7 +122,7 @@ void Node::Remove(const NodePtr& node) {
 */
 PropertyPtr Node::createProperty() {
   auto property = super::createProperty();
-  property->appendMember("Label", label_);
+  property->appendMember("Name", getName());
   property->appendMember("Show", show_);
   property->appendMember("Comment", comment_);
   for(auto& component : components_) {
@@ -165,30 +163,30 @@ void Node::render(Renderer& renderer) {
 }
 /**
  */
-NodePtr Node::NewEllipse() {
-  return New<EllipseComponent>(TYPE_ELLIPSE);
+NodePtr Node::CreateEllipse() {
+  return Create<EllipseComponent>(TYPE_ELLIPSE);
 }
-NodePtr Node::NewLayer() {
-  return New<LayerComponent, 
-             ContainerComponent, 
-             GridComponent>(TYPE_LAYER);
+NodePtr Node::CreateLayer() {
+  return Create<LayerComponent, 
+                ContainerComponent, 
+                GridComponent>(TYPE_LAYER);
 }
-NodePtr Node::NewProject() {
-  return New<ProjectComponent, 
-             ContainerComponent, 
-             GridComponent, 
-             PaletteComponent, 
-             PenComponent, 
-             BrushComponent>(TYPE_PROJECT);
+NodePtr Node::CreateProject() {
+  return Create<ProjectComponent, 
+                ContainerComponent, 
+                GridComponent, 
+                PaletteComponent, 
+                PenComponent, 
+                BrushComponent>(TYPE_PROJECT);
 }
-NodePtr Node::NewRectangle() {
-  return New<RectangleComponent>(TYPE_RECTANGLE);
+NodePtr Node::CreateRectangle() {
+  return Create<RectangleComponent>(TYPE_RECTANGLE);
 }
-NodePtr Node::NewRoot() {
-  return New<ContainerComponent>(TYPE_ROOT);
+NodePtr Node::CreateRoot() {
+  return Create<ContainerComponent>(TYPE_ROOT);
 }
-NodePtr Node::NewText() {
-  return New<TextComponent>(TYPE_TEXT);
+NodePtr Node::CreateText() {
+  return Create<TextComponent>(TYPE_TEXT);
 }
 /**
    複製を生成する

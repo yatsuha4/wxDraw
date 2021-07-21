@@ -31,7 +31,7 @@ class GradientStop
   wxColour getWxColor() const;
 
   void update() override;
-  void onNew() override;
+  void onCreate() override;
   PropertyPtr createProperty() override;
 };
 }

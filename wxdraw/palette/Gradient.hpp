@@ -22,7 +22,7 @@ class Gradient
   Gradient(const Gradient& src);
   ~Gradient() = default;
 
-  void onNew() override;
+  void onCreate() override;
 
   WXDRAW_ACCESSOR(Stops, stops_);
 

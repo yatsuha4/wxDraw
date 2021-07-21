@@ -37,8 +37,8 @@ class PaletteItem
   static const wxBitmap& GetNullBitmap();
 
   template<class T, class... Args>
-  static std::shared_ptr<T> New(const PaletteComponentPtr& palette, Args... args) {
-    auto item = super::New<T>(palette, args...);
+  static std::shared_ptr<T> Create(const PaletteComponentPtr& palette, Args&&... args) {
+    auto item = super::Create<T>(palette, args...);
     item->update();
     return item;
   }

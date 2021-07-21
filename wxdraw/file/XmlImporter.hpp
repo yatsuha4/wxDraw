@@ -74,10 +74,22 @@ class XmlImporter
   bool fromString(const wxString& src, wxColour& dst) const;
   bool fromString(const wxString& src, wxFileName& dst) const;
   bool fromString(const wxString& src, wxFont& dst) const;
-  bool fromString(const wxString& src, PenPtr& dst) const;
-  bool fromString(const wxString& src, BrushPtr& dst) const;
-  bool fromString(const wxString& src, ColorPtr& dst) const;
-  bool fromString(const wxString& src, ColorBasePtr& dst) const;
+
+  bool fromString(const wxString& src, PenPtr& dst) const {
+    return fromStringPalette(src, dst);
+  }
+
+  bool fromString(const wxString& src, BrushPtr& dst) const {
+    return fromStringPalette(src, dst);
+  }
+
+  bool fromString(const wxString& src, ColorPtr& dst) const {
+    return fromStringPalette(src, dst);
+  }
+
+  bool fromString(const wxString& src, ColorBasePtr& dst) const {
+    return fromStringPalette(src, dst);
+  }
 
   bool fromString(const wxString& src, FontPtr& dst) const {
     return fromStringPalette(src, dst);
@@ -86,11 +98,8 @@ class XmlImporter
   template<class T>
   bool fromStringPalette(const wxString& src, std::shared_ptr<T>& dst) const {
     if(palette_) {
-      int index;
-      if(fromString(src, index)) {
-        dst = palette_->getItem<T>(index);
-        return true;
-      }
+      dst = palette_->findItem<T>(src);
+      return true;
     }
     return false;
   }

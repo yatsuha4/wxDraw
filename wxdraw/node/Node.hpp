@@ -22,7 +22,6 @@ class Node
  private:
   std::weak_ptr<Node> parent_;
   std::vector<ComponentBasePtr> components_;
-  wxString label_;
   bool show_;
   wxString comment_;
   wxTreeListItem item_;
@@ -31,8 +30,6 @@ class Node
   Node(const wxString& type);
   Node(const Node& src);
   ~Node();
-
-  WXDRAW_ACCESSOR(Label, label_);
 
   WXDRAW_GETTER(Components, components_);
   ContainerComponentPtr getContainer() const;
@@ -51,12 +48,12 @@ class Node
 
   WXDRAW_ACCESSOR(Item, item_);
 
-  static NodePtr NewEllipse();
-  static NodePtr NewLayer();
-  static NodePtr NewProject();
-  static NodePtr NewRectangle();
-  static NodePtr NewRoot();
-  static NodePtr NewText();
+  static NodePtr CreateEllipse();
+  static NodePtr CreateLayer();
+  static NodePtr CreateProject();
+  static NodePtr CreateRectangle();
+  static NodePtr CreateRoot();
+  static NodePtr CreateText();
 
   static NodePtr Clone(const NodePtr& src);
 
@@ -103,9 +100,9 @@ class Node
      新規コンポーネントを追加する
   */
   template<class T>
-  static std::shared_ptr<T> NewComponent(const NodePtr& node) {
-    auto component = AppendComponent<T>(node);
-    component->onNew();
+  static std::shared_ptr<T> CreateComponent(const NodePtr& node) {
+    auto component = T::template Create<T>(node);
+    node->appendComponent(component);
     return component;
   }
 
@@ -114,9 +111,9 @@ class Node
      新規ノードを生成する
   */
   template<class... ComponentTypes>
-  static NodePtr New(const char* type) {
-    auto node = super::New<Node>(type);
-    NewComponent<LayoutComponent, ComponentTypes...>(node);
+  static NodePtr Create(const char* type) {
+    auto node = super::Create<Node>(type);
+    CreateComponent<LayoutComponent, ComponentTypes...>(node);
     return node;
   }
 
@@ -124,9 +121,9 @@ class Node
      コンポーネントを追加する
   */
   template<class T1, class T2, class... Rest>
-  static void NewComponent(const NodePtr& node) {
-    NewComponent<T1>(node);
-    NewComponent<T2, Rest...>(node);
+  static void CreateComponent(const NodePtr& node) {
+    CreateComponent<T1>(node);
+    CreateComponent<T2, Rest...>(node);
   }
 };
 }

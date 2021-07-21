@@ -98,6 +98,11 @@ void XmlImporter::parsePalette(const wxXmlNode& parent) {
       parseProperty(*xml, *brush->createProperty());
       palette_->getItems<Brush>().push_back(brush);
     }
+    else if(xml->GetName() == Font::TYPE) {
+      auto font = std::make_shared<Font>(palette_);
+      parseProperty(*xml, *font->createProperty());
+      palette_->getItems<Font>().push_back(font);
+    }
     else {
       Warning("syntax error", *xml);
     }
@@ -182,26 +187,6 @@ bool XmlImporter::fromString(const wxString& src, wxFileName& dst) const {
 bool XmlImporter::fromString(const wxString& src, wxFont& dst) const {
   dst = wxFont(src);
   return true;
-}
-/**
- */
-bool XmlImporter::fromString(const wxString& src, PenPtr& dst) const {
-  return fromStringPalette(src, dst);
-}
-/**
- */
-bool XmlImporter::fromString(const wxString& src, BrushPtr& dst) const {
-  return fromStringPalette(src, dst);
-}
-/**
- */
-bool XmlImporter::fromString(const wxString& src, ColorPtr& dst) const {
-  return fromStringPalette(src, dst);
-}
-/**
- */
-bool XmlImporter::fromString(const wxString& src, ColorBasePtr& dst) const {
-  return fromStringPalette(src, dst);
 }
 /**
  */

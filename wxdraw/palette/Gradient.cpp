@@ -88,11 +88,11 @@ void Gradient::update() {
 }
 /**
  */
-void Gradient::onNew() {
-  super::onNew();
+void Gradient::onCreate() {
+  super::onCreate();
   if(stops_.empty()) {
     for(int i = 0; i < 2; i++) {
-      auto stop = New<GradientStop>(getPalette());
+      auto stop = Create<GradientStop>(getPalette());
       stop->setPos(i);
       stops_.push_back(stop);
     }

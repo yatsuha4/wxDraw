@@ -66,12 +66,12 @@ class MainFrame
 
   bool submitCommand(wxCommand* command);
 
-  bool newNode(const NodePtr& node);
+  bool createNode(const NodePtr& node);
 
   template<class T>
-  bool newComponent() {
+  bool createComponent() {
     if(auto node = getSelectNode()) {
-      return submitCommand<InsertComponentCommand>(std::make_shared<T>(node), node);
+      return submitCommand<InsertComponentCommand>(T::template Create<T>(node), node);
     }
     return false;
   }

@@ -4,6 +4,7 @@
 #include "wxdraw/node/Node.hpp"
 #include "wxdraw/palette/Brush.hpp"
 #include "wxdraw/palette/Color.hpp"
+#include "wxdraw/palette/Font.hpp"
 #include "wxdraw/palette/Gradient.hpp"
 #include "wxdraw/palette/GradientStop.hpp"
 #include "wxdraw/palette/Pen.hpp"
@@ -82,6 +83,9 @@ void XmlExporter::parsePalette(const PaletteComponentPtr& palette, wxXmlNode* pa
   for(auto& brush : palette->getItems<Brush>()) {
     parent->AddChild(createXml(*brush->createProperty()));
   }
+  for(auto& font : palette->getItems<Font>()) {
+    parent->AddChild(createXml(*font->createProperty()));
+  }
 }
 /**
  */
@@ -127,7 +131,7 @@ wxString XmlExporter::toString(const wxFileName& value) const {
 /**
  */
 wxString XmlExporter::toString(const wxFont& value) const {
-  return value.GetNativeFontInfoUserDesc();
+  return value.GetNativeFontInfoDesc();
 }
 /**
  */

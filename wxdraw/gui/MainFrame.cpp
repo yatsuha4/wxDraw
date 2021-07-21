@@ -224,7 +224,7 @@ void MainFrame::onMenuOpen(wxMenuEvent& event) {
 void MainFrame::onSelectMenu(wxCommandEvent& event) {
   switch(event.GetId()) {
   case Menu::ID_FILE_NEW:
-    appendNode(Node::NewProject(), outliner_->getRootNode());
+    appendNode(Node::CreateProject(), outliner_->getRootNode());
     break;
   case Menu::ID_FILE_OPEN:
     open();
@@ -241,16 +241,16 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
     Close();
     break;
   case Menu::ID_EDIT_APPEND_LAYER:
-    newNode(Node::NewLayer());
+    createNode(Node::CreateLayer());
     break;
   case Menu::ID_EDIT_APPEND_RECTANGLE:
-    newNode(Node::NewRectangle());
+    createNode(Node::CreateRectangle());
     break;
   case Menu::ID_EDIT_APPEND_ELLIPSE:
-    newNode(Node::NewEllipse());
+    createNode(Node::CreateEllipse());
     break;
   case Menu::ID_EDIT_NEW_TEXT:
-    newNode(Node::NewText());
+    createNode(Node::CreateText());
     break;
   case Menu::ID_EDIT_REMOVE:
     submitCommand<RemoveNodeCommand>(getSelectNode());
@@ -266,7 +266,7 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
     getProject()->getCommandProcessor().Redo();
     break;
   case Menu::ID_EDIT_NEW_COMPONENT_BRUSH:
-    newComponent<BrushComponent>();
+    createComponent<BrushComponent>();
     break;
   case Menu::ID_WINDOW_PERSPECTIVE_RESET:
     SetSize(DEFAULT_SIZE);
@@ -357,7 +357,7 @@ bool MainFrame::submitCommand(wxCommand* command) {
    ノードを生成する
    @param node ノード
 */
-bool MainFrame::newNode(const NodePtr& node) {
+bool MainFrame::createNode(const NodePtr& node) {
   return submitCommand<InsertNodeCommand>(node, getContainerNode());
 }
 }

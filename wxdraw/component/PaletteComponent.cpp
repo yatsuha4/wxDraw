@@ -17,13 +17,13 @@ PaletteComponent::PaletteComponent(const PaletteComponent& src, const NodePtr& n
 }
 /**
  */
-void PaletteComponent::onNew() {
-  super::onNew();
-  appendItem<Font>("Default", *wxNORMAL_FONT);
-  appendItem<Pen>("Transparent");
-  appendItem<Pen>("Default", appendItem<Color>("Pen", *wxBLACK));
-  appendItem<Brush>("Transparent");
-  appendItem<Brush>("Default", appendItem<Color>("Brush", *wxWHITE));
+void PaletteComponent::onCreate() {
+  super::onCreate();
+  createItem<Font>("Default", *wxNORMAL_FONT);
+  createItem<Pen>("Transparent");
+  createItem<Pen>("Default", createItem<Color>("Pen", *wxBLACK));
+  createItem<Brush>("Transparent");
+  createItem<Brush>("Default", createItem<Color>("Brush", *wxWHITE));
 }
 /**
  */
@@ -42,6 +42,19 @@ void PaletteComponent::getItem(size_t index, ColorBasePtr& item) const {
     item = color;
   }
   else if(auto gradient = getItem<Gradient>(index - colors_.size())) {
+    item = gradient;
+  }
+  else {
+    item = nullptr;
+  }
+}
+/**
+ */
+void PaletteComponent::findItem(const wxString& key, ColorBasePtr& item) const {
+  if(auto color = findItem<Color>(key)) {
+    item = color;
+  }
+  else if(auto gradient = findItem<Gradient>(key)) {
     item = gradient;
   }
   else {

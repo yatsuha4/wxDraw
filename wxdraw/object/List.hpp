@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "wxdraw/object/Object.hpp"
 
@@ -26,6 +26,22 @@ class List
                                        object->getName() == key);
                              });
     return (iter != super::end()) ? *iter : nullptr;
+  }
+
+  template<class... Args>
+  std::shared_ptr<T> create(Args&&... args) {
+    auto object = T::template Create<T>(args...);
+    super::push_back(object);
+    return object;
+  }
+
+  template<class... Args>
+  std::shared_ptr<T> create(size_t index, Args&&... args) {
+    auto object = T::Create(args...);
+    super::insert(((index < super::size())
+                   ? super::begin() + index + 1
+                   : super::end()), object);
+    return object;
   }
 };
 }

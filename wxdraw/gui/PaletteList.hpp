@@ -68,7 +68,7 @@ class PaletteList
         items.insert(items.begin() + index, item);
       }
       else {
-        item = PaletteItem::New<T>(getPaletteComponent());
+        item = PaletteItem::Create<T>(getPaletteComponent());
         items.push_back(item);
       }
       getList()->InsertItem(*createListItem(index, item));

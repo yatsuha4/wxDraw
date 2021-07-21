@@ -19,7 +19,7 @@ Object::Object(const wxString& type)
 Object::Object(const Object& src)
   : type_(src.type_)
 {
-  onNew(typeid(src));
+  onCreate(typeid(src));
 }
 /**
  */
@@ -45,7 +45,7 @@ void Object::onUpdateProperty() {
    新規IDを生成する
    @return 新規ID
 */
-wxString Object::NewId() {
+wxString Object::CreateId() {
   uuid_t id;
   uuid_generate(id);
   uuid_string_t strId;
@@ -55,14 +55,14 @@ wxString Object::NewId() {
 /**
    新規に生成されたときの処理
 */
-void Object::onNew() {
-  onNew(typeid(*this));
+void Object::onCreate() {
+  onCreate(typeid(*this));
 }
 /**
    新規に生成されたときの処理
 */
-void Object::onNew(const std::type_index& type) {
-  id_ = NewId();
+void Object::onCreate(const std::type_index& type) {
+  id_ = CreateId();
   if(name_.IsEmpty()) {
     name_ = wxString::Format("%s_%d", type_, ++Serials[type][type_]);
   }

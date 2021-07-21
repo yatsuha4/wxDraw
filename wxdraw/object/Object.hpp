@@ -27,17 +27,17 @@ class Object
   virtual void onUpdateProperty();
 
   template<class T, class... Args>
-  static std::shared_ptr<T> New(Args&&... args) {
+  static std::shared_ptr<T> Create(Args&&... args) {
     auto object = std::make_shared<T>(args...);
-    object->onNew();
+    object->onCreate();
     return object;
   }
 
-  static wxString NewId();
+  static wxString CreateId();
 
-  virtual void onNew();
+  virtual void onCreate();
 
  private:
-  void onNew(const std::type_index& type);
+  void onCreate(const std::type_index& type);
 };
 }
