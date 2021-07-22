@@ -19,12 +19,22 @@ class List
     return (index < super::size()) ? super::at(index) : nullptr;
   }
 
+  size_t getIndex(const std::shared_ptr<T>& object) const {
+    return std::distance(super::begin(), 
+                         std::find(super::begin(), super::end(), object));
+  }
+
   void insert(size_t index, const std::shared_ptr<T>& object) {
+    wxASSERT(index <= super::size());
     super::insert(super::begin() + index, object);
   }
 
   void remove(size_t index) {
     super::erase(super::begin() + index);
+  }
+
+  void remove(const std::shared_ptr<T>& object) {
+    super::erase(std::remove(super::begin(), super::end(), object));
   }
 
   std::shared_ptr<T> find(const wxString& key) const {

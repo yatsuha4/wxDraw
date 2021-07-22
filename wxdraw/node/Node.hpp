@@ -12,36 +12,32 @@ class Node
   using super = Object;
 
  public:
-  static const char* TYPE_ELLIPSE;
-  static const char* TYPE_LAYER;
-  static const char* TYPE_PROJECT;
-  static const char* TYPE_RECTANGLE;
-  static const char* TYPE_ROOT;
-  static const char* TYPE_TEXT;
-
- public:
-  class Ellipse {
-   public:
+  struct Ellipse {
+    static const char* TYPE;
     static NodePtr Create(const NodePtr& parent);
   };
 
-  class Layer {
-   public:
+  struct Layer {
+    static const char* TYPE;
     static NodePtr Create(const NodePtr& parent);
   };
 
-  class Project {
-   public:
+  struct Project {
+    static const char* TYPE;
     static NodePtr Create(const NodePtr& parent);
   };
 
-  class Rectangle {
-   public:
+  struct Rectangle {
+    static const char* TYPE;
     static NodePtr Create(const NodePtr& parent);
   };
 
-  class Text {
-   public:
+  struct Root {
+    static const char* TYPE;
+  };
+
+  struct Text {
+    static const char* TYPE;
     static NodePtr Create(const NodePtr& parent);
   };
 

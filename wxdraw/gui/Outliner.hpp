@@ -31,9 +31,10 @@ class Outliner
 
   template<class T>
   bool createNode() {
-    if(auto parent = getContainerNode()) {
+    auto [parent, index] = getInsertParent();
+    if(parent) {
       auto node = T::Create(parent);
-      return submitInsertCommand<InsertCommand<Node>>(parent, node, 0);
+      return submitInsertCommand<InsertCommand<Node>>(parent, node, index);
     }
     return false;
   }
@@ -52,6 +53,7 @@ class Outliner
 
  private:
   NodePtr getContainerNode() const;
+  std::tuple<NodePtr, size_t> getInsertParent() const;
 
   void insertNode(const NodePtr& parent, const NodePtr& node, size_t index);
   void removeNode(const NodePtr& node);

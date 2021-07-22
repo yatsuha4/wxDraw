@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "wxdraw/component/Component.hpp"
+#include "wxdraw/object/List.hpp"
 
 namespace wxdraw::component {
 /**
@@ -14,17 +15,14 @@ class ContainerComponent
   static const char* TYPE;
 
  private:
-  std::vector<NodePtr> children_;
+  List<Node> children_;
 
  public:
   ContainerComponent(const NodePtr& node);
   ContainerComponent(const ContainerComponent& src, const NodePtr& node);
   ~ContainerComponent() override;
 
-  WXDRAW_GETTER(Children, children_);
-  void appendChild(const NodePtr& child);
-  void insertChild(const NodePtr& child, size_t index);
-  void removeChild(const NodePtr& child);
+  WXDRAW_ACCESSOR(Children, children_);
 
  protected:
   void onUpdate() override;

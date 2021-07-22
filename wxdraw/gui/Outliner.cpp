@@ -94,6 +94,23 @@ NodePtr Outliner::getContainerNode() const {
   return nullptr;
 }
 /**
+   新規ノードのコンテナを求める
+   @return 新規ノードのコンテナ
+*/
+std::tuple<NodePtr, size_t> Outliner::getInsertParent() const {
+  if(auto node = getSelectNode()) {
+    if(auto container = node->getContainer()) {
+      return { node, container->getChildren().size() };
+    }
+    else if(auto parent = node->getParent()) {
+      if(auto container = parent->getContainer()) {
+        return { parent, container->getChildren().getIndex(node) + 1 };
+      }
+    }
+  }
+  return { nullptr, 0 };
+}
+/**
    ノードを挿入する
 */
 void Outliner::insertNode(const NodePtr& parent, const NodePtr& node, size_t index) {
