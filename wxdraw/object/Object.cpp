@@ -25,7 +25,7 @@ Object::Object(const Object& src)
  */
 PropertyPtr Object::createProperty() {
   auto property = std::make_shared<Property>(shared_from_this());
-  property->appendMember("Id", id_);
+  property->appendMember("Id", id_).setShow(false);
   return property;
 }
 /**

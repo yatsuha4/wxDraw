@@ -42,12 +42,14 @@ const PaletteComponentPtr& Inspector::getPaletteComponent() const {
  */
 void Inspector::showProperty(const Property& property) {
   for(auto& member : property.getMembers()) {
-    if(auto m = std::dynamic_pointer_cast<PropertyMember>(member)) {
-      Append(new wxPropertyCategory(m->getName()));
-      showProperty(*m->getProperty());
-    }
-    else if(!appendMember<WXDRAW_PROPERTY_CLASSES>(member)) {
-      wxLogFatalError("illegal member");
+    if(member->isShow()) {
+      if(auto m = std::dynamic_pointer_cast<PropertyMember>(member)) {
+        Append(new wxPropertyCategory(m->getName()));
+        showProperty(*m->getProperty());
+      }
+      else if(!appendMember<WXDRAW_PROPERTY_CLASSES>(member)) {
+        wxLogFatalError("illegal member");
+      }
     }
   }
 }

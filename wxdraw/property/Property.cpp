@@ -35,7 +35,7 @@ void Property::appendMember(const wxString& name, glm::dvec2& value) {
 }
 /**
  */
-void Property::appendChoice(const wxString& name, Choice& value) {
-  appendMember<Choice>(name, value);
+Member<Choice>& Property::appendChoice(const wxString& name, Choice& value) {
+  return appendMember<Choice>(name, value);
 }
 }
