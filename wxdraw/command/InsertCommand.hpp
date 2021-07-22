@@ -15,6 +15,9 @@ class InsertCommand
  public:
   class Observer {
    public:
+    Observer() = default;
+    virtual ~Observer() = default;
+
     virtual void doInsert(const std::shared_ptr<T>& object, size_t index) = 0;
     virtual void doRemove(const std::shared_ptr<T>& object, size_t index) = 0;
   };

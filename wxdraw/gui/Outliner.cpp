@@ -9,7 +9,7 @@ namespace wxdraw::gui {
    @param parent 親
    @param mainFrame メインフレーム
 */
-Outliner::Outliner(wxWindow* parent, MainFrame& mainFrame)
+Outliner::Outliner(wxWindow* parent, MainFrame* mainFrame)
   : super(parent, wxID_ANY), 
     mainFrame_(mainFrame)
 {
@@ -27,7 +27,76 @@ const NodePtr& Outliner::getRootNode() {
 }
 /**
  */
-void Outliner::insertNode(const NodePtr& node, const NodePtr& parent, size_t index) {
+void Outliner::selectNode(const NodePtr& node) {
+  for(auto item = GetItemParent(node->getItem()); item.IsOk(); item = GetItemParent(item)) {
+    Expand(item);
+  }
+  Select(node->getItem());
+}
+/**
+ */
+void Outliner::createProject() {
+  appendProject(Node::Project::Create(getRootNode()));
+}
+/**
+ */
+void Outliner::appendProject(const NodePtr& node) {
+  submitInsertCommand<InsertCommand<Node>>(getRootNode(), node, 0);
+}
+/**
+ */
+void Outliner::doInsert(const NodePtr& parent, const NodePtr& node, size_t index) {
+  Node::Insert(node, parent, index);
+  node->update();
+  insertNode(parent, node, index);
+  selectNode(node);
+}
+/**
+ */
+bool Outliner::canCloneNode() const {
+  return false;
+}
+/**
+ */
+void Outliner::cloneNode() {
+}
+/**
+ */
+bool Outliner::canRemoveNode() const {
+  //return getSelectNode() != nullptr;
+  return false;
+}
+/**
+ */
+void Outliner::removeNode() {
+}
+/**
+ */
+void Outliner::doRemove(const NodePtr& parent, const NodePtr& node, size_t index) {
+  Node::Remove(node);
+  removeNode(node);
+}
+/**
+   新規ノードのコンテナを求める
+   @return 新規ノードのコンテナ
+*/
+NodePtr Outliner::getContainerNode() const {
+  if(auto node = getSelectNode()) {
+    if(node->getContainer()) {
+      return node;
+    }
+    if(auto parent = node->getParent()) {
+      if(parent->getContainer()) {
+        return parent;
+      }
+    }
+  }
+  return nullptr;
+}
+/**
+   ノードを挿入する
+*/
+void Outliner::insertNode(const NodePtr& parent, const NodePtr& node, size_t index) {
   wxASSERT(!node->getItem().IsOk());
   wxASSERT(parent->getItem().IsOk());
   //wxASSERT(index <= parent->getChildren().size());
@@ -59,16 +128,10 @@ void Outliner::removeNode(const NodePtr& node) {
 }
 /**
  */
-void Outliner::selectNode(const NodePtr& node) {
-  for(auto item = GetItemParent(node->getItem()); item.IsOk(); item = GetItemParent(item)) {
-    Expand(item);
-  }
-  Select(node->getItem());
-}
-/**
- */
 void Outliner::onSelectionChanged(wxTreeListEvent& event) {
-  mainFrame_.selectNode(getNode(event.GetItem()));
+  auto node = getNode(event.GetItem());
+  selectNode_ = node;
+  mainFrame_->onSelectNode(node);
 }
 /**
  */
@@ -85,5 +148,22 @@ NodePtr Outliner::getNode(const wxTreeListItem& item) const {
 Outliner::ClientData::ClientData(const NodePtr& node)
   : node_(node)
 {
+}
+/**
+ */
+Outliner::InsertCommandObserver::InsertCommandObserver(Outliner* outliner, 
+                                                       const NodePtr& parent)
+  : outliner_(outliner), 
+    parent_(parent)
+{}
+/**
+ */
+void Outliner::InsertCommandObserver::doInsert(const NodePtr& node, size_t index) {
+  outliner_->doInsert(parent_, node, index);
+}
+/**
+ */
+void Outliner::InsertCommandObserver::doRemove(const NodePtr& node, size_t index) {
+  outliner_->doRemove(parent_, node, index);
 }
 }

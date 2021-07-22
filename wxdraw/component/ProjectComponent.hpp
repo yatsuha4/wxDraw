@@ -15,7 +15,6 @@ class ProjectComponent
 
  private:
   wxFileName fileName_;
-  wxCommandProcessor commandProcessor_;
 
  public:
   ProjectComponent(const NodePtr& node);
@@ -23,9 +22,5 @@ class ProjectComponent
   ~ProjectComponent() override = default;
 
   WXDRAW_ACCESSOR(FileName, fileName_);
-
-  wxCommandProcessor& getCommandProcessor() {
-    return commandProcessor_;
-  }
 };
 }

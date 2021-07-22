@@ -2,6 +2,7 @@
 #include "wxdraw/component/ProjectComponent.hpp"
 #include "wxdraw/gui/Canvas.hpp"
 #include "wxdraw/gui/MainFrame.hpp"
+#include "wxdraw/gui/Outliner.hpp"
 #include "wxdraw/gui/Renderer.hpp"
 #include "wxdraw/node/Node.hpp"
 
@@ -61,7 +62,7 @@ void Canvas::OnDraw(wxDC& dc) {
                              glm::dvec2(zoom_));
     Renderer renderer(dc, viewMatrix_);
     project->getNode()->render(renderer);
-    drawCursor(renderer, mainFrame_->getSelectNode());
+    drawCursor(renderer, mainFrame_->getOutliner()->getSelectNode());
   }
 }
 /**

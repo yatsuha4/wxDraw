@@ -1,6 +1,4 @@
 #include "wxdraw/command/InsertComponentCommand.hpp"
-#include "wxdraw/command/InsertNodeCommand.hpp"
-#include "wxdraw/command/RemoveNodeCommand.hpp"
 #include "wxdraw/component/BrushComponent.hpp"
 #include "wxdraw/component/ContainerComponent.hpp"
 #include "wxdraw/component/ExportComponent.hpp"
@@ -31,7 +29,7 @@ MainFrame::MainFrame(Application& application)
     application_(application), 
     auiManager_(this), 
     canvas_(new Canvas(this, this)), 
-    outliner_(new Outliner(this, *this)), 
+    outliner_(new Outliner(this, this)), 
     inspector_(new Inspector(this, this)), 
     palette_(new Palette(this, this))
 {
@@ -59,8 +57,7 @@ MainFrame::~MainFrame() {
    ノードを選択する
    @param node ノード
 */
-void MainFrame::selectNode(const NodePtr& node) {
-  selectNode_ = node;
+void MainFrame::onSelectNode(const NodePtr& node) {
   project_ = Node::GetParentComponent<ProjectComponent>(node);
   paletteComponent_ = Node::GetParentComponent<PaletteComponent>(node);
   palette_->setPaletteComponent(paletteComponent_);
@@ -70,48 +67,17 @@ void MainFrame::selectNode(const NodePtr& node) {
   update();
 }
 /**
-   ノードを追加する
-   @param node 挿入するノード
-   @param parent 親ノード
-*/
-void MainFrame::appendNode(const NodePtr& node, const NodePtr& parent) {
-  wxASSERT(parent);
-  auto container = parent->getContainer();
-  wxASSERT(container);
-  insertNode(node, parent, container->getChildren().size());
-}
-/**
-   ノードを挿入する
-   @param node 挿入するノード
-   @param parent 親ノード
-   @param index 挿入位置
-*/
-void MainFrame::insertNode(const NodePtr& node, const NodePtr& parent, size_t index) {
-  Node::Insert(node, parent, index);
-  node->update();
-  outliner_->insertNode(node, parent, index);
-  outliner_->selectNode(node);
-}
-/**
-   ノードを削除する
-   @param node 削除するノード
-*/
-void MainFrame::removeNode(const NodePtr& node) {
-  Node::Remove(node);
-  outliner_->removeNode(node);
-}
-/**
  */
 void MainFrame::appendComponent(const ComponentBasePtr& component, const NodePtr& node) {
   node->appendComponent(component);
-  selectNode(node);
+  outliner_->selectNode(node);
 }
 /**
  */
 void MainFrame::removeComponent(const ComponentBasePtr& component) {
   auto node = component->getNode();
   node->removeComponent(component);
-  selectNode(node);
+  outliner_->selectNode(node);
 }
 /**
    更新
@@ -183,23 +149,21 @@ void MainFrame::setupMenuBar() {
  */
 void MainFrame::onMenuOpen(wxMenuEvent& event) {
   auto menu = static_cast<Menu*>(event.GetMenu());
-  auto node = getSelectNode();
+  auto node = outliner_->getSelectNode();
   auto project = getProject();
   switch(menu->getType()) {
   case Menu::Type::EDIT:
     {
-      menu->Enable(Menu::ID_EDIT_REMOVE, node != nullptr);
-      menu->Enable(Menu::ID_EDIT_CLONE, 
-                   node && 
-                   node->getParent() && 
-                   node->getParent()->getContainer());
-      menu->Enable(Menu::ID_EDIT_UNDO, project && project->getCommandProcessor().CanUndo());
-      menu->Enable(Menu::ID_EDIT_REDO, project && project->getCommandProcessor().CanRedo());
+      menu->Enable(Menu::ID_EDIT_REMOVE, outliner_->canRemoveNode());
+      menu->Enable(Menu::ID_EDIT_CLONE, outliner_->canCloneNode());
+      menu->Enable(Menu::ID_EDIT_UNDO, commandProcessor_.CanUndo());
+      menu->Enable(Menu::ID_EDIT_REDO, commandProcessor_.CanRedo());
     }
     break;
   case Menu::Type::EDIT_NEW_NODE:
     {
-      auto enable = (getContainerNode() != nullptr);
+      //auto enable = (getContainerNode() != nullptr);
+      bool enable = true;
       menu->Enable(Menu::ID_EDIT_APPEND_LAYER, enable);
       menu->Enable(Menu::ID_EDIT_APPEND_RECTANGLE, enable);
       menu->Enable(Menu::ID_EDIT_APPEND_ELLIPSE, enable);
@@ -208,7 +172,6 @@ void MainFrame::onMenuOpen(wxMenuEvent& event) {
     break;
   case Menu::Type::EDIT_NEW_COMPONENT:
     {
-      auto node = getSelectNode();
       menu->Enable(Menu::ID_EDIT_NEW_COMPONENT_BRUSH, 
                    node && !node->getComponent<BrushComponent>());
     }
@@ -224,8 +187,7 @@ void MainFrame::onMenuOpen(wxMenuEvent& event) {
 void MainFrame::onSelectMenu(wxCommandEvent& event) {
   switch(event.GetId()) {
   case Menu::ID_FILE_NEW:
-    appendNode(Node::Project::Create(outliner_->getRootNode()), 
-               outliner_->getRootNode());
+    outliner_->createProject();
     break;
   case Menu::ID_FILE_OPEN:
     open();
@@ -242,30 +204,28 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
     Close();
     break;
   case Menu::ID_EDIT_APPEND_LAYER:
-    createNode<Node::Layer>();
+    outliner_->createNode<Node::Layer>();
     break;
   case Menu::ID_EDIT_APPEND_RECTANGLE:
-    createNode<Node::Rectangle>();
+    outliner_->createNode<Node::Rectangle>();
     break;
   case Menu::ID_EDIT_APPEND_ELLIPSE:
-    createNode<Node::Ellipse>();
+    outliner_->createNode<Node::Ellipse>();
     break;
   case Menu::ID_EDIT_NEW_TEXT:
-    createNode<Node::Text>();
+    outliner_->createNode<Node::Text>();
     break;
   case Menu::ID_EDIT_REMOVE:
-    submitCommand<RemoveNodeCommand>(this, getSelectNode());
+    outliner_->removeNode();
     break;
   case Menu::ID_EDIT_CLONE:
-    submitCommand<InsertNodeCommand>(this, 
-                                     Node::Clone(getSelectNode()), 
-                                     getSelectNode()->getParent());
+    outliner_->cloneNode();
     break;
   case Menu::ID_EDIT_UNDO:
-    getProject()->getCommandProcessor().Undo();
+    commandProcessor_.Undo();
     break;
   case Menu::ID_EDIT_REDO:
-    getProject()->getCommandProcessor().Redo();
+    commandProcessor_.Redo();
     break;
   case Menu::ID_EDIT_NEW_COMPONENT_BRUSH:
     createComponent<BrushComponent>();
@@ -279,21 +239,6 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
   }
 }
 /**
- */
-NodePtr MainFrame::getContainerNode() const {
-  if(auto node = getSelectNode()) {
-    if(node->getContainer()) {
-      return node;
-    }
-    if(auto parent = node->getParent()) {
-      if(parent->getContainer()) {
-        return parent;
-      }
-    }
-  }
-  return nullptr;
-}
-/**
    開く
 */
 void MainFrame::open() {
@@ -302,7 +247,7 @@ void MainFrame::open() {
   if(dialog.ShowModal() == wxID_OK) {
     XmlImporter importer(dialog.GetPath());
     if(auto project = importer.load()) {
-      appendNode(project, outliner_->getRootNode());
+      outliner_->appendProject(project);
     }
   }
 }
@@ -327,12 +272,13 @@ void MainFrame::saveAs() {
 void MainFrame::saveProject(const ProjectComponentPtr& project) {
   XmlExporter exporter(project->getNode(), project->getFileName());
   if(exporter.save()) {
-    project->getCommandProcessor().MarkAsSaved();
+    //project->getCommandProcessor().MarkAsSaved();
   }
 }
 /**
  */
 void MainFrame::onSelectFileExport() {
+  /*
   if(auto component = Node::GetParentComponent<ExportComponent>(getSelectNode())) {
     wxFileDialog dialog(this, wxFileSelectorPromptStr, 
                         component->getFileName().GetPath(), 
@@ -344,15 +290,13 @@ void MainFrame::onSelectFileExport() {
       component->save();
     }
   }
+  */
 }
 /**
    コマンドを実行する
    @param command コマンド
 */
 bool MainFrame::submitCommand(wxCommand* command) {
-  if(auto project = getProject()) {
-    return project->getCommandProcessor().Submit(command);
-  }
-  return false;
+  return commandProcessor_.Submit(command);
 }
 }
