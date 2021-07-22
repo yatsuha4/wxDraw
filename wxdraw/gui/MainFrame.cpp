@@ -109,6 +109,9 @@ void MainFrame::setupMenuBar() {
   }
   {
     auto menu = new Menu(Menu::Type::EDIT);
+    menu->Append(wxID_UNDO, wxEmptyString);
+    menu->Append(wxID_REDO, wxEmptyString);
+    menu->AppendSeparator();
     {
       auto subMenu = new Menu(Menu::Type::EDIT_NEW_NODE);
       subMenu->Append(Menu::ID_EDIT_APPEND_LAYER, "Layer");
@@ -126,9 +129,9 @@ void MainFrame::setupMenuBar() {
     }
     menu->Append(Menu::ID_EDIT_REMOVE, "Remove");
     menu->Append(Menu::ID_EDIT_CLONE, "Clone");
-    menu->AppendSeparator();
-    menu->Append(Menu::ID_EDIT_UNDO, "Undo");
-    menu->Append(Menu::ID_EDIT_REDO, "Redo");
+    commandProcessor_.SetUndoAccelerator("\tCTRL+Z");
+    commandProcessor_.SetRedoAccelerator("\tSHIFT+CTRL+Z");
+    commandProcessor_.SetEditMenu(menu);
     menuBar->Append(menu, "Edit");
   }
   {
@@ -156,8 +159,7 @@ void MainFrame::onMenuOpen(wxMenuEvent& event) {
     {
       menu->Enable(Menu::ID_EDIT_REMOVE, outliner_->canRemoveNode());
       menu->Enable(Menu::ID_EDIT_CLONE, outliner_->canCloneNode());
-      menu->Enable(Menu::ID_EDIT_UNDO, commandProcessor_.CanUndo());
-      menu->Enable(Menu::ID_EDIT_REDO, commandProcessor_.CanRedo());
+      commandProcessor_.SetMenuStrings();
     }
     break;
   case Menu::Type::EDIT_NEW_NODE:
@@ -221,10 +223,10 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
   case Menu::ID_EDIT_CLONE:
     outliner_->cloneNode();
     break;
-  case Menu::ID_EDIT_UNDO:
+  case wxID_UNDO:
     commandProcessor_.Undo();
     break;
-  case Menu::ID_EDIT_REDO:
+  case wxID_REDO:
     commandProcessor_.Redo();
     break;
   case Menu::ID_EDIT_NEW_COMPONENT_BRUSH:

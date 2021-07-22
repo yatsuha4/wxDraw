@@ -88,7 +88,6 @@ NodePtr Node::getParent() const {
    @param parent 親ノード
 */
 void Node::Append(const NodePtr& node, const NodePtr& parent) {
-  wxASSERT(node->getParent() == parent);
   auto container = parent->getContainer();
   wxASSERT(container);
   container->getChildren().push_back(node);
@@ -101,7 +100,6 @@ void Node::Append(const NodePtr& node, const NodePtr& parent) {
    @param index 挿入位置
 */
 void Node::Insert(const NodePtr& node, const NodePtr& parent, size_t index) {
-  wxASSERT(node->getParent() == parent);
   auto container = parent->getContainer();
   wxASSERT(container);
   container->getChildren().insert(index, node);
