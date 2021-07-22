@@ -50,7 +50,7 @@ class Node
 
  public:
   Node(const wxString& type, const NodePtr& parent);
-  Node(const Node& src);
+  Node(const Node& src, const NodePtr& parent);
   ~Node();
 
   WXDRAW_GETTER(Components, components_);
@@ -71,7 +71,8 @@ class Node
   WXDRAW_ACCESSOR(Item, item_);
 
   static NodePtr CreateRoot();
-  static NodePtr Clone(const NodePtr& src);
+
+  static NodePtr Clone(const Node& src, const NodePtr& parent);
 
   /**
      新規ノードを生成する

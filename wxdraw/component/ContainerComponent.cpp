@@ -16,6 +16,12 @@ ContainerComponent::ContainerComponent(const NodePtr& node)
 ContainerComponent::ContainerComponent(const ContainerComponent& src, const NodePtr& node)
   : super(src, node)
 {
+  std::transform(src.children_.begin(), 
+                 src.children_.end(), 
+                 std::back_inserter(children_), 
+                 [&](auto& child) {
+                 return Node::Clone(*child, node);
+                 });
 }
 /**
  */

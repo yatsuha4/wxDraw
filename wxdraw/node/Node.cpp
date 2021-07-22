@@ -35,9 +35,9 @@ Node::Node(const wxString& type, const NodePtr& parent)
 /**
    コピーコンストラクタ
 */
-Node::Node(const Node& src)
+Node::Node(const Node& src, const NodePtr& parent)
   : super(src), 
-    parent_(src.parent_), 
+    parent_(parent), 
     show_(src.show_), 
     comment_(src.comment_)
 {
@@ -169,20 +169,15 @@ NodePtr Node::CreateRoot() {
   return Create<ContainerComponent>(Root::TYPE, nullptr);
 }
 /**
-   複製を生成する
-   @param src 複製元
-   @return 生成した複製
-*/
-NodePtr Node::Clone(const NodePtr& src) {
-  auto dst = std::make_shared<Node>(*src);
-  for(auto& component : src->getComponents()) {
-    dst->appendComponent(component->clone(dst));
-    if(auto container = std::dynamic_pointer_cast<ContainerComponent>(component)) {
-      for(auto& child : container->getChildren()) {
-        Append(Clone(child), dst);
-      }
-    }
-  }
+ */
+NodePtr Node::Clone(const Node& src, const NodePtr& parent) {
+  auto dst = std::make_shared<Node>(src, parent);
+  std::transform(src.components_.begin(), 
+                 src.components_.end(), 
+                 std::back_inserter(dst->components_), 
+                 [&](auto& component) {
+                 return component->clone(dst);
+                 });
   return dst;
 }
 /**

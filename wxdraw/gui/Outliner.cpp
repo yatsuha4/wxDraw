@@ -54,11 +54,26 @@ void Outliner::doInsert(const NodePtr& parent, const NodePtr& node, size_t index
 /**
  */
 bool Outliner::canCloneNode() const {
+  if(auto node = getSelectNode()) {
+    if(auto parent = node->getParent()) {
+      return parent->getContainer() != nullptr;
+    }
+  }
   return false;
 }
 /**
  */
 void Outliner::cloneNode() {
+  if(auto node = getSelectNode()) {
+    if(auto parent = node->getParent()) {
+      if(auto container = parent->getContainer()) {
+        submitInsertCommand<InsertCommand<Node>>
+          (parent, 
+           Node::Clone(*node, parent), 
+           container->getChildren().getIndex(node) + 1);
+      }
+    }
+  }
 }
 /**
  */
