@@ -10,7 +10,8 @@ const char* Gradient::TYPE = "Gradient";
    コンストラクタ
 */
 Gradient::Gradient(const PaletteComponentPtr& palette)
-  : super(TYPE, palette)
+  : super(TYPE, palette), 
+    radius_(0.0)
 {
 }
 /**
@@ -18,7 +19,8 @@ Gradient::Gradient(const PaletteComponentPtr& palette)
  */
 Gradient::Gradient(const Gradient& src)
   : super(src), 
-    gradientType_(src.gradientType_)
+    gradientType_(src.gradientType_), 
+    radius_(src.radius_)
 {
   std::transform(src.stops_.begin(), src.stops_.end(), std::back_inserter(stops_), 
                  [](const auto& stop) {
@@ -106,6 +108,7 @@ PropertyPtr Gradient::createProperty() {
   auto property = super::createProperty();
   property->appendMember("Name", getName());
   property->appendChoice("GradientType", gradientType_);
+  property->appendMember("Radius", radius_);
   return property;
 }
 }

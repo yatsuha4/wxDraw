@@ -18,6 +18,7 @@ class Gradient
 
  private:
   Choice::GradientType gradientType_;
+  double radius_;
   List<GradientStop> stops_;
 
  public:
@@ -28,6 +29,7 @@ class Gradient
   void onCreate() override;
 
   WXDRAW_ACCESSOR(GradientType, gradientType_);
+  WXDRAW_ACCESSOR(Radius, radius_);
   WXDRAW_ACCESSOR(Stops, stops_);
 
   void sort();

@@ -3,6 +3,7 @@
 #include "wxdraw/palette/Brush.hpp"
 #include "wxdraw/palette/Color.hpp"
 #include "wxdraw/palette/Gradient.hpp"
+#include "wxdraw/property/Choice.hpp"
 
 namespace wxdraw::gui {
 /**
@@ -45,11 +46,23 @@ void Renderer::pushBrush(const Brush& brush, const Rect& rect) {
     pushBrush(wxBrush(color->getColor()));
   }
   else if(auto gradient = std::dynamic_pointer_cast<Gradient>(brush.getColor())) {
-    pushBrush(context_->CreateLinearGradientBrush(rect.pos.x, 
-                                                  rect.pos.y, 
-                                                  rect.pos.x + rect.size.x, 
-                                                  rect.pos.y + rect.size.y, 
-                                                  *gradient));
+    switch(gradient->getGradientType().getIndex()) {
+    case Choice::GradientType::RADIAL:
+      pushBrush(context_->CreateRadialGradientBrush(rect.pos.x, 
+                                                    rect.pos.y, 
+                                                    rect.pos.x + rect.size.x, 
+                                                    rect.pos.y + rect.size.y, 
+                                                    gradient->getRadius(), 
+                                                    *gradient));
+      break;
+    default:
+      pushBrush(context_->CreateLinearGradientBrush(rect.pos.x, 
+                                                    rect.pos.y, 
+                                                    rect.pos.x + rect.size.x, 
+                                                    rect.pos.y + rect.size.y, 
+                                                    *gradient));
+      break;
+    }
   }
   else {
     pushBrush(*wxTRANSPARENT_BRUSH);
