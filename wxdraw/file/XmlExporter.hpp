@@ -51,6 +51,7 @@ class XmlExporter
   wxString toString(const wxColour& value) const;
   wxString toString(const wxFileName& value) const;
   wxString toString(const wxFont& value) const;
+  wxString toString(const Choice& value) const;
   wxString toString(const ObjectPtr& value) const;
 };
 }

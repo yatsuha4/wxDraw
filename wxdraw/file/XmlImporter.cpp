@@ -16,6 +16,7 @@
 #include "wxdraw/palette/Gradient.hpp"
 #include "wxdraw/palette/GradientStop.hpp"
 #include "wxdraw/palette/Pen.hpp"
+#include "wxdraw/property/Choice.hpp"
 #include "wxdraw/property/Property.hpp"
 
 namespace wxdraw::file {
@@ -29,9 +30,9 @@ XmlImporter::XmlImporter(const wxString& fileName)
 }
 /**
  */
-NodePtr XmlImporter::load() {
+NodePtr XmlImporter::load(const NodePtr& parent) {
   if(document_.IsOk()) {
-    return createNode(*document_.GetRoot());
+    return createNode(*document_.GetRoot(), parent);
   }
   return nullptr;
 }
@@ -186,6 +187,12 @@ bool XmlImporter::fromString(const wxString& src, wxFileName& dst) const {
  */
 bool XmlImporter::fromString(const wxString& src, wxFont& dst) const {
   dst = wxFont(src);
+  return true;
+}
+/**
+ */
+bool XmlImporter::fromString(const wxString& src, Choice& dst) const {
+  dst.setItem(src);
   return true;
 }
 /**

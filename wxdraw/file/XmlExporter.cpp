@@ -11,6 +11,7 @@
 #include "wxdraw/property/Member.hpp"
 #include "wxdraw/property/Property.hpp"
 #include "wxdraw/property/PropertyMember.hpp"
+#include "wxdraw/property/Choice.hpp"
 
 namespace wxdraw::file {
 /**
@@ -132,6 +133,11 @@ wxString XmlExporter::toString(const wxFileName& value) const {
  */
 wxString XmlExporter::toString(const wxFont& value) const {
   return value.GetNativeFontInfoDesc();
+}
+/**
+ */
+wxString XmlExporter::toString(const Choice& value) const {
+  return value.getItems()[value.getIndex()];
 }
 /**
  */

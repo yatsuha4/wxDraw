@@ -21,14 +21,14 @@ class XmlImporter
   XmlImporter(const wxString& fileName);
   ~XmlImporter() override = default;
 
-  NodePtr load() override;
+  NodePtr load(const NodePtr& parent);
 
   static bool FromString(const wxString& text, int& value);
   static bool FromString(const wxString& text, double& value);
   static bool FromString(const wxString& text, bool& value);
 
  private:
-  NodePtr createNode(const wxXmlNode& xml, const NodePtr& parent = nullptr);
+  NodePtr createNode(const wxXmlNode& xml, const NodePtr& parent);
   void parsePalette(const wxXmlNode& xml);
   void parseProperty(const wxXmlNode& xml, const Property& property);
 
@@ -74,6 +74,7 @@ class XmlImporter
   bool fromString(const wxString& src, wxColour& dst) const;
   bool fromString(const wxString& src, wxFileName& dst) const;
   bool fromString(const wxString& src, wxFont& dst) const;
+  bool fromString(const wxString& src, Choice& dst) const;
 
   bool fromString(const wxString& src, PenPtr& dst) const {
     return fromStringPalette(src, dst);

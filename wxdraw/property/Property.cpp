@@ -33,4 +33,9 @@ void Property::appendMember(const wxString& name, glm::dvec2& value) {
   appendMember(name + ".x", value.x);
   appendMember(name + ".y", value.y);
 }
+/**
+ */
+void Property::appendChoice(const wxString& name, Choice& value) {
+  appendMember<Choice>(name, value);
+}
 }

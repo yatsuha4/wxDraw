@@ -157,6 +157,7 @@ WXDRAW_DECLARE_CLASS(PenBase);
 using namespace palette;
 
 namespace property {
+WXDRAW_DECLARE_CLASS(Choice);
 WXDRAW_DECLARE_CLASS(MemberBase);
 WXDRAW_DECLARE_CLASS(Property);
 WXDRAW_DECLARE_CLASS(PropertyMember);
@@ -171,6 +172,7 @@ using namespace property;
     wxColour,                                   \
     wxFileName,                                 \
     wxFont,                                     \
+    Choice,                                     \
     PenPtr,                                     \
     BrushPtr,                                   \
     ColorPtr,                                   \

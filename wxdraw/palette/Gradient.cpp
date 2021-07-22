@@ -17,7 +17,8 @@ Gradient::Gradient(const PaletteComponentPtr& palette)
    コピーコンストラクタ
  */
 Gradient::Gradient(const Gradient& src)
-  : super(src)
+  : super(src), 
+    gradientType_(src.gradientType_)
 {
   std::transform(src.stops_.begin(), src.stops_.end(), std::back_inserter(stops_), 
                  [](const auto& stop) {
@@ -104,6 +105,7 @@ void Gradient::onCreate() {
 PropertyPtr Gradient::createProperty() {
   auto property = super::createProperty();
   property->appendMember("Name", getName());
+  property->appendChoice("GradientType", gradientType_);
   return property;
 }
 }

@@ -1,5 +1,6 @@
 #include "wxdraw/gui/Inspector.hpp"
 #include "wxdraw/gui/Menu.hpp"
+#include "wxdraw/property/Choice.hpp"
 #include "wxdraw/property/Property.hpp"
 #include "wxdraw/property/PropertyMember.hpp"
 
@@ -83,5 +84,21 @@ void Inspector::onRightClick(wxPropertyGridEvent& event) {
     menu->Append(Menu::ID_COMPONENT_DOWN, "Down");
     PopupMenu(menu);
   }
+}
+/**
+ */
+void Inspector::appendMember(const Member<Choice>::Ptr& member) {
+  auto& choice = member->getValue();
+  wxPGChoices choices;
+  for(auto item = choice.getItems(); *item; item++) {
+    choices.Add(*item);
+  }
+  appendChoices(member, choices, choice.getIndex());
+}
+/**
+ */
+bool Inspector::getValue(const wxPropertyGridEvent& event, Choice& choice) const {
+  choice.setIndex(event.GetValue().GetLong());
+  return true;
 }
 }

@@ -2,6 +2,7 @@
 
 #include "wxdraw/object/List.hpp"
 #include "wxdraw/palette/ColorBase.hpp"
+#include "wxdraw/property/Choice.hpp"
 
 namespace wxdraw::palette {
 /**
@@ -16,6 +17,7 @@ class Gradient
   static const char* TYPE;
 
  private:
+  Choice::GradientType gradientType_;
   List<GradientStop> stops_;
 
  public:
@@ -25,6 +27,7 @@ class Gradient
 
   void onCreate() override;
 
+  WXDRAW_ACCESSOR(GradientType, gradientType_);
   WXDRAW_ACCESSOR(Stops, stops_);
 
   void sort();

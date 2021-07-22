@@ -71,6 +71,8 @@ class Inspector
     append<wxFontProperty>(member);
   }
 
+  void appendMember(const Member<Choice>::Ptr& member);
+
   void appendMember(const Member<PenPtr>::Ptr& member) {
     appendPaletteChoices(member, createPaletteItemChoices<Pen>());
   }
@@ -163,6 +165,8 @@ class Inspector
   bool getValue(const wxPropertyGridEvent& event, T& value) const {
     return wxAny(event.GetValue()).GetAs(&value);
   }
+
+  bool getValue(const wxPropertyGridEvent& event, Choice& choice) const;
 
   bool getValue(const wxPropertyGridEvent& event, BrushPtr& value) const {
     return getValuePalette(event, value);

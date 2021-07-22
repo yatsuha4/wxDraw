@@ -23,6 +23,7 @@ class Property {
   void appendMember(const MemberBasePtr& member);
   void appendMember(const wxString& name, glm::ivec2& value);
   void appendMember(const wxString& name, glm::dvec2& value);
+  void appendChoice(const wxString& name, Choice& value);
 
   template <class T>
   Member<T>& appendMember(const wxString& name, T& value) {
