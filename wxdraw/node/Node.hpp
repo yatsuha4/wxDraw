@@ -64,7 +64,7 @@ class Node
   template<class... ComponentTypes>
   static NodePtr Create(const char* type, const NodePtr& parent) {
     auto node = super::Create<Node>(type, parent);
-    CreateComponent<LayoutComponent, ComponentTypes...>(node);
+    CreateComponent<ComponentTypes...>(node);
     return node;
   }
 
