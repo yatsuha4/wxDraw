@@ -120,27 +120,29 @@ void MainFrame::setupMenuBar() {
     menu->Append(wxID_UNDO, wxEmptyString);
     menu->Append(wxID_REDO, wxEmptyString);
     menu->AppendSeparator();
-    {
-      auto subMenu = new Menu(Menu::Type::EDIT_NEW_NODE);
-      subMenu->Append(Menu::ID_EDIT_APPEND_LAYER, "Layer");
-      subMenu->Append(Menu::ID_EDIT_APPEND_RECTANGLE, "Rectangle");
-      subMenu->Append(Menu::ID_EDIT_APPEND_ELLIPSE, "Ellipse");
-      subMenu->Append(Menu::ID_EDIT_NEW_TEXT, "Text");
-      menu->Append(Menu::ID_EDIT_APPEND, "New Node", subMenu);
-    }
-    {
-      auto subMenu = new Menu(Menu::Type::EDIT_NEW_COMPONENT);
-      subMenu->Append(Menu::ID_EDIT_NEW_COMPONENT_PEN, "Pen");
-      subMenu->Append(Menu::ID_EDIT_NEW_COMPONENT_BRUSH, "Brush");
-      subMenu->Append(Menu::ID_EDIT_NEW_COMPONENT_EXPORT, "Export");
-      menu->Append(Menu::ID_EDIT_NEW_COMPONENT, "New Component", subMenu);
-    }
     menu->Append(Menu::ID_EDIT_REMOVE, "Remove");
     menu->Append(Menu::ID_EDIT_CLONE, "Clone");
     commandProcessor_.SetUndoAccelerator("\tCTRL+Z");
     commandProcessor_.SetRedoAccelerator("\tSHIFT+CTRL+Z");
     commandProcessor_.SetEditMenu(menu);
     menuBar->Append(menu, "Edit");
+  }
+  {
+    auto menu = new Menu(Menu::Type::NODE);
+    menu->Append(Menu::ID_NODE_RECTANGLE, _("Rectangle"));
+    menu->Append(Menu::ID_NODE_ELLIPSE, _("Ellipse"));
+    menu->Append(Menu::ID_NODE_TEXT, _("Text"));
+    menu->AppendSeparator();
+    menu->Append(Menu::ID_NODE_GROUP, _("Group"));
+    menu->Append(Menu::ID_NODE_LAYER, _("Layer"));
+    menuBar->Append(menu, _("Node"));
+  }
+  {
+    auto menu = new Menu(Menu::Type::COMPONENT);
+    menu->Append(Menu::ID_COMPONENT_PEN, _("Pen"));
+    menu->Append(Menu::ID_COMPONENT_BRUSH, _("Brush"));
+    menu->Append(Menu::ID_COMPONENT_EXPORT, _("Export"));
+    menuBar->Append(menu, _("Component"));
   }
   {
     auto menu = new Menu();
@@ -171,21 +173,22 @@ void MainFrame::onMenuOpen(wxMenuEvent& event) {
       //menu->Enable(Menu::Type::EDIT_NEW_COMPONENT, node != nullptr);
     }
     break;
-  case Menu::Type::EDIT_NEW_NODE:
+  case Menu::Type::NODE:
     {
       //auto enable = (getContainerNode() != nullptr);
       bool enable = true;
-      menu->Enable(Menu::ID_EDIT_APPEND_LAYER, enable);
-      menu->Enable(Menu::ID_EDIT_APPEND_RECTANGLE, enable);
-      menu->Enable(Menu::ID_EDIT_APPEND_ELLIPSE, enable);
-      menu->Enable(Menu::ID_EDIT_NEW_TEXT, enable);
+      menu->Enable(Menu::ID_NODE_ELLIPSE, enable);
+      menu->Enable(Menu::ID_NODE_GROUP, enable);
+      menu->Enable(Menu::ID_NODE_LAYER, enable);
+      menu->Enable(Menu::ID_NODE_RECTANGLE, enable);
+      menu->Enable(Menu::ID_NODE_TEXT, enable);
     }
     break;
-  case Menu::Type::EDIT_NEW_COMPONENT:
+  case Menu::Type::COMPONENT:
     {
-      menu->Enable(Menu::ID_EDIT_NEW_COMPONENT_PEN, 
+      menu->Enable(Menu::ID_COMPONENT_PEN, 
                    node && node->canAppendComponent<PenComponent>());
-      menu->Enable(Menu::ID_EDIT_NEW_COMPONENT_BRUSH, 
+      menu->Enable(Menu::ID_COMPONENT_BRUSH, 
                    node && node->canAppendComponent<BrushComponent>());
     }
     break;
@@ -216,16 +219,19 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
   case Menu::ID_FILE_QUIT:
     Close();
     break;
-  case Menu::ID_EDIT_APPEND_LAYER:
+  case Menu::ID_NODE_LAYER:
     outliner_->createNode<Node::Layer>();
     break;
-  case Menu::ID_EDIT_APPEND_RECTANGLE:
+  case Menu::ID_NODE_GROUP:
+    outliner_->createNode<Node::Group>();
+    break;
+  case Menu::ID_NODE_RECTANGLE:
     outliner_->createNode<Node::Rectangle>();
     break;
-  case Menu::ID_EDIT_APPEND_ELLIPSE:
+  case Menu::ID_NODE_ELLIPSE:
     outliner_->createNode<Node::Ellipse>();
     break;
-  case Menu::ID_EDIT_NEW_TEXT:
+  case Menu::ID_NODE_TEXT:
     outliner_->createNode<Node::Text>();
     break;
   case Menu::ID_EDIT_REMOVE:
@@ -244,10 +250,10 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
       update();
     }
     break;
-  case Menu::ID_EDIT_NEW_COMPONENT_PEN:
+  case Menu::ID_COMPONENT_PEN:
     createComponent<PenComponent>();
     break;
-  case Menu::ID_EDIT_NEW_COMPONENT_BRUSH:
+  case Menu::ID_COMPONENT_BRUSH:
     createComponent<BrushComponent>();
     break;
   case Menu::ID_WINDOW_PERSPECTIVE_RESET:

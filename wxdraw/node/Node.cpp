@@ -133,13 +133,25 @@ NodePtr Node::Clone(const Node& src, const NodePtr& parent) {
   return dst;
 }
 /**
- */
+   楕円ノードを新規作成する
+   @param parent 親ノード
+*/
 NodePtr Node::Ellipse::Create(const NodePtr& parent) {
   return Node::Create<LayoutComponent, 
                       EllipseComponent>(TYPE, parent);
 }
 /**
- */
+   グループノードを新規作成する
+   @param parent 親ノード
+*/
+NodePtr Node::Group::Create(const NodePtr& parent) {
+  return Node::Create<LayoutComponent, 
+                      ContainerComponent>(TYPE, parent);
+}
+/**
+   レイヤーノードを新規作成する
+   @param parent 親ノード
+*/
 NodePtr Node::Layer::Create(const NodePtr& parent) {
   return Node::Create<LayoutComponent, 
                       LayerComponent, 
@@ -147,7 +159,9 @@ NodePtr Node::Layer::Create(const NodePtr& parent) {
                       GridComponent>(TYPE, parent);
 }
 /**
- */
+   プロジェクトノードを新規作成する
+   @param parent 親ノード
+*/
 NodePtr Node::Project::Create(const NodePtr& parent) {
   return Node::Create<LayoutComponent, 
                       ProjectComponent, 
@@ -158,18 +172,24 @@ NodePtr Node::Project::Create(const NodePtr& parent) {
                       GridComponent>(TYPE, parent);
 }
 /**
- */
+   矩形ノードを新規作成する
+   @param parent 親ノード
+*/
 NodePtr Node::Rectangle::Create(const NodePtr& parent) {
   return Node::Create<LayoutComponent, 
                       RectangleComponent>(TYPE, parent);
 }
 /**
- */
+   ルートノードを新規作成する
+   @param parent 親ノード
+*/
 NodePtr Node::Root::Create(const NodePtr& parent) {
   return Node::Create<ContainerComponent>(TYPE, parent);
 }
 /**
- */
+   テキストノードを新規作成する
+   @param parent 親ノード
+*/
 NodePtr Node::Text::Create(const NodePtr& parent) {
   return Node::Create<LayoutComponent, 
                       TextComponent>(TYPE, parent);

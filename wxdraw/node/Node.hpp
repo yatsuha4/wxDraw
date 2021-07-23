@@ -19,6 +19,7 @@ class Node
 
  public:
   WXDRAW_DECLARE_NODE(Ellipse);
+  WXDRAW_DECLARE_NODE(Group);
   WXDRAW_DECLARE_NODE(Layer);
   WXDRAW_DECLARE_NODE(Project);
   WXDRAW_DECLARE_NODE(Rectangle);
