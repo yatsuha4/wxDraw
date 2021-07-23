@@ -51,7 +51,7 @@ NodePtr XmlImporter::createNode(const wxXmlNode& xml, const NodePtr& parent) {
       parseProperty(*componentXml, *component->createProperty());
       if(auto container = ContainerComponent::As(component)) {
         for(auto child = componentXml->GetChildren(); child; child = child->GetNext()) {
-          Node::Append(createNode(*child, node), node);
+          container->getChildren().push_back(createNode(*child, node));
         }
       }
       else if(auto palette = PaletteComponent::As(component)) {

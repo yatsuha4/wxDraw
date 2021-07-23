@@ -59,7 +59,6 @@ class Node
   void removeComponent(const ComponentBasePtr& component);
 
   NodePtr getParent() const;
-  static void Append(const NodePtr& node, const NodePtr& parent);
   static void Insert(const NodePtr& node, const NodePtr& parent, size_t index);
   static void Remove(const NodePtr& node);
 

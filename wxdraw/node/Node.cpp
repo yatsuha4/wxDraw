@@ -83,17 +83,6 @@ NodePtr Node::getParent() const {
   return parent_.lock();
 }
 /**
-   ノードを追加する
-   @param node 挿入するノード
-   @param parent 親ノード
-*/
-void Node::Append(const NodePtr& node, const NodePtr& parent) {
-  auto container = parent->getContainer();
-  wxASSERT(container);
-  container->getChildren().push_back(node);
-  node->parent_ = parent;
-}
-/**
    ノードを挿入する
    @param node 挿入するノード
    @param parent 親ノード
