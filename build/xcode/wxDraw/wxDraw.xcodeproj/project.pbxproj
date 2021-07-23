@@ -60,6 +60,7 @@
 		26C8D90426A6B844003CB994 /* Object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26C8D90226A6B844003CB994 /* Object.cpp */; };
 		26C8D90626A6EDA4003CB994 /* libwxregexu-3.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 26C8D90526A6EDA4003CB994 /* libwxregexu-3.1.a */; };
 		26C8D90C26A97084003CB994 /* Choice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26C8D90A26A97084003CB994 /* Choice.cpp */; };
+		26C8D90F26AB0676003CB994 /* ImageList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26C8D90D26AB0675003CB994 /* ImageList.cpp */; };
 		26CB1327269A524E0025ACDD /* Exporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26CB1325269A524E0025ACDD /* Exporter.cpp */; };
 		26CB132A269A537B0025ACDD /* XmlExporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26CB1328269A537B0025ACDD /* XmlExporter.cpp */; };
 		26CB132C269A54140025ACDD /* libexpat.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 26CB132B269A54140025ACDD /* libexpat.tbd */; };
@@ -171,6 +172,8 @@
 		26C8D90926A87522003CB994 /* RemoveCommand.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RemoveCommand.hpp; sourceTree = "<group>"; };
 		26C8D90A26A97084003CB994 /* Choice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Choice.cpp; sourceTree = "<group>"; };
 		26C8D90B26A97084003CB994 /* Choice.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Choice.hpp; sourceTree = "<group>"; };
+		26C8D90D26AB0675003CB994 /* ImageList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageList.cpp; sourceTree = "<group>"; };
+		26C8D90E26AB0676003CB994 /* ImageList.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ImageList.hpp; sourceTree = "<group>"; };
 		26CB13222699F8BB0025ACDD /* Rect.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Rect.hpp; sourceTree = "<group>"; };
 		26CB13232699FB790025ACDD /* Layout.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Layout.hpp; sourceTree = "<group>"; };
 		26CB1325269A524E0025ACDD /* Exporter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Exporter.cpp; sourceTree = "<group>"; };
@@ -252,6 +255,8 @@
 				261C06E326A04172002AAC78 /* GradientList.hpp */,
 				2637D75326A3295700BF8F37 /* GradientStopList.cpp */,
 				2637D75426A3295700BF8F37 /* GradientStopList.hpp */,
+				26C8D90D26AB0675003CB994 /* ImageList.cpp */,
+				26C8D90E26AB0676003CB994 /* ImageList.hpp */,
 				266A37A326684E1A00EA192B /* Inspector.cpp */,
 				266A37A226684E1A00EA192B /* Inspector.hpp */,
 				2605A584264A312F00FD3DF0 /* MainFrame.cpp */,
@@ -517,6 +522,7 @@
 				261C06E426A04172002AAC78 /* GradientList.cpp in Sources */,
 				260BBF27269ECB8C0041BD06 /* ProjectComponent.cpp in Sources */,
 				2637D74926A2C39100BF8F37 /* Color.cpp in Sources */,
+				26C8D90F26AB0676003CB994 /* ImageList.cpp in Sources */,
 				2605A57A264564DB00FD3DF0 /* main.cpp in Sources */,
 				26CB132A269A537B0025ACDD /* XmlExporter.cpp in Sources */,
 				26CB1327269A524E0025ACDD /* Exporter.cpp in Sources */,

@@ -1,9 +1,16 @@
 #include "wxdraw/component/ContainerComponent.hpp"
+#include "wxdraw/gui/ImageList.hpp"
 #include "wxdraw/gui/MainFrame.hpp"
 #include "wxdraw/gui/Outliner.hpp"
 #include "wxdraw/node/Node.hpp"
 
 namespace wxdraw::gui {
+enum {
+  IMAGE_NODE, 
+  IMAGE_CONTAINER, 
+  IMAGE_CONTAINER_OPEN
+};
+static const wxSize IMAGE_SIZE(16, 16);
 /**
    コンストラクタ
    @param parent 親
@@ -13,6 +20,11 @@ Outliner::Outliner(wxWindow* parent, MainFrame* mainFrame)
   : super(parent, wxID_ANY), 
     mainFrame_(mainFrame)
 {
+  auto imageList = new ImageList(IMAGE_SIZE);
+  imageList->append(wxART_NORMAL_FILE);
+  imageList->append(wxART_FOLDER);
+  imageList->append(wxART_FOLDER_OPEN);
+  AssignImageList(imageList);
   AppendColumn("Name");
   Bind(wxEVT_TREELIST_SELECTION_CHANGED, &Outliner::onSelectionChanged, this);
 }
@@ -137,6 +149,12 @@ void Outliner::insertNode(const NodePtr& node, const NodePtr& parent, size_t ind
       prev = GetNextSibling(prev);
     }
     item = InsertItem(parent->getItem(), prev, node->getName());
+  }
+  if(node->getContainer()) {
+    SetItemImage(item, IMAGE_CONTAINER, IMAGE_CONTAINER_OPEN);
+  }
+  else {
+    SetItemImage(item, IMAGE_NODE);
   }
   SetItemData(item, new ClientData(node));
   node->setItem(item);
