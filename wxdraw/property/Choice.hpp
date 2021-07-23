@@ -6,6 +6,8 @@ namespace wxdraw::property {
 class Choice {
  public:
   class GradientType;
+  class PenCap;
+  class PenJoin;
   class PenStyle;
 
  private:
@@ -43,6 +45,46 @@ class Choice::GradientType
   GradientType() : Choice(ITEMS) {}
   GradientType(const GradientType& src) = default;
   ~GradientType() = default;
+};
+/**
+ */
+class Choice::PenCap
+  : public Choice
+{
+ public:
+  enum {
+    ROUND, 
+    PROJECTING, 
+    BUTT
+  };
+
+ private:
+  static const char* ITEMS[];
+
+ public:
+  PenCap() : Choice(ITEMS) {}
+  PenCap(const PenCap& src) = default;
+  ~PenCap() = default;
+};
+/**
+ */
+class Choice::PenJoin
+  : public Choice
+{
+ public:
+  enum {
+    ROUND, 
+    BEVEL, 
+    MITER
+  };
+
+ private:
+  static const char* ITEMS[];
+
+ public:
+  PenJoin() : Choice(ITEMS) {}
+  PenJoin(const PenJoin& src) = default;
+  ~PenJoin() = default;
 };
 /**
    ペンのスタイル

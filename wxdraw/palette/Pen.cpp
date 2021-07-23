@@ -27,6 +27,8 @@ PropertyPtr Pen::generateProperty() {
   auto property = super::generateProperty();
   property->appendMember("Width", width_);
   property->appendChoice("Style", style_);
+  property->appendChoice("Cap", cap_);
+  property->appendChoice("Join", join_);
   return property;
 }
 }

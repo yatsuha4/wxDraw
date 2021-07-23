@@ -6,6 +6,18 @@ const char* Choice::GradientType::ITEMS[] = {
   "Radial", 
   nullptr
 };
+const char* Choice::PenCap::ITEMS[] = {
+  "Round", 
+  "Projecting", 
+  "Butt", 
+  nullptr
+};
+const char* Choice::PenJoin::ITEMS[] = {
+  "Round", 
+  "Bevel", 
+  "Miter", 
+  nullptr
+};
 const char* Choice::PenStyle::ITEMS[] = {
   "Solid", 
   "Dot", 

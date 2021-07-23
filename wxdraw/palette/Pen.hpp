@@ -18,6 +18,8 @@ class Pen
  private:
   double width_;
   Choice::PenStyle style_;
+  Choice::PenCap cap_;
+  Choice::PenJoin join_;
 
  public:
   Pen(const PaletteComponentPtr& palette);
@@ -29,6 +31,8 @@ class Pen
 
   WXDRAW_ACCESSOR(Width, width_);
   WXDRAW_ACCESSOR(Style, style_);
+  WXDRAW_ACCESSOR(Cap, cap_);
+  WXDRAW_ACCESSOR(Join, join_);
 
   PropertyPtr generateProperty() override;
 };

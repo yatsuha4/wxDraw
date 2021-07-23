@@ -125,6 +125,32 @@ void Renderer::pushPen(const Pen& pen, const Rect& rect) {
   default:
     break;
   }
+  switch(pen.getCap().getIndex()) {
+  case Choice::PenCap::ROUND:
+    info.Cap(wxCAP_ROUND);
+    break;
+  case Choice::PenCap::PROJECTING:
+    info.Cap(wxCAP_PROJECTING);
+    break;
+  case Choice::PenCap::BUTT:
+    info.Cap(wxCAP_BUTT);
+    break;
+  default:
+    break;
+  }
+  switch(pen.getJoin().getIndex()) {
+  case Choice::PenJoin::BEVEL:
+    info.Join(wxJOIN_BEVEL);
+    break;
+  case Choice::PenJoin::MITER:
+    info.Join(wxJOIN_MITER);
+    break;
+  case Choice::PenJoin::ROUND:
+    info.Join(wxJOIN_ROUND);
+    break;
+  default:
+    break;
+  }
   pushPen(context_->CreatePen(info));
 }
 /**
