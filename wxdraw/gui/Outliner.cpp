@@ -46,7 +46,7 @@ void Outliner::appendProject(const NodePtr& node) {
 /**
  */
 void Outliner::doInsert(const NodePtr& parent, const NodePtr& node, size_t index) {
-  Node::Insert(node, parent, index);
+  parent->getContainer()->getChildren().insert(index, node);
   node->update();
   insertNode(parent, node, index);
   selectNode(node);
