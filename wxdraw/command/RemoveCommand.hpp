@@ -5,18 +5,18 @@
 namespace wxdraw::command {
 /**
  */
-template<class T>
+template<class T, class... Args>
 class RemoveCommand
-  : public InsertCommand<T>
+  : public InsertCommand<T, Args...>
 {
-  using super = InsertCommand<T>;
+  using super = InsertCommand<T, Args...>;
 
  public:
-  RemoveCommand(const std::shared_ptr<typename super::Observer>& observer, 
+  RemoveCommand(typename super::Observer* observer, 
                 const std::shared_ptr<T>& object, 
-                size_t index)
+                const Args&... args)
     : super(wxString::Format("Remove %s", object->getType()), 
-            observer, object, index)
+            observer, object, args...)
   {}
   ~RemoveCommand() override = default;
 

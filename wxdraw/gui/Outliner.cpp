@@ -41,14 +41,16 @@ void Outliner::createProject() {
 /**
  */
 void Outliner::appendProject(const NodePtr& node) {
-  submitInsertCommand<InsertCommand<Node>>(getRootNode(), node, 0);
+  submitInsertCommand<InsertNodeCommand>(node, getRootNode(), 0);
 }
 /**
  */
-void Outliner::doInsert(const NodePtr& parent, const NodePtr& node, size_t index) {
+void Outliner::doInsert(const NodePtr& node, const std::tuple<NodePtr, size_t>& args) {
+  auto parent = std::get<0>(args);
+  auto index = std::get<1>(args);
   parent->getContainer()->getChildren().insert(index, node);
   node->update();
-  insertNode(parent, node, index);
+  insertNode(node, parent, index);
   selectNode(node);
 }
 /**
@@ -67,9 +69,9 @@ void Outliner::cloneNode() {
   if(auto node = getSelectNode()) {
     if(auto parent = node->getParent()) {
       if(auto container = parent->getContainer()) {
-        submitInsertCommand<InsertCommand<Node>>
-          (parent, 
-           Node::Clone(*node, parent), 
+        submitInsertCommand<InsertNodeCommand>
+          (Node::Clone(*node, parent), 
+           parent, 
            container->getChildren().getIndex(node) + 1);
       }
     }
@@ -87,7 +89,8 @@ void Outliner::removeNode() {
 }
 /**
  */
-void Outliner::doRemove(const NodePtr& parent, const NodePtr& node, size_t index) {
+void Outliner::doRemove(const NodePtr& node, const std::tuple<NodePtr, size_t>& args) {
+  auto parent = std::get<0>(args);
   parent->getContainer()->getChildren().remove(node);
   removeNode(node);
 }
@@ -128,7 +131,7 @@ std::tuple<NodePtr, size_t> Outliner::getInsertParent() const {
 /**
    ノードを挿入する
 */
-void Outliner::insertNode(const NodePtr& parent, const NodePtr& node, size_t index) {
+void Outliner::insertNode(const NodePtr& node, const NodePtr& parent, size_t index) {
   wxASSERT(!node->getItem().IsOk());
   wxASSERT(parent->getItem().IsOk());
   //wxASSERT(index <= parent->getChildren().size());
@@ -180,22 +183,5 @@ NodePtr Outliner::getNode(const wxTreeListItem& item) const {
 Outliner::ClientData::ClientData(const NodePtr& node)
   : node_(node)
 {
-}
-/**
- */
-Outliner::InsertCommandObserver::InsertCommandObserver(Outliner* outliner, 
-                                                       const NodePtr& parent)
-  : outliner_(outliner), 
-    parent_(parent)
-{}
-/**
- */
-void Outliner::InsertCommandObserver::doInsert(const NodePtr& node, size_t index) {
-  outliner_->doInsert(parent_, node, index);
-}
-/**
- */
-void Outliner::InsertCommandObserver::doRemove(const NodePtr& node, size_t index) {
-  outliner_->doRemove(parent_, node, index);
 }
 }

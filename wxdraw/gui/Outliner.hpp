@@ -7,13 +7,13 @@ namespace wxdraw::gui {
    アウトライナ
 */
 class Outliner
-  : public wxTreeListCtrl
+  : public wxTreeListCtrl, 
+    public InsertNodeCommand::Observer
 {
   using super = wxTreeListCtrl;
 
  public:
   class ClientData;
-  class InsertCommandObserver;
 
  private:
   MainFrame* mainFrame_;
@@ -34,7 +34,7 @@ class Outliner
     auto [parent, index] = getInsertParent();
     if(parent) {
       auto node = T::Create(parent);
-      return submitInsertCommand<InsertCommand<Node>>(parent, node, index);
+      return submitInsertCommand<InsertNodeCommand>(node, parent, index);
     }
     return false;
   }
@@ -48,14 +48,14 @@ class Outliner
   bool canRemoveNode() const;
   void removeNode();
 
-  void doInsert(const NodePtr& parent, const NodePtr& node, size_t index);
-  void doRemove(const NodePtr& parent, const NodePtr& node, size_t index);
+  void doInsert(const NodePtr& node, const std::tuple<NodePtr, size_t>& args) override;
+  void doRemove(const NodePtr& node, const std::tuple<NodePtr, size_t>& args) override;
 
  private:
   NodePtr getContainerNode() const;
   std::tuple<NodePtr, size_t> getInsertParent() const;
 
-  void insertNode(const NodePtr& parent, const NodePtr& node, size_t index);
+  void insertNode(const NodePtr& node, const NodePtr& parent, size_t index);
   void removeNode(const NodePtr& node);
 
   void onSelectionChanged(wxTreeListEvent& event);
@@ -63,9 +63,8 @@ class Outliner
   NodePtr getNode(const wxTreeListItem& item) const;
 
   template<class T>
-  bool submitInsertCommand(const NodePtr& parent, const NodePtr& node, size_t index) {
-    return mainFrame_->submitCommand<T>
-      (std::make_shared<InsertCommandObserver>(this, parent), node, index);
+  bool submitInsertCommand(const NodePtr& node, const NodePtr& parent, size_t index) {
+    return mainFrame_->submitCommand<T>(this, node, parent, index);
   }
 };
 /**
@@ -81,22 +80,5 @@ class Outliner::ClientData
   ~ClientData() override = default;
 
   WXDRAW_GETTER(Node, node_);
-};
-/**
-   挿入コマンドのオブザーバー
-*/
-class Outliner::InsertCommandObserver
-  : public InsertCommand<Node>::Observer
-{
- private:
-  Outliner* outliner_;
-  NodePtr parent_;
-
- public:
-  InsertCommandObserver(Outliner* outliner, const NodePtr& parent);
-  ~InsertCommandObserver() override = default;
-
-  void doInsert(const NodePtr& node, size_t index) override;
-  void doRemove(const NodePtr& node, size_t index) override;
 };
 }

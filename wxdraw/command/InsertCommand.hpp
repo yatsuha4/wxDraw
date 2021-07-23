@@ -6,7 +6,7 @@ namespace wxdraw::command {
 /**
    リスト操作コマンド
 */
-template<class T>
+template<class T, class... Args>
 class InsertCommand
   : public wxCommand
 {
@@ -18,43 +18,46 @@ class InsertCommand
     Observer() = default;
     virtual ~Observer() = default;
 
-    virtual void doInsert(const std::shared_ptr<T>& object, size_t index) = 0;
-    virtual void doRemove(const std::shared_ptr<T>& object, size_t index) = 0;
+    virtual void doInsert(const std::shared_ptr<T>& object, 
+                          const std::tuple<Args...>& args) = 0;
+    virtual void doRemove(const std::shared_ptr<T>& object, 
+                          const std::tuple<Args...>& args) = 0;
   };
 
  private:
-  std::shared_ptr<Observer> observer_;
+  Observer* observer_;
   std::shared_ptr<T> object_;
-  size_t index_;
+  std::tuple<Args...> args_;
 
  public:
-  InsertCommand(const std::shared_ptr<Observer>& observer, 
+  InsertCommand(Observer* observer, 
                 const std::shared_ptr<T>& object, 
-                size_t index)
+                const Args&... args)
     : InsertCommand(wxString::Format("Insert %s", object->getType()), 
-                    observer, object, index)
+                    observer, object, args...)
   {}
   ~InsertCommand() override = default;
 
  protected:
   InsertCommand(const wxString& label, 
-                const std::shared_ptr<Observer>& observer, 
+                Observer* observer, 
                 const std::shared_ptr<T>& object, 
-                size_t index)
+                const Args&... args)
     : super(true, label), 
       observer_(observer), 
       object_(object), 
-      index_(index)
+      args_(args...)
   {}
 
   bool Do() override {
-    observer_->doInsert(object_, index_);
+    observer_->doInsert(object_, args_);
     return true;
   }
 
   bool Undo() override {
-    observer_->doRemove(object_, index_);
+    observer_->doRemove(object_, args_);
     return true;
   }
 };
+using InsertNodeCommand = InsertCommand<Node, NodePtr, size_t>;
 }

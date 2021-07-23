@@ -11,30 +11,10 @@ namespace wxdraw::gui {
  */
 template<class T>
 class PaletteList
-  : public PaletteListBase
+  : public PaletteListBase, 
+    public InsertCommand<T, size_t>::Observer
 {
   using super = PaletteListBase;
-
- public:
-  class CommandObserver
-    : public InsertCommand<T>::Observer
-  {
-   private:
-    PaletteList* list_;
-
-   public:
-    CommandObserver(PaletteList* list)
-      : list_(list)
-    {}
-
-    void doInsert(const std::shared_ptr<T>& item, size_t index) override {
-      list_->doInsert(item, index);
-    }
-
-    void doRemove(const std::shared_ptr<T>& item, size_t index) override {
-      list_->doRemove(item, index);
-    }
-  };
 
  public:
   PaletteList(wxWindow* window, Palette* palette)
@@ -71,6 +51,24 @@ class PaletteList
     getList()->Thaw();
   }
 
+  void doInsert(const std::shared_ptr<T>& item, 
+                const std::tuple<size_t>& args) override {
+    auto index = std::get<0>(args);
+    unselectItem();
+    getItems().insert(index, item);
+    getList()->InsertItem(*createListItem(index, item));
+    selectItem(index);
+  }
+
+  void doRemove(const std::shared_ptr<T>& item, 
+                const std::tuple<size_t>& args) override {
+    auto index = std::get<0>(args);
+    unselectItem();
+    getItems().remove(index);
+    getList()->DeleteItem(index);
+    selectItem(index);
+  }
+
  protected:
   virtual List<T>& getItems() const {
     static List<T> EMPTY;
@@ -95,7 +93,7 @@ class PaletteList
       else {
         item = T::template Create<T>(getPaletteComponent());
       }
-      submitCommand<InsertCommand<T>>(item, index);
+      submitCommand<InsertCommand<T, size_t>>(item, index);
     }
   }
 
@@ -103,28 +101,14 @@ class PaletteList
     return true;
   }
 
-  void doInsert(const std::shared_ptr<T>& item, size_t index) {
-    unselectItem();
-    getItems().insert(index, item);
-    getList()->InsertItem(*createListItem(index, item));
-    selectItem(index);
-  }
-
   void removeItem(size_t index) override {
     if(auto item = getRemoveItem(index)) {
-      submitCommand<RemoveCommand<T>>(item, index);
+      submitCommand<RemoveCommand<T, size_t>>(item, index);
     }
   }
 
   virtual std::shared_ptr<T> getRemoveItem(size_t index) const {
     return getItems().at(index);
-  }
-
-  void doRemove(const std::shared_ptr<T>& item, size_t index) {
-    unselectItem();
-    getItems().remove(index);
-    getList()->DeleteItem(index);
-    selectItem(index);
   }
 
  private:
@@ -138,9 +122,8 @@ class PaletteList
   }
 
   template<class CommandType, class... Args>
-  bool submitCommand(Args&&... args) {
-    return getMainFrame()->template submitCommand<CommandType>
-      (std::make_shared<CommandObserver>(this), args...);
+  bool submitCommand(const std::shared_ptr<T>& item, size_t index) {
+    return getMainFrame()->template submitCommand<CommandType>(this, item, index);
   }
 };
 }
