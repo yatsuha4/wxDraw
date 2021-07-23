@@ -115,26 +115,6 @@ class Node
     return nullptr;
   }
 
-  /**
-     コンポーネントを追加する
-  */
-  template<class T>
-  static std::shared_ptr<T> AppendComponent(const NodePtr& node) {
-    auto component = std::make_shared<T>(node);
-    node->appendComponent(component);
-    return component;
-  }
-
-  /**
-     新規コンポーネントを追加する
-  */
-  template<class T>
-  static std::shared_ptr<T> CreateComponent(const NodePtr& node) {
-    auto component = T::template Create<T>(node);
-    node->appendComponent(component);
-    return component;
-  }
-
  private:
   /**
      コンポーネントを追加する
@@ -143,6 +123,16 @@ class Node
   static void CreateComponent(const NodePtr& node) {
     CreateComponent<T1>(node);
     CreateComponent<T2, Rest...>(node);
+  }
+
+  /**
+     コンポーネントを追加する
+  */
+  template<class T>
+  static std::shared_ptr<T> CreateComponent(const NodePtr& node) {
+    auto component = T::template Create<T>(node);
+    node->appendComponent(component);
+    return component;
   }
 };
 }

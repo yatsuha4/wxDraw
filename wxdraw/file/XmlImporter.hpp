@@ -28,26 +28,28 @@ class XmlImporter
   static bool FromString(const wxString& text, bool& value);
 
  private:
-  NodePtr createNode(const wxXmlNode& xml, const NodePtr& parent);
+  NodePtr generateNode(const wxXmlNode& xml, const NodePtr& parent);
   void parsePalette(const wxXmlNode& xml);
   void parseProperty(const wxXmlNode& xml, const Property& property);
 
-  static ComponentBasePtr CreateComponent(const NodePtr& node, const wxXmlNode& xml);
+  static ComponentBasePtr GenerateComponent(const NodePtr& node, const wxXmlNode& xml);
 
   template<class T>
-  static ComponentBasePtr CreateComponent(const NodePtr& node, const wxXmlNode& xml) {
+  static ComponentBasePtr GenerateComponent(const NodePtr& node, const wxXmlNode& xml) {
     if(xml.GetName() == T::TYPE) {
-      return Node::AppendComponent<T>(node);
+      auto component = std::make_shared<T>(node);
+      node->appendComponent(component);
+      return component;
     }
     return nullptr;
   }
 
   template<class T1, class T2, class... Rest>
-  static ComponentBasePtr CreateComponent(const NodePtr& node, const wxXmlNode& xml) {
-    if(auto component = CreateComponent<T1>(node, xml)) {
+  static ComponentBasePtr GenerateComponent(const NodePtr& node, const wxXmlNode& xml) {
+    if(auto component = GenerateComponent<T1>(node, xml)) {
       return component;
     }
-    return CreateComponent<T2, Rest...>(node, xml);
+    return GenerateComponent<T2, Rest...>(node, xml);
   }
 
   template<class T>

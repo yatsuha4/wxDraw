@@ -32,7 +32,7 @@ XmlImporter::XmlImporter(const wxString& fileName)
  */
 NodePtr XmlImporter::load(const NodePtr& parent) {
   if(document_.IsOk()) {
-    return createNode(*document_.GetRoot(), parent);
+    return generateNode(*document_.GetRoot(), parent);
   }
   return nullptr;
 }
@@ -41,17 +41,17 @@ NodePtr XmlImporter::load(const NodePtr& parent) {
    @param xml XML
    @return 生成したノード
 */
-NodePtr XmlImporter::createNode(const wxXmlNode& xml, const NodePtr& parent) {
+NodePtr XmlImporter::generateNode(const wxXmlNode& xml, const NodePtr& parent) {
   auto node = std::make_shared<Node>(xml.GetName().ToStdString(), parent);
   parseProperty(xml, *node->createProperty());
   for(auto componentXml = xml.GetChildren();
       componentXml;
       componentXml = componentXml->GetNext()) {
-    if(auto component = CreateComponent(node, *componentXml)) {
+    if(auto component = GenerateComponent(node, *componentXml)) {
       parseProperty(*componentXml, *component->createProperty());
       if(auto container = ContainerComponent::As(component)) {
         for(auto child = componentXml->GetChildren(); child; child = child->GetNext()) {
-          container->getChildren().push_back(createNode(*child, node));
+          container->getChildren().push_back(generateNode(*child, node));
         }
       }
       else if(auto palette = PaletteComponent::As(component)) {
@@ -126,8 +126,8 @@ void XmlImporter::parseProperty(const wxXmlNode& xml, const Property& property) 
 }
 /**
  */
-ComponentBasePtr XmlImporter::CreateComponent(const NodePtr& node, const wxXmlNode& xml) {
-  return CreateComponent<
+ComponentBasePtr XmlImporter::GenerateComponent(const NodePtr& node, const wxXmlNode& xml) {
+  return GenerateComponent<
     BrushComponent, 
     ContainerComponent, 
     EllipseComponent, 
