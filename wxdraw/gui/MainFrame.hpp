@@ -1,11 +1,14 @@
 #pragma once
 
+#include "wxdraw/command/InsertCommand.hpp"
+
 namespace wxdraw::gui {
 /**
    メインフレーム
 */
 class MainFrame
-  : public wxFrame
+  : public wxFrame, 
+    public InsertComponentCommand::Observer
 {
   using super = wxFrame;
 
@@ -34,11 +37,9 @@ class MainFrame
   WXDRAW_GETTER(Inspector, inspector_);
 
   void onSelectNode(const NodePtr& node);
+  const NodePtr& getSelectNode() const;
   WXDRAW_GETTER(Project, project_);
   WXDRAW_GETTER(PaletteComponent, paletteComponent_);
-
-  void appendComponent(const ComponentBasePtr& component, const NodePtr& node);
-  void removeComponent(const ComponentBasePtr& component);
 
   void update();
 
@@ -48,6 +49,11 @@ class MainFrame
   bool submitCommand(Args&&... args) {
     return submitCommand(new CommandType(args...));
   }
+
+  void doInsert(const ComponentBasePtr& component, 
+                const std::tuple<NodePtr>& args) override;
+  void doRemove(const ComponentBasePtr& component, 
+                const std::tuple<NodePtr>& args) override;
 
  private:
   void setupMenuBar();
@@ -61,11 +67,9 @@ class MainFrame
 
   template<class T>
   bool createComponent() {
-    /*
     if(auto node = getSelectNode()) {
       return submitCommand<InsertComponentCommand>(this, T::template Create<T>(node), node);
     }
-    */
     return false;
   }
 };

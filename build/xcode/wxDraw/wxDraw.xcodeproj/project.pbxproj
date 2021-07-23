@@ -26,7 +26,6 @@
 		260BBF27269ECB8C0041BD06 /* ProjectComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 260BBF26269ECB8C0041BD06 /* ProjectComponent.cpp */; };
 		260BBF2D269EFFFC0041BD06 /* PaletteComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 260BBF2B269EFFFC0041BD06 /* PaletteComponent.cpp */; };
 		261C06D8269FB2F8002AAC78 /* ContainerComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 261C06D6269FA4F8002AAC78 /* ContainerComponent.cpp */; };
-		261C06DB269FCB71002AAC78 /* InsertComponentCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 261C06DA269FCB71002AAC78 /* InsertComponentCommand.cpp */; };
 		261C06E426A04172002AAC78 /* GradientList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 261C06E226A04172002AAC78 /* GradientList.cpp */; };
 		261C06E726A0467E002AAC78 /* Palette.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 261C06E526A0467E002AAC78 /* Palette.cpp */; };
 		261C06F626A0DCA7002AAC78 /* PropertyMember.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 261C06F426A0DCA7002AAC78 /* PropertyMember.cpp */; };
@@ -107,8 +106,6 @@
 		260BBF2C269EFFFC0041BD06 /* PaletteComponent.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PaletteComponent.hpp; sourceTree = "<group>"; };
 		261C06D6269FA4F8002AAC78 /* ContainerComponent.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ContainerComponent.cpp; sourceTree = "<group>"; };
 		261C06D7269FA4F8002AAC78 /* ContainerComponent.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ContainerComponent.hpp; sourceTree = "<group>"; };
-		261C06D9269FCB71002AAC78 /* InsertComponentCommand.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = InsertComponentCommand.hpp; sourceTree = "<group>"; };
-		261C06DA269FCB71002AAC78 /* InsertComponentCommand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InsertComponentCommand.cpp; sourceTree = "<group>"; };
 		261C06E226A04172002AAC78 /* GradientList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GradientList.cpp; sourceTree = "<group>"; };
 		261C06E326A04172002AAC78 /* GradientList.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GradientList.hpp; sourceTree = "<group>"; };
 		261C06E526A0467E002AAC78 /* Palette.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Palette.cpp; sourceTree = "<group>"; };
@@ -443,8 +440,6 @@
 				263EA111268F524E003B100A /* Command.cpp */,
 				263EA112268F524E003B100A /* Command.hpp */,
 				26C8D90826A87522003CB994 /* InsertCommand.hpp */,
-				261C06DA269FCB71002AAC78 /* InsertComponentCommand.cpp */,
-				261C06D9269FCB71002AAC78 /* InsertComponentCommand.hpp */,
 				26C8D90926A87522003CB994 /* RemoveCommand.hpp */,
 			);
 			path = command;
@@ -523,7 +518,6 @@
 				26BA73D426991A64001F3C5D /* EllipseComponent.cpp in Sources */,
 				26F5A9202673111B009B0657 /* Renderer.cpp in Sources */,
 				266A37AC2669D80000EA192B /* Property.cpp in Sources */,
-				261C06DB269FCB71002AAC78 /* InsertComponentCommand.cpp in Sources */,
 				2637D74F26A2EDC400BF8F37 /* Brush.cpp in Sources */,
 				261C06E426A04172002AAC78 /* GradientList.cpp in Sources */,
 				260BBF27269ECB8C0041BD06 /* ProjectComponent.cpp in Sources */,

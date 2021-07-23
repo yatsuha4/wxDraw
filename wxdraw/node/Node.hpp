@@ -58,6 +58,11 @@ class Node
   void appendComponent(const ComponentBasePtr& component);
   void removeComponent(const ComponentBasePtr& component);
 
+  template<class T>
+  bool canAppendComponent() const {
+    return getComponent<T>() == nullptr;
+  }
+
   NodePtr getParent() const;
 
   PropertyPtr createProperty() override;

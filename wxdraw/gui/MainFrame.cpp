@@ -1,8 +1,8 @@
-#include "wxdraw/command/InsertComponentCommand.hpp"
 #include "wxdraw/component/BrushComponent.hpp"
 #include "wxdraw/component/ContainerComponent.hpp"
 #include "wxdraw/component/ExportComponent.hpp"
 #include "wxdraw/component/PaletteComponent.hpp"
+#include "wxdraw/component/PenComponent.hpp"
 #include "wxdraw/component/ProjectComponent.hpp"
 #include "wxdraw/file/XmlExporter.hpp"
 #include "wxdraw/file/XmlImporter.hpp"
@@ -68,14 +68,22 @@ void MainFrame::onSelectNode(const NodePtr& node) {
 }
 /**
  */
-void MainFrame::appendComponent(const ComponentBasePtr& component, const NodePtr& node) {
+const NodePtr& MainFrame::getSelectNode() const {
+  return outliner_->getSelectNode();
+}
+/**
+ */
+void MainFrame::doInsert(const ComponentBasePtr& component, 
+                         const std::tuple<NodePtr>& args) {
+  auto node = std::get<0>(args);
   node->appendComponent(component);
   outliner_->selectNode(node);
 }
 /**
  */
-void MainFrame::removeComponent(const ComponentBasePtr& component) {
-  auto node = component->getNode();
+void MainFrame::doRemove(const ComponentBasePtr& component, 
+                         const std::tuple<NodePtr>& args) {
+  auto node = std::get<0>(args);
   node->removeComponent(component);
   outliner_->selectNode(node);
 }
@@ -152,7 +160,7 @@ void MainFrame::setupMenuBar() {
  */
 void MainFrame::onMenuOpen(wxMenuEvent& event) {
   auto menu = static_cast<Menu*>(event.GetMenu());
-  auto node = outliner_->getSelectNode();
+  auto node = getSelectNode();
   auto project = getProject();
   switch(menu->getType()) {
   case Menu::Type::EDIT:
@@ -160,6 +168,7 @@ void MainFrame::onMenuOpen(wxMenuEvent& event) {
       menu->Enable(Menu::ID_EDIT_REMOVE, outliner_->canRemoveNode());
       menu->Enable(Menu::ID_EDIT_CLONE, outliner_->canCloneNode());
       commandProcessor_.SetMenuStrings();
+      //menu->Enable(Menu::Type::EDIT_NEW_COMPONENT, node != nullptr);
     }
     break;
   case Menu::Type::EDIT_NEW_NODE:
@@ -174,8 +183,10 @@ void MainFrame::onMenuOpen(wxMenuEvent& event) {
     break;
   case Menu::Type::EDIT_NEW_COMPONENT:
     {
+      menu->Enable(Menu::ID_EDIT_NEW_COMPONENT_PEN, 
+                   node && node->canAppendComponent<PenComponent>());
       menu->Enable(Menu::ID_EDIT_NEW_COMPONENT_BRUSH, 
-                   node && !node->getComponent<BrushComponent>());
+                   node && node->canAppendComponent<BrushComponent>());
     }
     break;
   default:
@@ -224,10 +235,17 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
     outliner_->cloneNode();
     break;
   case wxID_UNDO:
-    commandProcessor_.Undo();
+    if(commandProcessor_.Undo()) {
+      update();
+    }
     break;
   case wxID_REDO:
-    commandProcessor_.Redo();
+    if(commandProcessor_.Redo()) {
+      update();
+    }
+    break;
+  case Menu::ID_EDIT_NEW_COMPONENT_PEN:
+    createComponent<PenComponent>();
     break;
   case Menu::ID_EDIT_NEW_COMPONENT_BRUSH:
     createComponent<BrushComponent>();
@@ -299,6 +317,10 @@ void MainFrame::onSelectFileExport() {
    @param command コマンド
 */
 bool MainFrame::submitCommand(wxCommand* command) {
-  return commandProcessor_.Submit(command);
+  if(commandProcessor_.Submit(command)) {
+    update();
+    return true;
+  }
+  return false;
 }
 }

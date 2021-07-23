@@ -60,4 +60,5 @@ class InsertCommand
   }
 };
 using InsertNodeCommand = InsertCommand<Node, NodePtr, size_t>;
+using InsertComponentCommand = InsertCommand<ComponentBase, NodePtr>;
 }
