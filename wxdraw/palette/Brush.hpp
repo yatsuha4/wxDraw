@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "wxdraw/palette/PenBase.hpp"
 
@@ -26,6 +26,6 @@ class Brush
 
   WXDRAW_ACCESSOR(Direction, direction_);
 
-  PropertyPtr createProperty() override;
+  PropertyPtr generateProperty() override;
 };
 }

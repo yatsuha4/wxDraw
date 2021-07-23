@@ -26,8 +26,8 @@ void PenBase::update() {
 }
 /**
  */
-PropertyPtr PenBase::createProperty() {
-  auto property = super::createProperty();
+PropertyPtr PenBase::generateProperty() {
+  auto property = super::generateProperty();
   property->appendMember("Name", getName());
   property->appendMember("Color", color_);
   return property;

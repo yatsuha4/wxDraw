@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "wxdraw/palette/PaletteItem.hpp"
 
@@ -27,6 +27,6 @@ class Font
 
   WXDRAW_ACCESSOR(Font, font_);
 
-  PropertyPtr createProperty() override;
+  PropertyPtr generateProperty() override;
 };
 }

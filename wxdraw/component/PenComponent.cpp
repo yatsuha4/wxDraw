@@ -34,8 +34,8 @@ void PenComponent::onCreate() {
 }
 /**
  */
-PropertyPtr PenComponent::createProperty() {
-  auto property = super::createProperty();
+PropertyPtr PenComponent::generateProperty() {
+  auto property = super::generateProperty();
   property->appendMember("Pen", pen_);
   return property;
 }

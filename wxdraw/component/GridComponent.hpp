@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "wxdraw/component/Component.hpp"
 
@@ -28,7 +28,7 @@ class GridComponent
   GridComponent(const GridComponent& src, const NodePtr& node);
   ~GridComponent() override = default;
 
-  PropertyPtr createProperty() override;
+  PropertyPtr generateProperty() override;
 
  protected:
   void onUpdate() override;

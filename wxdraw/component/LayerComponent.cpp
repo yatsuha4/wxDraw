@@ -24,8 +24,8 @@ LayerComponent::LayerComponent(const LayerComponent& src, const NodePtr& node)
 }
 /**
  */
-PropertyPtr LayerComponent::createProperty() {
-  auto property = super::createProperty();
+PropertyPtr LayerComponent::generateProperty() {
+  auto property = super::generateProperty();
   property->appendMember("Opacity", opacity_);
   property->appendMember("Clip", clip_);
   return property;

@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "wxdraw/palette/PenBase.hpp"
 
@@ -27,6 +27,6 @@ class Pen
 
   WXDRAW_GETTER(Width, width_);
 
-  PropertyPtr createProperty() override;
+  PropertyPtr generateProperty() override;
 };
 }

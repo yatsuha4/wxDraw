@@ -62,7 +62,7 @@ void MainFrame::onSelectNode(const NodePtr& node) {
   paletteComponent_ = Node::GetParentComponent<PaletteComponent>(node);
   palette_->setPaletteComponent(paletteComponent_);
   if(node) {
-    inspector_->show(node->createProperty());
+    inspector_->show(node->generateProperty());
   }
   update();
 }

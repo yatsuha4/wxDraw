@@ -23,8 +23,8 @@ Brush::Brush(const PaletteComponentPtr& palette,
 }
 /**
  */
-PropertyPtr Brush::createProperty() {
-  auto property = super::createProperty();
+PropertyPtr Brush::generateProperty() {
+  auto property = super::generateProperty();
   property->appendMember("Direction", direction_);
   return property;
 }

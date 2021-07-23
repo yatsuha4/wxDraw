@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "wxdraw/component/Component.hpp"
 
@@ -27,7 +27,7 @@ class ExportComponent
 
   WXDRAW_ACCESSOR(FileName, fileName_);
 
-  PropertyPtr createProperty() override;
+  PropertyPtr generateProperty() override;
 
   bool save();
 

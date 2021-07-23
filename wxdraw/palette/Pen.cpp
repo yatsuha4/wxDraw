@@ -23,8 +23,8 @@ Pen::Pen(const PaletteComponentPtr& palette,
 }
 /**
  */
-PropertyPtr Pen::createProperty() {
-  auto property = super::createProperty();
+PropertyPtr Pen::generateProperty() {
+  auto property = super::generateProperty();
   property->appendMember("Width", width_);
   return property;
 }

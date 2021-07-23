@@ -85,13 +85,13 @@ NodePtr Node::getParent() const {
 /**
    プロパティを生成する
 */
-PropertyPtr Node::createProperty() {
-  auto property = super::createProperty();
+PropertyPtr Node::generateProperty() {
+  auto property = super::generateProperty();
   property->appendMember("Name", getName());
   property->appendMember("Show", show_);
   property->appendMember("Comment", comment_);
   for(auto& component : components_) {
-    property->appendMember(std::make_shared<PropertyMember>(component->createProperty()));
+    property->appendMember(std::make_shared<PropertyMember>(component->generateProperty()));
   }
   return property;
 }

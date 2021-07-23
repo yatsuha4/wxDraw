@@ -39,8 +39,8 @@ void TextComponent::onCreate() {
 }
 /**
  */
-PropertyPtr TextComponent::createProperty() {
-  auto property = super::createProperty();
+PropertyPtr TextComponent::generateProperty() {
+  auto property = super::generateProperty();
   property->appendMember("Font", font_);
   property->appendMember("Color", color_);
   property->appendMember("Text", text_);

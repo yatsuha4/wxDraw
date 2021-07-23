@@ -27,8 +27,8 @@ ExportComponent::ExportComponent(const ExportComponent& src, const NodePtr& node
 }
 /**
  */
-PropertyPtr ExportComponent::createProperty() {
-  auto property = super::createProperty();
+PropertyPtr ExportComponent::generateProperty() {
+  auto property = super::generateProperty();
   property->appendMember("FileName", fileName_);
   property->appendMember("Size", size_);
   property->appendMember("Scale", scale_);

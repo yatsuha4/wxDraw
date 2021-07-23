@@ -43,12 +43,12 @@ NodePtr XmlImporter::load(const NodePtr& parent) {
 */
 NodePtr XmlImporter::generateNode(const wxXmlNode& xml, const NodePtr& parent) {
   auto node = std::make_shared<Node>(xml.GetName().ToStdString(), parent);
-  parseProperty(xml, *node->createProperty());
+  parseProperty(xml, *node->generateProperty());
   for(auto componentXml = xml.GetChildren();
       componentXml;
       componentXml = componentXml->GetNext()) {
     if(auto component = GenerateComponent(node, *componentXml)) {
-      parseProperty(*componentXml, *component->createProperty());
+      parseProperty(*componentXml, *component->generateProperty());
       if(auto container = ContainerComponent::As(component)) {
         for(auto child = componentXml->GetChildren(); child; child = child->GetNext()) {
           container->getChildren().push_back(generateNode(*child, node));
@@ -71,16 +71,16 @@ void XmlImporter::parsePalette(const wxXmlNode& parent) {
   for(auto xml = parent.GetChildren(); xml; xml = xml->GetNext()) {
     if(xml->GetName() == Color::TYPE) {
       auto color = std::make_shared<Color>(palette_);
-      parseProperty(*xml, *color->createProperty());
+      parseProperty(*xml, *color->generateProperty());
       palette_->getItems<Color>().push_back(color);
     }
     else if(xml->GetName() == Gradient::TYPE) {
       auto gradient = std::make_shared<Gradient>(palette_);
-      parseProperty(*xml, *gradient->createProperty());
+      parseProperty(*xml, *gradient->generateProperty());
       for(auto child = xml->GetChildren(); child; child = child->GetNext()) {
         if(child->GetName() == GradientStop::TYPE) {
           auto stop = std::make_shared<GradientStop>(palette_);
-          parseProperty(*child, *stop->createProperty());
+          parseProperty(*child, *stop->generateProperty());
           gradient->getStops().push_back(stop);
         }
         else {
@@ -91,17 +91,17 @@ void XmlImporter::parsePalette(const wxXmlNode& parent) {
     }
     else if(xml->GetName() == Pen::TYPE) {
       auto pen = std::make_shared<Pen>(palette_);
-      parseProperty(*xml, *pen->createProperty());
+      parseProperty(*xml, *pen->generateProperty());
       palette_->getItems<Pen>().push_back(pen);
     }
     else if(xml->GetName() == Brush::TYPE) {
       auto brush = std::make_shared<Brush>(palette_);
-      parseProperty(*xml, *brush->createProperty());
+      parseProperty(*xml, *brush->generateProperty());
       palette_->getItems<Brush>().push_back(brush);
     }
     else if(xml->GetName() == Font::TYPE) {
       auto font = std::make_shared<Font>(palette_);
-      parseProperty(*xml, *font->createProperty());
+      parseProperty(*xml, *font->generateProperty());
       palette_->getItems<Font>().push_back(font);
     }
     else {

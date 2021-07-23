@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "wxdraw/object/List.hpp"
 #include "wxdraw/palette/ColorBase.hpp"
@@ -37,6 +37,6 @@ class Gradient
   operator wxGraphicsGradientStops();
 
   void update() override;
-  PropertyPtr createProperty() override;
+  PropertyPtr generateProperty() override;
 };
 }

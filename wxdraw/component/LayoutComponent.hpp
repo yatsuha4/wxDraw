@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "wxdraw/component/Component.hpp"
 #include "wxdraw/container/Layout.hpp"
@@ -38,7 +38,7 @@ class LayoutComponent
   WXDRAW_GETTER(Matrix, matrix_);
   WXDRAW_GETTER(Rect, rect_);
 
-  PropertyPtr createProperty() override;
+  PropertyPtr generateProperty() override;
 
  protected:
   void onUpdate() override;

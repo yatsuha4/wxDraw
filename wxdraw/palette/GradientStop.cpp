@@ -46,8 +46,8 @@ void GradientStop::onCreate() {
 }
 /**
  */
-PropertyPtr GradientStop::createProperty() {
-  auto property = super::createProperty();
+PropertyPtr GradientStop::generateProperty() {
+  auto property = super::generateProperty();
   property->appendMember("Color", color_);
   property->appendMember("Pos", pos_);
   return property;

@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "wxdraw/component/Component.hpp"
 
@@ -27,7 +27,7 @@ class PenComponent
 
   WXDRAW_GETTER(Pen, pen_);
 
-  PropertyPtr createProperty() override;
+  PropertyPtr generateProperty() override;
 
  protected:
   void onUpdate() override;

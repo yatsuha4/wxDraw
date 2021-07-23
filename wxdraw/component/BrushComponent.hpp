@@ -25,7 +25,7 @@ class BrushComponent
 
   WXDRAW_GETTER(Brush, brush_);
 
-  PropertyPtr createProperty() override;
+  PropertyPtr generateProperty() override;
 
  protected:
   void onBeginRender(Renderer& renderer) override;

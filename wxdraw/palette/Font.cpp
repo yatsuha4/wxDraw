@@ -20,8 +20,8 @@ Font::Font(const PaletteComponentPtr& palette,
 }
 /**
  */
-PropertyPtr Font::createProperty() {
-  auto property = super::createProperty();
+PropertyPtr Font::generateProperty() {
+  auto property = super::generateProperty();
   property->appendMember("Name", getName());
   property->appendMember("Font", font_);
   return property;

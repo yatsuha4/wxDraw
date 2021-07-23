@@ -32,8 +32,8 @@ void BrushComponent::onCreate() {
 }
 /**
  */
-PropertyPtr BrushComponent::createProperty() {
-  auto property = super::createProperty();
+PropertyPtr BrushComponent::generateProperty() {
+  auto property = super::generateProperty();
   property->appendMember("Brush", brush_);
   return property;
 }

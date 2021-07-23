@@ -31,8 +31,8 @@ void Color::update() {
 }
 /**
  */
-PropertyPtr Color::createProperty() {
-  auto property = super::createProperty();
+PropertyPtr Color::generateProperty() {
+  auto property = super::generateProperty();
   property->appendMember("Name", getName());
   property->appendMember("Color", color_);
   return property;

@@ -25,8 +25,8 @@ RectangleComponent::RectangleComponent(const RectangleComponent& src,
 }
 /**
  */
-PropertyPtr RectangleComponent::createProperty() {
-  auto property = super::createProperty();
+PropertyPtr RectangleComponent::generateProperty() {
+  auto property = super::generateProperty();
   property->appendMember("Round", round_);
   return property;
 }

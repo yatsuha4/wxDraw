@@ -36,8 +36,8 @@ GridComponent::GridComponent(const GridComponent& src, const NodePtr& node)
 }
 /**
  */
-PropertyPtr GridComponent::createProperty() {
-  auto property = super::createProperty();
+PropertyPtr GridComponent::generateProperty() {
+  auto property = super::generateProperty();
   property->appendMember("Show", show_);
   property->appendMember("Snap", snap_);
   property->appendMember("Size", size_);

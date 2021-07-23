@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "wxdraw/component/Component.hpp"
 
@@ -22,7 +22,7 @@ class RectangleComponent
   RectangleComponent(const RectangleComponent& src, const NodePtr& node);
   ~RectangleComponent() override = default;
 
-  PropertyPtr createProperty() override;
+  PropertyPtr generateProperty() override;
 
  protected:
   void onRender(Renderer& renderer) override;

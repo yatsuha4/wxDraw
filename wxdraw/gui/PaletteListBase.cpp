@@ -69,7 +69,7 @@ void PaletteListBase::unselectItem() {
 /**
  */
 void PaletteListBase::onSelectItem(const PaletteItemPtr& item) {
-  getPalette()->getMainFrame()->getInspector()->show(item->createProperty());
+  getPalette()->getMainFrame()->getInspector()->show(item->generateProperty());
 }
 /**
  */

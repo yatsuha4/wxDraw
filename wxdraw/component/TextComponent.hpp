@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "wxdraw/component/Component.hpp"
 
@@ -29,7 +29,7 @@ class TextComponent
   WXDRAW_ACCESSOR(Text, text_);
 
   void onCreate() override;
-  PropertyPtr createProperty() override;
+  PropertyPtr generateProperty() override;
 
  protected:
   void onRender(Renderer& renderer) override;

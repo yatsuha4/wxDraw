@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 namespace wxdraw::object {
 /**
@@ -23,7 +23,7 @@ class Object
   WXDRAW_ACCESSOR(Id, id_);
   WXDRAW_ACCESSOR(Name, name_);
 
-  virtual PropertyPtr createProperty();
+  virtual PropertyPtr generateProperty();
   virtual void onUpdateProperty();
 
   template<class T, class... Args>

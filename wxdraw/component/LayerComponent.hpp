@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "wxdraw/component/Component.hpp"
 
@@ -22,7 +22,7 @@ class LayerComponent
   LayerComponent(const LayerComponent& src, const NodePtr& node);
   ~LayerComponent() override = default;
 
-  PropertyPtr createProperty() override;
+  PropertyPtr generateProperty() override;
 
  protected:
   void onBeginRender(Renderer& renderer) override;

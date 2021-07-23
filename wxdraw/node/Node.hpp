@@ -65,7 +65,7 @@ class Node
 
   NodePtr getParent() const;
 
-  PropertyPtr createProperty() override;
+  PropertyPtr generateProperty() override;
 
   void update();
   void render(Renderer& renderer);

@@ -34,7 +34,7 @@ bool XmlExporter::save() {
 /**
  */
 wxXmlNode* XmlExporter::createXml(Node& node) {
-  return createXml(*node.createProperty());
+  return createXml(*node.generateProperty());
 }
 /**
  */
@@ -69,23 +69,23 @@ wxXmlNode* XmlExporter::createXml(const Property& property) {
 */
 void XmlExporter::parsePalette(const PaletteComponentPtr& palette, wxXmlNode* parent) {
   for(auto& color : palette->getItems<Color>()) {
-    parent->AddChild(createXml(*color->createProperty()));
+    parent->AddChild(createXml(*color->generateProperty()));
   }
   for(auto& gradient : palette->getItems<Gradient>()) {
-    auto xml = createXml(*gradient->createProperty());
+    auto xml = createXml(*gradient->generateProperty());
     for(auto& stop : gradient->getStops()) {
-      xml->AddChild(createXml(*stop->createProperty()));
+      xml->AddChild(createXml(*stop->generateProperty()));
     }
     parent->AddChild(xml);
   }
   for(auto& pen : palette->getItems<Pen>()) {
-    parent->AddChild(createXml(*pen->createProperty()));
+    parent->AddChild(createXml(*pen->generateProperty()));
   }
   for(auto& brush : palette->getItems<Brush>()) {
-    parent->AddChild(createXml(*brush->createProperty()));
+    parent->AddChild(createXml(*brush->generateProperty()));
   }
   for(auto& font : palette->getItems<Font>()) {
-    parent->AddChild(createXml(*font->createProperty()));
+    parent->AddChild(createXml(*font->generateProperty()));
   }
 }
 /**

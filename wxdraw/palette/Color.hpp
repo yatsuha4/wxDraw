@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "wxdraw/palette/ColorBase.hpp"
 
@@ -28,6 +28,6 @@ class Color
   WXDRAW_ACCESSOR(Color, color_);
 
   void update() override;
-  PropertyPtr createProperty() override;
+  PropertyPtr generateProperty() override;
 };
 }

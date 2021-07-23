@@ -38,8 +38,8 @@ LayoutComponent::LayoutComponent(const LayoutComponent& src, const NodePtr& node
 }
 /**
  */
-PropertyPtr LayoutComponent::createProperty() {
-  auto property = super::createProperty();
+PropertyPtr LayoutComponent::generateProperty() {
+  auto property = super::generateProperty();
   property->appendMember("Size.Relative", size_.relative);
   property->appendMember("Size.Absolute", size_.absolute);
   property->appendMember("Pos.Relative", pos_.relative);

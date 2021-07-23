@@ -104,8 +104,8 @@ void Gradient::onCreate() {
 /**
    プロパティを生成する
 */
-PropertyPtr Gradient::createProperty() {
-  auto property = super::createProperty();
+PropertyPtr Gradient::generateProperty() {
+  auto property = super::generateProperty();
   property->appendMember("Name", getName());
   property->appendChoice("GradientType", gradientType_);
   property->appendMember("Radius", radius_);

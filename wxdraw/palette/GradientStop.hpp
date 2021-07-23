@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "wxdraw/palette/PaletteItem.hpp"
 
@@ -32,6 +32,6 @@ class GradientStop
 
   void update() override;
   void onCreate() override;
-  PropertyPtr createProperty() override;
+  PropertyPtr generateProperty() override;
 };
 }
