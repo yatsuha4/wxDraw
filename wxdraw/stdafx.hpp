@@ -82,7 +82,6 @@ namespace wxdraw {
 WXDRAW_DECLARE_CLASS(Application);
 
 namespace command {
-WXDRAW_DECLARE_CLASS(Command);
 }
 using namespace command;
 

@@ -1,7 +1,5 @@
 ﻿#pragma once
 
-#include "wxdraw/command/Command.hpp"
-
 namespace wxdraw::command {
 /**
    リスト操作コマンド
@@ -33,7 +31,7 @@ class InsertCommand
   InsertCommand(Observer* observer, 
                 const std::shared_ptr<T>& object, 
                 const Args&... args)
-    : InsertCommand(wxString::Format("Insert %s", object->getType()), 
+    : InsertCommand(wxString::Format(_("(Insert %s)"), object->getName()), 
                     observer, object, args...)
   {}
   ~InsertCommand() override = default;

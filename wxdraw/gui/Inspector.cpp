@@ -72,7 +72,7 @@ void Inspector::onChanged(wxPropertyGridEvent& event) {
 /**
  */
 void Inspector::append(wxPGProperty* property, const MemberBasePtr& member) {
-  property->SetClientData(member.get());
+  property->SetClientObject(new ClientData(member));
   Append(property);
 }
 /**

@@ -1,6 +1,6 @@
-﻿#pragma once
+#pragma once
 
-#include "wxdraw/command/ChangePropertyCommand.hpp"
+#include "wxdraw/command/EditCommand.hpp"
 #include "wxdraw/component/PaletteComponent.hpp"
 #include "wxdraw/gui/MainFrame.hpp"
 #include "wxdraw/property/Member.hpp"
@@ -13,6 +13,22 @@ class Inspector
   : public wxPropertyGrid
 {
   using super = wxPropertyGrid;
+
+ private:
+  class ClientData
+    : public wxClientData
+  {
+   private:
+    MemberBasePtr member_;
+
+   public:
+    ClientData(const MemberBasePtr& member)
+      : member_(member)
+    {}
+    ~ClientData() override = default;
+
+    WXDRAW_GETTER(Member, member_);
+  };
 
  private:
   MainFrame* mainFrame_;
@@ -145,13 +161,14 @@ class Inspector
 
   template<class T>
   bool doChange(const wxPropertyGridEvent& event) {
-    auto member = static_cast<MemberBase*>(event.GetProperty()->GetClientData());
-    if(auto m = dynamic_cast<Member<T>*>(member)) {
-      T value;
-      if(getValue(event, value)) {
-        mainFrame_->submitCommand<ChangePropertyCommand<T>>(mainFrame_, m->getValue(), value);
+    if(auto data = static_cast<ClientData*>(event.GetProperty()->GetClientObject())) {
+      if(auto member = Member<T>::As(data->getMember())) {
+        T value;
+        if(getValue(event, value)) {
+          mainFrame_->submitCommand<EditCommand<T>>(member, value);
+        }
+        return true;
       }
-      return true;
     }
     return false;
   }

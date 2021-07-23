@@ -39,7 +39,6 @@
 		2637D75A26A38BAE00BF8F37 /* PaletteItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2637D75926A38BAE00BF8F37 /* PaletteItem.cpp */; };
 		2637D75E26A4EB9900BF8F37 /* PenBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2637D75B26A4EB9900BF8F37 /* PenBase.cpp */; };
 		2637D76126A4FC3500BF8F37 /* PenComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2637D75F26A4FC3500BF8F37 /* PenComponent.cpp */; };
-		263EA113268F524E003B100A /* Command.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 263EA111268F524E003B100A /* Command.cpp */; };
 		265FCA3E214ACD3100398B40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 265FCA3D214ACD3100398B40 /* Assets.xcassets */; };
 		265FCA54214AD08A00398B40 /* libwx_osx_cocoau-3.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 265FCA53214AD08A00398B40 /* libwx_osx_cocoau-3.1.a */; };
 		265FCA56214AD0A000398B40 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 265FCA55214AD0A000398B40 /* CoreFoundation.framework */; };
@@ -134,8 +133,6 @@
 		2637D75D26A4EB9900BF8F37 /* PenBase.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PenBase.hpp; sourceTree = "<group>"; };
 		2637D75F26A4FC3500BF8F37 /* PenComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PenComponent.cpp; sourceTree = "<group>"; };
 		2637D76026A4FC3500BF8F37 /* PenComponent.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PenComponent.hpp; sourceTree = "<group>"; };
-		263EA111268F524E003B100A /* Command.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Command.cpp; sourceTree = "<group>"; };
-		263EA112268F524E003B100A /* Command.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Command.hpp; sourceTree = "<group>"; };
 		265FCA37214ACD2D00398B40 /* wxDraw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wxDraw.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		265FCA3D214ACD3100398B40 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		265FCA42214ACD3100398B40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -183,7 +180,7 @@
 		26CB132B269A54140025ACDD /* libexpat.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libexpat.tbd; path = usr/lib/libexpat.tbd; sourceTree = SDKROOT; };
 		26CB132D269A91030025ACDD /* LayerComponent.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LayerComponent.hpp; sourceTree = "<group>"; };
 		26CB132E269A91030025ACDD /* LayerComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LayerComponent.cpp; sourceTree = "<group>"; };
-		26CB1330269A94DA0025ACDD /* ChangePropertyCommand.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ChangePropertyCommand.hpp; sourceTree = "<group>"; };
+		26CB1330269A94DA0025ACDD /* EditCommand.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EditCommand.hpp; sourceTree = "<group>"; };
 		26CB1331269A9A8B0025ACDD /* RectangleComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RectangleComponent.cpp; sourceTree = "<group>"; };
 		26CB1332269A9A8B0025ACDD /* RectangleComponent.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RectangleComponent.hpp; sourceTree = "<group>"; };
 		26F5A91E2673111B009B0657 /* Renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Renderer.cpp; sourceTree = "<group>"; };
@@ -436,9 +433,7 @@
 		26D19706267620B400F9D057 /* command */ = {
 			isa = PBXGroup;
 			children = (
-				26CB1330269A94DA0025ACDD /* ChangePropertyCommand.hpp */,
-				263EA111268F524E003B100A /* Command.cpp */,
-				263EA112268F524E003B100A /* Command.hpp */,
+				26CB1330269A94DA0025ACDD /* EditCommand.hpp */,
 				26C8D90826A87522003CB994 /* InsertCommand.hpp */,
 				26C8D90926A87522003CB994 /* RemoveCommand.hpp */,
 			);
@@ -526,7 +521,6 @@
 				26CB132A269A537B0025ACDD /* XmlExporter.cpp in Sources */,
 				26CB1327269A524E0025ACDD /* Exporter.cpp in Sources */,
 				2637D75526A3295700BF8F37 /* GradientStopList.cpp in Sources */,
-				263EA113268F524E003B100A /* Command.cpp in Sources */,
 				26BA73CE26987D20001F3C5D /* BrushComponent.cpp in Sources */,
 				2605A587264A312F00FD3DF0 /* Canvas.cpp in Sources */,
 				2605A58B264A35A100FD3DF0 /* Outliner.cpp in Sources */,
