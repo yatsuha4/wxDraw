@@ -105,27 +105,28 @@ void MainFrame::setupMenuBar() {
   SetMenuBar(menuBar);
   {
     auto menu = new Menu();
-    menu->Append(Menu::ID_FILE_NEW, "New Project");
-    menu->Append(Menu::ID_FILE_OPEN, "Open");
-    menu->Append(Menu::ID_FILE_SAVE, "Save");
-    menu->Append(Menu::ID_FILE_SAVE_AS, "Save as");
+    menu->Append(wxID_NEW);
+    menu->Append(wxID_OPEN);
+    menu->Append(wxID_SAVE);
+    menu->Append(wxID_SAVEAS);
     menu->AppendSeparator();
     menu->Append(Menu::ID_FILE_EXPORT, "Export");
     menu->AppendSeparator();
-    menu->Append(Menu::ID_FILE_QUIT, "Quit");
-    menuBar->Append(menu, "File");
+    menu->Append(wxID_EXIT);
+    menuBar->Append(menu, _("File"));
   }
   {
     auto menu = new Menu(Menu::Type::EDIT);
-    menu->Append(wxID_UNDO, wxEmptyString);
-    menu->Append(wxID_REDO, wxEmptyString);
+    menu->Append(wxID_UNDO);
+    menu->Append(wxID_REDO);
     menu->AppendSeparator();
-    menu->Append(Menu::ID_EDIT_REMOVE, "Remove");
-    menu->Append(Menu::ID_EDIT_CLONE, "Clone");
-    commandProcessor_.SetUndoAccelerator("\tCTRL+Z");
-    commandProcessor_.SetRedoAccelerator("\tSHIFT+CTRL+Z");
+    menu->Append(wxID_CUT);
+    menu->Append(wxID_COPY);
+    menu->Append(wxID_PASTE);
+    menu->Append(Menu::ID_EDIT_CLONE, _("Duplicate"));
+    menu->Append(wxID_DELETE);
     commandProcessor_.SetEditMenu(menu);
-    menuBar->Append(menu, "Edit");
+    menuBar->Append(menu, _("Edit"));
   }
   {
     auto menu = new Menu(Menu::Type::NODE);
@@ -167,10 +168,9 @@ void MainFrame::onMenuOpen(wxMenuEvent& event) {
   switch(menu->getType()) {
   case Menu::Type::EDIT:
     {
-      menu->Enable(Menu::ID_EDIT_REMOVE, outliner_->canRemoveNode());
+      menu->Enable(wxID_DELETE, outliner_->canRemoveNode());
       menu->Enable(Menu::ID_EDIT_CLONE, outliner_->canCloneNode());
       commandProcessor_.SetMenuStrings();
-      //menu->Enable(Menu::Type::EDIT_NEW_COMPONENT, node != nullptr);
     }
     break;
   case Menu::Type::NODE:
@@ -201,21 +201,21 @@ void MainFrame::onMenuOpen(wxMenuEvent& event) {
 */
 void MainFrame::onSelectMenu(wxCommandEvent& event) {
   switch(event.GetId()) {
-  case Menu::ID_FILE_NEW:
+  case wxID_NEW:
     outliner_->createProject();
     break;
-  case Menu::ID_FILE_OPEN:
+  case wxID_OPEN:
     open();
     break;
-  case Menu::ID_FILE_SAVE:
+  case wxID_SAVE:
     break;
-  case Menu::ID_FILE_SAVE_AS:
+  case wxID_SAVEAS:
     saveAs();
     break;
   case Menu::ID_FILE_EXPORT:
     onSelectFileExport();
     break;
-  case Menu::ID_FILE_QUIT:
+  case wxID_EXIT:
     Close();
     break;
   case Menu::ID_NODE_LAYER:
@@ -233,7 +233,7 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
   case Menu::ID_NODE_TEXT:
     outliner_->createNode<Node::Text>();
     break;
-  case Menu::ID_EDIT_REMOVE:
+  case wxID_DELETE:
     outliner_->removeNode();
     break;
   case Menu::ID_EDIT_CLONE:
