@@ -83,18 +83,6 @@ NodePtr Node::getParent() const {
   return parent_.lock();
 }
 /**
-   ノードを削除する
-   @param node 削除するノード
-*/
-void Node::Remove(const NodePtr& node) {
-  auto parent = node->getParent();
-  wxASSERT(parent);
-  auto container = parent->getContainer();
-  wxASSERT(container);
-  container->getChildren().remove(node);
-  node->parent_.reset();
-}
-/**
    プロパティを生成する
 */
 PropertyPtr Node::createProperty() {

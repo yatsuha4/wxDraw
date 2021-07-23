@@ -59,7 +59,6 @@ class Node
   void removeComponent(const ComponentBasePtr& component);
 
   NodePtr getParent() const;
-  static void Remove(const NodePtr& node);
 
   PropertyPtr createProperty() override;
 

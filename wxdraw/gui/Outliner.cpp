@@ -88,7 +88,7 @@ void Outliner::removeNode() {
 /**
  */
 void Outliner::doRemove(const NodePtr& parent, const NodePtr& node, size_t index) {
-  Node::Remove(node);
+  parent->getContainer()->getChildren().remove(node);
   removeNode(node);
 }
 /**
