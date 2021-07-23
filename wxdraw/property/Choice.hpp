@@ -6,6 +6,7 @@ namespace wxdraw::property {
 class Choice {
  public:
   class GradientType;
+  class PenStyle;
 
  private:
   const char** items_;
@@ -29,8 +30,6 @@ class Choice {
 class Choice::GradientType
   : public Choice
 {
-  using super = Choice;
-
  public:
   enum {
     LINEAR, 
@@ -41,8 +40,37 @@ class Choice::GradientType
   static const char* ITEMS[];
 
  public:
-  GradientType();
+  GradientType() : Choice(ITEMS) {}
   GradientType(const GradientType& src) = default;
   ~GradientType() = default;
+};
+/**
+   ペンのスタイル
+*/
+class Choice::PenStyle
+  : public Choice
+{
+ public:
+  enum {
+    SOLID, 
+    DOT, 
+    LONG_DASH, 
+    SHORT_DASH, 
+    DOT_DASH, 
+    BDIAGONAL_HATCH, 
+    CROSSDIAG_HATCH, 
+    FDIAGONAL_HATCH, 
+    CROSS_HATCH, 
+    HORIZONTAL_HATCH, 
+    VERTICAL_HATCH
+  };
+
+ private:
+  static const char* ITEMS[];
+
+ public:
+  PenStyle() : Choice(ITEMS) {}
+  PenStyle(const PenStyle& src) = default;
+  ~PenStyle() = default;
 };
 }

@@ -8,7 +8,7 @@ const char* Pen::TYPE = "Pen";
 */
 Pen::Pen(const PaletteComponentPtr& palette)
   : super(TYPE, palette), 
-    width_(0.1)
+    width_(1.0)
 {
 }
 /**
@@ -18,7 +18,7 @@ Pen::Pen(const PaletteComponentPtr& palette,
          const wxString& name, 
          const ColorBasePtr& color)
   : super(TYPE, palette, name, color), 
-    width_(0.1)
+    width_(1.0)
 {
 }
 /**
@@ -26,6 +26,7 @@ Pen::Pen(const PaletteComponentPtr& palette,
 PropertyPtr Pen::generateProperty() {
   auto property = super::generateProperty();
   property->appendMember("Width", width_);
+  property->appendChoice("Style", style_);
   return property;
 }
 }

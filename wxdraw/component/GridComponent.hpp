@@ -19,19 +19,17 @@ class GridComponent
   bool snap_;
   glm::dvec2 size_;
   glm::dvec2 offset_;
-  wxColour color_;
-  double width_;
-  wxGraphicsPenInfo pen_;
+  PenPtr pen_;
 
  public:
   GridComponent(const NodePtr& node);
   GridComponent(const GridComponent& src, const NodePtr& node);
   ~GridComponent() override = default;
 
+  void onCreate() override;
   PropertyPtr generateProperty() override;
 
  protected:
-  void onUpdate() override;
   void onRender(Renderer& renderer) override;
 };
 }

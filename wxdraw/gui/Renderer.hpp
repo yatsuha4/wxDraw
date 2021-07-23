@@ -29,7 +29,8 @@ class Renderer {
   void pushBrush(const Brush& brush, const Rect& rect);
   void popBrush();
 
-  void pushPen(const wxGraphicsPenInfo& penInfo);
+  void pushPen(const Pen& pen, const Rect& rect);
+  void pushPen(const wxPen& pen);
   void popPen();
 
  protected:
@@ -40,5 +41,7 @@ class Renderer {
 
   void pushBrush(const wxBrush& brush);
   void pushBrush(const wxGraphicsBrush& brush);
+
+  void pushPen(const wxGraphicsPen& pen);
 };
 }

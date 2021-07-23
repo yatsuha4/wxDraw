@@ -21,6 +21,7 @@ void PaletteComponent::onCreate() {
   super::onCreate();
   createItem<Font>("Default", *wxNORMAL_FONT);
   createItem<Pen>("Transparent");
+  createItem<Pen>("Grid", createItem<Color>("Grid", wxColour(0x80, 0x80, 0x80, 0x80)));
   createItem<Pen>("Default", createItem<Color>("Pen", *wxBLACK));
   createItem<Brush>("Transparent");
   createItem<Brush>("Default", createItem<Color>("Brush", *wxWHITE));

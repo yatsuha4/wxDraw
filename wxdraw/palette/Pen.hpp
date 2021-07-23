@@ -1,6 +1,7 @@
 #pragma once
 
 #include "wxdraw/palette/PenBase.hpp"
+#include "wxdraw/property/Choice.hpp"
 
 namespace wxdraw::palette {
 /**
@@ -16,6 +17,7 @@ class Pen
 
  private:
   double width_;
+  Choice::PenStyle style_;
 
  public:
   Pen(const PaletteComponentPtr& palette);
@@ -25,7 +27,8 @@ class Pen
   Pen(const Pen& src) = default;
   ~Pen() override = default;
 
-  WXDRAW_GETTER(Width, width_);
+  WXDRAW_ACCESSOR(Width, width_);
+  WXDRAW_ACCESSOR(Style, style_);
 
   PropertyPtr generateProperty() override;
 };

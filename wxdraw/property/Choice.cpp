@@ -1,7 +1,25 @@
 #include "wxdraw/property/Choice.hpp"
 
 namespace wxdraw::property {
-const char* Choice::GradientType::ITEMS[] = { "Linear", "Radial", nullptr };
+const char* Choice::GradientType::ITEMS[] = {
+  "Linear", 
+  "Radial", 
+  nullptr
+};
+const char* Choice::PenStyle::ITEMS[] = {
+  "Solid", 
+  "Dot", 
+  "LongDash", 
+  "ShortDash", 
+  "DotDash", 
+  "BackwardDiagonalHatch", 
+  "CrossDiagnonalHatch", 
+  "ForwardDiagonalHatch", 
+  "CrossHatch", 
+  "HorizontalHatch", 
+  "VerticalHatch", 
+  nullptr
+};
 /**
  */
 Choice::Choice()
@@ -32,9 +50,4 @@ void Choice::setItem(const wxString& item) {
   wxLogWarning("no such value, '%s'", item);
   index_ = 0;
 }
-/**
- */
-Choice::GradientType::GradientType()
-  : super(ITEMS)
-{}
 }

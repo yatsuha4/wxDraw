@@ -3,6 +3,7 @@
 #include "wxdraw/palette/Brush.hpp"
 #include "wxdraw/palette/Color.hpp"
 #include "wxdraw/palette/Gradient.hpp"
+#include "wxdraw/palette/Pen.hpp"
 #include "wxdraw/property/Choice.hpp"
 
 namespace wxdraw::gui {
@@ -14,7 +15,7 @@ namespace wxdraw::gui {
 Renderer::Renderer(wxDC& dc, const glm::dmat3& viewMatrix)
   : Renderer(wxGraphicsContext::CreateFromUnknownDC(dc), viewMatrix)
 {
-  pushPen(wxGraphicsPenInfo(*wxBLACK));
+  pushPen(*wxBLACK_PEN);
   pushBrush(*wxWHITE_BRUSH);
 }
 /**
@@ -76,10 +77,60 @@ void Renderer::popBrush() {
 }
 /**
  */
-void Renderer::pushPen(const wxGraphicsPenInfo& penInfo) {
-  auto pen = context_->CreatePen(penInfo);
-  pens_.push(pen);
-  context_->SetPen(pen);
+void Renderer::pushPen(const Pen& pen, const Rect& rect) {
+  wxGraphicsPenInfo info;
+  if(auto color = std::dynamic_pointer_cast<Color>(pen.getColor())) {
+    info.Colour(color->getColor());
+  }
+  else if(auto gradient = std::dynamic_pointer_cast<Gradient>(pen.getColor())) {
+  }
+  else {
+    info.Colour(wxTransparentColor);
+  }
+  info.Width(pen.getWidth());
+  switch(pen.getStyle().getIndex()) {
+  case Choice::PenStyle::SOLID:
+    info.Style(wxPENSTYLE_SOLID);
+    break;
+  case Choice::PenStyle::DOT:
+    info.Style(wxPENSTYLE_DOT);
+    break;
+  case Choice::PenStyle::LONG_DASH:
+    info.Style(wxPENSTYLE_LONG_DASH);
+    break;
+  case Choice::PenStyle::SHORT_DASH:
+    info.Style(wxPENSTYLE_SHORT_DASH);
+    break;
+  case Choice::PenStyle::DOT_DASH:
+    info.Style(wxPENSTYLE_DOT_DASH);
+    break;
+  case Choice::PenStyle::BDIAGONAL_HATCH:
+    info.Style(wxPENSTYLE_BDIAGONAL_HATCH);
+    break;
+  case Choice::PenStyle::CROSSDIAG_HATCH:
+    info.Style(wxPENSTYLE_CROSSDIAG_HATCH);
+    break;
+  case Choice::PenStyle::FDIAGONAL_HATCH:
+    info.Style(wxPENSTYLE_FDIAGONAL_HATCH);
+    break;
+  case Choice::PenStyle::CROSS_HATCH:
+    info.Style(wxPENSTYLE_CROSS_HATCH);
+    break;
+  case Choice::PenStyle::HORIZONTAL_HATCH:
+    info.Style(wxPENSTYLE_HORIZONTAL_HATCH);
+    break;
+  case Choice::PenStyle::VERTICAL_HATCH:
+    info.Style(wxPENSTYLE_VERTICAL_HATCH);
+    break;
+  default:
+    break;
+  }
+  pushPen(context_->CreatePen(info));
+}
+/**
+ */
+void Renderer::pushPen(const wxPen& pen) {
+  pushPen(context_->CreatePen(pen));
 }
 /**
  */
@@ -114,5 +165,11 @@ void Renderer::pushBrush(const wxBrush& brush) {
 void Renderer::pushBrush(const wxGraphicsBrush& brush) {
   brushes_.push(brush);
   context_->SetBrush(brush);
+}
+/**
+ */
+void Renderer::pushPen(const wxGraphicsPen& pen) {
+  pens_.push(pen);
+  context_->SetPen(pen);
 }
 }

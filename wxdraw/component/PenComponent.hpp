@@ -16,7 +16,6 @@ class PenComponent
 
  private:
   PenPtr pen_;
-  wxGraphicsPenInfo penInfo_;
 
  public:
   PenComponent(const NodePtr& node);
@@ -30,7 +29,6 @@ class PenComponent
   PropertyPtr generateProperty() override;
 
  protected:
-  void onUpdate() override;
   void onBeginRender(Renderer& renderer) override;
   void onEndRender(Renderer& renderer) override;
 };

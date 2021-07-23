@@ -152,10 +152,10 @@ NodePtr Node::Project::Create(const NodePtr& parent) {
   return Node::Create<LayoutComponent, 
                       ProjectComponent, 
                       ContainerComponent, 
-                      GridComponent, 
                       PaletteComponent, 
                       PenComponent, 
-                      BrushComponent>(TYPE, parent);
+                      BrushComponent, 
+                      GridComponent>(TYPE, parent);
 }
 /**
  */

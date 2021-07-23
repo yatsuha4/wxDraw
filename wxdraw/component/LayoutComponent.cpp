@@ -11,7 +11,7 @@ const char* LayoutComponent::TYPE = "Layout";
 */
 LayoutComponent::LayoutComponent(const NodePtr& node)
   : super(TYPE, node, Priority::LAYOUT), 
-    size_(glm::dvec2(0.0), glm::dvec2(100.0)), 
+    size_(glm::dvec2(0.0), glm::dvec2(256.0)), 
     pos_(glm::dvec2(0.5), glm::dvec2(0.0)), 
     alignment_(0.5), 
     scale_(1.0), 

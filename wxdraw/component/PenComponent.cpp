@@ -1,3 +1,4 @@
+#include "wxdraw/component/LayoutComponent.hpp"
 #include "wxdraw/component/PaletteComponent.hpp"
 #include "wxdraw/component/PenComponent.hpp"
 #include "wxdraw/gui/Renderer.hpp"
@@ -41,24 +42,10 @@ PropertyPtr PenComponent::generateProperty() {
 }
 /**
  */
-void PenComponent::onUpdate() {
-  if(pen_) {
-    if(auto color = std::dynamic_pointer_cast<Color>(pen_->getColor())) {
-      penInfo_.Colour(color->getColor());
-    }
-    else if(auto gradient = std::dynamic_pointer_cast<Gradient>(pen_->getColor())) {
-    }
-    else {
-      penInfo_.Colour(wxTransparentColor);
-    }
-    penInfo_.Width(pen_->getWidth());
-  }
-}
-/**
- */
 void PenComponent::onBeginRender(Renderer& renderer) {
   if(pen_) {
-    renderer.pushPen(penInfo_);
+    auto layout = getNode()->getComponent<LayoutComponent>();
+    renderer.pushPen(*pen_, layout->getRect());
   }
 }
 /**
