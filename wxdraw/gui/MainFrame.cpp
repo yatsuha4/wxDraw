@@ -112,7 +112,7 @@ void MainFrame::setupMenuBar() {
     menu->AppendSeparator();
     menu->Append(Menu::ID_FILE_EXPORT, "Export");
     menu->AppendSeparator();
-    menu->Append(wxID_EXIT);
+    menu->Append(Menu::ID_FILE_QUIT, "Quit");
     menuBar->Append(menu, _("File"));
   }
   {
@@ -215,6 +215,7 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
   case Menu::ID_FILE_EXPORT:
     onSelectFileExport();
     break;
+  case Menu::ID_FILE_QUIT:
   case wxID_EXIT:
     Close();
     break;

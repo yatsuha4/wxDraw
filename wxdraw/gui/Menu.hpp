@@ -28,6 +28,7 @@ class Menu
     ID_COMPONENT_UP, 
     ID_EDIT_CLONE, 
     ID_FILE_EXPORT, 
+    ID_FILE_QUIT, 
     ID_NODE_ELLIPSE, 
     ID_NODE_GROUP, 
     ID_NODE_LAYER, 
