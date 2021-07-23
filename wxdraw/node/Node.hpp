@@ -2,6 +2,12 @@
 
 #include "wxdraw/object/Object.hpp"
 
+#define WXDRAW_DECLARE_NODE(Type)                       \
+  struct Type {                                         \
+    constexpr static const char* TYPE = #Type;          \
+    static NodePtr Create(const NodePtr& parent);       \
+  }
+
 namespace wxdraw::node {
 /**
    ノード
@@ -12,34 +18,12 @@ class Node
   using super = Object;
 
  public:
-  struct Ellipse {
-    static const char* TYPE;
-    static NodePtr Create(const NodePtr& parent);
-  };
-
-  struct Layer {
-    static const char* TYPE;
-    static NodePtr Create(const NodePtr& parent);
-  };
-
-  struct Project {
-    static const char* TYPE;
-    static NodePtr Create(const NodePtr& parent);
-  };
-
-  struct Rectangle {
-    static const char* TYPE;
-    static NodePtr Create(const NodePtr& parent);
-  };
-
-  struct Root {
-    static const char* TYPE;
-  };
-
-  struct Text {
-    static const char* TYPE;
-    static NodePtr Create(const NodePtr& parent);
-  };
+  WXDRAW_DECLARE_NODE(Ellipse);
+  WXDRAW_DECLARE_NODE(Layer);
+  WXDRAW_DECLARE_NODE(Project);
+  WXDRAW_DECLARE_NODE(Rectangle);
+  WXDRAW_DECLARE_NODE(Root);
+  WXDRAW_DECLARE_NODE(Text);
 
  private:
   std::weak_ptr<Node> parent_;
@@ -71,8 +55,6 @@ class Node
   void render(Renderer& renderer);
 
   WXDRAW_ACCESSOR(Item, item_);
-
-  static NodePtr CreateRoot();
 
   static NodePtr Clone(const Node& src, const NodePtr& parent);
 

@@ -16,12 +16,6 @@
 #include "wxdraw/property/PropertyMember.hpp"
 
 namespace wxdraw::node {
-const char* Node::Ellipse::TYPE = "Ellipse";
-const char* Node::Layer::TYPE = "Layer";
-const char* Node::Project::TYPE = "Project";
-const char* Node::Rectangle::TYPE = "Rectangle";
-const char* Node::Root::TYPE = "Root";
-const char* Node::Text::TYPE = "Text";
 /**
    コンストラクタ
    @param type 型名
@@ -128,11 +122,6 @@ void Node::render(Renderer& renderer) {
 }
 /**
  */
-NodePtr Node::CreateRoot() {
-  return Create<ContainerComponent>(Root::TYPE, nullptr);
-}
-/**
- */
 NodePtr Node::Clone(const Node& src, const NodePtr& parent) {
   auto dst = std::make_shared<Node>(src, parent);
   std::transform(src.components_.begin(), 
@@ -146,19 +135,22 @@ NodePtr Node::Clone(const Node& src, const NodePtr& parent) {
 /**
  */
 NodePtr Node::Ellipse::Create(const NodePtr& parent) {
-  return Node::Create<EllipseComponent>(TYPE, parent);
+  return Node::Create<LayoutComponent, 
+                      EllipseComponent>(TYPE, parent);
 }
 /**
  */
 NodePtr Node::Layer::Create(const NodePtr& parent) {
-  return Node::Create<LayerComponent, 
+  return Node::Create<LayoutComponent, 
+                      LayerComponent, 
                       ContainerComponent, 
                       GridComponent>(TYPE, parent);
 }
 /**
  */
 NodePtr Node::Project::Create(const NodePtr& parent) {
-  return Node::Create<ProjectComponent, 
+  return Node::Create<LayoutComponent, 
+                      ProjectComponent, 
                       ContainerComponent, 
                       GridComponent, 
                       PaletteComponent, 
@@ -168,11 +160,18 @@ NodePtr Node::Project::Create(const NodePtr& parent) {
 /**
  */
 NodePtr Node::Rectangle::Create(const NodePtr& parent) {
-  return Node::Create<RectangleComponent>(TYPE, parent);
+  return Node::Create<LayoutComponent, 
+                      RectangleComponent>(TYPE, parent);
+}
+/**
+ */
+NodePtr Node::Root::Create(const NodePtr& parent) {
+  return Node::Create<ContainerComponent>(TYPE, parent);
 }
 /**
  */
 NodePtr Node::Text::Create(const NodePtr& parent) {
-  return Node::Create<TextComponent>(TYPE, parent);
+  return Node::Create<LayoutComponent, 
+                      TextComponent>(TYPE, parent);
 }
 }
