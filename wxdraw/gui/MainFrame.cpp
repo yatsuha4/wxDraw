@@ -175,8 +175,7 @@ void MainFrame::onMenuOpen(wxMenuEvent& event) {
     break;
   case Menu::Type::NODE:
     {
-      //auto enable = (getContainerNode() != nullptr);
-      bool enable = true;
+      bool enable = outliner_->canCreateNode();
       menu->Enable(Menu::ID_NODE_ELLIPSE, enable);
       menu->Enable(Menu::ID_NODE_GROUP, enable);
       menu->Enable(Menu::ID_NODE_LAYER, enable);

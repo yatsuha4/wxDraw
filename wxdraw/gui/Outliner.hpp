@@ -29,6 +29,8 @@ class Outliner
   void selectNode(const NodePtr& node);
   WXDRAW_GETTER(SelectNode, selectNode_);
 
+  bool canCreateNode() const;
+
   template<class T>
   bool createNode() {
     auto [parent, index] = getInsertParent();
@@ -52,13 +54,13 @@ class Outliner
   void doRemove(const NodePtr& node, const std::tuple<NodePtr, size_t>& args) override;
 
  private:
-  NodePtr getContainerNode() const;
   std::tuple<NodePtr, size_t> getInsertParent() const;
 
   void insertNode(const NodePtr& node, const NodePtr& parent, size_t index);
   void removeNode(const NodePtr& node);
 
   void onSelectionChanged(wxTreeListEvent& event);
+  void onSelectNode(const NodePtr& node);
 
   NodePtr getNode(const wxTreeListItem& item) const;
 

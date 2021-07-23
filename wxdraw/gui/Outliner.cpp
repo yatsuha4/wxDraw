@@ -32,6 +32,15 @@ void Outliner::selectNode(const NodePtr& node) {
     Expand(item);
   }
   Select(node->getItem());
+  onSelectNode(node);
+}
+/**
+   ノードを新規作成できる？
+   @return 新規作成できるとき真
+*/
+bool Outliner::canCreateNode() const {
+  auto [parent, index] = getInsertParent();
+  return parent != nullptr;
 }
 /**
  */
@@ -95,25 +104,8 @@ void Outliner::doRemove(const NodePtr& node, const std::tuple<NodePtr, size_t>& 
   removeNode(node);
 }
 /**
-   新規ノードのコンテナを求める
-   @return 新規ノードのコンテナ
-*/
-NodePtr Outliner::getContainerNode() const {
-  if(auto node = getSelectNode()) {
-    if(node->getContainer()) {
-      return node;
-    }
-    if(auto parent = node->getParent()) {
-      if(parent->getContainer()) {
-        return parent;
-      }
-    }
-  }
-  return nullptr;
-}
-/**
-   新規ノードのコンテナを求める
-   @return 新規ノードのコンテナ
+   新規作成するノードの親と挿入位置を求める
+   @return { 親ノード, 挿入位置 }
 */
 std::tuple<NodePtr, size_t> Outliner::getInsertParent() const {
   if(auto node = getSelectNode()) {
@@ -164,9 +156,15 @@ void Outliner::removeNode(const NodePtr& node) {
 /**
  */
 void Outliner::onSelectionChanged(wxTreeListEvent& event) {
-  auto node = getNode(event.GetItem());
-  selectNode_ = node;
-  mainFrame_->onSelectNode(node);
+  onSelectNode(getNode(event.GetItem()));
+}
+/**
+ */
+void Outliner::onSelectNode(const NodePtr& node) {
+  if(node != selectNode_) {
+    selectNode_ = node;
+    mainFrame_->onSelectNode(node);
+  }
 }
 /**
  */
