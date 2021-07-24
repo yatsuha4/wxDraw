@@ -33,7 +33,7 @@ void Inspector::show(PropertyPtr property) {
 /**
  */
 void Inspector::update() {
-  show(property_);
+  //show(property_);
 }
 /**
  */

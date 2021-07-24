@@ -78,6 +78,7 @@ void MainFrame::doInsert(const ComponentBasePtr& component,
   auto node = std::get<0>(args);
   node->appendComponent(component);
   outliner_->selectNode(node);
+  inspector_->show(node->generateProperty());
 }
 /**
  */
@@ -86,6 +87,7 @@ void MainFrame::doRemove(const ComponentBasePtr& component,
   auto node = std::get<0>(args);
   node->removeComponent(component);
   outliner_->selectNode(node);
+  inspector_->show(node->generateProperty());
 }
 /**
    更新
