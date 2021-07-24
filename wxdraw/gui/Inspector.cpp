@@ -1,5 +1,6 @@
 #include "wxdraw/gui/Inspector.hpp"
 #include "wxdraw/gui/Menu.hpp"
+#include "wxdraw/node/Node.hpp"
 #include "wxdraw/property/Choice.hpp"
 #include "wxdraw/property/Property.hpp"
 #include "wxdraw/property/PropertyMember.hpp"
@@ -19,13 +20,20 @@ Inspector::Inspector(wxWindow* parent, MainFrame* mainFrame)
 }
 /**
  */
-void Inspector::show(const PropertyPtr& property) {
+void Inspector::show(PropertyPtr property) {
   clear();
   property_ = property;
-  showProperty(*property);
-  SetPropertyAttributeAll(wxPG_BOOL_USE_CHECKBOX, true);
-  SetPropertyAttributeAll(wxPG_COLOUR_ALLOW_CUSTOM, true);
-  SetPropertyAttributeAll(wxPG_COLOUR_HAS_ALPHA, true);
+  if(property) {
+    showProperty(*property);
+    SetPropertyAttributeAll(wxPG_BOOL_USE_CHECKBOX, true);
+    SetPropertyAttributeAll(wxPG_COLOUR_ALLOW_CUSTOM, true);
+    SetPropertyAttributeAll(wxPG_COLOUR_HAS_ALPHA, true);
+  }
+}
+/**
+ */
+void Inspector::update() {
+  show(property_);
 }
 /**
  */
@@ -35,8 +43,16 @@ void Inspector::clear() {
 }
 /**
  */
-const PaletteComponentPtr& Inspector::getPaletteComponent() const {
-  return mainFrame_->getPaletteComponent();
+PaletteComponentPtr Inspector::getPaletteComponent() const {
+  if(property_) {
+    if(auto node = std::dynamic_pointer_cast<Node>(property_->getObject())) {
+      return Node::GetParentComponent<PaletteComponent>(node);
+    }
+    else if(auto item = std::dynamic_pointer_cast<PaletteItem>(property_->getObject())) {
+      return item->getPalette();
+    }
+  }
+  return nullptr;
 }
 /**
  */

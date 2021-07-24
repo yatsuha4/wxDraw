@@ -38,11 +38,12 @@ class Inspector
   Inspector(wxWindow* parent, MainFrame* mainFrame);
   ~Inspector() override = default;
 
-  void show(const PropertyPtr& property);
+  void show(PropertyPtr property);
+  void update();
   void clear();
 
  private:
-  const PaletteComponentPtr& getPaletteComponent() const;
+  PaletteComponentPtr getPaletteComponent() const;
   void showProperty(const Property& property);
 
   template<class T1, class T2, class... Rest>
@@ -117,8 +118,9 @@ class Inspector
   template<class T>
   void appendPaletteChoices(const std::shared_ptr<Member<T>>& member, 
                             wxPGChoices choices) {
+    auto palette = getPaletteComponent();
     appendChoices(member, choices, 
-                  getPaletteComponent()->getIndex(member->getValue()));
+                  palette ? palette->getIndex(member->getValue()) : 0);
   }
 
   template<class T>

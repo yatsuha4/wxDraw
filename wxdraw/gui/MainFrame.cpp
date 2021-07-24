@@ -94,6 +94,7 @@ void MainFrame::update() {
   if(auto project = getProject()) {
     project->getNode()->update();
   }
+  inspector_->update();
   canvas_->Refresh();
   palette_->update();
 }
