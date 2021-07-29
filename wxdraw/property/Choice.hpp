@@ -5,6 +5,7 @@ namespace wxdraw::property {
  */
 class Choice {
  public:
+  class Composition;
   class GradientType;
   class PenCap;
   class PenJoin;
@@ -26,6 +27,19 @@ class Choice {
   WXDRAW_ACCESSOR(Index, index_);
 
   void setItem(const wxString& item);
+};
+/**
+ */
+class Choice::Composition
+  : public Choice
+{
+ private:
+  static const char* ITEMS[];
+
+ public:
+  Composition() : Choice(ITEMS) {}
+  Composition(const Composition& src) = default;
+  ~Composition() override = default;
 };
 /**
  */

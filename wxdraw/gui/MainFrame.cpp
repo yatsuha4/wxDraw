@@ -1,4 +1,5 @@
 #include "wxdraw/component/BrushComponent.hpp"
+#include "wxdraw/component/CompositionComponent.hpp"
 #include "wxdraw/component/ContainerComponent.hpp"
 #include "wxdraw/component/ExportComponent.hpp"
 #include "wxdraw/component/PaletteComponent.hpp"
@@ -146,6 +147,8 @@ void MainFrame::setupMenuBar() {
     menu->Append(Menu::ID_COMPONENT_PEN, _("Pen"));
     menu->Append(Menu::ID_COMPONENT_BRUSH, _("Brush"));
     menu->Append(Menu::ID_COMPONENT_EXPORT, _("Export"));
+    menu->AppendSeparator();
+    menu->Append(Menu::ID_COMPONENT_COMPOSITION, _("Composition"));
     menuBar->Append(menu, _("Component"));
   }
   {
@@ -192,6 +195,8 @@ void MainFrame::onMenuOpen(wxMenuEvent& event) {
                    node && node->canAppendComponent<PenComponent>());
       menu->Enable(Menu::ID_COMPONENT_BRUSH, 
                    node && node->canAppendComponent<BrushComponent>());
+      menu->Enable(Menu::ID_COMPONENT_COMPOSITION, 
+                   node && node->canAppendComponent<CompositionComponent>());
     }
     break;
   default:
@@ -258,6 +263,9 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
     break;
   case Menu::ID_COMPONENT_BRUSH:
     createComponent<BrushComponent>();
+    break;
+  case Menu::ID_COMPONENT_COMPOSITION:
+    createComponent<CompositionComponent>();
     break;
   case Menu::ID_WINDOW_PERSPECTIVE_RESET:
     SetSize(DEFAULT_SIZE);

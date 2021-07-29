@@ -15,8 +15,6 @@ namespace wxdraw::gui {
 Renderer::Renderer(wxDC& dc, const glm::dmat3& viewMatrix)
   : Renderer(wxGraphicsContext::CreateFromUnknownDC(dc), viewMatrix)
 {
-  pushPen(*wxBLACK_PEN);
-  pushBrush(*wxWHITE_BRUSH);
 }
 /**
    コンストラクタ
@@ -165,6 +163,57 @@ void Renderer::popPen() {
   context_->SetPen(pens_.top());
 }
 /**
+ */
+void Renderer::pushComposition(Composition composition) {
+  switch(composition) {
+  case Composition::CLEAR:
+    pushComposition(wxCOMPOSITION_CLEAR);
+    break;
+  case Composition::SOURCE:
+    pushComposition(wxCOMPOSITION_SOURCE);
+    break;
+  case Composition::OVER:
+    pushComposition(wxCOMPOSITION_OVER);
+    break;
+  case Composition::IN:
+    pushComposition(wxCOMPOSITION_IN);
+    break;
+  case Composition::OUT:
+    pushComposition(wxCOMPOSITION_OUT);
+    break;
+  case Composition::ATOP:
+    pushComposition(wxCOMPOSITION_ATOP);
+    break;
+  case Composition::DEST:
+    pushComposition(wxCOMPOSITION_DEST);
+    break;
+  case Composition::DEST_OVER:
+    pushComposition(wxCOMPOSITION_DEST_OVER);
+    break;
+  case Composition::DEST_IN:
+    pushComposition(wxCOMPOSITION_DEST_IN);
+    break;
+  case Composition::DEST_OUT:
+    pushComposition(wxCOMPOSITION_DEST_OUT);
+    break;
+  case Composition::DEST_ATOP:
+    pushComposition(wxCOMPOSITION_DEST_ATOP);
+    break;
+  case Composition::XOR:
+    pushComposition(wxCOMPOSITION_XOR);
+    break;
+  case Composition::ADD:
+    pushComposition(wxCOMPOSITION_ADD);
+    break;
+  }
+}
+/**
+ */
+void Renderer::popComposition() {
+  compositionStack_.pop();
+  context_->SetCompositionMode(compositionStack_.top());
+}
+/**
    コンストラクタ
    @param context コンテキスト
    @param viewMatrix ビュー行列
@@ -173,6 +222,9 @@ Renderer::Renderer(wxGraphicsContext* context, const glm::dmat3& viewMatrix)
   : context_(context), 
     viewMatrix_(viewMatrix)
 {
+  pushPen(*wxBLACK_PEN);
+  pushBrush(*wxWHITE_BRUSH);
+  pushComposition(context_->GetCompositionMode());
 }
 /**
  */
@@ -197,5 +249,11 @@ void Renderer::pushBrush(const wxGraphicsBrush& brush) {
 void Renderer::pushPen(const wxGraphicsPen& pen) {
   pens_.push(pen);
   context_->SetPen(pen);
+}
+/**
+ */
+void Renderer::pushComposition(wxCompositionMode composition) {
+  compositionStack_.push(composition);
+  context_->SetCompositionMode(composition);
 }
 }

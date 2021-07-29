@@ -1,6 +1,22 @@
 #include "wxdraw/property/Choice.hpp"
 
 namespace wxdraw::property {
+const char* Choice::Composition::ITEMS[] = {
+  "Clear", 
+  "Source", 
+  "Over", 
+  "In", 
+  "Out", 
+  "Atop", 
+  "Dest", 
+  "DestOver", 
+  "DestIn", 
+  "DestOut", 
+  "DestAtop", 
+  "Xor", 
+  "Add", 
+  nullptr
+};
 const char* Choice::GradientType::ITEMS[] = {
   "Linear", 
   "Radial", 
