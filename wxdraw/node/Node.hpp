@@ -39,6 +39,7 @@ class Node
   ~Node();
 
   WXDRAW_GETTER(Components, components_);
+  LayoutComponentPtr getLayout() const;
   ContainerComponentPtr getContainer() const;
   void appendComponent(const ComponentBasePtr& component);
   void removeComponent(const ComponentBasePtr& component);

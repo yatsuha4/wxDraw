@@ -43,6 +43,12 @@ Node::~Node() {
   components_.clear();
 }
 /**
+   レイアウトコンポーネントを取得する
+*/
+LayoutComponentPtr Node::getLayout() const {
+  return getComponent<LayoutComponent>();
+}
+/**
    コンテナコンポーネントを取得する
 */
 ContainerComponentPtr Node::getContainer() const {
