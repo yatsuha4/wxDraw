@@ -41,7 +41,7 @@ PropertyPtr BrushComponent::generateProperty() {
  */
 void BrushComponent::onBeginRender(Renderer& renderer) {
   if(brush_) {
-    auto layout = getNode()->getComponent<LayoutComponent>();
+    auto layout = getNode()->getLayout();
     renderer.pushBrush(*brush_, layout->getRect());
   }
 }

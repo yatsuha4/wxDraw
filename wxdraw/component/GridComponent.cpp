@@ -54,7 +54,7 @@ PropertyPtr GridComponent::generateProperty() {
 void GridComponent::onRender(Renderer& renderer) {
   if(show_ && pen_) {
     auto& context = renderer.getContext();
-    auto& rect = getNode()->getComponent<LayoutComponent>()->getRect();
+    auto& rect = getNode()->getLayout()->getRect();
     renderer.pushPen(*pen_, rect);
     auto path = context.CreatePath();
     for(auto x = offset_.x; x <= rect.size.x; x += size_.x) {

@@ -44,7 +44,7 @@ PropertyPtr PenComponent::generateProperty() {
  */
 void PenComponent::onBeginRender(Renderer& renderer) {
   if(pen_) {
-    auto layout = getNode()->getComponent<LayoutComponent>();
+    auto layout = getNode()->getLayout();
     renderer.pushPen(*pen_, layout->getRect());
   }
 }

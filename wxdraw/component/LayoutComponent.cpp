@@ -81,7 +81,7 @@ void LayoutComponent::onBeginRender(Renderer& renderer) {
 */
 LayoutComponentPtr LayoutComponent::getParent() {
   if(auto parent = getNode()->getParent()) {
-    return parent->getComponent<LayoutComponent>();
+    return parent->getLayout();
   }
   return nullptr;
 }

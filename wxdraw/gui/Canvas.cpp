@@ -97,7 +97,7 @@ void Canvas::onMouseWheel(wxMouseEvent& event) {
    @param node 選択中のノード
 */
 void Canvas::drawCursor(Renderer& renderer, const NodePtr& node) {
-  if(auto layout = node->getComponent<LayoutComponent>()) {
+  if(auto layout = node->getLayout()) {
     auto& context = renderer.getContext();
     context.SetTransform(context.CreateMatrix());
     context.SetPen(context.CreatePen(wxGraphicsPenInfo(*wxRED, 0.5)));

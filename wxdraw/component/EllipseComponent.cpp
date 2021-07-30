@@ -22,7 +22,7 @@ EllipseComponent::EllipseComponent(const EllipseComponent& src, const NodePtr& n
 /**
  */
 void EllipseComponent::onRender(Renderer& renderer) {
-  if(auto layout = getNode()->getComponent<LayoutComponent>()) {
+  if(auto layout = getNode()->getLayout()) {
     auto& rect = layout->getRect();
     renderer.getContext().DrawEllipse(rect.pos.x, rect.pos.y, rect.size.x, rect.size.y);
   }

@@ -34,7 +34,7 @@ PropertyPtr RectangleComponent::generateProperty() {
  */
 void RectangleComponent::onRender(Renderer& renderer) {
   auto& context = renderer.getContext();
-  if(auto layout = getNode()->getComponent<LayoutComponent>()) {
+  if(auto layout = getNode()->getLayout()) {
     auto& rect = layout->getRect();
     if(round_ <= 0.0) {
       context.DrawRectangle(rect.pos.x, rect.pos.y, rect.size.x, rect.size.y);

@@ -22,7 +22,7 @@ ImageExporter::ImageExporter(const NodePtr& node,
 /**
  */
 bool ImageExporter::save() {
-  auto& rect = getNode()->getComponent<LayoutComponent>()->getRect();
+  auto& rect = getNode()->getLayout()->getRect();
   glm::dmat3 m(1.0);
   m = glm::translate(m, (glm::dvec2(size_) - rect.size) * alignment_ - rect.pos * scale_);
   m = glm::scale(m, scale_);
