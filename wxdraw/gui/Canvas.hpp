@@ -15,6 +15,7 @@ class Canvas
   double zoom_;
   glm::dmat3 viewMatrix_;
   wxPoint mousePos_;
+  NodePtr viewNode_;
 
   static wxBrush BackgroundBrush;
 
@@ -28,10 +29,13 @@ class Canvas
   void OnDraw(wxDC& dc) override;
 
  private:
-  void onRightDown(wxMouseEvent& event);
+  void onLeftDown(wxMouseEvent& event);
   void onMotion(wxMouseEvent& event);
   void onMouseWheel(wxMouseEvent& event);
+  void onRightDown(wxMouseEvent& event);
 
   void drawCursor(Renderer& renderer, const NodePtr& node);
+
+  NodePtr getNode(const NodePtr& node, const glm::dvec2& pos) const;
 };
 }

@@ -1,3 +1,4 @@
+#include "wxdraw/component/ContainerComponent.hpp"
 #include "wxdraw/component/LayoutComponent.hpp"
 #include "wxdraw/component/ProjectComponent.hpp"
 #include "wxdraw/gui/Canvas.hpp"
@@ -21,9 +22,10 @@ Canvas::Canvas(wxWindow* parent, MainFrame* mainFrame)
     viewMatrix_(1.0)
 {
   SetDoubleBuffered(true);
-  Bind(wxEVT_RIGHT_DOWN, &Canvas::onRightDown, this);
+  Bind(wxEVT_LEFT_DOWN, &Canvas::onLeftDown, this);
   Bind(wxEVT_MOTION, &Canvas::onMotion, this);
   Bind(wxEVT_MOUSEWHEEL, &Canvas::onMouseWheel, this);
+  Bind(wxEVT_RIGHT_DOWN, &Canvas::onRightDown, this);
 }
 /**
  */
@@ -56,6 +58,7 @@ void Canvas::OnDraw(wxDC& dc) {
   dc.SetBackground(GetBackgroundBrush());
   dc.Clear();
   if(auto project = mainFrame_->getProject()) {
+    viewNode_ = project->getNode();
     auto size = GetSize();
     viewMatrix_ = glm::scale(glm::translate(glm::dmat3(1.0), 
                                             glm::dvec2(size.x * 0.5, size.y * 0.5) + offset_), 
@@ -63,6 +66,20 @@ void Canvas::OnDraw(wxDC& dc) {
     Renderer renderer(dc, viewMatrix_);
     project->getNode()->render(renderer);
     drawCursor(renderer, mainFrame_->getOutliner()->getSelectNode());
+  }
+  else {
+    viewNode_ = nullptr;
+  }
+}
+/**
+ */
+void Canvas::onLeftDown(wxMouseEvent& event) {
+  if(viewNode_) {
+    auto pos = glm::dvec2(event.GetX(), event.GetY());
+    pos = glm::dvec2(glm::inverse(viewMatrix_) * glm::dvec3(pos, 1.0));
+    if(auto node = getNode(viewNode_, pos)) {
+      mainFrame_->getOutliner()->selectNode(node);
+    }
   }
 }
 /**
@@ -117,5 +134,21 @@ void Canvas::drawCursor(Renderer& renderer, const NodePtr& node) {
     path.AddLineToPoint(p[0].x, p[0].y);
     context.StrokePath(path);
   }
+}
+/**
+ */
+NodePtr Canvas::getNode(const NodePtr& node, const glm::dvec2& pos) const {
+  if(auto container = node->getContainer()) {
+    for(auto iter = std::rbegin(container->getChildren());
+        iter != std::rend(container->getChildren());
+        iter++) {
+      if(auto found = getNode(*iter, pos)) {
+        return found;
+      }
+    }
+  }
+  auto layout = node->getLayout();
+  auto p = glm::inverse(layout->getMatrix()) * glm::dvec3(pos, 1.0);
+  return layout->getRect().isContain(p) ? node : nullptr;
 }
 }

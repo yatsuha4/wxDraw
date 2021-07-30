@@ -13,5 +13,7 @@ class Rect {
   Rect() = default;
   Rect(const glm::dvec2& pos, const glm::dvec2& size) : pos(pos), size(size) {}
   ~Rect() = default;
+
+  bool isContain(const glm::dvec2& pos) const;
 };
 }
