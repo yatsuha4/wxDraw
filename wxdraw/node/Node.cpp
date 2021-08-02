@@ -8,6 +8,7 @@
 #include "wxdraw/component/PaletteComponent.hpp"
 #include "wxdraw/component/PenComponent.hpp"
 #include "wxdraw/component/ProjectComponent.hpp"
+#include "wxdraw/component/ProxyComponent.hpp"
 #include "wxdraw/component/RectangleComponent.hpp"
 #include "wxdraw/component/TextComponent.hpp"
 #include "wxdraw/component/ViewComponent.hpp"
@@ -116,16 +117,23 @@ void Node::update() {
 */
 void Node::render(Renderer& renderer) {
   if(show_) {
-    auto layout = getLayout();
-    for(auto& component : components_) {
-      component->beginRender(renderer, layout);
-    }
-    for(auto& component : components_) {
-      component->render(renderer, layout);
-    }
-    for(auto& component : components_) {
-      component->endRender(renderer, layout);
-    }
+    render(renderer, getLayout());
+  }
+}
+/**
+   描画する
+   @param renderer レンダラー
+   @param layout レイアウトコンポーネント
+*/
+void Node::render(Renderer& renderer, const LayoutComponentPtr& layout) {
+  for(auto& component : components_) {
+    component->beginRender(renderer, layout);
+  }
+  for(auto& component : components_) {
+    component->render(renderer, layout);
+  }
+  for(auto& component : components_) {
+    component->endRender(renderer, layout);
   }
 }
 /**
@@ -179,6 +187,14 @@ NodePtr Node::Project::Create(const NodePtr& parent) {
                       BrushComponent, 
                       GridComponent, 
                       ViewComponent>(TYPE, parent);
+}
+/**
+   プロキシノードを新規生成する
+   @param parent 親ノード
+*/
+NodePtr Node::Proxy::Create(const NodePtr& parent) {
+  return Node::Create<LayoutComponent, 
+                      ProxyComponent>(TYPE, parent);
 }
 /**
    矩形ノードを新規作成する

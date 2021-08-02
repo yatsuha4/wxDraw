@@ -141,6 +141,8 @@ void MainFrame::setupMenuBar() {
     menu->Append(Menu::ID_NODE_VIEW, _("View"));
     menu->Append(Menu::ID_NODE_GROUP, _("Group"));
     menu->Append(Menu::ID_NODE_LAYER, _("Layer"));
+    menu->AppendSeparator();
+    menu->Append(Menu::ID_NODE_PROXY, _("Proxy"));
     menuBar->Append(menu, _("Node"));
   }
   {
@@ -186,6 +188,7 @@ void MainFrame::onMenuOpen(wxMenuEvent& event) {
       menu->Enable(Menu::ID_NODE_ELLIPSE, enable);
       menu->Enable(Menu::ID_NODE_GROUP, enable);
       menu->Enable(Menu::ID_NODE_LAYER, enable);
+      menu->Enable(Menu::ID_NODE_PROXY, enable);
       menu->Enable(Menu::ID_NODE_RECTANGLE, enable);
       menu->Enable(Menu::ID_NODE_TEXT, enable);
       menu->Enable(Menu::ID_NODE_VIEW, enable);
@@ -231,6 +234,9 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
     break;
   case Menu::ID_NODE_LAYER:
     outliner_->createNode<Node::Layer>();
+    break;
+  case Menu::ID_NODE_PROXY:
+    outliner_->createNode<Node::Proxy>();
     break;
   case Menu::ID_NODE_GROUP:
     outliner_->createNode<Node::Group>();

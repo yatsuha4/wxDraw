@@ -97,6 +97,7 @@ WXDRAW_DECLARE_CLASS(LayoutComponent);
 WXDRAW_DECLARE_CLASS(PaletteComponent);
 WXDRAW_DECLARE_CLASS(PenComponent);
 WXDRAW_DECLARE_CLASS(ProjectComponent);
+WXDRAW_DECLARE_CLASS(ProxyComponent);
 WXDRAW_DECLARE_CLASS(RectangleComponent);
 WXDRAW_DECLARE_CLASS(TextComponent);
 WXDRAW_DECLARE_CLASS(ViewComponent);

@@ -22,6 +22,7 @@ class Node
   WXDRAW_DECLARE_NODE(Group);
   WXDRAW_DECLARE_NODE(Layer);
   WXDRAW_DECLARE_NODE(Project);
+  WXDRAW_DECLARE_NODE(Proxy);
   WXDRAW_DECLARE_NODE(Rectangle);
   WXDRAW_DECLARE_NODE(Root);
   WXDRAW_DECLARE_NODE(Text);
@@ -56,6 +57,7 @@ class Node
 
   void update();
   void render(Renderer& renderer);
+  void render(Renderer& renderer, const LayoutComponentPtr& layout);
 
   WXDRAW_ACCESSOR(Item, item_);
 

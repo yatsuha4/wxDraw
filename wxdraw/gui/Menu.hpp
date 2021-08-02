@@ -33,6 +33,7 @@ class Menu
     ID_NODE_ELLIPSE, 
     ID_NODE_GROUP, 
     ID_NODE_LAYER, 
+    ID_NODE_PROXY, 
     ID_NODE_RECTANGLE, 
     ID_NODE_TEXT, 
     ID_NODE_VIEW, 
