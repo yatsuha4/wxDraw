@@ -19,7 +19,9 @@ ProxyComponent::ProxyComponent(const ProxyComponent& src, const NodePtr& node)
  */
 void ProxyComponent::render(Renderer& renderer, const LayoutComponentPtr& layout) {
   if(node_) {
-    node_->render(renderer, layout);
+    if(!getNode()->setError(Node::Error::RECURSION_RENDERING, node_->isRendering())) {
+      node_->render(renderer, layout);
+    }
   }
 }
 }
