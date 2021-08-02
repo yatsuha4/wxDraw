@@ -138,6 +138,7 @@ void MainFrame::setupMenuBar() {
     menu->Append(Menu::ID_NODE_ELLIPSE, _("Ellipse"));
     menu->Append(Menu::ID_NODE_TEXT, _("Text"));
     menu->AppendSeparator();
+    menu->Append(Menu::ID_NODE_VIEW, _("View"));
     menu->Append(Menu::ID_NODE_GROUP, _("Group"));
     menu->Append(Menu::ID_NODE_LAYER, _("Layer"));
     menuBar->Append(menu, _("Node"));
@@ -187,6 +188,7 @@ void MainFrame::onMenuOpen(wxMenuEvent& event) {
       menu->Enable(Menu::ID_NODE_LAYER, enable);
       menu->Enable(Menu::ID_NODE_RECTANGLE, enable);
       menu->Enable(Menu::ID_NODE_TEXT, enable);
+      menu->Enable(Menu::ID_NODE_VIEW, enable);
     }
     break;
   case Menu::Type::COMPONENT:
@@ -241,6 +243,9 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
     break;
   case Menu::ID_NODE_TEXT:
     outliner_->createNode<Node::Text>();
+    break;
+  case Menu::ID_NODE_VIEW:
+    outliner_->createNode<Node::View>();
     break;
   case wxID_DELETE:
     outliner_->removeNode();

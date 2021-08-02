@@ -1,6 +1,6 @@
 #include "wxdraw/component/ContainerComponent.hpp"
 #include "wxdraw/component/LayoutComponent.hpp"
-#include "wxdraw/component/ProjectComponent.hpp"
+#include "wxdraw/component/ViewComponent.hpp"
 #include "wxdraw/gui/Canvas.hpp"
 #include "wxdraw/gui/MainFrame.hpp"
 #include "wxdraw/gui/Outliner.hpp"
@@ -57,18 +57,18 @@ void Canvas::OnDraw(wxDC& dc) {
   super::OnDraw(dc);
   dc.SetBackground(GetBackgroundBrush());
   dc.Clear();
-  if(auto project = mainFrame_->getProject()) {
-    viewNode_ = project->getNode();
-    auto size = GetSize();
-    viewMatrix_ = glm::scale(glm::translate(glm::dmat3(1.0), 
-                                            glm::dvec2(size.x * 0.5, size.y * 0.5) + offset_), 
-                             glm::dvec2(zoom_));
-    Renderer renderer(dc, viewMatrix_);
-    project->getNode()->render(renderer);
-    drawCursor(renderer, mainFrame_->getOutliner()->getSelectNode());
-  }
-  else {
-    viewNode_ = nullptr;
+  viewNode_ = nullptr;
+  if(auto selectNode = mainFrame_->getOutliner()->getSelectNode()) {
+    if(auto view = Node::GetParentComponent<ViewComponent>(selectNode)) {
+      viewNode_ = view->getNode();
+      auto size = GetSize();
+      viewMatrix_ = glm::scale(glm::translate(glm::dmat3(1.0), 
+                                              glm::dvec2(size.x * 0.5, size.y * 0.5) + offset_), 
+                               glm::dvec2(zoom_));
+      Renderer renderer(dc, viewMatrix_);
+      viewNode_->render(renderer);
+      drawCursor(renderer, selectNode);
+    }
   }
 }
 /**

@@ -25,6 +25,7 @@ class Node
   WXDRAW_DECLARE_NODE(Rectangle);
   WXDRAW_DECLARE_NODE(Root);
   WXDRAW_DECLARE_NODE(Text);
+  WXDRAW_DECLARE_NODE(View);
 
  private:
   std::weak_ptr<Node> parent_;

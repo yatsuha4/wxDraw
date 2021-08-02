@@ -10,6 +10,7 @@
 #include "wxdraw/component/ProjectComponent.hpp"
 #include "wxdraw/component/RectangleComponent.hpp"
 #include "wxdraw/component/TextComponent.hpp"
+#include "wxdraw/component/ViewComponent.hpp"
 #include "wxdraw/gui/Renderer.hpp"
 #include "wxdraw/node/Node.hpp"
 #include "wxdraw/property/Property.hpp"
@@ -175,7 +176,8 @@ NodePtr Node::Project::Create(const NodePtr& parent) {
                       PaletteComponent, 
                       PenComponent, 
                       BrushComponent, 
-                      GridComponent>(TYPE, parent);
+                      GridComponent, 
+                      ViewComponent>(TYPE, parent);
 }
 /**
    矩形ノードを新規作成する
@@ -199,5 +201,14 @@ NodePtr Node::Root::Create(const NodePtr& parent) {
 NodePtr Node::Text::Create(const NodePtr& parent) {
   return Node::Create<LayoutComponent, 
                       TextComponent>(TYPE, parent);
+}
+/**
+   ビューノードを新規作成する
+   @param parent 親ノード
+*/
+NodePtr Node::View::Create(const NodePtr& parent) {
+  return Node::Create<LayoutComponent, 
+                      ViewComponent, 
+                      ContainerComponent>(TYPE, parent);
 }
 }
