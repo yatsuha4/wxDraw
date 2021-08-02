@@ -7,24 +7,21 @@ namespace wxdraw::gui {
    アウトライナ
 */
 class Outliner
-  : public wxTreeListCtrl, 
+  : public wxDataViewTreeCtrl, 
     public InsertNodeCommand::Observer
 {
-  using super = wxTreeListCtrl;
+  using super = wxDataViewTreeCtrl;
 
  public:
   class ClientData;
 
  private:
   MainFrame* mainFrame_;
-  NodePtr rootNode_;
   NodePtr selectNode_;
 
  public:
   Outliner(wxWindow* parent, MainFrame* mainFrame);
   ~Outliner() override = default;
-
-  const NodePtr& getRootNode();
 
   void selectNode(const NodePtr& node);
   WXDRAW_GETTER(SelectNode, selectNode_);
@@ -59,10 +56,10 @@ class Outliner
   void insertNode(const NodePtr& node, const NodePtr& parent, size_t index);
   void removeNode(const NodePtr& node);
 
-  void onSelectionChanged(wxTreeListEvent& event);
+  void onSelectionChanged(wxDataViewEvent& event);
   void onSelectNode(const NodePtr& node);
 
-  NodePtr getNode(const wxTreeListItem& item) const;
+  NodePtr getNode(const wxDataViewItem& item) const;
 
   template<class T>
   bool submitInsertCommand(const NodePtr& node, const NodePtr& parent, size_t index) {

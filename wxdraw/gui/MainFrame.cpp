@@ -294,7 +294,7 @@ void MainFrame::open() {
                       "*.wxdraw", wxFD_OPEN | wxFD_FILE_MUST_EXIST);
   if(dialog.ShowModal() == wxID_OK) {
     XmlImporter importer(dialog.GetPath());
-    if(auto project = importer.load(outliner_->getRootNode())) {
+    if(auto project = importer.load(nullptr)) {
       outliner_->appendProject(project);
     }
   }

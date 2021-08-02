@@ -33,7 +33,7 @@ class Node
   std::vector<ComponentBasePtr> components_;
   bool show_;
   wxString comment_;
-  wxTreeListItem item_;
+  wxDataViewItem item_;
 
  public:
   Node(const wxString& type, const NodePtr& parent);

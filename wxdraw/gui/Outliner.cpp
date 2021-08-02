@@ -1,16 +1,9 @@
 #include "wxdraw/component/ContainerComponent.hpp"
-#include "wxdraw/gui/ImageList.hpp"
 #include "wxdraw/gui/MainFrame.hpp"
 #include "wxdraw/gui/Outliner.hpp"
 #include "wxdraw/node/Node.hpp"
 
 namespace wxdraw::gui {
-enum {
-  IMAGE_NODE, 
-  IMAGE_CONTAINER, 
-  IMAGE_CONTAINER_OPEN
-};
-static const wxSize IMAGE_SIZE(16, 16);
 /**
    コンストラクタ
    @param parent 親
@@ -20,29 +13,12 @@ Outliner::Outliner(wxWindow* parent, MainFrame* mainFrame)
   : super(parent, wxID_ANY), 
     mainFrame_(mainFrame)
 {
-  auto imageList = new ImageList(IMAGE_SIZE);
-  imageList->append(wxART_NORMAL_FILE);
-  imageList->append(wxART_FOLDER);
-  imageList->append(wxART_FOLDER_OPEN);
-  AssignImageList(imageList);
-  AppendColumn("Name");
-  Bind(wxEVT_TREELIST_SELECTION_CHANGED, &Outliner::onSelectionChanged, this);
-}
-/**
- */
-const NodePtr& Outliner::getRootNode() {
-  if(!rootNode_) {
-    rootNode_ = Node::Root::Create(nullptr);
-    rootNode_->setItem(GetRootItem());
-  }
-  return rootNode_;
+  Bind(wxEVT_DATAVIEW_SELECTION_CHANGED, &Outliner::onSelectionChanged, this);
 }
 /**
  */
 void Outliner::selectNode(const NodePtr& node) {
-  for(auto item = GetItemParent(node->getItem()); item.IsOk(); item = GetItemParent(item)) {
-    Expand(item);
-  }
+  ExpandAncestors(node->getItem());
   Select(node->getItem());
   onSelectNode(node);
 }
@@ -57,19 +33,21 @@ bool Outliner::canCreateNode() const {
 /**
  */
 void Outliner::createProject() {
-  appendProject(Node::Project::Create(getRootNode()));
+  appendProject(Node::Project::Create(nullptr));
 }
 /**
  */
 void Outliner::appendProject(const NodePtr& node) {
-  submitInsertCommand<InsertNodeCommand>(node, getRootNode(), 0);
+  submitInsertCommand<InsertNodeCommand>(node, nullptr, 0);
 }
 /**
  */
 void Outliner::doInsert(const NodePtr& node, const std::tuple<NodePtr, size_t>& args) {
   auto parent = std::get<0>(args);
   auto index = std::get<1>(args);
-  parent->getContainer()->getChildren().insert(index, node);
+  if(parent) {
+    parent->getContainer()->getChildren().insert(index, node);
+  }
   node->update();
   insertNode(node, parent, index);
   selectNode(node);
@@ -137,24 +115,32 @@ std::tuple<NodePtr, size_t> Outliner::getInsertParent() const {
 */
 void Outliner::insertNode(const NodePtr& node, const NodePtr& parent, size_t index) {
   wxASSERT(!node->getItem().IsOk());
-  wxASSERT(parent->getItem().IsOk());
+  //wxASSERT(parent->getItem().IsOk());
   //wxASSERT(index <= parent->getChildren().size());
-  wxTreeListItem item;
+  auto parentItem = parent ? parent->getItem() : wxDataViewItem();
+  wxDataViewItem item;
   if(index == 0) {
-    item = PrependItem(parent->getItem(), node->getName());
+    item = node->getContainer()
+      ? PrependContainer(parentItem, node->getName())
+      : PrependItem(parentItem, node->getName());
+  }
+  else if(index < GetChildCount(parentItem)) {
+    auto prev = GetNthChild(parentItem, static_cast<unsigned int>(index));
+    item = node->getContainer()
+      ? InsertContainer(parentItem, prev, node->getName())
+      : InsertItem(parentItem, prev, node->getName());
   }
   else {
-    auto prev = GetFirstChild(parent->getItem());
-    for(size_t i = 1; i < index; i++) {
-      prev = GetNextSibling(prev);
-    }
-    item = InsertItem(parent->getItem(), prev, node->getName());
+    item = node->getContainer()
+      ? AppendContainer(parentItem, node->getName())
+      : AppendItem(parentItem, node->getName());
   }
   if(node->getContainer()) {
-    SetItemImage(item, IMAGE_CONTAINER, IMAGE_CONTAINER_OPEN);
+    SetItemIcon(item, wxArtProvider::GetIcon(wxART_FOLDER));
+    SetItemExpandedIcon(item, wxArtProvider::GetIcon(wxART_FOLDER_OPEN));
   }
   else {
-    SetItemImage(item, IMAGE_NODE);
+    SetItemIcon(item, wxArtProvider::GetIcon(wxART_NORMAL_FILE));
   }
   SetItemData(item, new ClientData(node));
   node->setItem(item);
@@ -169,11 +155,11 @@ void Outliner::insertNode(const NodePtr& node, const NodePtr& parent, size_t ind
 void Outliner::removeNode(const NodePtr& node) {
   wxASSERT(node->getItem().IsOk());
   DeleteItem(node->getItem());
-  node->setItem(wxTreeListItem());
+  node->setItem(wxDataViewItem());
 }
 /**
  */
-void Outliner::onSelectionChanged(wxTreeListEvent& event) {
+void Outliner::onSelectionChanged(wxDataViewEvent& event) {
   onSelectNode(getNode(event.GetItem()));
 }
 /**
@@ -186,7 +172,7 @@ void Outliner::onSelectNode(const NodePtr& node) {
 }
 /**
  */
-NodePtr Outliner::getNode(const wxTreeListItem& item) const {
+NodePtr Outliner::getNode(const wxDataViewItem& item) const {
   if(item.IsOk()) {
     if(auto data = static_cast<ClientData*>(GetItemData(item))) {
       return data->getNode();
