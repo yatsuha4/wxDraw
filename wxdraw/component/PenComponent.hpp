@@ -28,8 +28,7 @@ class PenComponent
 
   PropertyPtr generateProperty() override;
 
- protected:
-  void onBeginRender(Renderer& renderer) override;
-  void onEndRender(Renderer& renderer) override;
+  void beginRender(Renderer& renderer, const LayoutComponentPtr& layout) override;
+  void endRender(Renderer& renderer, const LayoutComponentPtr& layout) override;
 };
 }

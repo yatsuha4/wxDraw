@@ -51,10 +51,10 @@ PropertyPtr GridComponent::generateProperty() {
 }
 /**
  */
-void GridComponent::onRender(Renderer& renderer) {
-  if(show_ && pen_) {
+void GridComponent::render(Renderer& renderer, const LayoutComponentPtr& layout) {
+  if(show_ && pen_ && layout) {
     auto& context = renderer.getContext();
-    auto& rect = getNode()->getLayout()->getRect();
+    auto& rect = layout->getRect();
     renderer.pushPen(*pen_, rect);
     auto path = context.CreatePath();
     for(auto x = offset_.x; x <= rect.size.x; x += size_.x) {

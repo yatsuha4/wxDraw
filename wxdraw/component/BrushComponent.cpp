@@ -39,16 +39,15 @@ PropertyPtr BrushComponent::generateProperty() {
 }
 /**
  */
-void BrushComponent::onBeginRender(Renderer& renderer) {
-  if(brush_) {
-    auto layout = getNode()->getLayout();
+void BrushComponent::beginRender(Renderer& renderer, const LayoutComponentPtr& layout) {
+  if(brush_ && layout) {
     renderer.pushBrush(*brush_, layout->getRect());
   }
 }
 /**
  */
-void BrushComponent::onEndRender(Renderer& renderer) {
-  if(brush_) {
+void BrushComponent::endRender(Renderer& renderer, const LayoutComponentPtr& layout) {
+  if(brush_ && layout) {
     renderer.popBrush();
   }
 }

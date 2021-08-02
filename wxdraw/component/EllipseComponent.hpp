@@ -18,7 +18,6 @@ class EllipseComponent
   EllipseComponent(const EllipseComponent& src, const NodePtr& node);
   ~EllipseComponent() override = default;
 
- protected:
-  void onRender(Renderer& renderer) override;
+  void render(Renderer& renderer, const LayoutComponentPtr& layout) override;
 };
 }

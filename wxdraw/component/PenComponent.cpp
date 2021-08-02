@@ -42,16 +42,15 @@ PropertyPtr PenComponent::generateProperty() {
 }
 /**
  */
-void PenComponent::onBeginRender(Renderer& renderer) {
-  if(pen_) {
-    auto layout = getNode()->getLayout();
+void PenComponent::beginRender(Renderer& renderer, const LayoutComponentPtr& layout) {
+  if(pen_ && layout) {
     renderer.pushPen(*pen_, layout->getRect());
   }
 }
 /**
  */
-void PenComponent::onEndRender(Renderer& renderer) {
-  if(pen_) {
+void PenComponent::endRender(Renderer& renderer, const LayoutComponentPtr& layout) {
+  if(pen_ && layout) {
     renderer.popPen();
   }
 }

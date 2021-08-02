@@ -116,14 +116,15 @@ void Node::update() {
 */
 void Node::render(Renderer& renderer) {
   if(show_) {
+    auto layout = getLayout();
     for(auto& component : components_) {
-      component->beginRender(renderer);
+      component->beginRender(renderer, layout);
     }
     for(auto& component : components_) {
-      component->render(renderer);
+      component->render(renderer, layout);
     }
     for(auto& component : components_) {
-      component->endRender(renderer);
+      component->endRender(renderer, layout);
     }
   }
 }

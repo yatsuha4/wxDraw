@@ -49,8 +49,7 @@ PropertyPtr TextComponent::generateProperty() {
 }
 /**
  */
-void TextComponent::onRender(Renderer& renderer) {
-  auto layout = getNode()->getLayout();
+void TextComponent::render(Renderer& renderer, const LayoutComponentPtr& layout) {
   if(layout && font_ && color_ && !text_.IsEmpty()) {
     auto& context = renderer.getContext();
     context.SetFont(font_->getFont(), color_->getColor());

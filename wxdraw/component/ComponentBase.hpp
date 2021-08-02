@@ -37,9 +37,9 @@ class ComponentBase
   void update();
   void endUpdate();
 
-  void beginRender(Renderer& renderer);
-  void render(Renderer& renderer);
-  void endRender(Renderer& renderer);
+  virtual void beginRender(Renderer& renderer, const LayoutComponentPtr& layout) {}
+  virtual void render(Renderer& renderer, const LayoutComponentPtr& layout) {}
+  virtual void endRender(Renderer& renderer, const LayoutComponentPtr& layout) {}
 
   virtual ComponentBasePtr clone(const NodePtr& node) const = 0;
 
@@ -47,9 +47,5 @@ class ComponentBase
   virtual void onBeginUpdate() {}
   virtual void onUpdate() {}
   virtual void onEndUpdate() {}
-
-  virtual void onBeginRender(Renderer& renderer) {}
-  virtual void onRender(Renderer& renderer) {}
-  virtual void onEndRender(Renderer& renderer) {}
 };
 }

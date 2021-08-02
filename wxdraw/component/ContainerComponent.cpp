@@ -30,16 +30,16 @@ ContainerComponent::~ContainerComponent() {
 }
 /**
  */
-void ContainerComponent::onUpdate() {
+void ContainerComponent::render(Renderer& renderer, const LayoutComponentPtr& layout) {
   for(auto& child : children_) {
-    child->update();
+    child->render(renderer);
   }
 }
 /**
  */
-void ContainerComponent::onRender(Renderer& renderer) {
+void ContainerComponent::onUpdate() {
   for(auto& child : children_) {
-    child->render(renderer);
+    child->update();
   }
 }
 }

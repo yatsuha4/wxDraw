@@ -51,6 +51,11 @@ PropertyPtr LayoutComponent::generateProperty() {
 }
 /**
  */
+void LayoutComponent::beginRender(Renderer& renderer, const LayoutComponentPtr& layout) {
+  renderer.setMatrix(matrix_);
+}
+/**
+ */
 void LayoutComponent::onUpdate() {
   glm::dmat3 m(1.0);
   if(auto parent = getParent()) {
@@ -69,11 +74,6 @@ void LayoutComponent::onUpdate() {
     rect_.size = size_.absolute;
   }
   rect_.pos = -rect_.size * alignment_;
-}
-/**
- */
-void LayoutComponent::onBeginRender(Renderer& renderer) {
-  renderer.setMatrix(matrix_);
 }
 /**
    親を取得する

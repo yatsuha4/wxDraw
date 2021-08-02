@@ -29,7 +29,6 @@ class GridComponent
   void onCreate() override;
   PropertyPtr generateProperty() override;
 
- protected:
-  void onRender(Renderer& renderer) override;
+  void render(Renderer& renderer, const LayoutComponentPtr& layout) override;
 };
 }

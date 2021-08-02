@@ -32,9 +32,9 @@ PropertyPtr RectangleComponent::generateProperty() {
 }
 /**
  */
-void RectangleComponent::onRender(Renderer& renderer) {
-  auto& context = renderer.getContext();
-  if(auto layout = getNode()->getLayout()) {
+void RectangleComponent::render(Renderer& renderer, const LayoutComponentPtr& layout) {
+  if(layout) {
+    auto& context = renderer.getContext();
     auto& rect = layout->getRect();
     if(round_ <= 0.0) {
       context.DrawRectangle(rect.pos.x, rect.pos.y, rect.size.x, rect.size.y);

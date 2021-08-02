@@ -56,25 +56,4 @@ void ComponentBase::update() {
 void ComponentBase::endUpdate() {
   onEndUpdate();
 }
-/**
-   描画を開始する
-   @param renderer レンダラー
-*/
-void ComponentBase::beginRender(Renderer& renderer) {
-  onBeginRender(renderer);
-}
-/**
-   描画する
-   @param renderer レンダラー
-*/
-void ComponentBase::render(Renderer& renderer) {
-  onRender(renderer);
-}
-/**
-   描画を終了する
-   @param renderer レンダラー
-*/
-void ComponentBase::endRender(Renderer& renderer) {
-  onEndRender(renderer);
-}
 }

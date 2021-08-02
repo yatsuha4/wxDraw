@@ -32,14 +32,14 @@ PropertyPtr LayerComponent::generateProperty() {
 }
 /**
  */
-void LayerComponent::onBeginRender(Renderer& renderer) {
+void LayerComponent::beginRender(Renderer& renderer, const LayoutComponentPtr& layout) {
   auto& context = renderer.getContext();
   context.PushState();
   context.BeginLayer(opacity_);
 }
 /**
  */
-void LayerComponent::onEndRender(Renderer& renderer) {
+void LayerComponent::endRender(Renderer& renderer, const LayoutComponentPtr& layout) {
   auto& context = renderer.getContext();
   context.EndLayer();
   context.PopState();
