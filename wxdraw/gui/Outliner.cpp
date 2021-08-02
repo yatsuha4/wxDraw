@@ -143,6 +143,9 @@ void Outliner::insertNode(const NodePtr& node, const NodePtr& parent, size_t ind
     SetItemIcon(item, wxArtProvider::GetIcon(wxART_FOLDER));
     SetItemExpandedIcon(item, wxArtProvider::GetIcon(wxART_FOLDER_OPEN));
   }
+  else if(node->getComponent<ProxyComponent>()) {
+    SetItemIcon(item, wxArtProvider::GetIcon(wxART_COPY));
+  }
   else {
     SetItemIcon(item, wxArtProvider::GetIcon(wxART_NORMAL_FILE));
   }
