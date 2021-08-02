@@ -18,6 +18,7 @@ class Outliner
  private:
   MainFrame* mainFrame_;
   NodePtr selectNode_;
+  NodePtr dragNode_;
 
  public:
   Outliner(wxWindow* parent, MainFrame* mainFrame);
@@ -58,6 +59,9 @@ class Outliner
 
   void onSelectionChanged(wxDataViewEvent& event);
   void onSelectNode(const NodePtr& node);
+  void onBeginDrag(wxDataViewEvent& event);
+  void onDropPossible(wxDataViewEvent& event);
+  void onDrop(wxDataViewEvent& event);
 
   NodePtr getNode(const wxDataViewItem& item) const;
 

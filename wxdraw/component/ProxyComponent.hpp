@@ -22,6 +22,8 @@ class ProxyComponent
   ProxyComponent(const ProxyComponent& src, const NodePtr& node);
   ~ProxyComponent() override = default;
 
+  WXDRAW_ACCESSOR(Node, node_);
+
   void render(Renderer& renderer, const LayoutComponentPtr& layout) override;
 };
 }

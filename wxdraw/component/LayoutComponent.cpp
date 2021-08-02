@@ -51,11 +51,6 @@ PropertyPtr LayoutComponent::generateProperty() {
 }
 /**
  */
-void LayoutComponent::beginRender(Renderer& renderer, const LayoutComponentPtr& layout) {
-  renderer.setMatrix(matrix_);
-}
-/**
- */
 void LayoutComponent::onUpdate() {
   glm::dmat3 m(1.0);
   if(auto parent = getParent()) {

@@ -37,6 +37,8 @@ class Object
 
   virtual void onCreate();
 
+  wxDataObject* toDataObject();
+
  private:
   void onCreate(const std::type_index& type);
 };

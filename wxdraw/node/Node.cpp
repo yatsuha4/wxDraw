@@ -119,7 +119,11 @@ void Node::update() {
 */
 void Node::render(Renderer& renderer) {
   if(show_) {
-    render(renderer, getLayout());
+    auto layout = getLayout();
+    if(layout) {
+      renderer.setMatrix(layout->getMatrix());
+    }
+    render(renderer, layout);
   }
 }
 /**

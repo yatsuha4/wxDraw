@@ -1,4 +1,5 @@
 #include "wxdraw/component/ContainerComponent.hpp"
+#include "wxdraw/component/ProxyComponent.hpp"
 #include "wxdraw/gui/MainFrame.hpp"
 #include "wxdraw/gui/Outliner.hpp"
 #include "wxdraw/node/Node.hpp"
@@ -14,6 +15,9 @@ Outliner::Outliner(wxWindow* parent, MainFrame* mainFrame)
     mainFrame_(mainFrame)
 {
   Bind(wxEVT_DATAVIEW_SELECTION_CHANGED, &Outliner::onSelectionChanged, this);
+  Bind(wxEVT_DATAVIEW_ITEM_BEGIN_DRAG, &Outliner::onBeginDrag, this);
+  Bind(wxEVT_DATAVIEW_ITEM_DROP_POSSIBLE, &Outliner::onDropPossible, this);
+  Bind(wxEVT_DATAVIEW_ITEM_DROP, &Outliner::onDrop, this);
 }
 /**
  */
@@ -168,6 +172,41 @@ void Outliner::onSelectNode(const NodePtr& node) {
   if(node != selectNode_) {
     selectNode_ = node;
     mainFrame_->onSelectNode(node);
+  }
+}
+/**
+ */
+void Outliner::onBeginDrag(wxDataViewEvent& event) {
+  dragNode_ = getNode(event.GetItem());
+  if(dragNode_) {
+    event.SetDataObject(dragNode_->toDataObject());
+    event.SetDragFlags(wxDrag_AllowMove);
+  }
+  else {
+    event.Veto();
+  }
+}
+/**
+ */
+void Outliner::onDropPossible(wxDataViewEvent& event) {
+  if(auto node = getNode(event.GetItem())) {
+    if(node->getComponent<ProxyComponent>()) {
+      event.SetDropEffect(wxDragLink);
+      return;
+    }
+  }
+  event.Veto();
+}
+/**
+ */
+void Outliner::onDrop(wxDataViewEvent& event) {
+  if(dragNode_) {
+    if(auto node = getNode(event.GetItem())) {
+      if(auto proxy = node->getComponent<ProxyComponent>()) {
+        proxy->setNode(dragNode_);
+      }
+    }
+    dragNode_ = nullptr;
   }
 }
 /**

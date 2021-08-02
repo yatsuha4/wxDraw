@@ -59,6 +59,11 @@ void Object::onCreate() {
   onCreate(typeid(*this));
 }
 /**
+ */
+wxDataObject* Object::toDataObject() {
+  return new wxTextDataObject(getId());
+}
+/**
    新規に生成されたときの処理
 */
 void Object::onCreate(const std::type_index& type) {

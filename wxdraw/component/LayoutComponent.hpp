@@ -40,8 +40,6 @@ class LayoutComponent
 
   PropertyPtr generateProperty() override;
 
-  void beginRender(Renderer& renderer, const LayoutComponentPtr& layout) override;
-
  protected:
   void onUpdate() override;
 
