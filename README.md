@@ -1,5 +1,6 @@
-# graed
-Tiny graphic editor
+# wxDraw
+
+wxDrawはwxWidgetsを利用したベクター画像エディタです。
 
 # ビルド方法
 
