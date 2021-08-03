@@ -1,5 +1,6 @@
 #include "wxdraw/component/ProxyComponent.hpp"
 #include "wxdraw/node/Node.hpp"
+#include "wxdraw/property/Property.hpp"
 
 namespace wxdraw::component {
 const char* ProxyComponent::TYPE = "Proxy";
@@ -15,6 +16,13 @@ ProxyComponent::ProxyComponent(const NodePtr& node)
 ProxyComponent::ProxyComponent(const ProxyComponent& src, const NodePtr& node)
   : super(src, node)
 {}
+/**
+ */
+PropertyPtr ProxyComponent::generateProperty() {
+  auto property = super::generateProperty();
+  property->appendMember("Node", node_);
+  return property;
+}
 /**
  */
 void ProxyComponent::render(Renderer& renderer, const LayoutComponentPtr& layout) {

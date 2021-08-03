@@ -63,7 +63,10 @@ void Inspector::showProperty(const Property& property) {
         Append(new wxPropertyCategory(m->getName()));
         showProperty(*m->getProperty());
       }
-      else if(!appendMember<WXDRAW_PROPERTY_CLASSES>(member)) {
+      else if(auto prop = appendMember<WXDRAW_PROPERTY_CLASSES>(member)) {
+        SetPropertyReadOnly(prop, member->isReadOnly());
+      }
+      else {
         wxLogFatalError("illegal member");
       }
     }
@@ -105,13 +108,19 @@ void Inspector::onRightClick(wxPropertyGridEvent& event) {
 }
 /**
  */
-void Inspector::appendMember(const Member<Choice>::Ptr& member) {
+wxPGProperty* Inspector::appendMember(const Member<Choice>::Ptr& member) {
   auto& choice = member->getValue();
   wxPGChoices choices;
   for(auto item = choice.getItems(); *item; item++) {
     choices.Add(*item);
   }
-  appendChoices(member, choices, choice.getIndex());
+  return appendChoices(member, choices, choice.getIndex());
+}
+/**
+ */
+wxPGProperty* Inspector::appendMember(const Member<NodePtr>::Ptr& member) {
+  auto node = member->getValue();
+  return append<wxStringProperty>(member, node ? node->getName() : "NULL");
 }
 /**
  */

@@ -7,7 +7,8 @@ namespace wxdraw::property {
 MemberBase::MemberBase(const wxString& name)
   : name_(name), 
     label_(name), 
-    show_(true)
+    show_(true), 
+    readOnly_(false)
 {
 }
 /**

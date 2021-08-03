@@ -7,8 +7,10 @@
 #include "wxdraw/component/PaletteComponent.hpp"
 #include "wxdraw/component/PenComponent.hpp"
 #include "wxdraw/component/ProjectComponent.hpp"
+#include "wxdraw/component/ProxyComponent.hpp"
 #include "wxdraw/component/RectangleComponent.hpp"
 #include "wxdraw/component/TextComponent.hpp"
+#include "wxdraw/component/ViewComponent.hpp"
 #include "wxdraw/file/XmlImporter.hpp"
 #include "wxdraw/node/Node.hpp"
 #include "wxdraw/palette/Brush.hpp"
@@ -44,6 +46,7 @@ NodePtr XmlImporter::load(const NodePtr& parent) {
 NodePtr XmlImporter::generateNode(const wxXmlNode& xml, const NodePtr& parent) {
   auto node = std::make_shared<Node>(xml.GetName().ToStdString(), parent);
   parseProperty(xml, *node->generateProperty());
+  entryNode(node);
   for(auto componentXml = xml.GetChildren();
       componentXml;
       componentXml = componentXml->GetNext()) {
@@ -137,13 +140,15 @@ ComponentBasePtr XmlImporter::GenerateComponent(const NodePtr& node, const wxXml
     PaletteComponent, 
     PenComponent, 
     ProjectComponent, 
+    ProxyComponent, 
     RectangleComponent, 
-    TextComponent
+    TextComponent, 
+    ViewComponent
     >(node, xml);
 }
 /**
  */
-bool XmlImporter::fromString(const wxString& src, int& dst) const {
+bool XmlImporter::fromString(const wxString& src, int& dst) {
   long value;
   if(wxNumberFormatter::FromString(src, &value)) {
     dst = static_cast<int>(value);
@@ -153,12 +158,12 @@ bool XmlImporter::fromString(const wxString& src, int& dst) const {
 }
 /**
  */
-bool XmlImporter::fromString(const wxString& src, double& dst) const {
+bool XmlImporter::fromString(const wxString& src, double& dst) {
   return wxNumberFormatter::FromString(src, &dst);
 }
 /**
  */
-bool XmlImporter::fromString(const wxString& src, bool& dst) const {
+bool XmlImporter::fromString(const wxString& src, bool& dst) {
   int value;
   if(fromString(src, value)) {
     dst = static_cast<bool>(value);
@@ -168,32 +173,68 @@ bool XmlImporter::fromString(const wxString& src, bool& dst) const {
 }
 /**
  */
-bool XmlImporter::fromString(const wxString& src, wxString& dst) const {
+bool XmlImporter::fromString(const wxString& src, wxString& dst) {
   dst = src;
   return true;
 }
 /**
  */
-bool XmlImporter::fromString(const wxString& src, wxColour& dst) const {
+bool XmlImporter::fromString(const wxString& src, wxColour& dst) {
   dst = wxColour(src);
   return true;
 }
 /**
  */
-bool XmlImporter::fromString(const wxString& src, wxFileName& dst) const {
+bool XmlImporter::fromString(const wxString& src, wxFileName& dst) {
   return false;
 }
 /**
  */
-bool XmlImporter::fromString(const wxString& src, wxFont& dst) const {
+bool XmlImporter::fromString(const wxString& src, wxFont& dst) {
   dst = wxFont(src);
   return true;
 }
 /**
  */
-bool XmlImporter::fromString(const wxString& src, Choice& dst) const {
+bool XmlImporter::fromString(const wxString& src, Choice& dst) {
   dst.setItem(src);
   return true;
+}
+/**
+ */
+bool XmlImporter::fromString(const wxString& src, NodePtr& dst) {
+  getNode(src, dst);
+  return true;
+}
+/**
+   ノードを登録する
+   @param node ノード
+ */
+void XmlImporter::entryNode(const NodePtr& node) {
+  wxASSERT(!node->getId().IsEmpty());
+  nodes_[node->getId()] = node;
+  auto lower = nodeRefs_.lower_bound(node->getId());
+  auto upper = nodeRefs_.upper_bound(node->getId());
+  if(lower != upper) {
+    for(auto iter = lower; iter != upper; iter++) {
+      iter->second = node;
+    }
+    nodeRefs_.erase(lower, upper);
+  }
+}
+/**
+   IDからノードを取得する
+   @param id ID
+   @param node 取得先
+*/
+void XmlImporter::getNode(const wxString& id, NodePtr& node) {
+  auto iter = nodes_.find(id);
+  if(iter != nodes_.end()) {
+    node = iter->second;
+  }
+  else {
+    nodeRefs_.emplace(id, node);
+  }
 }
 /**
  */

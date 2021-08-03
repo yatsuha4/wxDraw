@@ -47,93 +47,98 @@ class Inspector
   void showProperty(const Property& property);
 
   template<class T1, class T2, class... Rest>
-  bool appendMember(const MemberBasePtr& member) {
-    return appendMember<T1>(member) || appendMember<T2, Rest...>(member);
+  wxPGProperty* appendMember(const MemberBasePtr& member) {
+    if(auto property = appendMember<T1>(member)) {
+      return property;
+    }
+    return appendMember<T2, Rest...>(member);
   }
 
   template<class T>
-  bool appendMember(const MemberBasePtr& member) {
+  wxPGProperty* appendMember(const MemberBasePtr& member) {
     if(auto m = Member<T>::As(member)) {
-      appendMember(m);
-      return true;
+      return appendMember(m);
     }
-    return false;
+    return nullptr;
   }
 
-  void appendMember(const Member<int>::Ptr& member) {
-    append<wxIntProperty>(member);
+  wxPGProperty* appendMember(const Member<int>::Ptr& member) {
+    return append<wxIntProperty>(member);
   }
 
-  void appendMember(const Member<double>::Ptr& member) {
-    append<wxFloatProperty>(member);
+  wxPGProperty* appendMember(const Member<double>::Ptr& member) {
+    return append<wxFloatProperty>(member);
   }
 
-  void appendMember(const Member<bool>::Ptr& member) {
-    append<wxBoolProperty>(member);
+  wxPGProperty* appendMember(const Member<bool>::Ptr& member) {
+    return append<wxBoolProperty>(member);
   }
 
-  void appendMember(const Member<wxString>::Ptr& member) {
-    append<wxStringProperty>(member);
+  wxPGProperty* appendMember(const Member<wxString>::Ptr& member) {
+    return append<wxStringProperty>(member);
   }
 
-  void appendMember(const Member<wxColour>::Ptr& member) {
-    append<wxColourProperty>(member);
+  wxPGProperty* appendMember(const Member<wxColour>::Ptr& member) {
+    return append<wxColourProperty>(member);
   }
 
-  void appendMember(const Member<wxFileName>::Ptr& member) {
-    append<wxFileProperty>(member, member->getValue().GetFullPath());
+  wxPGProperty* appendMember(const Member<wxFileName>::Ptr& member) {
+    return append<wxFileProperty>(member, member->getValue().GetFullPath());
   }
 
-  void appendMember(const Member<wxFont>::Ptr& member) {
-    append<wxFontProperty>(member);
+  wxPGProperty* appendMember(const Member<wxFont>::Ptr& member) {
+    return append<wxFontProperty>(member);
   }
 
-  void appendMember(const Member<Choice>::Ptr& member);
+  wxPGProperty* appendMember(const Member<Choice>::Ptr& member);
 
-  void appendMember(const Member<PenPtr>::Ptr& member) {
-    appendPaletteChoices(member, createPaletteItemChoices<Pen>());
+  wxPGProperty* appendMember(const Member<PenPtr>::Ptr& member) {
+    return appendPaletteChoices(member, createPaletteItemChoices<Pen>());
   }
 
-  void appendMember(const Member<BrushPtr>::Ptr& member) {
-    appendPaletteChoices(member, createPaletteItemChoices<Brush>());
+  wxPGProperty* appendMember(const Member<BrushPtr>::Ptr& member) {
+    return appendPaletteChoices(member, createPaletteItemChoices<Brush>());
   }
 
-  void appendMember(const Member<ColorPtr>::Ptr& member) {
-    appendPaletteChoices(member, createPaletteItemChoices<Color>());
+  wxPGProperty* appendMember(const Member<ColorPtr>::Ptr& member) {
+    return appendPaletteChoices(member, createPaletteItemChoices<Color>());
   }
 
-  void appendMember(const Member<ColorBasePtr>::Ptr& member) {
-    appendPaletteChoices(member, createColorBaseChoices());
+  wxPGProperty* appendMember(const Member<ColorBasePtr>::Ptr& member) {
+    return appendPaletteChoices(member, createColorBaseChoices());
   }
 
-  void appendMember(const Member<FontPtr>::Ptr& member) {
-    appendPaletteChoices(member, createPaletteItemChoices<Font>());
+  wxPGProperty* appendMember(const Member<FontPtr>::Ptr& member) {
+    return appendPaletteChoices(member, createPaletteItemChoices<Font>());
   }
+
+  wxPGProperty* appendMember(const Member<NodePtr>::Ptr& member);
 
   template<class PropertyType, class T>
-  void append(const std::shared_ptr<Member<T>>& member) {
-    append<PropertyType>(member, member->getValue());
+  wxPGProperty* append(const std::shared_ptr<Member<T>>& member) {
+    return append<PropertyType>(member, member->getValue());
   }
 
   template<class T>
-  void appendPaletteChoices(const std::shared_ptr<Member<T>>& member, 
-                            wxPGChoices choices) {
+  wxPGProperty* appendPaletteChoices(const std::shared_ptr<Member<T>>& member, 
+                                     wxPGChoices choices) {
     auto palette = getPaletteComponent();
-    appendChoices(member, choices, 
-                  palette ? palette->getIndex(member->getValue()) : 0);
+    return appendChoices(member, choices, 
+                         palette ? palette->getIndex(member->getValue()) : 0);
   }
 
   template<class T>
-  void appendChoices(const std::shared_ptr<Member<T>>& member, 
-                     wxPGChoices choices, 
-                     size_t index) {
-    append<wxEnumProperty>(member, choices, static_cast<int>(index));
+  wxPGProperty* appendChoices(const std::shared_ptr<Member<T>>& member, 
+                              wxPGChoices choices, 
+                              size_t index) {
+    return append<wxEnumProperty>(member, choices, static_cast<int>(index));
   }
 
   template<class PropertyType, class... Args>
-  void append(const MemberBasePtr& member, Args&&... args) {
+  wxPGProperty* append(const MemberBasePtr& member, Args&&... args) {
     auto property = new PropertyType(member->getLabel(), member->getUniqueName(), args...);
     append(property, member);
+    return property;
   }
 
   void append(wxPGProperty* property, const MemberBasePtr& member);

@@ -24,6 +24,8 @@ class ProxyComponent
 
   WXDRAW_ACCESSOR(Node, node_);
 
+  PropertyPtr generateProperty() override;
+
   void render(Renderer& renderer, const LayoutComponentPtr& layout) override;
 };
 }
