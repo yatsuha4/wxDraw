@@ -20,7 +20,7 @@ ProxyComponent::ProxyComponent(const ProxyComponent& src, const NodePtr& node)
  */
 PropertyPtr ProxyComponent::generateProperty() {
   auto property = super::generateProperty();
-  property->appendMember("Node", node_);
+  property->appendMember("Node", node_).setReadOnly(true);
   return property;
 }
 /**
