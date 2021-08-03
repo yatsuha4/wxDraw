@@ -25,7 +25,8 @@ TextComponent::TextComponent(const TextComponent& src, const NodePtr& node)
     font_(src.font_), 
     color_(src.color_), 
     text_(src.text_), 
-    alignment_(src.alignment_)
+    alignment_(src.alignment_), 
+    autoSize_(false)
 {
 }
 /**
@@ -45,6 +46,7 @@ PropertyPtr TextComponent::generateProperty() {
   property->appendMember("Color", color_);
   property->appendMember("Text", text_);
   property->appendMember("Alignment", alignment_);
+  property->appendMember("AutoSize", autoSize_);
   return property;
 }
 /**
@@ -58,6 +60,12 @@ void TextComponent::render(Renderer& renderer, const LayoutComponentPtr& layout)
     wxDouble descent = 0.0;
     wxDouble externalLeading = 0.0;
     context.GetTextExtent(text_, &width, &height, &descent, &externalLeading);
+    if(autoSize_) {
+      if(auto layout = getNode()->getLayout()) {
+        layout->getSize().relative = glm::dvec2(0.0, 0.0);
+        layout->getSize().absolute = glm::dvec2(width, height);
+      }
+    }
     auto& rect = layout->getRect();
     auto pos = rect.pos + (rect.size - glm::dvec2(width, height)) * alignment_;
     context.DrawText(text_, pos.x, pos.y);

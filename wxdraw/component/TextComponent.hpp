@@ -19,6 +19,7 @@ class TextComponent
   ColorPtr color_;
   wxString text_;
   glm::dvec2 alignment_;
+  bool autoSize_;
 
  public:
   TextComponent(const NodePtr& node);
