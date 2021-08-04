@@ -21,6 +21,11 @@ Outliner::Outliner(wxWindow* parent, MainFrame* mainFrame)
 }
 /**
  */
+void Outliner::update() {
+  update(wxDataViewItem());
+}
+/**
+ */
 void Outliner::selectNode(const NodePtr& node) {
   ExpandAncestors(node->getItem());
   Select(node->getItem());
@@ -139,18 +144,9 @@ void Outliner::insertNode(const NodePtr& node, const NodePtr& parent, size_t ind
       ? AppendContainer(parentItem, node->getName())
       : AppendItem(parentItem, node->getName());
   }
-  if(node->getContainer()) {
-    SetItemIcon(item, wxArtProvider::GetIcon(wxART_FOLDER));
-    SetItemExpandedIcon(item, wxArtProvider::GetIcon(wxART_FOLDER_OPEN));
-  }
-  else if(node->getComponent<ProxyComponent>()) {
-    SetItemIcon(item, wxArtProvider::GetIcon(wxART_COPY));
-  }
-  else {
-    SetItemIcon(item, wxArtProvider::GetIcon(wxART_NORMAL_FILE));
-  }
   SetItemData(item, new ClientData(node));
   node->setItem(item);
+  updateItem(item);
   if(auto container = node->getContainer()) {
     for(size_t i = 0; i < container->getChildren().size(); i++) {
       insertNode(container->getChildren().at(i), node, i);
@@ -163,6 +159,33 @@ void Outliner::removeNode(const NodePtr& node) {
   wxASSERT(node->getItem().IsOk());
   DeleteItem(node->getItem());
   node->setItem(wxDataViewItem());
+}
+/**
+ */
+void Outliner::update(const wxDataViewItem& item) {
+  updateItem(item);
+  for(int i = 0; i < GetChildCount(item); i++) {
+    update(GetNthChild(item, i));
+  }
+}
+/**
+   項目の表示を更新する
+   @param item 項目
+*/
+void Outliner::updateItem(const wxDataViewItem& item) {
+  if(auto node = getNode(item)) {
+    SetItemText(item, node->getName());
+    if(node->getContainer()) {
+      SetItemIcon(item, wxArtProvider::GetIcon(wxART_FOLDER));
+      SetItemExpandedIcon(item, wxArtProvider::GetIcon(wxART_FOLDER_OPEN));
+    }
+    else if(node->getComponent<ProxyComponent>()) {
+      SetItemIcon(item, wxArtProvider::GetIcon(wxART_COPY));
+    }
+    else {
+      SetItemIcon(item, wxArtProvider::GetIcon(wxART_NORMAL_FILE));
+    }
+  }
 }
 /**
  */

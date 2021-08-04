@@ -24,6 +24,8 @@ class Outliner
   Outliner(wxWindow* parent, MainFrame* mainFrame);
   ~Outliner() override = default;
 
+  void update();
+
   void selectNode(const NodePtr& node);
   WXDRAW_GETTER(SelectNode, selectNode_);
 
@@ -56,6 +58,9 @@ class Outliner
 
   void insertNode(const NodePtr& node, const NodePtr& parent, size_t index);
   void removeNode(const NodePtr& node);
+
+  void update(const wxDataViewItem& item);
+  void updateItem(const wxDataViewItem& item);
 
   void onSelectionChanged(wxDataViewEvent& event);
   void onSelectNode(const NodePtr& node);
