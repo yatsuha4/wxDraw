@@ -117,22 +117,25 @@ void Node::update() {
    描画する
    @param renderer レンダラー
 */
-void Node::render(Renderer& renderer) {
+Error Node::render(Renderer& renderer) {
   if(show_) {
     auto layout = getLayout();
     if(layout) {
       renderer.setMatrix(layout->getMatrix());
     }
-    render(renderer, layout);
+    return render(renderer, layout);
   }
+  return Error();
 }
 /**
    描画する
    @param renderer レンダラー
    @param layout レイアウトコンポーネント
 */
-void Node::render(Renderer& renderer, const LayoutComponentPtr& layout) {
-  wxASSERT(!rendering_);
+Error Node::render(Renderer& renderer, const LayoutComponentPtr& layout) {
+  if(rendering_) {
+    return Error().set(Error::RECURSION_RENDERING);
+  }
   rendering_ = true;
   for(auto& component : components_) {
     component->beginRender(renderer, layout);
@@ -144,6 +147,7 @@ void Node::render(Renderer& renderer, const LayoutComponentPtr& layout) {
     component->endRender(renderer, layout);
   }
   rendering_ = false;
+  return Error();
 }
 /**
  */
@@ -156,23 +160,6 @@ NodePtr Node::Clone(const Node& src, const NodePtr& parent) {
                  return component->clone(dst);
                  });
   return dst;
-}
-/**
-   エラーをセットする
-   @param error エラー
-   @param value エラーの有無
-   @return valueの値
-*/
-bool Node::setError(Error error, bool value) {
-  error_.set(error, value);
-  return value;
-}
-/**
-   エラーが発生しているか調べる
-   @return エラーが発生しているとき真
-*/
-bool Node::isError() const {
-  return error_.any();
 }
 /**
    楕円ノードを新規作成する

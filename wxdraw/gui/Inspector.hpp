@@ -257,6 +257,6 @@ class Inspector
   void updateMember(wxPGProperty* property, const ColorPtr& value) {}
   void updateMember(wxPGProperty* property, const ColorBasePtr& value) {}
   void updateMember(wxPGProperty* property, const FontPtr& value) {}
-  void updateMember(wxPGProperty* property, const NodePtr& value) {}
+  void updateMember(wxPGProperty* property, const NodePtr& value);
 };
 }

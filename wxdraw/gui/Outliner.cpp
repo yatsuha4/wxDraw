@@ -214,7 +214,8 @@ void Outliner::onDrop(wxDataViewEvent& event) {
   if(dragNode_) {
     if(auto node = getNode(event.GetItem())) {
       if(auto proxy = node->getComponent<ProxyComponent>()) {
-        proxy->setNode(dragNode_);
+        mainFrame_->submitCommand
+          <EditCommand<NodePtr>>("Node", proxy->getNode(), dragNode_);
       }
     }
     dragNode_ = nullptr;
@@ -309,7 +310,10 @@ void Outliner::Model::GetValue(wxVariant& value,
     case Column::NAME:
       {
         wxDataViewIconText iconText(node->getName());
-        if(node->getContainer()) {
+        if(node->getError()) {
+          iconText.SetIcon(wxArtProvider::GetIcon(wxART_ERROR));
+        }
+        else if(node->getContainer()) {
           iconText.SetIcon(wxArtProvider::GetIcon(wxART_FOLDER));
           //SetItemExpandedIcon(wxArtProvider::GetIcon(wxART_FOLDER_OPEN));
         }

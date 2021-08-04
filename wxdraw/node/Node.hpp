@@ -1,5 +1,6 @@
 #pragma once
 
+#include "wxdraw/node/Error.hpp"
 #include "wxdraw/object/Object.hpp"
 
 #define WXDRAW_DECLARE_NODE(Type)                       \
@@ -28,18 +29,13 @@ class Node
   WXDRAW_DECLARE_NODE(Text);
   WXDRAW_DECLARE_NODE(View);
 
-  enum Error {
-    RECURSION_RENDERING, 
-    MAX
-  };
-
  private:
   std::weak_ptr<Node> parent_;
   std::vector<ComponentBasePtr> components_;
   bool show_;
   wxString comment_;
   wxDataViewItem item_;
-  std::bitset<Error::MAX> error_;
+  Error error_;
   bool rendering_;
 
  public:
@@ -65,8 +61,8 @@ class Node
   PropertyPtr generateProperty() override;
 
   void update();
-  void render(Renderer& renderer);
-  void render(Renderer& renderer, const LayoutComponentPtr& layout);
+  Error render(Renderer& renderer);
+  Error render(Renderer& renderer, const LayoutComponentPtr& layout);
 
   WXDRAW_ACCESSOR(Item, item_);
 
@@ -111,8 +107,7 @@ class Node
     return nullptr;
   }
 
-  bool setError(Error error, bool value = true);
-  bool isError() const;
+  WXDRAW_ACCESSOR(Error, error_);
 
   WXDRAW_IS_GETTER(Rendering, rendering_);
 

@@ -27,9 +27,9 @@ PropertyPtr ProxyComponent::generateProperty() {
  */
 void ProxyComponent::render(Renderer& renderer, const LayoutComponentPtr& layout) {
   if(node_) {
-    if(!getNode()->setError(Node::Error::RECURSION_RENDERING, node_->isRendering())) {
-      node_->render(renderer, layout);
-    }
+    auto error = node_->render(renderer, layout);
+    super::getNode()->getError().set(Error::RECURSION_RENDERING, 
+                                     error.test(Error::RECURSION_RENDERING));
   }
 }
 }

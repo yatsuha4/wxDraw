@@ -135,6 +135,7 @@ WXDRAW_DECLARE_CLASS(Renderer);
 using namespace gui;
 
 namespace node {
+WXDRAW_DECLARE_CLASS(Error);
 WXDRAW_DECLARE_CLASS(Node);
 }
 using namespace node;

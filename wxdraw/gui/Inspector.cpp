@@ -138,4 +138,9 @@ void Inspector::update(wxPGProperty* property) {
     update(property->Item(i));
   }
 }
+/**
+ */
+void Inspector::updateMember(wxPGProperty* property, const NodePtr& value) {
+  property->SetValue(value ? value->getName() : "-");
+}
 }
