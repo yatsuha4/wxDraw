@@ -1,26 +1,31 @@
 ﻿#pragma once
 
+#define WXDRAW_DECLARE_ERROR(ErrorType)         \
+  class Error::ErrorType                        \
+    : public Error                              \
+  {                                             \
+    using Error::Error;                         \
+  }
+
 namespace wxdraw::node {
 /**
    エラー
 */
-class Error {
+class Error
+  : public std::exception
+{
  public:
-  enum {
-    RECURSION_RENDERING, 
-    MAX
-  };
+  class RecursionRendering;
 
  private:
-  std::bitset<MAX> error_;
+  wxString message_;
 
  public:
-  Error() = default;
+  Error(const wxString& message);
   Error(const Error& src) = default;
-  ~Error() = default;
+  ~Error() override = default;
 
-  operator bool() const;
-  Error& set(int code, bool value = true);
-  bool test(int code) const;
+  const char* what() const noexcept override;
 };
+WXDRAW_DECLARE_ERROR(RecursionRendering);
 }

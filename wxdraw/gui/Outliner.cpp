@@ -310,7 +310,7 @@ void Outliner::Model::GetValue(wxVariant& value,
     case Column::NAME:
       {
         wxDataViewIconText iconText(node->getName());
-        if(node->getError()) {
+        if(!node->getErrors().empty()) {
           iconText.SetIcon(wxArtProvider::GetIcon(wxART_ERROR));
         }
         else if(node->getContainer()) {

@@ -1,4 +1,5 @@
 #include "wxdraw/component/ProxyComponent.hpp"
+#include "wxdraw/node/Error.hpp"
 #include "wxdraw/node/Node.hpp"
 #include "wxdraw/property/Property.hpp"
 
@@ -26,10 +27,14 @@ PropertyPtr ProxyComponent::generateProperty() {
 /**
  */
 void ProxyComponent::render(Renderer& renderer, const LayoutComponentPtr& layout) {
+  super::getNode()->resetError<Error::RecursionRendering>();
   if(node_) {
-    auto error = node_->render(renderer, layout);
-    super::getNode()->getError().set(Error::RECURSION_RENDERING, 
-                                     error.test(Error::RECURSION_RENDERING));
+    try {
+      node_->render(renderer, layout);
+    }
+    catch(Error::RecursionRendering error) {
+      super::getNode()->setError(error);
+    }
   }
 }
 }

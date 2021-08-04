@@ -1,6 +1,5 @@
 #pragma once
 
-#include "wxdraw/node/Error.hpp"
 #include "wxdraw/object/Object.hpp"
 
 #define WXDRAW_DECLARE_NODE(Type)                       \
@@ -35,7 +34,7 @@ class Node
   bool show_;
   wxString comment_;
   wxDataViewItem item_;
-  Error error_;
+  std::map<std::type_index, ErrorPtr> errors_;
   bool rendering_;
 
  public:
@@ -61,8 +60,8 @@ class Node
   PropertyPtr generateProperty() override;
 
   void update();
-  Error render(Renderer& renderer);
-  Error render(Renderer& renderer, const LayoutComponentPtr& layout);
+  void render(Renderer& renderer);
+  void render(Renderer& renderer, const LayoutComponentPtr& layout);
 
   WXDRAW_ACCESSOR(Item, item_);
 
@@ -107,7 +106,17 @@ class Node
     return nullptr;
   }
 
-  WXDRAW_ACCESSOR(Error, error_);
+  WXDRAW_GETTER(Errors, errors_);
+
+  template<class T>
+  void setError(const T& error) {
+    errors_[typeid(T)] = std::make_shared<T>(error);
+  }
+
+  template<class T>
+  void resetError() {
+    errors_.erase(typeid(T));
+  }
 
   WXDRAW_IS_GETTER(Rendering, rendering_);
 

@@ -3,18 +3,12 @@
 namespace wxdraw::node {
 /**
  */
-Error::operator bool() const {
-  return error_.any();
-}
+Error::Error(const wxString& message)
+  : message_(message)
+{}
 /**
  */
-Error& Error::set(int code, bool value) {
-  error_.set(code, value);
-  return *this;
-}
-/**
- */
-bool Error::test(int code) const {
-  return error_.test(code);
+const char* Error::what() const noexcept {
+  return message_.c_str();
 }
 }

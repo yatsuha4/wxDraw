@@ -13,6 +13,7 @@
 #include "wxdraw/component/TextComponent.hpp"
 #include "wxdraw/component/ViewComponent.hpp"
 #include "wxdraw/gui/Renderer.hpp"
+#include "wxdraw/node/Error.hpp"
 #include "wxdraw/node/Node.hpp"
 #include "wxdraw/property/Property.hpp"
 #include "wxdraw/property/PropertyMember.hpp"
@@ -117,24 +118,23 @@ void Node::update() {
    描画する
    @param renderer レンダラー
 */
-Error Node::render(Renderer& renderer) {
+void Node::render(Renderer& renderer) {
   if(show_) {
     auto layout = getLayout();
     if(layout) {
       renderer.setMatrix(layout->getMatrix());
     }
-    return render(renderer, layout);
+    render(renderer, layout);
   }
-  return Error();
 }
 /**
    描画する
    @param renderer レンダラー
    @param layout レイアウトコンポーネント
 */
-Error Node::render(Renderer& renderer, const LayoutComponentPtr& layout) {
+void Node::render(Renderer& renderer, const LayoutComponentPtr& layout) {
   if(rendering_) {
-    return Error().set(Error::RECURSION_RENDERING);
+    throw Error::RecursionRendering("recursion rendering");
   }
   rendering_ = true;
   for(auto& component : components_) {
@@ -147,7 +147,6 @@ Error Node::render(Renderer& renderer, const LayoutComponentPtr& layout) {
     component->endRender(renderer, layout);
   }
   rendering_ = false;
-  return Error();
 }
 /**
  */
