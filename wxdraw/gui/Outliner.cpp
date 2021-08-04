@@ -30,6 +30,7 @@ Outliner::Outliner(wxWindow* parent, MainFrame* mainFrame)
 /**
  */
 void Outliner::update() {
+  Refresh();
 }
 /**
  */

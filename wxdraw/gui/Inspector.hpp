@@ -221,5 +221,42 @@ class Inspector
     }
     return false;
   }
+
+  void update(wxPGProperty* property);
+
+  template<class T1, class T2, class... Rest>
+  bool update(wxPGProperty* property, const MemberBasePtr& member) {
+    return update<T1>(property, member) ||
+      update<T2, Rest...>(property, member);
+  }
+
+  template<class T>
+  bool update(wxPGProperty* property, const MemberBasePtr& member) {
+    if(auto m = Member<T>::As(member)) {
+      updateMember(property, m->getValue());
+      return true;
+    }
+    return false;
+  }
+
+  template<class T>
+  void updateMember(wxPGProperty* property, const T& value) {
+    property->SetValue(value);
+  }
+
+  void updateMember(wxPGProperty* property, const wxColour& value) {}
+
+  void updateMember(wxPGProperty* property, const wxFileName& value) {
+    property->SetValue(value.GetFullPath());
+  }
+
+  void updateMember(wxPGProperty* property, const wxFont& value) {}
+  void updateMember(wxPGProperty* property, const Choice& value) {}
+  void updateMember(wxPGProperty* property, const PenPtr& value) {}
+  void updateMember(wxPGProperty* property, const BrushPtr& value) {}
+  void updateMember(wxPGProperty* property, const ColorPtr& value) {}
+  void updateMember(wxPGProperty* property, const ColorBasePtr& value) {}
+  void updateMember(wxPGProperty* property, const FontPtr& value) {}
+  void updateMember(wxPGProperty* property, const NodePtr& value) {}
 };
 }

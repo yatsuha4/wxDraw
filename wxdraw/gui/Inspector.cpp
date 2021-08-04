@@ -33,7 +33,7 @@ void Inspector::show(PropertyPtr property) {
 /**
  */
 void Inspector::update() {
-  //show(property_);
+  update(GetRoot());
 }
 /**
  */
@@ -127,5 +127,15 @@ wxPGProperty* Inspector::appendMember(const Member<NodePtr>::Ptr& member) {
 bool Inspector::getValue(const wxPropertyGridEvent& event, Choice& choice) const {
   choice.setIndex(event.GetValue().GetLong());
   return true;
+}
+/**
+ */
+void Inspector::update(wxPGProperty* property) {
+  if(auto data = static_cast<ClientData*>(property->GetClientObject())) {
+    update<WXDRAW_PROPERTY_CLASSES>(property, data->getMember());
+  }
+  for(auto i = 0; i < property->GetChildCount(); i++) {
+    update(property->Item(i));
+  }
 }
 }
