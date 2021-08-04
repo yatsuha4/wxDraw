@@ -1,3 +1,4 @@
+#include "wxdraw/command/EditCommand.hpp"
 #include "wxdraw/component/ContainerComponent.hpp"
 #include "wxdraw/component/ProxyComponent.hpp"
 #include "wxdraw/gui/MainFrame.hpp"
@@ -11,18 +12,24 @@ namespace wxdraw::gui {
    @param mainFrame メインフレーム
 */
 Outliner::Outliner(wxWindow* parent, MainFrame* mainFrame)
-  : super(parent, wxID_ANY), 
-    mainFrame_(mainFrame)
+  : super(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxDV_ROW_LINES), 
+    mainFrame_(mainFrame), 
+    model_(new Model(this))
 {
+  AssociateModel(model_.get());
+  AppendToggleColumn("Show", Column::SHOW, wxDATAVIEW_CELL_EDITABLE, 40, wxALIGN_CENTER, 0);
+  auto column = AppendIconTextColumn("Name", Column::NAME, wxDATAVIEW_CELL_EDITABLE, -1, 
+                                     wxALIGN_LEFT, wxDATAVIEW_COL_RESIZABLE);
+  SetExpanderColumn(column);
   Bind(wxEVT_DATAVIEW_SELECTION_CHANGED, &Outliner::onSelectionChanged, this);
   Bind(wxEVT_DATAVIEW_ITEM_BEGIN_DRAG, &Outliner::onBeginDrag, this);
   Bind(wxEVT_DATAVIEW_ITEM_DROP_POSSIBLE, &Outliner::onDropPossible, this);
   Bind(wxEVT_DATAVIEW_ITEM_DROP, &Outliner::onDrop, this);
+  Bind(wxEVT_DATAVIEW_ITEM_VALUE_CHANGED, &Outliner::onValueChanged, this);
 }
 /**
  */
 void Outliner::update() {
-  update(wxDataViewItem());
 }
 /**
  */
@@ -126,66 +133,43 @@ void Outliner::insertNode(const NodePtr& node, const NodePtr& parent, size_t ind
   wxASSERT(!node->getItem().IsOk());
   //wxASSERT(parent->getItem().IsOk());
   //wxASSERT(index <= parent->getChildren().size());
+  model_->insert(node, parent, index);
+  /*
   auto parentItem = parent ? parent->getItem() : wxDataViewItem();
   wxDataViewItem item;
   if(index == 0) {
     item = node->getContainer()
-      ? PrependContainer(parentItem, node->getName())
-      : PrependItem(parentItem, node->getName());
+      ? model_->PrependContainer(parentItem, node->getName())
+      : model_->PrependItem(parentItem, node->getName());
   }
-  else if(index < GetChildCount(parentItem)) {
-    auto prev = GetNthChild(parentItem, static_cast<unsigned int>(index));
+  else if(index < model_->GetChildCount(parentItem)) {
+    auto prev = model_->GetNthChild(parentItem, static_cast<unsigned int>(index));
     item = node->getContainer()
-      ? InsertContainer(parentItem, prev, node->getName())
-      : InsertItem(parentItem, prev, node->getName());
+      ? model_->InsertContainer(parentItem, prev, node->getName())
+      : model_->InsertItem(parentItem, prev, node->getName());
   }
   else {
     item = node->getContainer()
-      ? AppendContainer(parentItem, node->getName())
-      : AppendItem(parentItem, node->getName());
+      ? model_->AppendContainer(parentItem, node->getName())
+      : model_->AppendItem(parentItem, node->getName());
   }
-  SetItemData(item, new ClientData(node));
+  model_->SetItemData(item, new ClientData(node));
+  model_->ItemAdded(parentItem, item);
   node->setItem(item);
-  updateItem(item);
+  model_->updateItem(item);
   if(auto container = node->getContainer()) {
     for(size_t i = 0; i < container->getChildren().size(); i++) {
       insertNode(container->getChildren().at(i), node, i);
     }
   }
+  */
 }
 /**
  */
 void Outliner::removeNode(const NodePtr& node) {
   wxASSERT(node->getItem().IsOk());
-  DeleteItem(node->getItem());
+  //model_->DeleteItem(node->getItem());
   node->setItem(wxDataViewItem());
-}
-/**
- */
-void Outliner::update(const wxDataViewItem& item) {
-  updateItem(item);
-  for(int i = 0; i < GetChildCount(item); i++) {
-    update(GetNthChild(item, i));
-  }
-}
-/**
-   項目の表示を更新する
-   @param item 項目
-*/
-void Outliner::updateItem(const wxDataViewItem& item) {
-  if(auto node = getNode(item)) {
-    SetItemText(item, node->getName());
-    if(node->getContainer()) {
-      SetItemIcon(item, wxArtProvider::GetIcon(wxART_FOLDER));
-      SetItemExpandedIcon(item, wxArtProvider::GetIcon(wxART_FOLDER_OPEN));
-    }
-    else if(node->getComponent<ProxyComponent>()) {
-      SetItemIcon(item, wxArtProvider::GetIcon(wxART_COPY));
-    }
-    else {
-      SetItemIcon(item, wxArtProvider::GetIcon(wxART_NORMAL_FILE));
-    }
-  }
 }
 /**
  */
@@ -237,18 +221,181 @@ void Outliner::onDrop(wxDataViewEvent& event) {
 }
 /**
  */
+void Outliner::onValueChanged(wxDataViewEvent& event) {
+}
+/**
+ */
 NodePtr Outliner::getNode(const wxDataViewItem& item) const {
-  if(item.IsOk()) {
-    if(auto data = static_cast<ClientData*>(GetItemData(item))) {
-      return data->getNode();
-    }
-  }
-  return nullptr;
+  return model_->getNode(item);
 }
 /**
  */
 Outliner::ClientData::ClientData(const NodePtr& node)
   : node_(node)
 {
+}
+/**
+   コンストラクタ
+   @param outliner アウトライナ
+*/
+Outliner::Model::Model(Outliner* outliner)
+  : outliner_(outliner)
+{}
+/**
+ */
+void Outliner::Model::insert(const NodePtr& node, const NodePtr& parent, size_t index) {
+  if(parent) {
+    ItemAdded(GetItem(parent), GetItem(node));
+  }
+  else {
+    Cleared();
+    root_ = node;
+    ItemAdded(wxDataViewItem(), GetItem(node));
+  }
+}
+/**
+ */
+unsigned int Outliner::Model::GetColumnCount() const {
+  return Column::MAX;
+}
+/**
+ */
+wxString Outliner::Model::GetColumnType(unsigned int column) const {
+  switch(column) {
+  case Column::NAME:
+    return _("Name");
+  case Column::SHOW:
+    return _("Show");
+  default:
+    break;
+  }
+  return wxEmptyString;
+}
+/**
+ */
+bool Outliner::Model::SetValue(const wxVariant& value, 
+                               const wxDataViewItem& item, 
+                               unsigned int column) {
+  if(auto node = getNode(item)) {
+    switch(column) {
+    case Column::SHOW:
+      {
+        outliner_->getMainFrame()->submitCommand
+          <EditCommand<bool>>(_("Show"), node->getShow(), value.GetBool());
+      }
+      return true;
+    case Column::NAME:
+      {
+        wxDataViewIconText iconText;
+        iconText << value;
+        outliner_->getMainFrame()->submitCommand
+          <EditCommand<wxString>>(_("Name"), node->getName(), iconText.GetText());
+      }
+      return true;
+    default:
+      break;
+    }
+  }
+  return false;
+}
+/**
+ */
+void Outliner::Model::GetValue(wxVariant& value, 
+                               const wxDataViewItem& item, 
+                               unsigned int column) const {
+  if(auto node = getNode(item)) {
+    switch(column) {
+    case Column::NAME:
+      {
+        wxDataViewIconText iconText(node->getName());
+        if(node->getContainer()) {
+          iconText.SetIcon(wxArtProvider::GetIcon(wxART_FOLDER));
+          //SetItemExpandedIcon(wxArtProvider::GetIcon(wxART_FOLDER_OPEN));
+        }
+        else if(node->getComponent<ProxyComponent>()) {
+          iconText.SetIcon(wxArtProvider::GetIcon(wxART_COPY));
+        }
+        else {
+          iconText.SetIcon(wxArtProvider::GetIcon(wxART_NORMAL_FILE));
+        }
+        value << iconText;
+      }
+      break;
+    case Column::SHOW:
+      value = node->isShow();
+      break;
+    default:
+      break;
+    }
+  }
+}
+/**
+ */
+wxDataViewItem Outliner::Model::GetParent(const wxDataViewItem& item) const {
+  if(auto node = getNode(item)) {
+    return GetItem(node->getParent());
+  }
+  return wxDataViewItem();
+}
+/**
+ */
+bool Outliner::Model::IsContainer(const wxDataViewItem& item) const {
+  if(auto node = getNode(item)) {
+    return node->getContainer() != nullptr;
+  }
+  return false;
+}
+/**
+ */
+unsigned int Outliner::Model::GetChildren(const wxDataViewItem& item, 
+                                          wxDataViewItemArray& children) const {
+  if(auto node = getNode(item)) {
+    if(auto container = node->getContainer()) {
+      for(auto child : container->getChildren()) {
+        children.Add(GetItem(child));
+      }
+      return static_cast<unsigned int>(container->getChildren().size());
+    }
+  }
+  else if(root_) {
+    children.Add(GetItem(root_));
+    return 1;
+  }
+  return 0;
+}
+/**
+   項目の表示を更新する
+   @param item 項目
+*/
+void Outliner::Model::updateItem(const wxDataViewItem& item) {
+  /*
+  if(auto node = getNode(item)) {
+    SetItemText(item, node->getName());
+    if(node->getContainer()) {
+      SetItemIcon(item, wxArtProvider::GetIcon(wxART_FOLDER));
+      SetItemExpandedIcon(item, wxArtProvider::GetIcon(wxART_FOLDER_OPEN));
+    }
+    else if(node->getComponent<ProxyComponent>()) {
+      SetItemIcon(item, wxArtProvider::GetIcon(wxART_COPY));
+    }
+    else {
+      SetItemIcon(item, wxArtProvider::GetIcon(wxART_NORMAL_FILE));
+    }
+    //ValueChanged(item, 0);
+  }
+  */
+}
+/**
+ */
+NodePtr Outliner::Model::getNode(const wxDataViewItem& item) const {
+  if(item.IsOk()) {
+    return std::static_pointer_cast<Node>(static_cast<Node*>(item.GetID())->shared_from_this());
+  }
+  return nullptr;
+}
+/**
+ */
+wxDataViewItem Outliner::Model::GetItem(const NodePtr& node) {
+  return wxDataViewItem(node.get());
 }
 }

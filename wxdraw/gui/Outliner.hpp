@@ -7,22 +7,32 @@ namespace wxdraw::gui {
    アウトライナ
 */
 class Outliner
-  : public wxDataViewTreeCtrl, 
+  : public wxDataViewCtrl, 
     public InsertNodeCommand::Observer
 {
-  using super = wxDataViewTreeCtrl;
+  using super = wxDataViewCtrl;
 
  public:
   class ClientData;
+  class Model;
+
+  enum Column {
+    SHOW, 
+    NAME, 
+    MAX
+  };
 
  private:
   MainFrame* mainFrame_;
+  wxObjectDataPtr<Model> model_;
   NodePtr selectNode_;
   NodePtr dragNode_;
 
  public:
   Outliner(wxWindow* parent, MainFrame* mainFrame);
   ~Outliner() override = default;
+
+  WXDRAW_GETTER(MainFrame, mainFrame_);
 
   void update();
 
@@ -59,7 +69,6 @@ class Outliner
   void insertNode(const NodePtr& node, const NodePtr& parent, size_t index);
   void removeNode(const NodePtr& node);
 
-  void update(const wxDataViewItem& item);
   void updateItem(const wxDataViewItem& item);
 
   void onSelectionChanged(wxDataViewEvent& event);
@@ -67,6 +76,7 @@ class Outliner
   void onBeginDrag(wxDataViewEvent& event);
   void onDropPossible(wxDataViewEvent& event);
   void onDrop(wxDataViewEvent& event);
+  void onValueChanged(wxDataViewEvent& event);
 
   NodePtr getNode(const wxDataViewItem& item) const;
 
@@ -88,5 +98,48 @@ class Outliner::ClientData
   ~ClientData() override = default;
 
   WXDRAW_GETTER(Node, node_);
+};
+/**
+ */
+class Outliner::Model
+  : public wxDataViewModel
+{
+  using super = wxDataViewModel;
+
+ private:
+  Outliner* outliner_;
+  NodePtr root_;
+
+ public:
+  Model(Outliner* outliner);
+  ~Model() override = default;
+
+  void insert(const NodePtr& node, const NodePtr& parent, size_t index);
+  void updateItem(const wxDataViewItem& item);
+  NodePtr getNode(const wxDataViewItem& item) const;
+
+ protected:
+  unsigned int GetColumnCount() const override;
+  wxString GetColumnType(unsigned int column) const override;
+
+  bool SetValue(const wxVariant& value, 
+                const wxDataViewItem& item, 
+                unsigned int column) override;
+
+  void GetValue(wxVariant& value, 
+                const wxDataViewItem& item, 
+                unsigned int column) const override;
+
+  wxDataViewItem GetParent(const wxDataViewItem& item) const override;
+  bool IsContainer(const wxDataViewItem& item) const override;
+  unsigned int GetChildren(const wxDataViewItem& item, 
+                           wxDataViewItemArray& children) const override;
+
+  bool HasContainerColumns(const wxDataViewItem& item) const override {
+    return true;
+  }
+
+ private:
+  static wxDataViewItem GetItem(const NodePtr& node);
 };
 }

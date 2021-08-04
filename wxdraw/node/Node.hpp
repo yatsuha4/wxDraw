@@ -47,6 +47,8 @@ class Node
   Node(const Node& src, const NodePtr& parent);
   ~Node();
 
+  WXDRAW_IS_ACCESSOR(Show, show_);
+
   WXDRAW_GETTER(Components, components_);
   LayoutComponentPtr getLayout() const;
   ContainerComponentPtr getContainer() const;
