@@ -1,6 +1,7 @@
 #include "wxdraw/command/EditCommand.hpp"
 #include "wxdraw/component/ContainerComponent.hpp"
 #include "wxdraw/component/ProxyComponent.hpp"
+#include "wxdraw/component/ViewComponent.hpp"
 #include "wxdraw/gui/MainFrame.hpp"
 #include "wxdraw/gui/Outliner.hpp"
 #include "wxdraw/node/Node.hpp"
@@ -182,6 +183,12 @@ void Outliner::onSelectionChanged(wxDataViewEvent& event) {
 void Outliner::onSelectNode(const NodePtr& node) {
   if(node != selectNode_) {
     selectNode_ = node;
+    if(auto view = Node::GetParentComponent<ViewComponent>(node)) {
+      viewNode_ = view->getNode();
+    }
+    else {
+      viewNode_ = nullptr;
+    }
     mainFrame_->onSelectNode(node);
   }
 }
@@ -333,6 +340,30 @@ void Outliner::Model::GetValue(wxVariant& value,
       break;
     }
   }
+}
+/**
+ */
+bool Outliner::Model::GetAttr(const wxDataViewItem& item, 
+                              unsigned int column, 
+                              wxDataViewItemAttr& attr) const {
+  bool result = false;
+  switch(column) {
+  case Column::NAME:
+    if(auto node = getNode(item)) {
+      if(!node->getErrors().empty()) {
+        attr.SetColour(*wxRED);
+        result = true;
+      }
+      if(node == outliner_->getViewNode()) {
+        attr.SetBold(true);
+        result = true;
+      }
+    }
+    break;
+  default:
+    break;
+  }
+  return result;
 }
 /**
  */

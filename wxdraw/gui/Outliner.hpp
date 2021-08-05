@@ -26,6 +26,7 @@ class Outliner
   MainFrame* mainFrame_;
   wxObjectDataPtr<Model> model_;
   NodePtr selectNode_;
+  NodePtr viewNode_;
   NodePtr dragNode_;
 
  public:
@@ -38,6 +39,7 @@ class Outliner
 
   void selectNode(const NodePtr& node);
   WXDRAW_GETTER(SelectNode, selectNode_);
+  WXDRAW_GETTER(ViewNode, viewNode_);
 
   bool canCreateNode() const;
 
@@ -129,6 +131,10 @@ class Outliner::Model
   void GetValue(wxVariant& value, 
                 const wxDataViewItem& item, 
                 unsigned int column) const override;
+
+  bool GetAttr(const wxDataViewItem& item, 
+               unsigned int column, 
+               wxDataViewItemAttr& attr) const override;
 
   wxDataViewItem GetParent(const wxDataViewItem& item) const override;
   bool IsContainer(const wxDataViewItem& item) const override;
