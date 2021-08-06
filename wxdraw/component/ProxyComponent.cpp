@@ -1,3 +1,4 @@
+#include "wxdraw/component/LayoutComponent.hpp"
 #include "wxdraw/component/ProxyComponent.hpp"
 #include "wxdraw/node/Error.hpp"
 #include "wxdraw/node/Node.hpp"
@@ -31,11 +32,24 @@ void ProxyComponent::update() {
   super::update();
   if(node_) {
     node_->update();
-    switch(fit_.getIndex()) {
-    case Choice::Fit::EXPAND:
-      break;
-    default:
-      break;
+    const auto& srcSize = node_->getLayout()->getRect().size;
+    auto layout = super::getNode()->getLayout();
+    const auto& dstSize = layout->getRect().size;
+    if(glm::all(glm::greaterThan(srcSize, glm::dvec2(0.0))) &&
+       glm::all(glm::greaterThan(dstSize, glm::dvec2(0.0)))) {
+      auto scale = dstSize / srcSize;
+      switch(fit_.getIndex()) {
+      case Choice::Fit::EXPAND:
+        layout->setScale(glm::dvec2(glm::min(scale.x, scale.y)));
+        layout->update();
+        break;
+      case Choice::Fit::SHRINK:
+        layout->setScale(glm::dvec2(glm::max(scale.x, scale.y)));
+        layout->update();
+        break;
+      default:
+        break;
+      }
     }
   }
 }
