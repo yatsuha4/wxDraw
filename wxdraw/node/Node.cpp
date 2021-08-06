@@ -109,13 +109,7 @@ void Node::update() {
   wxRecursionGuard recursionGuard(updating_);
   if(!recursionGuard.IsInside()) {
     for(auto& component : components_) {
-      component->beginUpdate();
-    }
-    for(auto& component : components_) {
       component->update();
-    }
-    for(auto& component : components_) {
-      component->endUpdate();
     }
   }
 }

@@ -51,7 +51,8 @@ PropertyPtr LayoutComponent::generateProperty() {
 }
 /**
  */
-void LayoutComponent::onUpdate() {
+void LayoutComponent::update() {
+  super::update();
   glm::dmat3 m(1.0);
   if(auto parent = getParent()) {
     auto& rect = parent->getRect();

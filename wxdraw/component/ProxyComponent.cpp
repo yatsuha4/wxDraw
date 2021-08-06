@@ -27,8 +27,8 @@ PropertyPtr ProxyComponent::generateProperty() {
 }
 /**
  */
-void ProxyComponent::onUpdate() {
-  super::onUpdate();
+void ProxyComponent::update() {
+  super::update();
   if(node_) {
     node_->update();
     switch(fit_.getIndex()) {

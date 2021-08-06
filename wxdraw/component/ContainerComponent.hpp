@@ -24,9 +24,7 @@ class ContainerComponent
 
   WXDRAW_ACCESSOR(Children, children_);
 
+  void update() override;
   void render(Renderer& renderer, const LayoutComponentPtr& layout) override;
-
- protected:
-  void onUpdate() override;
 };
 }

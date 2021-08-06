@@ -33,19 +33,12 @@ class ComponentBase
   NodePtr getNode();
   WXDRAW_GETTER(Priority, priority_);
 
-  void beginUpdate();
-  void update();
-  void endUpdate();
+  virtual void update() {}
 
   virtual void beginRender(Renderer& renderer, const LayoutComponentPtr& layout) {}
   virtual void render(Renderer& renderer, const LayoutComponentPtr& layout) {}
   virtual void endRender(Renderer& renderer, const LayoutComponentPtr& layout) {}
 
   virtual ComponentBasePtr clone(const NodePtr& node) const = 0;
-
- protected:
-  virtual void onBeginUpdate() {}
-  virtual void onUpdate() {}
-  virtual void onEndUpdate() {}
 };
 }

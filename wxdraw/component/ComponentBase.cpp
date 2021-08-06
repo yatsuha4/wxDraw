@@ -38,22 +38,4 @@ ComponentBase::~ComponentBase() {
 NodePtr ComponentBase::getNode() {
   return node_.lock();
 }
-/**
-   更新を開始する
-*/
-void ComponentBase::beginUpdate() {
-  onBeginUpdate();
-}
-/**
-   更新する
-*/
-void ComponentBase::update() {
-  onUpdate();
-}
-/**
-   更新を終了する
-*/
-void ComponentBase::endUpdate() {
-  onEndUpdate();
-}
 }

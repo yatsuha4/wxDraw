@@ -40,8 +40,7 @@ class LayoutComponent
 
   PropertyPtr generateProperty() override;
 
- protected:
-  void onUpdate() override;
+  void update() override;
 
  private:
   LayoutComponentPtr getParent();
