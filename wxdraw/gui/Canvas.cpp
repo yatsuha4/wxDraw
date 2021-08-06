@@ -111,28 +111,13 @@ void Canvas::onMouseWheel(wxMouseEvent& event) {
    @param node 選択中のノード
 */
 void Canvas::drawCursor(Renderer& renderer, const NodePtr& node) {
-  /*
-  if(auto layout = node->getLayout()) {
-    auto& context = renderer.getContext();
-    context.SetTransform(context.CreateMatrix());
-    context.SetPen(context.CreatePen(wxGraphicsPenInfo(*wxRED, 0.5)));
-
-    auto m = viewMatrix_ * layout->getMatrix();
-    auto& rect = layout->getRect();
-    glm::dvec2 p[4];
-    for(int i = 0; i < 4; i++) {
-      p[i] = m * glm::dvec3(rect.pos.x + rect.size.x * (i & 1), 
-                            rect.pos.y + rect.size.y * (i / 2), 1.0);
-    }
-    auto path = context.CreatePath();
-    path.MoveToPoint(p[0].x, p[0].y);
-    path.AddLineToPoint(p[1].x, p[1].y);
-    path.AddLineToPoint(p[3].x, p[3].y);
-    path.AddLineToPoint(p[2].x, p[2].y);
-    path.AddLineToPoint(p[0].x, p[0].y);
-    context.StrokePath(path);
-  }
-  */
+  auto& context = renderer.getContext();
+  auto transform = getTransform(node);
+  renderer.setMatrix(transform.matrix);
+  context.SetPen(context.CreatePen(wxGraphicsPenInfo(*wxRED, 0.5)));
+  context.SetBrush(wxNullBrush);
+  auto& rect = transform.rect;
+  context.DrawRectangle(rect.pos.x, rect.pos.y, rect.size.x, rect.size.y);
 }
 /**
  */
@@ -151,5 +136,13 @@ NodePtr Canvas::getNode(const NodePtr& node,
   }
   auto p = glm::inverse(transform.matrix) * glm::dvec3(pos, 1.0);
   return transform.rect.isContain(p) ? node : nullptr;
+}
+/**
+ */
+Transform Canvas::getTransform(const NodePtr& node) const {
+  auto parent = node->getParent();
+  return node->getLayout()->apply((node == viewNode_ || !parent)
+                                  ? viewTransform_
+                                  : getTransform(parent));
 }
 }

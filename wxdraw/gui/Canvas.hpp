@@ -41,5 +41,6 @@ class Canvas
   NodePtr getNode(const NodePtr& node, 
                   const Transform& parent, 
                   const glm::dvec2& pos) const;
+  Transform getTransform(const NodePtr& node) const;
 };
 }
