@@ -35,7 +35,8 @@ class Node
   wxString comment_;
   wxDataViewItem item_;
   std::map<std::type_index, ErrorPtr> errors_;
-  bool rendering_;
+  wxRecursionGuardFlag updating_;
+  wxRecursionGuardFlag rendering_;
 
  public:
   Node(const wxString& type, const NodePtr& parent);

@@ -6,6 +6,7 @@ namespace wxdraw::property {
 class Choice {
  public:
   class Composition;
+  class Fit;
   class GradientType;
   class PenCap;
   class PenJoin;
@@ -40,6 +41,26 @@ class Choice::Composition
   Composition() : Choice(ITEMS) {}
   Composition(const Composition& src) = default;
   ~Composition() override = default;
+};
+/**
+ */
+class Choice::Fit
+  : public Choice
+{
+ public:
+  enum {
+    NONE, 
+    EXPAND, 
+    SHRINK
+  };
+
+ private:
+  static const char* ITEMS[];
+
+ public:
+  Fit() : Choice(ITEMS) {}
+  Fit(const Fit& src) = default;
+  ~Fit() override = default;
 };
 /**
  */

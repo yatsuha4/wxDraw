@@ -22,7 +22,22 @@ ProxyComponent::ProxyComponent(const ProxyComponent& src, const NodePtr& node)
 PropertyPtr ProxyComponent::generateProperty() {
   auto property = super::generateProperty();
   property->appendMember("Node", node_).setReadOnly(true);
+  property->appendChoice("Fit", fit_);
   return property;
+}
+/**
+ */
+void ProxyComponent::onUpdate() {
+  super::onUpdate();
+  if(node_) {
+    node_->update();
+    switch(fit_.getIndex()) {
+    case Choice::Fit::EXPAND:
+      break;
+    default:
+      break;
+    }
+  }
 }
 /**
  */

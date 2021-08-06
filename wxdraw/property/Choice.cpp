@@ -17,6 +17,11 @@ const char* Choice::Composition::ITEMS[] = {
   "Add", 
   nullptr
 };
+const char* Choice::Fit::ITEMS[] = {
+  "None", 
+  "Expand", 
+  "Shrink"
+};
 const char* Choice::GradientType::ITEMS[] = {
   "Linear", 
   "Radial", 

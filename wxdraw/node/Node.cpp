@@ -27,7 +27,8 @@ Node::Node(const wxString& type, const NodePtr& parent)
   : super(type), 
     parent_(parent), 
     show_(true), 
-    rendering_(false)
+    updating_(0), 
+    rendering_(0)
 {
 }
 /**
@@ -38,7 +39,8 @@ Node::Node(const Node& src, const NodePtr& parent)
     parent_(parent), 
     show_(src.show_), 
     comment_(src.comment_), 
-    rendering_(false)
+    updating_(0), 
+    rendering_(0)
 {
 }
 /**
@@ -104,14 +106,17 @@ PropertyPtr Node::generateProperty() {
    更新
 */
 void Node::update() {
-  for(auto& component : components_) {
-    component->beginUpdate();
-  }
-  for(auto& component : components_) {
-    component->update();
-  }
-  for(auto& component : components_) {
-    component->endUpdate();
+  wxRecursionGuard recursionGuard(updating_);
+  if(!recursionGuard.IsInside()) {
+    for(auto& component : components_) {
+      component->beginUpdate();
+    }
+    for(auto& component : components_) {
+      component->update();
+    }
+    for(auto& component : components_) {
+      component->endUpdate();
+    }
   }
 }
 /**
@@ -133,10 +138,10 @@ void Node::render(Renderer& renderer) {
    @param layout レイアウトコンポーネント
 */
 void Node::render(Renderer& renderer, const LayoutComponentPtr& layout) {
-  if(rendering_) {
+  wxRecursionGuard recursionGuard(rendering_);
+  if(recursionGuard.IsInside()) {
     throw Error::RecursionRendering("recursion rendering");
   }
-  rendering_ = true;
   for(auto& component : components_) {
     component->beginRender(renderer, layout);
   }
@@ -146,7 +151,6 @@ void Node::render(Renderer& renderer, const LayoutComponentPtr& layout) {
   for(auto& component : components_) {
     component->endRender(renderer, layout);
   }
-  rendering_ = false;
 }
 /**
  */

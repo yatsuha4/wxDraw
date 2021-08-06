@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "wxdraw/component/Component.hpp"
+#include "wxdraw/property/Choice.hpp"
 
 namespace wxdraw::component {
 /**
@@ -16,6 +17,7 @@ class ProxyComponent
 
  private:
   NodePtr node_;
+  Choice::Fit fit_;
 
  public:
   ProxyComponent(const NodePtr& node);
@@ -26,6 +28,7 @@ class ProxyComponent
 
   PropertyPtr generateProperty() override;
 
+  void onUpdate() override;
   void render(Renderer& renderer, const LayoutComponentPtr& layout) override;
 };
 }
