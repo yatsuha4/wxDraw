@@ -1,5 +1,6 @@
 #include "wxdraw/component/LayoutComponent.hpp"
 #include "wxdraw/component/ProxyComponent.hpp"
+#include "wxdraw/container/Transform.hpp"
 #include "wxdraw/node/Error.hpp"
 #include "wxdraw/node/Node.hpp"
 #include "wxdraw/property/Property.hpp"
@@ -55,11 +56,11 @@ void ProxyComponent::update() {
 }
 /**
  */
-void ProxyComponent::render(Renderer& renderer, const LayoutComponentPtr& layout) {
+void ProxyComponent::render(Renderer& renderer, const Transform& transform) {
   super::getNode()->resetError<Error::RecursionRendering>();
   if(node_) {
     try {
-      node_->render(renderer, layout);
+      node_->render(renderer, transform);
     }
     catch(Error::RecursionRendering error) {
       super::getNode()->setError(error);

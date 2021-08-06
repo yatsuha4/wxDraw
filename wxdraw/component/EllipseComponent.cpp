@@ -1,5 +1,5 @@
 #include "wxdraw/component/EllipseComponent.hpp"
-#include "wxdraw/component/LayoutComponent.hpp"
+#include "wxdraw/container/Transform.hpp"
 #include "wxdraw/gui/Renderer.hpp"
 #include "wxdraw/node/Node.hpp"
 
@@ -21,10 +21,10 @@ EllipseComponent::EllipseComponent(const EllipseComponent& src, const NodePtr& n
 }
 /**
  */
-void EllipseComponent::render(Renderer& renderer, const LayoutComponentPtr& layout) {
-  if(layout) {
-    auto& rect = layout->getRect();
-    renderer.getContext().DrawEllipse(rect.pos.x, rect.pos.y, rect.size.x, rect.size.y);
-  }
+void EllipseComponent::render(Renderer& renderer, const Transform& transform) {
+  renderer.getContext().DrawEllipse(transform.rect.pos.x, 
+                                    transform.rect.pos.y, 
+                                    transform.rect.size.x, 
+                                    transform.rect.size.y);
 }
 }

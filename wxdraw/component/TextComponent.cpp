@@ -1,6 +1,7 @@
 #include "wxdraw/component/LayoutComponent.hpp"
-#include "wxdraw/component/TextComponent.hpp"
 #include "wxdraw/component/PaletteComponent.hpp"
+#include "wxdraw/component/TextComponent.hpp"
+#include "wxdraw/container/Transform.hpp"
 #include "wxdraw/gui/Renderer.hpp"
 #include "wxdraw/node/Node.hpp"
 #include "wxdraw/palette/Color.hpp"
@@ -51,8 +52,8 @@ PropertyPtr TextComponent::generateProperty() {
 }
 /**
  */
-void TextComponent::render(Renderer& renderer, const LayoutComponentPtr& layout) {
-  if(layout && font_ && color_ && !text_.IsEmpty()) {
+void TextComponent::render(Renderer& renderer, const Transform& transform) {
+  if(font_ && color_ && !text_.IsEmpty()) {
     auto& context = renderer.getContext();
     context.SetFont(font_->getFont(), color_->getColor());
     wxDouble width = 0.0;
@@ -66,7 +67,7 @@ void TextComponent::render(Renderer& renderer, const LayoutComponentPtr& layout)
         layout->getSize().absolute = glm::dvec2(width, height);
       }
     }
-    auto& rect = layout->getRect();
+    auto& rect = transform.rect;
     auto pos = rect.pos + (rect.size - glm::dvec2(width, height)) * alignment_;
     context.DrawText(text_, pos.x, pos.y);
   }

@@ -12,6 +12,7 @@
 #include "wxdraw/component/RectangleComponent.hpp"
 #include "wxdraw/component/TextComponent.hpp"
 #include "wxdraw/component/ViewComponent.hpp"
+#include "wxdraw/container/Transform.hpp"
 #include "wxdraw/gui/Renderer.hpp"
 #include "wxdraw/node/Error.hpp"
 #include "wxdraw/node/Node.hpp"
@@ -116,34 +117,26 @@ void Node::update() {
 /**
    描画する
    @param renderer レンダラー
+   @param parent 親のトランスフォーム
 */
-void Node::render(Renderer& renderer) {
-  if(show_) {
-    auto layout = getLayout();
-    if(layout) {
-      renderer.setMatrix(layout->getMatrix());
-    }
-    render(renderer, layout);
-  }
-}
-/**
-   描画する
-   @param renderer レンダラー
-   @param layout レイアウトコンポーネント
-*/
-void Node::render(Renderer& renderer, const LayoutComponentPtr& layout) {
+void Node::render(Renderer& renderer, const Transform& parent) {
   wxRecursionGuard recursionGuard(rendering_);
   if(recursionGuard.IsInside()) {
     throw Error::RecursionRendering("recursion rendering");
   }
-  for(auto& component : components_) {
-    component->beginRender(renderer, layout);
-  }
-  for(auto& component : components_) {
-    component->render(renderer, layout);
-  }
-  for(auto& component : components_) {
-    component->endRender(renderer, layout);
+  if(show_) {
+    auto layout = getLayout();
+    auto transform = layout ? layout->apply(parent) : parent;
+    renderer.setMatrix(transform.matrix);
+    for(auto& component : components_) {
+      component->beginRender(renderer, transform);
+    }
+    for(auto& component : components_) {
+      component->render(renderer, transform);
+    }
+    for(auto& component : components_) {
+      component->endRender(renderer, transform);
+    }
   }
 }
 /**

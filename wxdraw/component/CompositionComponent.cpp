@@ -33,12 +33,12 @@ PropertyPtr CompositionComponent::generateProperty() {
 }
 /**
  */
-void CompositionComponent::beginRender(Renderer& renderer, const LayoutComponentPtr& layout) {
+void CompositionComponent::beginRender(Renderer& renderer, const Transform& transform) {
   renderer.pushComposition(static_cast<Renderer::Composition>(composition_.getIndex()));
 }
 /**
  */
-void CompositionComponent::endRender(Renderer& renderer, const LayoutComponentPtr& layout) {
+void CompositionComponent::endRender(Renderer& renderer, const Transform& transform) {
   renderer.popComposition();
 }
 }

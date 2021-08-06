@@ -42,6 +42,8 @@ class LayoutComponent
 
   void update() override;
 
+  Transform apply(const Transform& parent) const;
+
  private:
   LayoutComponentPtr getParent();
 };

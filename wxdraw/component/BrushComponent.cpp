@@ -1,6 +1,6 @@
 #include "wxdraw/component/BrushComponent.hpp"
-#include "wxdraw/component/LayoutComponent.hpp"
 #include "wxdraw/component/PaletteComponent.hpp"
+#include "wxdraw/container/Transform.hpp"
 #include "wxdraw/gui/Renderer.hpp"
 #include "wxdraw/node/Node.hpp"
 #include "wxdraw/property/Property.hpp"
@@ -39,15 +39,15 @@ PropertyPtr BrushComponent::generateProperty() {
 }
 /**
  */
-void BrushComponent::beginRender(Renderer& renderer, const LayoutComponentPtr& layout) {
-  if(brush_ && layout) {
-    renderer.pushBrush(*brush_, layout->getRect());
+void BrushComponent::beginRender(Renderer& renderer, const Transform& transform) {
+  if(brush_) {
+    renderer.pushBrush(*brush_, transform.rect);
   }
 }
 /**
  */
-void BrushComponent::endRender(Renderer& renderer, const LayoutComponentPtr& layout) {
-  if(brush_ && layout) {
+void BrushComponent::endRender(Renderer& renderer, const Transform& transform) {
+  if(brush_) {
     renderer.popBrush();
   }
 }

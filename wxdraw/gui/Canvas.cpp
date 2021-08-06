@@ -18,8 +18,7 @@ Canvas::Canvas(wxWindow* parent, MainFrame* mainFrame)
   : super(parent), 
     mainFrame_(mainFrame), 
     offset_(0.0), 
-    zoom_(1.0), 
-    viewMatrix_(1.0)
+    zoom_(1.0)
 {
   SetDoubleBuffered(true);
   Bind(wxEVT_LEFT_DOWN, &Canvas::onLeftDown, this);
@@ -61,12 +60,13 @@ void Canvas::OnDraw(wxDC& dc) {
   if(auto selectNode = mainFrame_->getOutliner()->getSelectNode()) {
     if(auto view = Node::GetParentComponent<ViewComponent>(selectNode)) {
       viewNode_ = view->getNode();
-      auto size = GetSize();
-      viewMatrix_ = glm::scale(glm::translate(glm::dmat3(1.0), 
-                                              glm::dvec2(size.x * 0.5, size.y * 0.5) + offset_), 
-                               glm::dvec2(zoom_));
-      Renderer renderer(dc, viewMatrix_);
-      viewNode_->render(renderer);
+      glm::dvec2 size(GetSize().GetWidth(), GetSize().GetHeight());
+      viewTransform_.matrix = glm::scale(glm::translate(glm::dmat3(1.0), offset_), 
+                                         glm::dvec2(zoom_));
+      viewTransform_.rect.size = size / zoom_;
+      viewTransform_.rect.pos = glm::dvec2(0.0);
+      Renderer renderer(dc, viewTransform_.matrix);
+      viewNode_->render(renderer, viewTransform_);
       drawCursor(renderer, selectNode);
     }
   }
@@ -76,7 +76,7 @@ void Canvas::OnDraw(wxDC& dc) {
 void Canvas::onLeftDown(wxMouseEvent& event) {
   if(viewNode_) {
     auto pos = glm::dvec2(event.GetX(), event.GetY());
-    pos = glm::dvec2(glm::inverse(viewMatrix_) * glm::dvec3(pos, 1.0));
+    //pos = glm::dvec2(glm::inverse(viewMatrix_) * glm::dvec3(pos, 1.0));
     if(auto node = getNode(viewNode_, pos)) {
       mainFrame_->getOutliner()->selectNode(node);
     }
@@ -114,6 +114,7 @@ void Canvas::onMouseWheel(wxMouseEvent& event) {
    @param node 選択中のノード
 */
 void Canvas::drawCursor(Renderer& renderer, const NodePtr& node) {
+  /*
   if(auto layout = node->getLayout()) {
     auto& context = renderer.getContext();
     context.SetTransform(context.CreateMatrix());
@@ -134,6 +135,7 @@ void Canvas::drawCursor(Renderer& renderer, const NodePtr& node) {
     path.AddLineToPoint(p[0].x, p[0].y);
     context.StrokePath(path);
   }
+  */
 }
 /**
  */

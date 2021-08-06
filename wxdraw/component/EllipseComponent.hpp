@@ -18,6 +18,6 @@ class EllipseComponent
   EllipseComponent(const EllipseComponent& src, const NodePtr& node);
   ~EllipseComponent() override = default;
 
-  void render(Renderer& renderer, const LayoutComponentPtr& layout) override;
+  void render(Renderer& renderer, const Transform& transform) override;
 };
 }

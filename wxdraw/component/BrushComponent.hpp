@@ -27,7 +27,7 @@ class BrushComponent
 
   PropertyPtr generateProperty() override;
 
-  void beginRender(Renderer& renderer, const LayoutComponentPtr& layout) override;
-  void endRender(Renderer& renderer, const LayoutComponentPtr& layout) override;
+  void beginRender(Renderer& renderer, const Transform& transform) override;
+  void endRender(Renderer& renderer, const Transform& transform) override;
 };
 }

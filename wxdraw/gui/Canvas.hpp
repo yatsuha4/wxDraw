@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include "wxdraw/container/Transform.hpp"
+
 namespace wxdraw::gui {
 /**
    キャンバス
@@ -13,7 +15,7 @@ class Canvas
   MainFrame* mainFrame_;
   glm::dvec2 offset_;
   double zoom_;
-  glm::dmat3 viewMatrix_;
+  Transform viewTransform_;
   wxPoint mousePos_;
   NodePtr viewNode_;
 

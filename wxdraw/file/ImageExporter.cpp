@@ -35,7 +35,7 @@ bool ImageExporter::save() {
   }
   {
     Renderer renderer(image, m);
-    getNode()->render(renderer);
+    //getNode()->render(renderer);
   }
   return image.SaveFile(fileName_.GetFullPath());
 }

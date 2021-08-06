@@ -35,9 +35,9 @@ class ComponentBase
 
   virtual void update() {}
 
-  virtual void beginRender(Renderer& renderer, const LayoutComponentPtr& layout) {}
-  virtual void render(Renderer& renderer, const LayoutComponentPtr& layout) {}
-  virtual void endRender(Renderer& renderer, const LayoutComponentPtr& layout) {}
+  virtual void beginRender(Renderer& renderer, const Transform& transform) {}
+  virtual void render(Renderer& renderer, const Transform& transform) {}
+  virtual void endRender(Renderer& renderer, const Transform& transform) {}
 
   virtual ComponentBasePtr clone(const NodePtr& node) const = 0;
 };

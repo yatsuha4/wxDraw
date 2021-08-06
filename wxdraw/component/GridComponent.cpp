@@ -1,6 +1,6 @@
 #include "wxdraw/component/GridComponent.hpp"
-#include "wxdraw/component/LayoutComponent.hpp"
 #include "wxdraw/component/PaletteComponent.hpp"
+#include "wxdraw/container/Transform.hpp"
 #include "wxdraw/gui/Renderer.hpp"
 #include "wxdraw/node/Node.hpp"
 #include "wxdraw/palette/Pen.hpp"
@@ -51,10 +51,10 @@ PropertyPtr GridComponent::generateProperty() {
 }
 /**
  */
-void GridComponent::render(Renderer& renderer, const LayoutComponentPtr& layout) {
-  if(show_ && pen_ && layout) {
+void GridComponent::render(Renderer& renderer, const Transform& transform) {
+  if(show_ && pen_) {
     auto& context = renderer.getContext();
-    auto& rect = layout->getRect();
+    auto& rect = transform.rect;
     renderer.pushPen(*pen_, rect);
     auto path = context.CreatePath();
     for(auto x = offset_.x; x <= rect.size.x; x += size_.x) {

@@ -1,4 +1,5 @@
 #include "wxdraw/component/LayoutComponent.hpp"
+#include "wxdraw/container/Transform.hpp"
 #include "wxdraw/gui/Renderer.hpp"
 #include "wxdraw/node/Node.hpp"
 #include "wxdraw/property/Property.hpp"
@@ -70,6 +71,19 @@ void LayoutComponent::update() {
     rect_.size = size_.absolute;
   }
   rect_.pos = -rect_.size * alignment_;
+}
+/**
+ */
+Transform LayoutComponent::apply(const Transform& parent) const {
+  Transform transform;
+  glm::dmat3 m(1.0);
+  m = glm::translate(m, parent.rect.pos + parent.rect.size * pos_.relative + pos_.absolute);
+  m = glm::rotate(m, glm::radians(rotate_));
+  m = glm::scale(m, scale_);
+  transform.matrix = parent.matrix * m;
+  transform.rect.size = parent.rect.size * size_.relative + size_.absolute;
+  transform.rect.pos = -transform.rect.size * alignment_;
+  return transform;
 }
 /**
    親を取得する

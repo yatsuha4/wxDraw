@@ -1,6 +1,6 @@
-#include "wxdraw/component/LayoutComponent.hpp"
 #include "wxdraw/component/PaletteComponent.hpp"
 #include "wxdraw/component/PenComponent.hpp"
+#include "wxdraw/container/Transform.hpp"
 #include "wxdraw/gui/Renderer.hpp"
 #include "wxdraw/node/Node.hpp"
 #include "wxdraw/palette/Color.hpp"
@@ -42,15 +42,15 @@ PropertyPtr PenComponent::generateProperty() {
 }
 /**
  */
-void PenComponent::beginRender(Renderer& renderer, const LayoutComponentPtr& layout) {
-  if(pen_ && layout) {
-    renderer.pushPen(*pen_, layout->getRect());
+void PenComponent::beginRender(Renderer& renderer, const Transform& transform) {
+  if(pen_) {
+    renderer.pushPen(*pen_, transform.rect);
   }
 }
 /**
  */
-void PenComponent::endRender(Renderer& renderer, const LayoutComponentPtr& layout) {
-  if(pen_ && layout) {
+void PenComponent::endRender(Renderer& renderer, const Transform& transform) {
+  if(pen_) {
     renderer.popPen();
   }
 }

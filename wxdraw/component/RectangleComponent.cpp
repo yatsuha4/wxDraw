@@ -1,5 +1,5 @@
-#include "wxdraw/component/LayoutComponent.hpp"
 #include "wxdraw/component/RectangleComponent.hpp"
+#include "wxdraw/container/Transform.hpp"
 #include "wxdraw/gui/Renderer.hpp"
 #include "wxdraw/node/Node.hpp"
 #include "wxdraw/property/Property.hpp"
@@ -32,16 +32,14 @@ PropertyPtr RectangleComponent::generateProperty() {
 }
 /**
  */
-void RectangleComponent::render(Renderer& renderer, const LayoutComponentPtr& layout) {
-  if(layout) {
-    auto& context = renderer.getContext();
-    auto& rect = layout->getRect();
-    if(round_ <= 0.0) {
-      context.DrawRectangle(rect.pos.x, rect.pos.y, rect.size.x, rect.size.y);
-    }
-    else {
-      context.DrawRoundedRectangle(rect.pos.x, rect.pos.y, rect.size.x, rect.size.y, round_);
-    }
+void RectangleComponent::render(Renderer& renderer, const Transform& transform) {
+  auto& context = renderer.getContext();
+  auto& rect = transform.rect;
+  if(round_ <= 0.0) {
+    context.DrawRectangle(rect.pos.x, rect.pos.y, rect.size.x, rect.size.y);
+  }
+  else {
+    context.DrawRoundedRectangle(rect.pos.x, rect.pos.y, rect.size.x, rect.size.y, round_);
   }
 }
 }

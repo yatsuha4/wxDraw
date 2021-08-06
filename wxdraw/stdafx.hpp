@@ -107,6 +107,7 @@ using namespace component;
 namespace container {
 WXDRAW_DECLARE_CLASS(Layout);
 WXDRAW_DECLARE_CLASS(Rect);
+WXDRAW_DECLARE_CLASS(Transform);
 }
 using namespace container;
 

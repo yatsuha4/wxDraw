@@ -24,6 +24,6 @@ class RectangleComponent
 
   PropertyPtr generateProperty() override;
 
-  void render(Renderer& renderer, const LayoutComponentPtr& layout) override;
+  void render(Renderer& renderer, const Transform& transform) override;
 };
 }

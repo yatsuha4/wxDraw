@@ -38,9 +38,9 @@ void ContainerComponent::update() {
 }
 /**
  */
-void ContainerComponent::render(Renderer& renderer, const LayoutComponentPtr& layout) {
+void ContainerComponent::render(Renderer& renderer, const Transform& transform) {
   for(auto& child : children_) {
-    child->render(renderer);
+    child->render(renderer, transform);
   }
 }
 }

@@ -29,6 +29,6 @@ class ProxyComponent
   PropertyPtr generateProperty() override;
 
   void update() override;
-  void render(Renderer& renderer, const LayoutComponentPtr& layout) override;
+  void render(Renderer& renderer, const Transform& transform) override;
 };
 }

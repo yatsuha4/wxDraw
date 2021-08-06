@@ -61,8 +61,7 @@ class Node
   PropertyPtr generateProperty() override;
 
   void update();
-  void render(Renderer& renderer);
-  void render(Renderer& renderer, const LayoutComponentPtr& layout);
+  void render(Renderer& renderer, const Transform& parent);
 
   WXDRAW_ACCESSOR(Item, item_);
 
