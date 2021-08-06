@@ -73,7 +73,7 @@ void Gradient::update() {
   else {
     wxImage image(BITMAP_SIZE);
     {
-      Renderer renderer(image, glm::dmat3(1.0));
+      Renderer renderer(image);
       auto& context = renderer.getContext();
       if(stops_.size() < 2) {
         context.SetBrush(wxBrush(stops_.front()->getWxColor()));

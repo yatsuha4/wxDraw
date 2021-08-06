@@ -57,6 +57,7 @@
 		266A37AC2669D80000EA192B /* Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 266A37AB2669D80000EA192B /* Property.cpp */; };
 		2683BED926B3FB4A007EC184 /* Rect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2683BED826B3FB4A007EC184 /* Rect.cpp */; };
 		269C5CB026B2A7C900DD9444 /* CompositionComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 269C5CAF26B2A7C900DD9444 /* CompositionComponent.cpp */; };
+		269DD26A26BDDE790045C62B /* Transform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 269DD26826BDDE790045C62B /* Transform.cpp */; };
 		26BA73CE26987D20001F3C5D /* BrushComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26BA73CC26987D20001F3C5D /* BrushComponent.cpp */; };
 		26BA73D126990D3C001F3C5D /* LayoutComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26BA73D026990D3C001F3C5D /* LayoutComponent.cpp */; };
 		26BA73D426991A64001F3C5D /* EllipseComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26BA73D226991A64001F3C5D /* EllipseComponent.cpp */; };
@@ -168,6 +169,8 @@
 		2683BED826B3FB4A007EC184 /* Rect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Rect.cpp; sourceTree = "<group>"; };
 		269C5CAE26B2A7C900DD9444 /* CompositionComponent.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CompositionComponent.hpp; sourceTree = "<group>"; };
 		269C5CAF26B2A7C900DD9444 /* CompositionComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CompositionComponent.cpp; sourceTree = "<group>"; };
+		269DD26826BDDE790045C62B /* Transform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Transform.cpp; sourceTree = "<group>"; };
+		269DD26926BDDE790045C62B /* Transform.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Transform.hpp; sourceTree = "<group>"; };
 		26BA73C926987D20001F3C5D /* BrushComponent.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BrushComponent.hpp; sourceTree = "<group>"; };
 		26BA73CC26987D20001F3C5D /* BrushComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BrushComponent.cpp; sourceTree = "<group>"; };
 		26BA73CF26990D3C001F3C5D /* LayoutComponent.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LayoutComponent.hpp; sourceTree = "<group>"; };
@@ -438,6 +441,8 @@
 				26CB13232699FB790025ACDD /* Layout.hpp */,
 				2683BED826B3FB4A007EC184 /* Rect.cpp */,
 				26CB13222699F8BB0025ACDD /* Rect.hpp */,
+				269DD26826BDDE790045C62B /* Transform.cpp */,
+				269DD26926BDDE790045C62B /* Transform.hpp */,
 			);
 			path = container;
 			sourceTree = "<group>";
@@ -556,6 +561,7 @@
 				2605A58B264A35A100FD3DF0 /* Outliner.cpp in Sources */,
 				26C8D90426A6B844003CB994 /* Object.cpp in Sources */,
 				2637D74426A2C0AC00BF8F37 /* Pen.cpp in Sources */,
+				269DD26A26BDDE790045C62B /* Transform.cpp in Sources */,
 				2605A579264564DB00FD3DF0 /* Application.cpp in Sources */,
 				2637D76126A4FC3500BF8F37 /* PenComponent.cpp in Sources */,
 				261C06D8269FB2F8002AAC78 /* ContainerComponent.cpp in Sources */,

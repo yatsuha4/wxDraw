@@ -10,19 +10,17 @@ namespace wxdraw::gui {
 /**
    コンストラクタ
    @param dc デバイスコンテキスト
-   @param viewMatrix ビュー行列
 */
-Renderer::Renderer(wxDC& dc, const glm::dmat3& viewMatrix)
-  : Renderer(wxGraphicsContext::CreateFromUnknownDC(dc), viewMatrix)
+Renderer::Renderer(wxDC& dc)
+  : Renderer(wxGraphicsContext::CreateFromUnknownDC(dc))
 {
 }
 /**
    コンストラクタ
    @param image 画像
-   @param viewMatrix ビュー行列
 */
-Renderer::Renderer(wxImage& image, const glm::dmat3& viewMatrix)
-  : Renderer(wxGraphicsContext::Create(image), viewMatrix)
+Renderer::Renderer(wxImage& image)
+  : Renderer(wxGraphicsContext::Create(image))
 {
 }
 /**
@@ -30,13 +28,7 @@ Renderer::Renderer(wxImage& image, const glm::dmat3& viewMatrix)
    @param matrix 行列
 */
 void Renderer::setMatrix(const glm::dmat3& matrix) {
-  matrix_ = viewMatrix_ * matrix;
-  context_->SetTransform(createMatrix(matrix_));
-}
-/**
- */
-glm::dvec2 Renderer::getScale() const {
-  return glm::dvec2(glm::length(matrix_[0]), glm::length(matrix_[1]));
+  context_->SetTransform(createMatrix(matrix));
 }
 /**
  */
@@ -216,11 +208,9 @@ void Renderer::popComposition() {
 /**
    コンストラクタ
    @param context コンテキスト
-   @param viewMatrix ビュー行列
 */
-Renderer::Renderer(wxGraphicsContext* context, const glm::dmat3& viewMatrix)
-  : context_(context), 
-    viewMatrix_(viewMatrix)
+Renderer::Renderer(wxGraphicsContext* context)
+  : context_(context)
 {
   pushPen(*wxBLACK_PEN);
   pushBrush(*wxWHITE_BRUSH);
@@ -229,9 +219,9 @@ Renderer::Renderer(wxGraphicsContext* context, const glm::dmat3& viewMatrix)
 /**
  */
 wxGraphicsMatrix Renderer::createMatrix(const glm::dmat3& matrix) const {
-  return context_->CreateMatrix(matrix_[0][0], matrix_[0][1], 
-                                matrix_[1][0], matrix_[1][1], 
-                                matrix_[2][0], matrix_[2][1]);
+  return context_->CreateMatrix(matrix[0][0], matrix[0][1], 
+                                matrix[1][0], matrix[1][1], 
+                                matrix[2][0], matrix[2][1]);
 }
 /**
  */

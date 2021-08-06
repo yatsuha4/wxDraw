@@ -29,7 +29,7 @@ bool ImageExporter::save() {
     transform.matrix = glm::translate(glm::dmat3(1.0), size * 0.5);
     transform.rect.pos = size * -0.5;
     transform.rect.size = size;
-    Renderer renderer(image, transform.matrix);
+    Renderer renderer(image);
     getNode()->render(renderer, transform);
   }
   return image.SaveFile(fileName_.GetFullPath());
