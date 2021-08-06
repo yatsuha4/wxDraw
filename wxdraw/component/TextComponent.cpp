@@ -63,8 +63,7 @@ void TextComponent::render(Renderer& renderer, const Transform& transform) {
     context.GetTextExtent(text_, &width, &height, &descent, &externalLeading);
     if(autoSize_) {
       if(auto layout = getNode()->getLayout()) {
-        layout->getSize().relative = glm::dvec2(0.0, 0.0);
-        layout->getSize().absolute = glm::dvec2(width, height);
+        layout->setSize(glm::dvec2(width, height));
       }
     }
     auto& rect = transform.rect;

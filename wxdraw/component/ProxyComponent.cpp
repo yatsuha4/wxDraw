@@ -32,21 +32,18 @@ PropertyPtr ProxyComponent::generateProperty() {
 void ProxyComponent::update() {
   super::update();
   if(node_) {
-    node_->update();
-    const auto& srcSize = node_->getLayout()->getRect().size;
+    const auto& srcSize = node_->getLayout()->getSize();
     auto layout = super::getNode()->getLayout();
-    const auto& dstSize = layout->getRect().size;
+    const auto& dstSize = layout->getSize();
     if(glm::all(glm::greaterThan(srcSize, glm::dvec2(0.0))) &&
        glm::all(glm::greaterThan(dstSize, glm::dvec2(0.0)))) {
       auto scale = dstSize / srcSize;
       switch(fit_.getIndex()) {
       case Choice::Fit::EXPAND:
         layout->setScale(glm::dvec2(glm::min(scale.x, scale.y)));
-        layout->update();
         break;
       case Choice::Fit::SHRINK:
         layout->setScale(glm::dvec2(glm::max(scale.x, scale.y)));
-        layout->update();
         break;
       default:
         break;

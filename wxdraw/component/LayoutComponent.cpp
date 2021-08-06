@@ -1,7 +1,5 @@
 #include "wxdraw/component/LayoutComponent.hpp"
 #include "wxdraw/container/Transform.hpp"
-#include "wxdraw/gui/Renderer.hpp"
-#include "wxdraw/node/Node.hpp"
 #include "wxdraw/property/Property.hpp"
 
 namespace wxdraw::component {
@@ -12,13 +10,11 @@ const char* LayoutComponent::TYPE = "Layout";
 */
 LayoutComponent::LayoutComponent(const NodePtr& node)
   : super(TYPE, node, Priority::LAYOUT), 
-    size_(glm::dvec2(0.0), glm::dvec2(256.0)), 
     pos_(glm::dvec2(0.5), glm::dvec2(0.0)), 
+    size_(256.0), 
     alignment_(0.5), 
     scale_(1.0), 
-    rotate_(0.0), 
-    matrix_(1.0), 
-    rect_(glm::dvec2(0.0), glm::dvec2(0.0))
+    rotate_(0.0)
 {
 }
 /**
@@ -28,49 +24,24 @@ LayoutComponent::LayoutComponent(const NodePtr& node)
 */
 LayoutComponent::LayoutComponent(const LayoutComponent& src, const NodePtr& node)
   : super(src, node), 
-    size_(src.size_), 
     pos_(src.pos_), 
+    size_(src.size_), 
     alignment_(src.alignment_), 
     scale_(src.scale_), 
-    rotate_(src.rotate_), 
-    matrix_(src.matrix_), 
-    rect_(src.rect_)
+    rotate_(src.rotate_)
 {
 }
 /**
  */
 PropertyPtr LayoutComponent::generateProperty() {
   auto property = super::generateProperty();
-  property->appendMember("Size.Relative", size_.relative);
-  property->appendMember("Size.Absolute", size_.absolute);
   property->appendMember("Pos.Relative", pos_.relative);
   property->appendMember("Pos.Absolute", pos_.absolute);
+  property->appendMember("Size", size_);
   property->appendMember("Alignment", alignment_);
   property->appendMember("Scale", scale_);
   property->appendMember("Rotate", rotate_);
   return property;
-}
-/**
- */
-void LayoutComponent::update() {
-  super::update();
-  glm::dmat3 m(1.0);
-  if(auto parent = getParent()) {
-    auto& rect = parent->getRect();
-    m = glm::translate(m, rect.pos + rect.size * pos_.relative + pos_.absolute);
-    m = glm::rotate(m, glm::radians(rotate_));
-    m = glm::scale(m, scale_);
-    matrix_ = parent->getMatrix() * m;
-    rect_.size = rect.size * size_.relative + size_.absolute;
-  }
-  else {
-    m = glm::translate(m, pos_.absolute);
-    m = glm::rotate(m, glm::radians(rotate_));
-    m = glm::scale(m, scale_);
-    matrix_ = m;
-    rect_.size = size_.absolute;
-  }
-  rect_.pos = -rect_.size * alignment_;
 }
 /**
  */
@@ -81,18 +52,8 @@ Transform LayoutComponent::apply(const Transform& parent) const {
   m = glm::rotate(m, glm::radians(rotate_));
   m = glm::scale(m, scale_);
   transform.matrix = parent.matrix * m;
-  transform.rect.size = parent.rect.size * size_.relative + size_.absolute;
-  transform.rect.pos = -transform.rect.size * alignment_;
+  transform.rect.size = size_;
+  transform.rect.pos = -size_ * alignment_;
   return transform;
-}
-/**
-   親を取得する
-   @return 親
-*/
-LayoutComponentPtr LayoutComponent::getParent() {
-  if(auto parent = getNode()->getParent()) {
-    return parent->getLayout();
-  }
-  return nullptr;
 }
 }

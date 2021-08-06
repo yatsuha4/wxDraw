@@ -22,6 +22,7 @@ ImageExporter::ImageExporter(const NodePtr& node,
 /**
  */
 bool ImageExporter::save() {
+  /*
   auto& rect = getNode()->getLayout()->getRect();
   glm::dmat3 m(1.0);
   m = glm::translate(m, (glm::dvec2(size_) - rect.size) * alignment_ - rect.pos * scale_);
@@ -38,5 +39,7 @@ bool ImageExporter::save() {
     //getNode()->render(renderer);
   }
   return image.SaveFile(fileName_.GetFullPath());
+  */
+  return false;
 }
 }

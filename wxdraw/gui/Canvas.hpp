@@ -38,6 +38,8 @@ class Canvas
 
   void drawCursor(Renderer& renderer, const NodePtr& node);
 
-  NodePtr getNode(const NodePtr& node, const glm::dvec2& pos) const;
+  NodePtr getNode(const NodePtr& node, 
+                  const Transform& parent, 
+                  const glm::dvec2& pos) const;
 };
 }
