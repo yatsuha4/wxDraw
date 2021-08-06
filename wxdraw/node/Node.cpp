@@ -160,6 +160,16 @@ NodePtr Node::Ellipse::Create(const NodePtr& parent) {
                       EllipseComponent>(TYPE, parent);
 }
 /**
+   エクスポートノードを新規作成する
+   @param parent 親ノード
+*/
+NodePtr Node::Export::Create(const NodePtr& parent) {
+  return Node::Create<LayoutComponent, 
+                      ViewComponent, 
+                      ProxyComponent, 
+                      ExportComponent>(TYPE, parent);
+}
+/**
    グループノードを新規作成する
    @param parent 親ノード
 */
