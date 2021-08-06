@@ -16,9 +16,6 @@ class ExportComponent
 
  private:
   wxFileName fileName_;
-  glm::ivec2 size_;
-  glm::dvec2 scale_;
-  glm::dvec2 alignment_;
 
  public:
   ExportComponent(const NodePtr& node);

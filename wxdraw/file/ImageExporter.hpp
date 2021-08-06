@@ -13,16 +13,9 @@ class ImageExporter
 
  private:
   wxFileName fileName_;
-  glm::ivec2 size_;
-  glm::dvec2 scale_;
-  glm::dvec2 alignment_;
 
  public:
-  ImageExporter(const NodePtr& node, 
-                const wxFileName& fileName, 
-                const glm::ivec2& size, 
-                const glm::dvec2& scale, 
-                const glm::dvec2& alignment);
+  ImageExporter(const NodePtr& node, const wxFileName& fileName);
   ~ImageExporter() override = default;
 
   bool save() override;
