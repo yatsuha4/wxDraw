@@ -1,4 +1,5 @@
 #include "wxdraw/component/BrushComponent.hpp"
+#include "wxdraw/component/CompositionComponent.hpp"
 #include "wxdraw/component/ContainerComponent.hpp"
 #include "wxdraw/component/EllipseComponent.hpp"
 #include "wxdraw/component/ExportComponent.hpp"
@@ -133,6 +134,7 @@ void XmlImporter::parseProperty(const wxXmlNode& xml, const Property& property) 
 ComponentBasePtr XmlImporter::GenerateComponent(const NodePtr& node, const wxXmlNode& xml) {
   return GenerateComponent<
     BrushComponent, 
+    CompositionComponent, 
     ContainerComponent, 
     EllipseComponent, 
     ExportComponent, 
