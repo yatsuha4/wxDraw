@@ -12,6 +12,7 @@ class Menu
  public:
   enum Type {
     NONE, 
+    FILE, 
     EDIT, 
     NODE, 
     COMPONENT, 

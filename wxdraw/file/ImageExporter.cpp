@@ -26,7 +26,8 @@ bool ImageExporter::save() {
   }
   {
     Transform transform;
-    transform.matrix = glm::translate(glm::dmat3(1.0), size * 0.5);
+    transform.matrix = glm::scale(glm::translate(glm::dmat3(1.0), size * 0.5), 
+                                  glm::dvec2(1.0, -1.0));
     transform.rect.pos = size * -0.5;
     transform.rect.size = size;
     Renderer renderer(image);

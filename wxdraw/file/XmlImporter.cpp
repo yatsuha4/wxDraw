@@ -1,6 +1,7 @@
 #include "wxdraw/component/BrushComponent.hpp"
 #include "wxdraw/component/ContainerComponent.hpp"
 #include "wxdraw/component/EllipseComponent.hpp"
+#include "wxdraw/component/ExportComponent.hpp"
 #include "wxdraw/component/GridComponent.hpp"
 #include "wxdraw/component/LayerComponent.hpp"
 #include "wxdraw/component/LayoutComponent.hpp"
@@ -134,6 +135,7 @@ ComponentBasePtr XmlImporter::GenerateComponent(const NodePtr& node, const wxXml
     BrushComponent, 
     ContainerComponent, 
     EllipseComponent, 
+    ExportComponent, 
     GridComponent, 
     LayerComponent, 
     LayoutComponent, 

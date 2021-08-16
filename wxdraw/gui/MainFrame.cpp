@@ -109,7 +109,7 @@ void MainFrame::setupMenuBar() {
   auto menuBar = new wxMenuBar();
   SetMenuBar(menuBar);
   {
-    auto menu = new Menu();
+    auto menu = new Menu(Menu::Type::FILE);
     menu->Append(wxID_NEW);
     menu->Append(wxID_OPEN);
     menu->Append(wxID_SAVE);
@@ -152,7 +152,6 @@ void MainFrame::setupMenuBar() {
     auto menu = new Menu(Menu::Type::COMPONENT);
     menu->Append(Menu::ID_COMPONENT_PEN, _("Pen"));
     menu->Append(Menu::ID_COMPONENT_BRUSH, _("Brush"));
-    menu->Append(Menu::ID_COMPONENT_EXPORT, _("Export"));
     menu->AppendSeparator();
     menu->Append(Menu::ID_COMPONENT_COMPOSITION, _("Composition"));
     menuBar->Append(menu, _("Component"));
@@ -178,6 +177,11 @@ void MainFrame::onMenuOpen(wxMenuEvent& event) {
   auto node = getSelectNode();
   auto project = getProject();
   switch(menu->getType()) {
+  case Menu::Type::FILE:
+    {
+      menu->Enable(Menu::ID_FILE_EXPORT, node && node->getComponent<ExportComponent>());
+    }
+    break;
   case Menu::Type::EDIT:
     {
       menu->Enable(wxID_DELETE, outliner_->canRemoveNode());
@@ -333,19 +337,19 @@ void MainFrame::saveProject(const ProjectComponentPtr& project) {
 /**
  */
 void MainFrame::onSelectFileExport() {
-  /*
-  if(auto component = Node::GetParentComponent<ExportComponent>(getSelectNode())) {
-    wxFileDialog dialog(this, wxFileSelectorPromptStr, 
-                        component->getFileName().GetPath(), 
-                        component->getFileName().GetName(), 
-                        wxImage::GetImageExtWildcard(), 
-                        wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
-    if(dialog.ShowModal() == wxID_OK) {
-      component->getFileName().Assign(dialog.GetPath());
-      component->save();
+  if(auto node = getSelectNode()) {
+    if(auto component = node->getComponent<ExportComponent>()) {
+      wxFileDialog dialog(this, wxFileSelectorPromptStr, 
+                          component->getFileName().GetPath(), 
+                          component->getFileName().GetName(), 
+                          wxImage::GetImageExtWildcard(), 
+                          wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
+      if(dialog.ShowModal() == wxID_OK) {
+        component->getFileName().Assign(dialog.GetPath());
+        component->save();
+      }
     }
   }
-  */
 }
 /**
    コマンドを実行する
