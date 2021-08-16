@@ -52,7 +52,7 @@ PropertyPtr GridComponent::generateProperty() {
 /**
  */
 void GridComponent::render(Renderer& renderer, const Transform& transform) {
-  if(show_ && pen_) {
+  if(show_ && pen_ && renderer.isShowGrid()) {
     auto& context = renderer.getContext();
     auto& rect = transform.rect;
     renderer.pushPen(*pen_, rect);

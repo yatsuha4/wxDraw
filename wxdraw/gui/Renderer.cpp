@@ -22,6 +22,7 @@ Renderer::Renderer(wxDC& dc)
 Renderer::Renderer(wxImage& image)
   : Renderer(wxGraphicsContext::Create(image))
 {
+  setShowGrid(false);
 }
 /**
    行列をセットする
@@ -210,7 +211,8 @@ void Renderer::popComposition() {
    @param context コンテキスト
 */
 Renderer::Renderer(wxGraphicsContext* context)
-  : context_(context)
+  : context_(context), 
+    showGrid_(true)
 {
   pushPen(*wxBLACK_PEN);
   pushBrush(*wxWHITE_BRUSH);

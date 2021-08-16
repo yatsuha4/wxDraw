@@ -27,6 +27,7 @@ class Renderer {
   std::stack<wxGraphicsBrush> brushes_;
   std::stack<wxGraphicsPen> pens_;
   std::stack<wxCompositionMode> compositionStack_;
+  bool showGrid_;
 
  public:
   Renderer(wxDC& dc);
@@ -36,6 +37,8 @@ class Renderer {
   wxGraphicsContext& getContext() const {
     return *context_;
   }
+
+  WXDRAW_IS_ACCESSOR(ShowGrid, showGrid_);
 
   void setMatrix(const glm::dmat3& matrix);
 
