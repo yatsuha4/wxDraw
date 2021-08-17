@@ -108,14 +108,22 @@ std::tuple<NodePtr, size_t> Outliner::remove(const NodePtr& node) {
 }
 /**
    ノードを移動する
+   @param node 移動するノード
+   @param args 移動先
+   @return 移動元
 */
 std::tuple<NodePtr, size_t>
 Outliner::move(const NodePtr& node, const std::tuple<NodePtr, size_t>& args) {
   auto pos = Node::GetParentPos(node);
   auto parent = std::get<0>(args);
   auto index = std::get<1>(args);
-  if(std::get<0>(pos) == parent && std::get<1>(pos) < index) {
-    --index;
+  if(std::get<0>(pos) == parent) {
+    if(std::get<1>(pos) < index) {
+      --index;
+    }
+    else {
+      ++std::get<1>(pos);
+    }
   }
   remove(node);
   insertNode(node, parent, index);
