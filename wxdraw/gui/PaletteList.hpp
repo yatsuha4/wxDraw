@@ -51,8 +51,8 @@ class PaletteList
     getList()->Thaw();
   }
 
-  void doInsert(const std::shared_ptr<T>& item, 
-                const std::tuple<size_t>& args) override {
+  void insert(const std::shared_ptr<T>& item, 
+              const std::tuple<size_t>& args) override {
     auto index = std::get<0>(args);
     unselectItem();
     getItems().insert(index, item);
@@ -60,13 +60,14 @@ class PaletteList
     selectItem(index);
   }
 
-  void doRemove(const std::shared_ptr<T>& item, 
-                const std::tuple<size_t>& args) override {
-    auto index = std::get<0>(args);
+  std::tuple<size_t> remove(const std::shared_ptr<T>& item) override {
+    auto& items = getItems();
+    auto index = items.getIndex(item);
     unselectItem();
-    getItems().remove(index);
+    items.remove(index);
     getList()->DeleteItem(index);
     selectItem(index);
+    return { index };
   }
 
  protected:
@@ -103,7 +104,7 @@ class PaletteList
 
   void removeItem(size_t index) override {
     if(auto item = getRemoveItem(index)) {
-      submitCommand<RemoveCommand<T, size_t>>(item, index);
+      submitCommand<RemoveCommand<T, size_t>>(item);
     }
   }
 
@@ -122,8 +123,8 @@ class PaletteList
   }
 
   template<class CommandType, class... Args>
-  bool submitCommand(const std::shared_ptr<T>& item, size_t index) {
-    return getMainFrame()->template submitCommand<CommandType>(this, item, index);
+  bool submitCommand(const std::shared_ptr<T>& item, const Args&... args) {
+    return getMainFrame()->template submitCommand<CommandType>(this, item, args...);
   }
 };
 }

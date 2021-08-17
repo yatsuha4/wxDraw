@@ -1,6 +1,7 @@
 #pragma once
 
 #include "wxdraw/command/InsertCommand.hpp"
+#include "wxdraw/command/MoveCommand.hpp"
 
 namespace wxdraw::gui {
 /**
@@ -8,12 +9,12 @@ namespace wxdraw::gui {
 */
 class Outliner
   : public wxDataViewCtrl, 
-    public InsertNodeCommand::Observer
+    public InsertNodeCommand::Observer, 
+    public MoveNodeCommand::Observer
 {
   using super = wxDataViewCtrl;
 
  public:
-  class ClientData;
   class Model;
 
   enum Column {
@@ -48,7 +49,7 @@ class Outliner
     auto [parent, index] = getInsertParent();
     if(parent) {
       auto node = T::Create(parent);
-      return submitInsertCommand<InsertNodeCommand>(node, parent, index);
+      return submitCommand<InsertNodeCommand>(node, parent, index);
     }
     return false;
   }
@@ -62,16 +63,20 @@ class Outliner
   bool canRemoveNode() const;
   void removeNode();
 
-  void doInsert(const NodePtr& node, const std::tuple<NodePtr, size_t>& args) override;
-  void doRemove(const NodePtr& node, const std::tuple<NodePtr, size_t>& args) override;
+  void insert(const NodePtr& node, const std::tuple<NodePtr, size_t>& args) override;
+
+  std::tuple<NodePtr, size_t> remove(const NodePtr& node) override;
+
+  std::tuple<NodePtr, size_t>
+  move(const NodePtr& node, const std::tuple<NodePtr, size_t>& args) override;
+
+  static wxDataViewItem GetItem(const NodePtr& node);
 
  private:
   std::tuple<NodePtr, size_t> getInsertParent() const;
 
   void insertNode(const NodePtr& node, const NodePtr& parent, size_t index);
-  void removeNode(const NodePtr& node);
-
-  void updateItem(const wxDataViewItem& item);
+  std::tuple<NodePtr, size_t> removeNode(const NodePtr& node);
 
   void onSelectionChanged(wxDataViewEvent& event);
   void onSelectNode(const NodePtr& node);
@@ -82,24 +87,10 @@ class Outliner
 
   NodePtr getNode(const wxDataViewItem& item) const;
 
-  template<class T>
-  bool submitInsertCommand(const NodePtr& node, const NodePtr& parent, size_t index) {
-    return mainFrame_->submitCommand<T>(this, node, parent, index);
+  template<class T, class... Args>
+  bool submitCommand(const NodePtr& node, const Args&... args) {
+    return mainFrame_->submitCommand<T>(this, node, args...);
   }
-};
-/**
- */
-class Outliner::ClientData
-  : public wxClientData
-{
- private:
-  NodePtr node_;
-
- public:
-  ClientData(const NodePtr& node);
-  ~ClientData() override = default;
-
-  WXDRAW_GETTER(Node, node_);
 };
 /**
  */
@@ -117,7 +108,6 @@ class Outliner::Model
   ~Model() override = default;
 
   void insert(const NodePtr& node, const NodePtr& parent, size_t index);
-  void updateItem(const wxDataViewItem& item);
   NodePtr getNode(const wxDataViewItem& item) const;
 
  protected:
@@ -144,8 +134,5 @@ class Outliner::Model
   bool HasContainerColumns(const wxDataViewItem& item) const override {
     return true;
   }
-
- private:
-  static wxDataViewItem GetItem(const NodePtr& node);
 };
 }

@@ -146,6 +146,7 @@
 		263A333C26B8087700356584 /* ViewComponent.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ViewComponent.hpp; sourceTree = "<group>"; };
 		263A333E26B819D500356584 /* ProxyComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProxyComponent.cpp; sourceTree = "<group>"; };
 		263A333F26B819D500356584 /* ProxyComponent.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ProxyComponent.hpp; sourceTree = "<group>"; };
+		2658D38B26CB35A10079EB5A /* MoveCommand.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MoveCommand.hpp; sourceTree = "<group>"; };
 		265FCA37214ACD2D00398B40 /* wxDraw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wxDraw.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		265FCA3D214ACD3100398B40 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		265FCA42214ACD3100398B40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -468,6 +469,7 @@
 			children = (
 				26CB1330269A94DA0025ACDD /* EditCommand.hpp */,
 				26C8D90826A87522003CB994 /* InsertCommand.hpp */,
+				2658D38B26CB35A10079EB5A /* MoveCommand.hpp */,
 				26C8D90926A87522003CB994 /* RemoveCommand.hpp */,
 			);
 			path = command;

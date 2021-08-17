@@ -1,4 +1,5 @@
 #include "wxdraw/command/EditCommand.hpp"
+#include "wxdraw/command/RemoveCommand.hpp"
 #include "wxdraw/component/ContainerComponent.hpp"
 #include "wxdraw/component/ProxyComponent.hpp"
 #include "wxdraw/component/ViewComponent.hpp"
@@ -36,8 +37,8 @@ void Outliner::update() {
 /**
  */
 void Outliner::selectNode(const NodePtr& node) {
-  ExpandAncestors(node->getItem());
-  Select(node->getItem());
+  ExpandAncestors(GetItem(node));
+  Select(GetItem(node));
   onSelectNode(node);
 }
 /**
@@ -56,18 +57,12 @@ void Outliner::createProject() {
 /**
  */
 void Outliner::appendProject(const NodePtr& node) {
-  submitInsertCommand<InsertNodeCommand>(node, nullptr, 0);
+  submitCommand<InsertNodeCommand>(node, nullptr, 0);
 }
 /**
  */
-void Outliner::doInsert(const NodePtr& node, const std::tuple<NodePtr, size_t>& args) {
-  auto parent = std::get<0>(args);
-  auto index = std::get<1>(args);
-  if(parent) {
-    parent->getContainer()->getChildren().insert(index, node);
-  }
-  node->update();
-  insertNode(node, parent, index);
+void Outliner::insert(const NodePtr& node, const std::tuple<NodePtr, size_t>& args) {
+  insertNode(node, std::get<0>(args), std::get<1>(args));
   selectNode(node);
 }
 /**
@@ -86,7 +81,7 @@ void Outliner::cloneNode() {
   if(auto node = getSelectNode()) {
     if(auto parent = node->getParent()) {
       if(auto container = parent->getContainer()) {
-        submitInsertCommand<InsertNodeCommand>
+        submitCommand<InsertNodeCommand>
           (Node::Clone(*node, parent), 
            parent, 
            container->getChildren().getIndex(node) + 1);
@@ -97,19 +92,34 @@ void Outliner::cloneNode() {
 /**
  */
 bool Outliner::canRemoveNode() const {
-  //return getSelectNode() != nullptr;
-  return false;
+  return getSelectNode() != nullptr;
 }
 /**
  */
 void Outliner::removeNode() {
+  if(auto node = getSelectNode()) {
+    submitCommand<RemoveNodeCommand>(node);
+  }
 }
 /**
  */
-void Outliner::doRemove(const NodePtr& node, const std::tuple<NodePtr, size_t>& args) {
+std::tuple<NodePtr, size_t> Outliner::remove(const NodePtr& node) {
+  return removeNode(node);
+}
+/**
+ */
+std::tuple<NodePtr, size_t>
+Outliner::move(const NodePtr& node, const std::tuple<NodePtr, size_t>& args) {
   auto parent = std::get<0>(args);
-  parent->getContainer()->getChildren().remove(node);
-  removeNode(node);
+  auto index = std::get<1>(args);
+  if(node->getParent() == parent) {
+    return { nullptr, 0 };
+  }
+  else {
+    auto pos = remove(node);
+    insertNode(node, parent, index);
+    return pos;
+  }
 }
 /**
    新規作成するノードの親と挿入位置を求める
@@ -132,46 +142,25 @@ std::tuple<NodePtr, size_t> Outliner::getInsertParent() const {
    ノードを挿入する
 */
 void Outliner::insertNode(const NodePtr& node, const NodePtr& parent, size_t index) {
-  wxASSERT(!node->getItem().IsOk());
-  //wxASSERT(parent->getItem().IsOk());
-  //wxASSERT(index <= parent->getChildren().size());
+  if(parent) {
+    parent->getContainer()->getChildren().insert(index, node);
+  }
+  node->update();
   model_->insert(node, parent, index);
-  /*
-  auto parentItem = parent ? parent->getItem() : wxDataViewItem();
-  wxDataViewItem item;
-  if(index == 0) {
-    item = node->getContainer()
-      ? model_->PrependContainer(parentItem, node->getName())
-      : model_->PrependItem(parentItem, node->getName());
-  }
-  else if(index < model_->GetChildCount(parentItem)) {
-    auto prev = model_->GetNthChild(parentItem, static_cast<unsigned int>(index));
-    item = node->getContainer()
-      ? model_->InsertContainer(parentItem, prev, node->getName())
-      : model_->InsertItem(parentItem, prev, node->getName());
-  }
-  else {
-    item = node->getContainer()
-      ? model_->AppendContainer(parentItem, node->getName())
-      : model_->AppendItem(parentItem, node->getName());
-  }
-  model_->SetItemData(item, new ClientData(node));
-  model_->ItemAdded(parentItem, item);
-  node->setItem(item);
-  model_->updateItem(item);
-  if(auto container = node->getContainer()) {
-    for(size_t i = 0; i < container->getChildren().size(); i++) {
-      insertNode(container->getChildren().at(i), node, i);
-    }
-  }
-  */
 }
 /**
  */
-void Outliner::removeNode(const NodePtr& node) {
-  wxASSERT(node->getItem().IsOk());
-  //model_->DeleteItem(node->getItem());
-  node->setItem(wxDataViewItem());
+std::tuple<NodePtr, size_t> Outliner::removeNode(const NodePtr& node) {
+  if(auto parent = node->getParent()) {
+    auto& children = parent->getContainer()->getChildren();
+    auto pos = std::make_tuple(parent, children.getIndex(node));
+    children.remove(node);
+    model_->ItemDeleted(GetItem(parent), GetItem(node));
+    return pos;
+  }
+  else {
+    return { nullptr, 0 };
+  }
 }
 /**
  */
@@ -238,12 +227,6 @@ NodePtr Outliner::getNode(const wxDataViewItem& item) const {
   return model_->getNode(item);
 }
 /**
- */
-Outliner::ClientData::ClientData(const NodePtr& node)
-  : node_(node)
-{
-}
-/**
    コンストラクタ
    @param outliner アウトライナ
 */
@@ -261,6 +244,14 @@ void Outliner::Model::insert(const NodePtr& node, const NodePtr& parent, size_t 
     root_ = node;
     ItemAdded(wxDataViewItem(), GetItem(node));
   }
+}
+/**
+ */
+NodePtr Outliner::Model::getNode(const wxDataViewItem& item) const {
+  if(item.IsOk()) {
+    return std::static_pointer_cast<Node>(static_cast<Node*>(item.GetID())->shared_from_this());
+  }
+  return nullptr;
 }
 /**
  */
@@ -400,38 +391,8 @@ unsigned int Outliner::Model::GetChildren(const wxDataViewItem& item,
   return 0;
 }
 /**
-   項目の表示を更新する
-   @param item 項目
-*/
-void Outliner::Model::updateItem(const wxDataViewItem& item) {
-  /*
-  if(auto node = getNode(item)) {
-    SetItemText(item, node->getName());
-    if(node->getContainer()) {
-      SetItemIcon(item, wxArtProvider::GetIcon(wxART_FOLDER));
-      SetItemExpandedIcon(item, wxArtProvider::GetIcon(wxART_FOLDER_OPEN));
-    }
-    else if(node->getComponent<ProxyComponent>()) {
-      SetItemIcon(item, wxArtProvider::GetIcon(wxART_COPY));
-    }
-    else {
-      SetItemIcon(item, wxArtProvider::GetIcon(wxART_NORMAL_FILE));
-    }
-    //ValueChanged(item, 0);
-  }
-  */
-}
-/**
  */
-NodePtr Outliner::Model::getNode(const wxDataViewItem& item) const {
-  if(item.IsOk()) {
-    return std::static_pointer_cast<Node>(static_cast<Node*>(item.GetID())->shared_from_this());
-  }
-  return nullptr;
-}
-/**
- */
-wxDataViewItem Outliner::Model::GetItem(const NodePtr& node) {
+wxDataViewItem Outliner::GetItem(const NodePtr& node) {
   return wxDataViewItem(node.get());
 }
 }

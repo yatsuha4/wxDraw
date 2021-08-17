@@ -34,7 +34,6 @@ class Node
   std::vector<ComponentBasePtr> components_;
   bool show_;
   wxString comment_;
-  wxDataViewItem item_;
   std::map<std::type_index, ErrorPtr> errors_;
   wxRecursionGuardFlag updating_;
   wxRecursionGuardFlag rendering_;
@@ -63,8 +62,6 @@ class Node
 
   void update();
   void render(Renderer& renderer, const Transform& parent);
-
-  WXDRAW_ACCESSOR(Item, item_);
 
   static NodePtr Clone(const Node& src, const NodePtr& parent);
 

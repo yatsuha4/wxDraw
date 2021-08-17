@@ -13,10 +13,8 @@ class RemoveCommand
 
  public:
   RemoveCommand(typename super::Observer* observer, 
-                const std::shared_ptr<T>& object, 
-                const Args&... args)
-    : super(wxString::Format(_("(Remove %s)"), object->getName()), 
-            observer, object, args...)
+                const std::shared_ptr<T>& object)
+    : super(wxString::Format(_("(Remove %s)"), object->getName()), observer, object)
   {}
   ~RemoveCommand() override = default;
 
@@ -29,4 +27,5 @@ class RemoveCommand
     return super::Do();
   }
 };
+using RemoveNodeCommand = RemoveCommand<Node, NodePtr, size_t>;
 }
