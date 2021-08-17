@@ -14,6 +14,7 @@ class XmlImporter
   using super = Importer;
 
  private:
+  wxFileName fileName_;
   wxXmlDocument document_;
   PaletteComponentPtr palette_;
   std::map<wxString, NodePtr> nodes_;

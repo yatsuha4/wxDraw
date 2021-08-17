@@ -29,6 +29,7 @@ namespace wxdraw::file {
 */
 XmlImporter::XmlImporter(const wxString& fileName)
   : super(), 
+    fileName_(fileName), 
     document_(fileName)
 {
 }
@@ -190,7 +191,8 @@ bool XmlImporter::fromString(const wxString& src, wxColour& dst) {
 /**
  */
 bool XmlImporter::fromString(const wxString& src, wxFileName& dst) {
-  return false;
+  dst.Assign(src);
+  return dst.MakeAbsolute(fileName_.GetPath());
 }
 /**
  */
