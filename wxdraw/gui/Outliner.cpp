@@ -107,19 +107,19 @@ std::tuple<NodePtr, size_t> Outliner::remove(const NodePtr& node) {
   return removeNode(node);
 }
 /**
- */
+   ノードを移動する
+*/
 std::tuple<NodePtr, size_t>
 Outliner::move(const NodePtr& node, const std::tuple<NodePtr, size_t>& args) {
+  auto pos = Node::GetParentPos(node);
   auto parent = std::get<0>(args);
   auto index = std::get<1>(args);
-  if(node->getParent() == parent) {
-    return { nullptr, 0 };
+  if(std::get<0>(pos) == parent && std::get<1>(pos) < index) {
+    --index;
   }
-  else {
-    auto pos = remove(node);
-    insert(node, args);
-    return pos;
-  }
+  remove(node);
+  insertNode(node, parent, index);
+  return pos;
 }
 /**
    新規作成するノードの親と挿入位置を求める
@@ -142,12 +142,9 @@ std::tuple<NodePtr, size_t> Outliner::getInsertParent() const {
    ノードを挿入する
 */
 void Outliner::insertNode(const NodePtr& node, const NodePtr& parent, size_t index) {
+  node->resetParent(parent);
   if(parent) {
-    node->resetParent(parent);
     parent->getContainer()->getChildren().insert(index, node);
-  }
-  else {
-    node->resetParent(nullptr);
   }
   node->update();
   model_->insert(node, parent, index);
@@ -155,16 +152,12 @@ void Outliner::insertNode(const NodePtr& node, const NodePtr& parent, size_t ind
 /**
  */
 std::tuple<NodePtr, size_t> Outliner::removeNode(const NodePtr& node) {
-  if(auto parent = node->getParent()) {
-    auto& children = parent->getContainer()->getChildren();
-    auto pos = std::make_tuple(parent, children.getIndex(node));
-    children.remove(node);
+  auto pos = Node::GetParentPos(node);
+  if(auto parent = std::get<0>(pos)) {
+    parent->getContainer()->getChildren().remove(std::get<1>(pos));
     model_->ItemDeleted(GetItem(parent), GetItem(node));
-    return pos;
   }
-  else {
-    return { nullptr, 0 };
-  }
+  return pos;
 }
 /**
  */
@@ -227,7 +220,10 @@ void Outliner::onDrop(wxDataViewEvent& event) {
           <EditCommand<NodePtr>>("Node", proxy->getNode(), dragNode_);
       }
       else if(auto container = node->getContainer()) {
-        submitCommand<MoveNodeCommand>(dragNode_, node, event.GetProposedDropIndex());
+        size_t index = (event.GetProposedDropIndex() >= 0)
+          ? event.GetProposedDropIndex()
+          : container->getChildren().size();
+        submitCommand<MoveNodeCommand>(dragNode_, node, index);
       }
     }
     dragNode_ = nullptr;

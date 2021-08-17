@@ -110,6 +110,17 @@ bool Node::IsParent(const NodePtr& child, const NodePtr& parent) {
   return false;
 }
 /**
+   親に対しての位置を求める
+   @param node ノード
+   @return { 親, 位置 }
+*/
+std::tuple<NodePtr, size_t> Node::GetParentPos(const NodePtr& node) {
+  if(auto parent = node->getParent()) {
+    return { parent, parent->getContainer()->getChildren().getIndex(node) };
+  }
+  return { nullptr, 0 };
+}
+/**
    プロパティを生成する
 */
 PropertyPtr Node::generateProperty() {

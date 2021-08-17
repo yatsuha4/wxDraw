@@ -60,6 +60,8 @@ class Node
   void resetParent(const NodePtr& parent);
   static bool IsParent(const NodePtr& child, const NodePtr& parent);
 
+  static std::tuple<NodePtr, size_t> GetParentPos(const NodePtr& node);
+
   PropertyPtr generateProperty() override;
 
   void update();
