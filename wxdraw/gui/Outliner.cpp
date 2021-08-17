@@ -117,7 +117,7 @@ Outliner::move(const NodePtr& node, const std::tuple<NodePtr, size_t>& args) {
   }
   else {
     auto pos = remove(node);
-    insertNode(node, parent, index);
+    insert(node, args);
     return pos;
   }
 }
@@ -143,7 +143,11 @@ std::tuple<NodePtr, size_t> Outliner::getInsertParent() const {
 */
 void Outliner::insertNode(const NodePtr& node, const NodePtr& parent, size_t index) {
   if(parent) {
+    node->resetParent(parent);
     parent->getContainer()->getChildren().insert(index, node);
+  }
+  else {
+    node->resetParent(nullptr);
   }
   node->update();
   model_->insert(node, parent, index);
@@ -201,6 +205,15 @@ void Outliner::onDropPossible(wxDataViewEvent& event) {
       event.SetDropEffect(wxDragLink);
       return;
     }
+    if(node->getContainer()) {
+      if(Node::IsParent(node, dragNode_)) {
+        event.SetDropEffect(wxDragError);
+      }
+      else {
+        event.SetDropEffect(wxDragMove);
+      }
+      return;
+    }
   }
   event.Veto();
 }
@@ -212,6 +225,9 @@ void Outliner::onDrop(wxDataViewEvent& event) {
       if(auto proxy = node->getComponent<ProxyComponent>()) {
         mainFrame_->submitCommand
           <EditCommand<NodePtr>>("Node", proxy->getNode(), dragNode_);
+      }
+      else if(auto container = node->getContainer()) {
+        submitCommand<MoveNodeCommand>(dragNode_, node, event.GetProposedDropIndex());
       }
     }
     dragNode_ = nullptr;

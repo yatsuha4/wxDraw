@@ -57,6 +57,8 @@ class Node
   }
 
   NodePtr getParent() const;
+  void resetParent(const NodePtr& parent);
+  static bool IsParent(const NodePtr& child, const NodePtr& parent);
 
   PropertyPtr generateProperty() override;
 

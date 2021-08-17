@@ -91,6 +91,25 @@ NodePtr Node::getParent() const {
   return parent_.lock();
 }
 /**
+   親ノードを変更する
+   @param parent 新しい親ノード
+*/
+void Node::resetParent(const NodePtr& parent) {
+  parent_ = parent;
+}
+/**
+ */
+bool Node::IsParent(const NodePtr& child, const NodePtr& parent) {
+  if(parent) {
+    for(auto iter = child; iter; iter = iter->getParent()) {
+      if(iter == parent) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+/**
    プロパティを生成する
 */
 PropertyPtr Node::generateProperty() {
