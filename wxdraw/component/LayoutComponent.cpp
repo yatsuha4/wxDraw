@@ -14,6 +14,7 @@ LayoutComponent::LayoutComponent(const NodePtr& node)
     size_(256.0), 
     alignment_(0.5), 
     scale_(1.0), 
+    childScale_(1.0), 
     rotate_(0.0)
 {
 }
@@ -28,6 +29,7 @@ LayoutComponent::LayoutComponent(const LayoutComponent& src, const NodePtr& node
     size_(src.size_), 
     alignment_(src.alignment_), 
     scale_(src.scale_), 
+    childScale_(src.childScale_), 
     rotate_(src.rotate_)
 {
 }
@@ -50,10 +52,11 @@ Transform LayoutComponent::apply(const Transform& parent) const {
   glm::dmat3 m(1.0);
   m = glm::translate(m, parent.rect.pos + parent.rect.size * pos_.relative + pos_.absolute);
   m = glm::rotate(m, glm::radians(rotate_));
-  m = glm::scale(m, scale_);
+  m = glm::scale(m, scale_ * parent.scale);
   transform.matrix = parent.matrix * m;
   transform.rect.size = size_;
   transform.rect.pos = -size_ * alignment_;
+  transform.scale = childScale_;
   return transform;
 }
 }

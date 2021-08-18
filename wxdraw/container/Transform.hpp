@@ -9,6 +9,7 @@ class Transform {
  public:
   glm::dmat3 matrix;
   Rect rect;
+  glm::dvec2 scale;
 
  public:
   Transform() = default;

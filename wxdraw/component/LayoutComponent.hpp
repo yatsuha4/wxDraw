@@ -21,6 +21,7 @@ class LayoutComponent
   glm::dvec2 alignment_;
   glm::dvec2 scale_;
   double rotate_;
+  glm::dvec2 childScale_;
 
  public:
   LayoutComponent(const NodePtr& node);
@@ -32,6 +33,7 @@ class LayoutComponent
   WXDRAW_ACCESSOR(Alignment, alignment_);
   WXDRAW_ACCESSOR(Scale, scale_);
   WXDRAW_ACCESSOR(Rotate, rotate_);
+  WXDRAW_ACCESSOR(ChildScale, childScale_);
 
   Transform apply(const Transform& parent) const;
 

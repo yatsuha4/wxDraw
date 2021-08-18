@@ -35,20 +35,22 @@ void ProxyComponent::update() {
     const auto& srcSize = node_->getLayout()->getSize();
     auto layout = super::getNode()->getLayout();
     const auto& dstSize = layout->getSize();
+    glm::dvec2 fitScale(1.0);
     if(glm::all(glm::greaterThan(srcSize, glm::dvec2(0.0))) &&
        glm::all(glm::greaterThan(dstSize, glm::dvec2(0.0)))) {
       auto scale = dstSize / srcSize;
       switch(fit_.getIndex()) {
       case Choice::Fit::EXPAND:
-        layout->setScale(glm::dvec2(glm::min(scale.x, scale.y)));
+        fitScale = glm::dvec2(glm::min(scale.x, scale.y));
         break;
       case Choice::Fit::SHRINK:
-        layout->setScale(glm::dvec2(glm::max(scale.x, scale.y)));
+        fitScale = glm::dvec2(glm::max(scale.x, scale.y));
         break;
       default:
         break;
       }
     }
+    layout->setChildScale(fitScale);
   }
 }
 /**
