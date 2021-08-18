@@ -397,7 +397,7 @@ void MainFrame::onSelectFileExport() {
     if(auto component = node->getComponent<ExportComponent>()) {
       wxFileDialog dialog(this, wxFileSelectorPromptStr, 
                           component->getFileName().GetPath(), 
-                          component->getFileName().GetName(), 
+                          component->getFileName().GetFullName(), 
                           wxImage::GetImageExtWildcard(), 
                           wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
       if(dialog.ShowModal() == wxID_OK) {
