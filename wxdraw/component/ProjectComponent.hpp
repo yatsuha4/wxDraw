@@ -22,5 +22,7 @@ class ProjectComponent
   ~ProjectComponent() override = default;
 
   WXDRAW_ACCESSOR(FileName, fileName_);
+
+  PropertyPtr generateProperty() override;
 };
 }

@@ -60,7 +60,7 @@ class MainFrame
   void onSelectMenu(wxCommandEvent& event);
 
   void open();
-  void saveAs();
+  void save();
   void saveProject(const ProjectComponentPtr& project);
   void onSelectFileExport();
 

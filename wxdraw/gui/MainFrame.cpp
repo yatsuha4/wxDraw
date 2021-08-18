@@ -113,7 +113,6 @@ void MainFrame::setupMenuBar() {
     menu->Append(wxID_NEW);
     menu->Append(wxID_OPEN);
     menu->Append(wxID_SAVE);
-    menu->Append(wxID_SAVEAS);
     menu->AppendSeparator();
     menu->Append(Menu::ID_FILE_EXPORT, "Export");
     menu->AppendSeparator();
@@ -229,9 +228,7 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
     open();
     break;
   case wxID_SAVE:
-    break;
-  case wxID_SAVEAS:
-    saveAs();
+    save();
     break;
   case Menu::ID_FILE_EXPORT:
     onSelectFileExport();
@@ -311,9 +308,9 @@ void MainFrame::open() {
   }
 }
 /**
-   名前をつけて保存
+   保存
 */
-void MainFrame::saveAs() {
+void MainFrame::save() {
   if(auto project = getProject()) {
     wxFileDialog dialog(this, wxFileSelectorPromptStr, 
                         project->getFileName().GetPath(), 
@@ -321,7 +318,9 @@ void MainFrame::saveAs() {
                         "*.wxdraw", 
                         wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
     if(dialog.ShowModal() == wxID_OK) {
-      project->getFileName().Assign(dialog.GetPath());
+      wxFileName fileName(dialog.GetPath());
+      project->setFileName(fileName);
+      project->getNode()->setName(fileName.GetName());
       saveProject(project);
     }
   }
@@ -331,7 +330,7 @@ void MainFrame::saveAs() {
 void MainFrame::saveProject(const ProjectComponentPtr& project) {
   XmlExporter exporter(project->getNode(), project->getFileName());
   if(exporter.save()) {
-    //project->getCommandProcessor().MarkAsSaved();
+    commandProcessor_.MarkAsSaved();
   }
 }
 /**
