@@ -51,8 +51,8 @@ class PaletteList
     getList()->Thaw();
   }
 
-  void insert(const std::shared_ptr<T>& item, 
-              const std::tuple<size_t>& args) override {
+  void doInsert(const std::shared_ptr<T>& item, 
+                const std::tuple<size_t>& args) override {
     auto index = std::get<0>(args);
     unselectItem();
     getItems().insert(index, item);
@@ -60,7 +60,7 @@ class PaletteList
     selectItem(index);
   }
 
-  std::tuple<size_t> remove(const std::shared_ptr<T>& item) override {
+  std::tuple<size_t> doRemove(const std::shared_ptr<T>& item) override {
     auto& items = getItems();
     auto index = items.getIndex(item);
     unselectItem();

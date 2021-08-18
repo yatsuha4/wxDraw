@@ -63,12 +63,12 @@ class Outliner
   bool canRemoveNode() const;
   void removeNode();
 
-  void insert(const NodePtr& node, const std::tuple<NodePtr, size_t>& args) override;
+  void doInsert(const NodePtr& node, const std::tuple<NodePtr, size_t>& args) override;
 
-  std::tuple<NodePtr, size_t> remove(const NodePtr& node) override;
+  std::tuple<NodePtr, size_t> doRemove(const NodePtr& node) override;
 
   std::tuple<NodePtr, size_t>
-  move(const NodePtr& node, const std::tuple<NodePtr, size_t>& args) override;
+  doMove(const NodePtr& node, const std::tuple<NodePtr, size_t>& args) override;
 
   static wxDataViewItem GetItem(const NodePtr& node);
 

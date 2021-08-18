@@ -61,7 +61,7 @@ void Outliner::appendProject(const NodePtr& node) {
 }
 /**
  */
-void Outliner::insert(const NodePtr& node, const std::tuple<NodePtr, size_t>& args) {
+void Outliner::doInsert(const NodePtr& node, const std::tuple<NodePtr, size_t>& args) {
   insertNode(node, std::get<0>(args), std::get<1>(args));
   selectNode(node);
 }
@@ -103,7 +103,7 @@ void Outliner::removeNode() {
 }
 /**
  */
-std::tuple<NodePtr, size_t> Outliner::remove(const NodePtr& node) {
+std::tuple<NodePtr, size_t> Outliner::doRemove(const NodePtr& node) {
   return removeNode(node);
 }
 /**
@@ -113,7 +113,7 @@ std::tuple<NodePtr, size_t> Outliner::remove(const NodePtr& node) {
    @return 移動元
 */
 std::tuple<NodePtr, size_t>
-Outliner::move(const NodePtr& node, const std::tuple<NodePtr, size_t>& args) {
+Outliner::doMove(const NodePtr& node, const std::tuple<NodePtr, size_t>& args) {
   auto pos = Node::GetParentPos(node);
   auto parent = std::get<0>(args);
   auto index = std::get<1>(args);
@@ -125,7 +125,7 @@ Outliner::move(const NodePtr& node, const std::tuple<NodePtr, size_t>& args) {
       ++std::get<1>(pos);
     }
   }
-  remove(node);
+  doRemove(node);
   insertNode(node, parent, index);
   return pos;
 }

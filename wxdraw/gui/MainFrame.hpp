@@ -50,9 +50,9 @@ class MainFrame
     return submitCommand(new CommandType(args...));
   }
 
-  void insert(const ComponentBasePtr& component, 
-              const std::tuple<NodePtr>& args) override;
-  std::tuple<NodePtr> remove(const ComponentBasePtr& component) override;
+  void doInsert(const ComponentBasePtr& component, 
+                const std::tuple<NodePtr>& args) override;
+  std::tuple<NodePtr> doRemove(const ComponentBasePtr& component) override;
 
  private:
   void setupMenuBar();

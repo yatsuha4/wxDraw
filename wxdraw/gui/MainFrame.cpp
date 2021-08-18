@@ -74,8 +74,8 @@ const NodePtr& MainFrame::getSelectNode() const {
 }
 /**
  */
-void MainFrame::insert(const ComponentBasePtr& component, 
-                       const std::tuple<NodePtr>& args) {
+void MainFrame::doInsert(const ComponentBasePtr& component, 
+                         const std::tuple<NodePtr>& args) {
   auto node = std::get<0>(args);
   node->appendComponent(component);
   outliner_->selectNode(node);
@@ -83,7 +83,7 @@ void MainFrame::insert(const ComponentBasePtr& component,
 }
 /**
  */
-std::tuple<NodePtr> MainFrame::remove(const ComponentBasePtr& component) {
+std::tuple<NodePtr> MainFrame::doRemove(const ComponentBasePtr& component) {
   auto node = component->getNode();
   node->removeComponent(component);
   outliner_->selectNode(node);

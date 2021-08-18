@@ -17,8 +17,8 @@ class InsertCommand
     Observer() = default;
     virtual ~Observer() = default;
 
-    virtual void insert(const std::shared_ptr<T>& object, const args_t& args) = 0;
-    virtual args_t remove(const std::shared_ptr<T>& object) = 0;
+    virtual void doInsert(const std::shared_ptr<T>& object, const args_t& args) = 0;
+    virtual args_t doRemove(const std::shared_ptr<T>& object) = 0;
   };
 
  private:
@@ -46,12 +46,12 @@ class InsertCommand
   {}
 
   bool Do() override {
-    observer_->insert(object_, args_);
+    observer_->doInsert(object_, args_);
     return true;
   }
 
   bool Undo() override {
-    args_ = observer_->remove(object_);
+    args_ = observer_->doRemove(object_);
     return true;
   }
 };

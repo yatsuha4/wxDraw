@@ -17,7 +17,7 @@ class MoveCommand
     Observer() = default;
     virtual ~Observer() = default;
 
-    virtual args_t move(const std::shared_ptr<T>& object, const args_t& args) = 0;
+    virtual args_t doMove(const std::shared_ptr<T>& object, const args_t& args) = 0;
   };
 
  private:
@@ -39,12 +39,12 @@ class MoveCommand
 
  protected:
   bool Do() override {
-    srcArgs_ = observer_->move(object_, dstArgs_);
+    srcArgs_ = observer_->doMove(object_, dstArgs_);
     return true;
   }
 
   bool Undo() override {
-    dstArgs_ = observer_->move(object_, srcArgs_);
+    dstArgs_ = observer_->doMove(object_, srcArgs_);
     return true;
   }
 };
