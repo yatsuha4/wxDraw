@@ -48,8 +48,7 @@ class Outliner
   bool createNode() {
     auto [parent, index] = getInsertParent();
     if(parent) {
-      auto node = T::Create(parent);
-      return submitCommand<InsertNodeCommand>(node, parent, index);
+      return insert(T::Create(parent), parent, index);
     }
     return false;
   }
@@ -63,10 +62,11 @@ class Outliner
   bool canRemoveNode() const;
   void removeNode();
 
+  bool insert(const NodePtr& node, const NodePtr& parent, size_t index);
+  bool remove(const NodePtr& node);
+
   void doInsert(const NodePtr& node, const std::tuple<NodePtr, size_t>& args) override;
-
   std::tuple<NodePtr, size_t> doRemove(const NodePtr& node) override;
-
   std::tuple<NodePtr, size_t>
   doMove(const NodePtr& node, const std::tuple<NodePtr, size_t>& args) override;
 

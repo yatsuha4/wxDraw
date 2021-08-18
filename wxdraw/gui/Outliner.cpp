@@ -60,7 +60,26 @@ void Outliner::appendProject(const NodePtr& node) {
   submitCommand<InsertNodeCommand>(node, nullptr, 0);
 }
 /**
- */
+   ノードを挿入する
+   @param node 挿入するノード
+   @param parent 親ノード
+   @param index 挿入位置
+*/
+bool Outliner::insert(const NodePtr& node, const NodePtr& parent, size_t index) {
+  return submitCommand<InsertNodeCommand>(node, parent, index);
+}
+/**
+   ノードを削除する
+   @param node 削除するノード
+*/
+bool Outliner::remove(const NodePtr& node) {
+  return submitCommand<RemoveNodeCommand>(node);
+}
+/**
+   ノードを挿入する(コマンドから)
+   @param node 挿入するノード
+   @param args 挿入位置
+*/
 void Outliner::doInsert(const NodePtr& node, const std::tuple<NodePtr, size_t>& args) {
   insertNode(node, std::get<0>(args), std::get<1>(args));
   selectNode(node);
@@ -98,16 +117,19 @@ bool Outliner::canRemoveNode() const {
  */
 void Outliner::removeNode() {
   if(auto node = getSelectNode()) {
-    submitCommand<RemoveNodeCommand>(node);
+    remove(node);
   }
 }
 /**
- */
+   ノードを削除する(コマンドから)
+   @param node 削除するノード
+   @return 削除前の位置情報
+*/
 std::tuple<NodePtr, size_t> Outliner::doRemove(const NodePtr& node) {
   return removeNode(node);
 }
 /**
-   ノードを移動する
+   ノードを移動する(コマンドから)
    @param node 移動するノード
    @param args 移動先
    @return 移動元
