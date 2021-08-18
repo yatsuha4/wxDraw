@@ -61,8 +61,9 @@ void Canvas::OnDraw(wxDC& dc) {
     if(auto view = Node::GetParentComponent<ViewComponent>(selectNode)) {
       viewNode_ = view->getNode();
       auto size = GetSize();
-      viewTransform_ =
-        Transform(glm::dvec2(size.GetWidth(), size.GetHeight()), offset_, zoom_);
+      viewTransform_ = Transform(glm::dvec2(size.GetWidth(), size.GetHeight()), 
+                                 glm::dvec2(zoom_), 
+                                 offset_);
       Renderer renderer(dc);
       viewNode_->render(renderer, viewTransform_);
       drawCursor(renderer, selectNode);

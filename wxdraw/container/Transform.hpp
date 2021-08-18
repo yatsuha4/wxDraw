@@ -14,8 +14,8 @@ class Transform {
  public:
   Transform() = default;
   Transform(const glm::dvec2& size, 
-            const glm::dvec2& offset = glm::dvec2(0.0), 
-            double zoom = 1.0);
+            const glm::dvec2& scale = glm::dvec2(1.0), 
+            const glm::dvec2& offset = glm::dvec2(0.0));
   Transform(const Transform& src) = default;
   ~Transform() = default;
 };
