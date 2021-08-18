@@ -1,4 +1,5 @@
 #include "wxdraw/component/ContainerComponent.hpp"
+#include "wxdraw/component/ViewComponent.hpp"
 #include "wxdraw/node/Node.hpp"
 
 namespace wxdraw::component {
@@ -40,7 +41,9 @@ void ContainerComponent::update() {
  */
 void ContainerComponent::render(Renderer& renderer, const Transform& transform) {
   for(auto& child : children_) {
-    child->render(renderer, transform);
+    if(!child->getComponent<ViewComponent>()) {
+      child->render(renderer, transform);
+    }
   }
 }
 }
