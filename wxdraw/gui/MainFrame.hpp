@@ -58,9 +58,11 @@ class MainFrame
   void setupMenuBar();
   void onMenuOpen(wxMenuEvent& event);
   void onSelectMenu(wxCommandEvent& event);
+  void onClose(wxCloseEvent& event);
 
   void open();
-  void save();
+  bool closeProject();
+  bool save();
   void saveProject(const ProjectComponentPtr& project);
   void onSelectFileExport();
 

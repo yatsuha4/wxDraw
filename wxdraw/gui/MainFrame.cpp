@@ -168,6 +168,7 @@ void MainFrame::setupMenuBar() {
   }
   Bind(wxEVT_MENU_OPEN, &MainFrame::onMenuOpen, this);
   Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::onSelectMenu, this);
+  Bind(wxEVT_CLOSE_WINDOW, &MainFrame::onClose, this);
 }
 /**
  */
@@ -295,6 +296,18 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
   }
 }
 /**
+   閉じる
+*/
+void MainFrame::onClose(wxCloseEvent& event) {
+  if(event.CanVeto()) {
+    if(!closeProject()) {
+      event.Veto();
+      return;
+    }
+  }
+  event.Skip();
+}
+/**
    開く
 */
 void MainFrame::open() {
@@ -308,9 +321,24 @@ void MainFrame::open() {
   }
 }
 /**
+   プロジェクトを閉じる
+   @return 成功したとき真
+*/
+bool MainFrame::closeProject() {
+  if(commandProcessor_.IsDirty()) {
+    if(!save()) {
+      if(wxMessageBox(_("Exit?"), _("Project has not been saved"), 
+                      wxICON_QUESTION | wxYES_NO) != wxYES) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+/**
    保存
 */
-void MainFrame::save() {
+bool MainFrame::save() {
   if(auto project = getProject()) {
     wxFileDialog dialog(this, wxFileSelectorPromptStr, 
                         project->getFileName().GetPath(), 
@@ -323,7 +351,11 @@ void MainFrame::save() {
       project->getNode()->setName(fileName.GetName());
       saveProject(project);
     }
+    else {
+      return false;
+    }
   }
+  return true;
 }
 /**
  */
