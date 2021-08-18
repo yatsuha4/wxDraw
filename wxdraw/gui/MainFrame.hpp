@@ -20,7 +20,6 @@ class MainFrame
   Inspector* inspector_;
   Palette* palette_;
   ProjectComponentPtr project_;
-  PaletteComponentPtr paletteComponent_;
   wxString defaultPerspective_;
   wxCommandProcessor commandProcessor_;
 
@@ -39,7 +38,6 @@ class MainFrame
   void onSelectNode(const NodePtr& node);
   const NodePtr& getSelectNode() const;
   WXDRAW_GETTER(Project, project_);
-  WXDRAW_GETTER(PaletteComponent, paletteComponent_);
 
   void update();
 
@@ -61,8 +59,10 @@ class MainFrame
   void onClose(wxCloseEvent& event);
 
   void open();
-  bool closeProject();
   bool save();
+
+  void openProject(const NodePtr& project);
+  bool closeProject();
   void saveProject(const ProjectComponentPtr& project);
   void onSelectFileExport();
 

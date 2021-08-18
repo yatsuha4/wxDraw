@@ -185,8 +185,8 @@ std::tuple<NodePtr, size_t> Outliner::removeNode(const NodePtr& node) {
   auto pos = Node::GetParentPos(node);
   if(auto parent = std::get<0>(pos)) {
     parent->getContainer()->getChildren().remove(std::get<1>(pos));
-    model_->ItemDeleted(GetItem(parent), GetItem(node));
   }
+  model_->remove(node);
   return pos;
 }
 /**
@@ -278,14 +278,19 @@ Outliner::Model::Model(Outliner* outliner)
 /**
  */
 void Outliner::Model::insert(const NodePtr& node, const NodePtr& parent, size_t index) {
-  if(parent) {
-    ItemAdded(GetItem(parent), GetItem(node));
-  }
-  else {
-    Cleared();
+  if(!parent) {
     root_ = node;
-    ItemAdded(wxDataViewItem(), GetItem(node));
   }
+  ItemAdded(GetItem(parent), GetItem(node));
+}
+/**
+ */
+void Outliner::Model::remove(const NodePtr& node) {
+  auto parent = node->getParent();
+  if(!parent) {
+    root_ = nullptr;
+  }
+  ItemDeleted(GetItem(parent), GetItem(node));
 }
 /**
  */

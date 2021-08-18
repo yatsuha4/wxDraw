@@ -108,6 +108,7 @@ class Outliner::Model
   ~Model() override = default;
 
   void insert(const NodePtr& node, const NodePtr& parent, size_t index);
+  void remove(const NodePtr& node);
   NodePtr getNode(const wxDataViewItem& item) const;
 
  protected:

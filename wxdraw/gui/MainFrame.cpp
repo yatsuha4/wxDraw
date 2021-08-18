@@ -47,6 +47,7 @@ MainFrame::MainFrame(Application& application)
                       BestSize(DEFAULT_PALETTE_SIZE));
   auiManager_.Update();
   defaultPerspective_ = auiManager_.SavePerspective();
+  openProject(Node::Project::Create(nullptr));
 }
 /**
    デストラクタ
@@ -59,9 +60,6 @@ MainFrame::~MainFrame() {
    @param node ノード
 */
 void MainFrame::onSelectNode(const NodePtr& node) {
-  project_ = Node::GetParentComponent<ProjectComponent>(node);
-  paletteComponent_ = Node::GetParentComponent<PaletteComponent>(node);
-  palette_->setPaletteComponent(paletteComponent_);
   if(node) {
     inspector_->show(node->generateProperty());
   }
@@ -223,7 +221,9 @@ void MainFrame::onMenuOpen(wxMenuEvent& event) {
 void MainFrame::onSelectMenu(wxCommandEvent& event) {
   switch(event.GetId()) {
   case wxID_NEW:
-    outliner_->createProject();
+    if(closeProject()) {
+      openProject(Node::Project::Create(nullptr));
+    }
     break;
   case wxID_OPEN:
     open();
@@ -311,14 +311,28 @@ void MainFrame::onClose(wxCloseEvent& event) {
    開く
 */
 void MainFrame::open() {
-  wxFileDialog dialog(this, wxFileSelectorPromptStr, wxEmptyString, wxEmptyString, 
-                      "*.wxdraw", wxFD_OPEN | wxFD_FILE_MUST_EXIST);
-  if(dialog.ShowModal() == wxID_OK) {
-    XmlImporter importer(dialog.GetPath());
-    if(auto project = importer.load(nullptr)) {
-      outliner_->appendProject(project);
+  if(closeProject()) {
+    wxFileDialog dialog(this, wxFileSelectorPromptStr, wxEmptyString, wxEmptyString, 
+                        "*.wxdraw", wxFD_OPEN | wxFD_FILE_MUST_EXIST);
+    if(dialog.ShowModal() == wxID_OK) {
+      XmlImporter importer(dialog.GetPath());
+      if(auto project = importer.load(nullptr)) {
+        openProject(project);
+      }
     }
   }
+}
+/**
+   プロジェクトを開く
+   @param project プロジェクトノード
+*/
+void MainFrame::openProject(const NodePtr& project) {
+  wxASSERT(!project_);
+  project_ = project->getComponent<ProjectComponent>();
+  wxASSERT(project_);
+  palette_->setPaletteComponent(project->getComponent<PaletteComponent>());
+  outliner_->insert(project, nullptr, 0);
+  commandProcessor_.ClearCommands();
 }
 /**
    プロジェクトを閉じる
@@ -326,12 +340,23 @@ void MainFrame::open() {
 */
 bool MainFrame::closeProject() {
   if(commandProcessor_.IsDirty()) {
-    if(!save()) {
-      if(wxMessageBox(_("Exit?"), _("Project has not been saved"), 
-                      wxICON_QUESTION | wxYES_NO) != wxYES) {
+    wxMessageDialog dialog(this, _("Save?"), _("Project has not been saved"), 
+                           wxICON_QUESTION | wxYES_NO | wxCANCEL);
+    switch(dialog.ShowModal()) {
+    case wxID_NO:
+      break;
+    case wxID_CANCEL:
+      return false;
+    default:
+      if(!save()) {
         return false;
       }
     }
+  }
+  if(project_) {
+    outliner_->remove(project_->getNode());
+    commandProcessor_.ClearCommands();
+    project_ = nullptr;
   }
   return true;
 }
