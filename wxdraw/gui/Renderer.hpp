@@ -26,6 +26,7 @@ class Renderer {
   std::unique_ptr<wxGraphicsContext> context_;
   std::stack<wxGraphicsBrush> brushes_;
   std::stack<wxGraphicsPen> pens_;
+  std::stack<wxColour> textColor_;
   std::stack<wxCompositionMode> compositionStack_;
   bool showGrid_;
 
@@ -48,6 +49,8 @@ class Renderer {
   void pushPen(const Pen& pen, const Rect& rect);
   void pushPen(const wxPen& pen);
   void popPen();
+
+  WXDRAW_ACCESSOR(TextColor, textColor_);
 
   void pushComposition(Composition composition);
   void popComposition();

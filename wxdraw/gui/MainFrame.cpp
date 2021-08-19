@@ -5,6 +5,7 @@
 #include "wxdraw/component/PaletteComponent.hpp"
 #include "wxdraw/component/PenComponent.hpp"
 #include "wxdraw/component/ProjectComponent.hpp"
+#include "wxdraw/component/TextColorComponent.hpp"
 #include "wxdraw/file/XmlExporter.hpp"
 #include "wxdraw/file/XmlImporter.hpp"
 #include "wxdraw/gui/Canvas.hpp"
@@ -149,6 +150,7 @@ void MainFrame::setupMenuBar() {
     auto menu = new Menu(Menu::Type::COMPONENT);
     menu->Append(Menu::ID_COMPONENT_PEN, _("Pen"));
     menu->Append(Menu::ID_COMPONENT_BRUSH, _("Brush"));
+    menu->Append(Menu::ID_COMPONENT_TEXT_COLOR, _("TextColor"));
     menu->AppendSeparator();
     menu->Append(Menu::ID_COMPONENT_COMPOSITION, _("Composition"));
     menuBar->Append(menu, _("Component"));
@@ -206,6 +208,8 @@ void MainFrame::onMenuOpen(wxMenuEvent& event) {
                    node && node->canAppendComponent<PenComponent>());
       menu->Enable(Menu::ID_COMPONENT_BRUSH, 
                    node && node->canAppendComponent<BrushComponent>());
+      menu->Enable(Menu::ID_COMPONENT_TEXT_COLOR, 
+                   node && node->canAppendComponent<TextColorComponent>());
       menu->Enable(Menu::ID_COMPONENT_COMPOSITION, 
                    node && node->canAppendComponent<CompositionComponent>());
     }
@@ -283,6 +287,9 @@ void MainFrame::onSelectMenu(wxCommandEvent& event) {
     break;
   case Menu::ID_COMPONENT_BRUSH:
     createComponent<BrushComponent>();
+    break;
+  case Menu::ID_COMPONENT_TEXT_COLOR:
+    createComponent<TextColorComponent>();
     break;
   case Menu::ID_COMPONENT_COMPOSITION:
     createComponent<CompositionComponent>();

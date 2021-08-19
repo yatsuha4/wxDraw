@@ -16,7 +16,6 @@ class TextComponent
 
  private:
   FontPtr font_;
-  ColorPtr color_;
   wxString text_;
   glm::dvec2 alignment_;
   bool autoSize_;

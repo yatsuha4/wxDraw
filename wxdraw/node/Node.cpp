@@ -10,6 +10,7 @@
 #include "wxdraw/component/ProjectComponent.hpp"
 #include "wxdraw/component/ProxyComponent.hpp"
 #include "wxdraw/component/RectangleComponent.hpp"
+#include "wxdraw/component/TextColorComponent.hpp"
 #include "wxdraw/component/TextComponent.hpp"
 #include "wxdraw/component/ViewComponent.hpp"
 #include "wxdraw/container/Transform.hpp"
@@ -260,6 +261,7 @@ NodePtr Node::Root::Create(const NodePtr& parent) {
 */
 NodePtr Node::Text::Create(const NodePtr& parent) {
   return Node::Create<LayoutComponent, 
+                      TextColorComponent, 
                       TextComponent>(TYPE, parent);
 }
 /**

@@ -11,6 +11,7 @@
 #include "wxdraw/component/ProjectComponent.hpp"
 #include "wxdraw/component/ProxyComponent.hpp"
 #include "wxdraw/component/RectangleComponent.hpp"
+#include "wxdraw/component/TextColorComponent.hpp"
 #include "wxdraw/component/TextComponent.hpp"
 #include "wxdraw/component/ViewComponent.hpp"
 #include "wxdraw/file/XmlImporter.hpp"
@@ -147,6 +148,7 @@ ComponentBasePtr XmlImporter::GenerateComponent(const NodePtr& node, const wxXml
     ProjectComponent, 
     ProxyComponent, 
     RectangleComponent, 
+    TextColorComponent, 
     TextComponent, 
     ViewComponent
     >(node, xml);

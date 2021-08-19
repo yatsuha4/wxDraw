@@ -216,6 +216,7 @@ Renderer::Renderer(wxGraphicsContext* context)
 {
   pushPen(*wxBLACK_PEN);
   pushBrush(*wxWHITE_BRUSH);
+  getTextColor().push(*wxWHITE);
   pushComposition(context_->GetCompositionMode());
 }
 /**
