@@ -37,9 +37,7 @@ class LayoutComponent
 
   Transform apply(const Transform& parent) const;
 
+  void onCreate() override;
   PropertyPtr generateProperty() override;
-
- private:
-  LayoutComponentPtr getParent();
 };
 }

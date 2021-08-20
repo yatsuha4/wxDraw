@@ -1,5 +1,6 @@
 #include "wxdraw/component/LayoutComponent.hpp"
 #include "wxdraw/container/Transform.hpp"
+#include "wxdraw/node/Node.hpp"
 #include "wxdraw/property/Property.hpp"
 
 namespace wxdraw::component {
@@ -32,6 +33,19 @@ LayoutComponent::LayoutComponent(const LayoutComponent& src, const NodePtr& node
     childScale_(src.childScale_), 
     rotate_(src.rotate_)
 {
+}
+/**
+   @copydoc Object::onCreate
+*/
+void LayoutComponent::onCreate() {
+  super::onCreate();
+  if(auto node = getNode()) {
+    if(auto parent = node->getParent()) {
+      if(auto layout = parent->getComponent<LayoutComponent>()) {
+        setSize(layout->getSize());
+      }
+    }
+  }
 }
 /**
  */
