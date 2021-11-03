@@ -271,6 +271,9 @@ NodePtr Node::Text::Create(const NodePtr& parent) {
 NodePtr Node::View::Create(const NodePtr& parent) {
   return Node::Create<LayoutComponent, 
                       ViewComponent, 
+                      PenComponent, 
+                      BrushComponent, 
+                      TextColorComponent, 
                       ContainerComponent>(TYPE, parent);
 }
 }
