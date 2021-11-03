@@ -12,6 +12,7 @@ wxWidgets:
 	mkdir -p $(WORKDIR)
 	cd $(WORKDIR); \
 	$(SRCDIR)/configure \
+		--enable-debug \
 		--disable-shared \
 		--enable-monolithic \
 		--with-libpng=builtin \
