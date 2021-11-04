@@ -658,14 +658,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../../../external/opt/mac/wxWidgets/lib";
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../../../wxEditor/external/opt/mac/wxWidgets/lib";
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SYSTEM_HEADER_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/../../../external/opt/mac/wxWidgets/include/wx-3.1",
-					"$(PROJECT_DIR)/../../../external/opt/mac/wxWidgets/lib/wx/include/osx_cocoa-unicode-static-3.1",
+					"$(PROJECT_DIR)/../../../wxEditor/external/opt/mac/wxWidgets/include/wx-3.1",
+					"$(PROJECT_DIR)/../../../wxEditor/external/opt/mac/wxWidgets/lib/wx/include/osx_cocoa-unicode-static-3.1",
 					"$(PROJECT_DIR)/../../../external/glm",
 				);
 				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../../..";
@@ -719,13 +719,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../../../external/opt/mac/wxWidgets/lib";
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../../../wxEditor/external/opt/mac/wxWidgets/lib";
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SYSTEM_HEADER_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/../../../external/opt/mac/wxWidgets/include/wx-3.1",
-					"$(PROJECT_DIR)/../../../external/opt/mac/wxWidgets/lib/wx/include/osx_cocoa-unicode-static-3.1",
+					"$(PROJECT_DIR)/../../../wxEditor/external/opt/mac/wxWidgets/include/wx-3.1",
+					"$(PROJECT_DIR)/../../../wxEditor/external/opt/mac/wxWidgets/lib/wx/include/osx_cocoa-unicode-static-3.1",
 					"$(PROJECT_DIR)/../../../external/glm",
 				);
 				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../../..";
