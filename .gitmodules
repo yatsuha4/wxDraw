@@ -4,3 +4,6 @@
 [submodule "external/glm"]
 	path = external/glm
 	url = https://github.com/g-truc/glm.git
+[submodule "wxEditor"]
+	path = wxEditor
+	url = https://github.com/yatsuha4/wxEditor.git
