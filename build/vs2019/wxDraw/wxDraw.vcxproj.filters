@@ -190,12 +190,15 @@
     <ClCompile Include="..\..\..\wxdraw\property\PropertyMember.cpp">
       <Filter>wxdraw\property</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\wxdraw.cpp">
+      <Filter>wxdraw</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\wxdraw\Application.hpp">
       <Filter>wxdraw</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\wxdraw\stdafx.hpp">
+    <ClInclude Include="..\..\..\wxdraw\wxdraw.hpp">
       <Filter>wxdraw</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\wxdraw\command\EditCommand.hpp">

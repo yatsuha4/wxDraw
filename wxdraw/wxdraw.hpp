@@ -1,4 +1,4 @@
-﻿#include "wxeditor/stdafx.hpp"
+﻿#include "wxeditor/wxeditor.hpp"
 #include <wx/wx.h>
 #include <wx/artprov.h>
 #include <wx/aui/aui.h>
