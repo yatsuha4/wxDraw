@@ -168,10 +168,10 @@ void Renderer::pushComposition(Composition composition) {
   case Composition::OVER:
     pushComposition(wxCOMPOSITION_OVER);
     break;
-  case Composition::IN:
+  case Composition::IN_:
     pushComposition(wxCOMPOSITION_IN);
     break;
-  case Composition::OUT:
+  case Composition::OUT_:
     pushComposition(wxCOMPOSITION_OUT);
     break;
   case Composition::ATOP:

@@ -1,25 +1,10 @@
-#if defined(__ENVIRONMENT_MAC_OS_X_VERSION_MIN_REQUIRED__)
-#define WXDRAW_PLATFORM "mac"
-#define WXDRAW_PLATFORM_MAC
-
-#else
-#error "not support platform"
-#endif
-/**
-   wxWidgets
-*/
-#if defined(WXDRAW_PLATFORM_MAC)
-#define _FILE_OFFSET_BITS 64
-#define __WXMAC__
-#define __WXOSX__
-#define __WXOSX_COCOA__
-#endif
-
+#include "wxeditor/stdafx.hpp"
 #include <wx/wx.h>
 #include <wx/artprov.h>
 #include <wx/aui/aui.h>
 #include <wx/cmdproc.h>
 #include <wx/dataview.h>
+#include <wx/graphics.h>
 #include <wx/listctrl.h>
 #include <wx/numformatter.h>
 #include <wx/propgrid/advprops.h>

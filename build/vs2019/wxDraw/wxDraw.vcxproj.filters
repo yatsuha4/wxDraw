@@ -1,0 +1,382 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="wxdraw">
+      <UniqueIdentifier>{e7ce07fb-f569-4e41-983f-d848230531ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="wxdraw\command">
+      <UniqueIdentifier>{93ae7130-833f-4c30-bef6-b2f1d7c7223e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="wxdraw\component">
+      <UniqueIdentifier>{233e625b-5bb7-467b-83d8-d4236f20e3b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="wxdraw\container">
+      <UniqueIdentifier>{96f9af90-e88e-4dc7-9a4e-18970c0a046b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="wxdraw\file">
+      <UniqueIdentifier>{a1e293d9-906b-4772-8308-7bd42a2d9236}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="wxdraw\gui">
+      <UniqueIdentifier>{017d493a-0ea8-4397-8eaa-b1fe2bb99ab1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="wxdraw\node">
+      <UniqueIdentifier>{0ab214af-fa91-4f9a-a867-6e2717348cf3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="wxdraw\object">
+      <UniqueIdentifier>{6dc80627-c239-4045-bbac-a131b656e319}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="wxdraw\palette">
+      <UniqueIdentifier>{29a3ab70-3338-4a2e-9ecc-c319d9d30be5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="wxdraw\property">
+      <UniqueIdentifier>{171a8f98-490d-4696-894a-070f1b7e4809}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\wxdraw\Application.cpp">
+      <Filter>wxdraw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\main.cpp">
+      <Filter>wxdraw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\component\BrushComponent.cpp">
+      <Filter>wxdraw\component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\component\ComponentBase.cpp">
+      <Filter>wxdraw\component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\component\CompositionComponent.cpp">
+      <Filter>wxdraw\component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\component\ContainerComponent.cpp">
+      <Filter>wxdraw\component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\component\EllipseComponent.cpp">
+      <Filter>wxdraw\component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\component\ExportComponent.cpp">
+      <Filter>wxdraw\component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\component\GridComponent.cpp">
+      <Filter>wxdraw\component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\component\LayerComponent.cpp">
+      <Filter>wxdraw\component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\component\LayoutComponent.cpp">
+      <Filter>wxdraw\component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\component\PaletteComponent.cpp">
+      <Filter>wxdraw\component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\component\PenComponent.cpp">
+      <Filter>wxdraw\component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\component\ProjectComponent.cpp">
+      <Filter>wxdraw\component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\component\ProxyComponent.cpp">
+      <Filter>wxdraw\component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\component\RectangleComponent.cpp">
+      <Filter>wxdraw\component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\component\TextColorComponent.cpp">
+      <Filter>wxdraw\component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\component\TextComponent.cpp">
+      <Filter>wxdraw\component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\component\ViewComponent.cpp">
+      <Filter>wxdraw\component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\container\Rect.cpp">
+      <Filter>wxdraw\container</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\container\Transform.cpp">
+      <Filter>wxdraw\container</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\file\Exporter.cpp">
+      <Filter>wxdraw\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\file\ImageExporter.cpp">
+      <Filter>wxdraw\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\file\XmlExporter.cpp">
+      <Filter>wxdraw\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\file\XmlImporter.cpp">
+      <Filter>wxdraw\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\gui\Canvas.cpp">
+      <Filter>wxdraw\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\gui\GradientList.cpp">
+      <Filter>wxdraw\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\gui\GradientStopList.cpp">
+      <Filter>wxdraw\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\gui\ImageList.cpp">
+      <Filter>wxdraw\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\gui\Inspector.cpp">
+      <Filter>wxdraw\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\gui\MainFrame.cpp">
+      <Filter>wxdraw\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\gui\Menu.cpp">
+      <Filter>wxdraw\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\gui\Outliner.cpp">
+      <Filter>wxdraw\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\gui\Palette.cpp">
+      <Filter>wxdraw\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\gui\PaletteListBase.cpp">
+      <Filter>wxdraw\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\gui\Renderer.cpp">
+      <Filter>wxdraw\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\node\Error.cpp">
+      <Filter>wxdraw\node</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\node\Node.cpp">
+      <Filter>wxdraw\node</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\object\Object.cpp">
+      <Filter>wxdraw\object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\palette\Brush.cpp">
+      <Filter>wxdraw\palette</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\palette\Color.cpp">
+      <Filter>wxdraw\palette</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\palette\Font.cpp">
+      <Filter>wxdraw\palette</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\palette\Gradient.cpp">
+      <Filter>wxdraw\palette</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\palette\GradientStop.cpp">
+      <Filter>wxdraw\palette</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\palette\PaletteItem.cpp">
+      <Filter>wxdraw\palette</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\palette\Pen.cpp">
+      <Filter>wxdraw\palette</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\palette\PenBase.cpp">
+      <Filter>wxdraw\palette</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\property\Choice.cpp">
+      <Filter>wxdraw\property</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\property\MemberBase.cpp">
+      <Filter>wxdraw\property</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\property\Property.cpp">
+      <Filter>wxdraw\property</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wxdraw\property\PropertyMember.cpp">
+      <Filter>wxdraw\property</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\wxdraw\Application.hpp">
+      <Filter>wxdraw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\stdafx.hpp">
+      <Filter>wxdraw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\command\EditCommand.hpp">
+      <Filter>wxdraw\command</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\command\InsertCommand.hpp">
+      <Filter>wxdraw\command</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\command\MoveCommand.hpp">
+      <Filter>wxdraw\command</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\command\RemoveCommand.hpp">
+      <Filter>wxdraw\command</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\component\BrushComponent.hpp">
+      <Filter>wxdraw\component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\component\Component.hpp">
+      <Filter>wxdraw\component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\component\ComponentBase.hpp">
+      <Filter>wxdraw\component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\component\CompositionComponent.hpp">
+      <Filter>wxdraw\component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\component\ContainerComponent.hpp">
+      <Filter>wxdraw\component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\component\EllipseComponent.hpp">
+      <Filter>wxdraw\component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\component\ExportComponent.hpp">
+      <Filter>wxdraw\component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\component\GridComponent.hpp">
+      <Filter>wxdraw\component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\component\LayerComponent.hpp">
+      <Filter>wxdraw\component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\component\LayoutComponent.hpp">
+      <Filter>wxdraw\component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\component\PaletteComponent.hpp">
+      <Filter>wxdraw\component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\component\PenComponent.hpp">
+      <Filter>wxdraw\component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\component\ProjectComponent.hpp">
+      <Filter>wxdraw\component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\component\ProxyComponent.hpp">
+      <Filter>wxdraw\component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\component\RectangleComponent.hpp">
+      <Filter>wxdraw\component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\component\TextColorComponent.hpp">
+      <Filter>wxdraw\component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\component\TextComponent.hpp">
+      <Filter>wxdraw\component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\component\ViewComponent.hpp">
+      <Filter>wxdraw\component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\container\Layout.hpp">
+      <Filter>wxdraw\container</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\container\Rect.hpp">
+      <Filter>wxdraw\container</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\container\Transform.hpp">
+      <Filter>wxdraw\container</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\file\Exporter.hpp">
+      <Filter>wxdraw\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\file\ImageExporter.hpp">
+      <Filter>wxdraw\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\file\Importer.hpp">
+      <Filter>wxdraw\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\file\XmlExporter.hpp">
+      <Filter>wxdraw\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\file\XmlImporter.hpp">
+      <Filter>wxdraw\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\gui\Canvas.hpp">
+      <Filter>wxdraw\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\gui\GradientList.hpp">
+      <Filter>wxdraw\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\gui\GradientStopList.hpp">
+      <Filter>wxdraw\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\gui\ImageList.hpp">
+      <Filter>wxdraw\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\gui\Inspector.hpp">
+      <Filter>wxdraw\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\gui\MainFrame.hpp">
+      <Filter>wxdraw\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\gui\Menu.hpp">
+      <Filter>wxdraw\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\gui\Outliner.hpp">
+      <Filter>wxdraw\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\gui\Palette.hpp">
+      <Filter>wxdraw\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\gui\PaletteList.hpp">
+      <Filter>wxdraw\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\gui\PaletteListBase.hpp">
+      <Filter>wxdraw\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\gui\Renderer.hpp">
+      <Filter>wxdraw\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\node\Error.hpp">
+      <Filter>wxdraw\node</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\node\Node.hpp">
+      <Filter>wxdraw\node</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\object\List.hpp">
+      <Filter>wxdraw\object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\object\Object.hpp">
+      <Filter>wxdraw\object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\palette\Brush.hpp">
+      <Filter>wxdraw\palette</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\palette\Color.hpp">
+      <Filter>wxdraw\palette</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\palette\ColorBase.hpp">
+      <Filter>wxdraw\palette</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\palette\Font.hpp">
+      <Filter>wxdraw\palette</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\palette\Gradient.hpp">
+      <Filter>wxdraw\palette</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\palette\GradientStop.hpp">
+      <Filter>wxdraw\palette</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\palette\PaletteItem.hpp">
+      <Filter>wxdraw\palette</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\palette\Pen.hpp">
+      <Filter>wxdraw\palette</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\palette\PenBase.hpp">
+      <Filter>wxdraw\palette</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\property\Choice.hpp">
+      <Filter>wxdraw\property</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\property\Member.hpp">
+      <Filter>wxdraw\property</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\property\MemberBase.hpp">
+      <Filter>wxdraw\property</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\property\Property.hpp">
+      <Filter>wxdraw\property</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wxdraw\property\PropertyMember.hpp">
+      <Filter>wxdraw\property</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

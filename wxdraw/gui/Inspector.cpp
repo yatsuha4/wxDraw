@@ -120,7 +120,7 @@ wxPGProperty* Inspector::appendMember(const Member<Choice>::Ptr& member) {
  */
 wxPGProperty* Inspector::appendMember(const Member<NodePtr>::Ptr& member) {
   auto node = member->getValue();
-  return append<wxStringProperty>(member, node ? node->getName() : "NULL");
+  return append<wxStringProperty>(member, node ? node->getName() : wxString("NULL"));
 }
 /**
  */
@@ -141,6 +141,6 @@ void Inspector::update(wxPGProperty* property) {
 /**
  */
 void Inspector::updateMember(wxPGProperty* property, const NodePtr& value) {
-  property->SetValue(value ? value->getName() : "-");
+  property->SetValue(value ? value->getName() : wxString("-"));
 }
 }

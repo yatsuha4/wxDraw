@@ -1,4 +1,4 @@
-#include <uuid/uuid.h>
+//#include <uuid/uuid.h>
 #include "wxdraw/object/Object.hpp"
 #include "wxdraw/property/Property.hpp"
 
@@ -46,11 +46,14 @@ void Object::onUpdateProperty() {
    @return 新規ID
 */
 wxString Object::CreateId() {
+  /*
   uuid_t id;
   uuid_generate(id);
   uuid_string_t strId;
   uuid_unparse_upper(id, strId);
   return wxString(strId);
+  */
+  return wxString();
 }
 /**
    新規に生成されたときの処理
