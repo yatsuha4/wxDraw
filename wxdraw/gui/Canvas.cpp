@@ -1,4 +1,4 @@
-#include "wxdraw/component/ContainerComponent.hpp"
+﻿#include "wxdraw/component/ContainerComponent.hpp"
 #include "wxdraw/component/LayoutComponent.hpp"
 #include "wxdraw/component/ViewComponent.hpp"
 #include "wxdraw/gui/Canvas.hpp"

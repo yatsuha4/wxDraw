@@ -1,4 +1,4 @@
-#include "wxdraw/property/Choice.hpp"
+﻿#include "wxdraw/property/Choice.hpp"
 
 namespace wxdraw::property {
 const char* Choice::Composition::ITEMS[] = {

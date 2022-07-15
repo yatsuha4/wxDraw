@@ -1,4 +1,4 @@
-#include "wxdraw/command/EditCommand.hpp"
+﻿#include "wxdraw/command/EditCommand.hpp"
 #include "wxdraw/command/RemoveCommand.hpp"
 #include "wxdraw/component/ContainerComponent.hpp"
 #include "wxdraw/component/ProxyComponent.hpp"

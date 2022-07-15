@@ -1,4 +1,4 @@
-#include "wxdraw/component/ExportComponent.hpp"
+﻿#include "wxdraw/component/ExportComponent.hpp"
 #include "wxdraw/file/ImageExporter.hpp"
 #include "wxdraw/property/Property.hpp"
 

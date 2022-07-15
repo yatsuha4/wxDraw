@@ -1,4 +1,4 @@
-#include "wxdraw/Application.hpp"
+﻿#include "wxdraw/Application.hpp"
 #include "wxdraw/gui/MainFrame.hpp"
 
 namespace wxdraw {

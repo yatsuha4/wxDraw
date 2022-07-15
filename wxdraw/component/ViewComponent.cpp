@@ -1,4 +1,4 @@
-#include "wxdraw/component/ViewComponent.hpp"
+﻿#include "wxdraw/component/ViewComponent.hpp"
 
 namespace wxdraw::component {
 const char* ViewComponent::TYPE = "View";

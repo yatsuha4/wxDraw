@@ -1,4 +1,4 @@
-#include "wxdraw/component/BrushComponent.hpp"
+﻿#include "wxdraw/component/BrushComponent.hpp"
 #include "wxdraw/component/CompositionComponent.hpp"
 #include "wxdraw/component/ContainerComponent.hpp"
 #include "wxdraw/component/EllipseComponent.hpp"

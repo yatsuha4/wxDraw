@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "wxdraw/command/InsertCommand.hpp"
 #include "wxdraw/command/RemoveCommand.hpp"

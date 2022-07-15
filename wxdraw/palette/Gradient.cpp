@@ -1,4 +1,4 @@
-#include "wxdraw/gui/Renderer.hpp"
+﻿#include "wxdraw/gui/Renderer.hpp"
 #include "wxdraw/palette/Color.hpp"
 #include "wxdraw/palette/Gradient.hpp"
 #include "wxdraw/palette/GradientStop.hpp"

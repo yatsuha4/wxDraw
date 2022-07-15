@@ -1,4 +1,4 @@
-#include "wxdraw/component/PaletteComponent.hpp"
+﻿#include "wxdraw/component/PaletteComponent.hpp"
 #include "wxdraw/gui/GradientList.hpp"
 #include "wxdraw/gui/Palette.hpp"
 

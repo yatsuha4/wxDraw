@@ -1,4 +1,4 @@
-#include "wxdraw/component/PaletteComponent.hpp"
+﻿#include "wxdraw/component/PaletteComponent.hpp"
 #include "wxdraw/gui/ColorProperty.hpp"
 #include "wxdraw/node/Node.hpp"
 

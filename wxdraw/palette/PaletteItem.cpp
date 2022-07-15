@@ -1,4 +1,4 @@
-#include "wxdraw/gui/Canvas.hpp"
+﻿#include "wxdraw/gui/Canvas.hpp"
 #include "wxdraw/palette/PaletteItem.hpp"
 
 namespace wxdraw::palette {

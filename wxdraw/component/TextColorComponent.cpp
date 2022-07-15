@@ -1,4 +1,4 @@
-#include "wxdraw/component/TextColorComponent.hpp"
+﻿#include "wxdraw/component/TextColorComponent.hpp"
 #include "wxdraw/gui/Renderer.hpp"
 #include "wxdraw/palette/Color.hpp"
 #include "wxdraw/property/Property.hpp"

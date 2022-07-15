@@ -1,4 +1,4 @@
-#include "wxdraw/component/PaletteComponent.hpp"
+﻿#include "wxdraw/component/PaletteComponent.hpp"
 
 namespace wxdraw::component {
 const char* PaletteComponent::TYPE = "Palette";

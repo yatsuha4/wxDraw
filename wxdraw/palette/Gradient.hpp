@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "wxdraw/object/List.hpp"
 #include "wxdraw/palette/ColorBase.hpp"

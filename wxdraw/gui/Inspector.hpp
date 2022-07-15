@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "wxdraw/command/EditCommand.hpp"
 #include "wxdraw/component/PaletteComponent.hpp"

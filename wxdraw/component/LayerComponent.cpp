@@ -1,4 +1,4 @@
-#include "wxdraw/component/LayerComponent.hpp"
+﻿#include "wxdraw/component/LayerComponent.hpp"
 #include "wxdraw/gui/Renderer.hpp"
 #include "wxdraw/property/Property.hpp"
 

@@ -1,4 +1,4 @@
-#include "wxdraw/gui/Menu.hpp"
+﻿#include "wxdraw/gui/Menu.hpp"
 
 namespace wxdraw::gui {
 /**

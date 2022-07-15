@@ -1,4 +1,4 @@
-#include "wxdraw/palette/Font.hpp"
+﻿#include "wxdraw/palette/Font.hpp"
 #include "wxdraw/property/Property.hpp"
 
 namespace wxdraw::palette {

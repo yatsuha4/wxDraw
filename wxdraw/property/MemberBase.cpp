@@ -1,4 +1,4 @@
-#include "wxdraw/property/MemberBase.hpp"
+﻿#include "wxdraw/property/MemberBase.hpp"
 
 namespace wxdraw::property {
 /**

@@ -1,4 +1,4 @@
-#include "wxdraw/gui/Inspector.hpp"
+﻿#include "wxdraw/gui/Inspector.hpp"
 #include "wxdraw/gui/Menu.hpp"
 #include "wxdraw/node/Node.hpp"
 #include "wxdraw/property/Choice.hpp"

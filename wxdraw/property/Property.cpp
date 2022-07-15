@@ -1,4 +1,4 @@
-#include "wxdraw/object/Object.hpp"
+﻿#include "wxdraw/object/Object.hpp"
 #include "wxdraw/property/Property.hpp"
 
 namespace wxdraw::property {

@@ -1,4 +1,4 @@
-#include "wxdraw/palette/Brush.hpp"
+﻿#include "wxdraw/palette/Brush.hpp"
 #include "wxdraw/property/Property.hpp"
 
 namespace wxdraw::palette {

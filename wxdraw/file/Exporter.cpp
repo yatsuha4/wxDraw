@@ -1,4 +1,4 @@
-#include "wxdraw/file/Exporter.hpp"
+﻿#include "wxdraw/file/Exporter.hpp"
 
 namespace wxdraw::file {
 /**

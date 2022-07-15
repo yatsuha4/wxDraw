@@ -1,4 +1,4 @@
-#include "wxdraw/component/LayoutComponent.hpp"
+﻿#include "wxdraw/component/LayoutComponent.hpp"
 #include "wxdraw/container/Transform.hpp"
 #include "wxdraw/node/Node.hpp"
 #include "wxdraw/property/Property.hpp"

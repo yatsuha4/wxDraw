@@ -1,4 +1,4 @@
-#include "wxdraw/component/ProjectComponent.hpp"
+﻿#include "wxdraw/component/ProjectComponent.hpp"
 #include "wxdraw/property/Property.hpp"
 
 namespace wxdraw::component {

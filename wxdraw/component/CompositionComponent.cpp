@@ -1,4 +1,4 @@
-#include "wxdraw/component/CompositionComponent.hpp"
+﻿#include "wxdraw/component/CompositionComponent.hpp"
 #include "wxdraw/gui/Renderer.hpp"
 #include "wxdraw/property/Property.hpp"
 

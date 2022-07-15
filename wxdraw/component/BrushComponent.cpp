@@ -1,4 +1,4 @@
-#include "wxdraw/component/BrushComponent.hpp"
+﻿#include "wxdraw/component/BrushComponent.hpp"
 #include "wxdraw/component/PaletteComponent.hpp"
 #include "wxdraw/container/Transform.hpp"
 #include "wxdraw/gui/Renderer.hpp"

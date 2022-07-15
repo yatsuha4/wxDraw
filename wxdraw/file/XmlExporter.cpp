@@ -1,4 +1,4 @@
-#include "wxdraw/component/ContainerComponent.hpp"
+﻿#include "wxdraw/component/ContainerComponent.hpp"
 #include "wxdraw/component/PaletteComponent.hpp"
 #include "wxdraw/file/XmlExporter.hpp"
 #include "wxdraw/node/Node.hpp"

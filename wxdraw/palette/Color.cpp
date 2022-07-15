@@ -1,4 +1,4 @@
-#include "wxdraw/palette/Color.hpp"
+﻿#include "wxdraw/palette/Color.hpp"
 #include "wxdraw/property/Property.hpp"
 
 namespace wxdraw::palette {

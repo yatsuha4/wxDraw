@@ -1,4 +1,4 @@
-#include "wxdraw/gui/ImageList.hpp"
+﻿#include "wxdraw/gui/ImageList.hpp"
 
 namespace wxdraw::gui {
 /**

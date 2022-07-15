@@ -1,4 +1,4 @@
-#include "wxdraw/node/Error.hpp"
+﻿#include "wxdraw/node/Error.hpp"
 
 namespace wxdraw::node {
 /**

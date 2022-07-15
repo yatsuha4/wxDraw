@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "wxdraw/component/Component.hpp"
 #include "wxdraw/container/Layout.hpp"

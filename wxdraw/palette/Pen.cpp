@@ -1,4 +1,4 @@
-#include "wxdraw/palette/Pen.hpp"
+﻿#include "wxdraw/palette/Pen.hpp"
 #include "wxdraw/property/Property.hpp"
 
 namespace wxdraw::palette {

@@ -1,4 +1,4 @@
-#include "wxdraw/container/Rect.hpp"
+﻿#include "wxdraw/container/Rect.hpp"
 #include "wxdraw/gui/Renderer.hpp"
 #include "wxdraw/palette/Brush.hpp"
 #include "wxdraw/palette/Color.hpp"

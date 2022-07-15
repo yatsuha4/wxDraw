@@ -1,4 +1,4 @@
-#include "wxdraw/palette/ColorBase.hpp"
+﻿#include "wxdraw/palette/ColorBase.hpp"
 #include "wxdraw/palette/PenBase.hpp"
 #include "wxdraw/property/Property.hpp"
 
