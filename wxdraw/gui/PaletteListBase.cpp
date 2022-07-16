@@ -62,7 +62,7 @@ void PaletteListBase::selectItem(size_t index) {
 void PaletteListBase::unselectItem() {
   auto size = list_->GetItemCount();
   if(index_ < size) {
-    list_->SetItemBackgroundColour(index_, wxTransparentColor);
+    list_->SetItemBackgroundColour(index_, wxSystemSettings::GetColour(wxSYS_COLOUR_LISTBOX));
   }
   index_ = size;
 }
