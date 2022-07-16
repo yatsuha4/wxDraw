@@ -12,7 +12,7 @@ PaletteListBase::PaletteListBase(wxWindow* window, Palette* palette)
   : super(window, wxID_ANY), 
     palette_(palette), 
     list_(new wxListView(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 
-                         wxLC_REPORT | wxLC_ICON)), 
+                         wxLC_REPORT)), 
     imageList_(new wxImageList(PaletteItem::BITMAP_SIZE.GetWidth(), 
                                PaletteItem::BITMAP_SIZE.GetHeight())), 
     index_(0)
